@@ -4,7 +4,7 @@
 <head>
     <!--- Basic Page Needs  -->
     <meta charset="utf-8">
-    <title>Appson || App Landing Html Template</title>
+    <title>{{ config('app.name', 'Tecun App') }} || App Landing Html Template</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Mobile Specific Meta  -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="{{asset('appson/assets/css/style.css')}}">
     <link rel="stylesheet" href="{{asset('appson/assets/css/responsive.css')}}">
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/png" href="{{asset('appson/assets/img/icon/favicon.ico')}}">
+    <link rel="shortcut icon" type="image/png" href="{{asset('img/tecun/logo.png')}}">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -41,21 +41,22 @@
                 <div class="menu-area">
                     <div class="col-md-3 col-sm-6 col-xs-6">
                         <div class="logo">
-                            <a href="index.html"><img src="{{asset('appson/assets/img/icon/logo.png')}}" alt="Appson - App Landing Template"></a>
+                            <a href="index.html"><img src="{{asset('img/tecun/logoBlanco.png')}}"
+                                    class="d-inline-block align-top ml-1" width="75%;"></a>
                         </div>
                     </div>
                     <div class="col-md-9 hidden-xs hidden-sm">
                         <div class="main-menu">
                             <nav class="nav-menu">
                                 <ul>
-                                    <li class="active"><a href="#home">Home</a></li>
-                                    <li><a href="#about">About</a></li>
-                                    <li><a href="#features">Features</a></li>
+                                    <li class="active"><a href="#home">Inicio</a></li>
+                                    <li><a href="#about">Tecun App</a></li>
+                                    <li><a href="#features">Novedades</a></li>
                                     <li><a href="#screenshot">Screenshot</a></li>
-                                    <li><a href="#download">download</a></li>
-                                    <li><a href="#pricing">Pricing</a></li>
-                                    <li><a href="#review">Review</a></li>
-                                    <li><a href="#contact">Contact</a></li>
+                                    <li><a href="#download">Descargar</a></li>
+                                    <li><a href="#pricing">Reconocimiento</a></li>
+                                    <li><a href="#review">Opiniones</a></li>
+                                    <li><a href="#contact">Contacto</a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -74,10 +75,11 @@
             <div class="slider-content d-flex flex-center">
                 <div class="col-md-8 col-sm-9 col-xs-12 d-flex flex-center">
                     <div class="slider-nner">
-                        <h2>Perfect Landing Page <br>Best For Your App</h2>
-                        <p>The Best Template For Your Mobile App To Showcase And Acquire New Customers All Around The World.The Best Template That You Can Find Anywhere!</p>
+                        <h2>Todos somos uno <br>Grupo TECUN</h2>
+                        <p>The Best Template For Your Mobile App To Showcase And Acquire New Customers All Around The
+                            World.The Best Template That You Can Find Anywhere!</p>
                         <div class="btn-area">
-                        <a href="{{url('login')}}">Ingresar</a>
+                            <a href="{{url('login')}}">Ingresar</a>
                         </div>
                     </div>
                 </div>
@@ -101,29 +103,34 @@
                 </div>
                 <div class="col-md-6 col-md-offset-1 col-sm-12 col-xs-12">
                     <div class="about-content">
-                        <span>Meet Appson.</span>
+                        <span>Conoce {{ config('app.name', 'Tecun App') }}.</span>
                         <h2>Work the way you live</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetr adipisicing elit, sed do eiusmod tempor incididunt labore et dolore magna aliqua. enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit</p>
+                        <p>Lorem ipsum dolor sit amet, consectetr adipisicing elit, sed do eiusmod tempor incididunt
+                            labore et dolore magna aliqua. enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit</p>
                         <div class="about-ft">
                             <div class="ft-single">
                                 <div class="icon"><i class="fa fa-desktop"></i></div>
                                 <div class="ft-info">
                                     <h4>Fully Responsive Design.</h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do enim ad minim veniam,</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do enim ad minim
+                                        veniam,</p>
                                 </div>
                             </div>
                             <div class="ft-single">
                                 <div class="icon"><i class="fa fa-android"></i></div>
                                 <div class="ft-info">
                                     <h4>Android Platform.</h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do enim ad minim veniam,</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do enim ad minim
+                                        veniam,</p>
                                 </div>
                             </div>
                             <div class="ft-single">
-                                <div class="icon"><i class="fa fa-headphones"></i></div>
+                                <div class="icon"><i class="fa fa-file"></i></div>
                                 <div class="ft-info">
-                                    <h4>Strategy Solutions.</h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do enim ad minim veniam,</p>
+                                    <h4>Gestiones OnLine.</h4>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do enim ad minim
+                                        veniam,</p>
                                 </div>
                             </div>
                         </div>
@@ -137,7 +144,7 @@
     <section class="feature-area ptb--110 bg-theme" id="features">
         <div class="container">
             <div class="section-title">
-                <h2>Best Features</h2>
+                <h2>Novedades</h2>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do </p>
             </div>
             <div class="row">
@@ -145,19 +152,22 @@
                     <div class="col-md-4 col-sm-6 col-xs-12 text-right">
                         <div class="feature-list">
                             <div class="feature-item">
-                                <div class="icon"><i class="fa fa-file-image-o"></i></div>
-                                <h4>.Unlimited Features</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et</p>
+                                <div class="icon"><i class="fa fa-users"></i></div>
+                                <h4>Eres importante</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                    incididunt ut labore et</p>
                             </div>
-                            <div class="feature-item">
+                            <div class="feature-item invisible">
                                 <div class="icon"><i class="fa fa-cloud"></i></div>
                                 <h4>.Cloud Storage</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et</p>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                    incididunt ut labore et</p>
                             </div>
                             <div class="feature-item">
-                                <div class="icon"><i class="fa fa-cube"></i></div>
-                                <h4>.Modern Design</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et</p>
+                                <div class="icon"><i class="fa fa-newspaper-o"></i></div>
+                                <h4>TECUN News </h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                    incididunt ut labore et</p>
                             </div>
                         </div>
                     </div>
@@ -171,17 +181,20 @@
                             <div class="feature-item">
                                 <div class="icon"><i class="fa fa-android"></i></div>
                                 <h4>Android Platform.</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et</p>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                    incididunt ut labore et</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="icon"><i class="fa fa-file"></i></div>
+                                <h4>Gestiones OnLine.</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                    incididunt ut labore et</p>
                             </div>
                             <div class="feature-item">
                                 <div class="icon"><i class="fa fa-headphones"></i></div>
-                                <h4>Strategy Solutions.</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et</p>
-                            </div>
-                            <div class="feature-item">
-                                <div class="icon"><i class="fa fa-desktop"></i></div>
-                                <h4>Fully Responsive Design.</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et</p>
+                                <h4>TECUN Podcast.</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                    incididunt ut labore et</p>
                             </div>
                         </div>
                     </div>
@@ -214,7 +227,7 @@
     <section class="download-area ptb--120 bg-theme" id="download">
         <div class="container">
             <div class="section-title">
-                <h2>Download Appson</h2>
+                <h2>Download {{ config('app.name', 'Tecun App') }}</h2>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do</p>
             </div>
             <div class="download-btns btn-area text-center">
@@ -229,16 +242,16 @@
     <section class="pricing-area ptb--120" id="pricing">
         <div class="container">
             <div class="section-title text-black">
-                <h2>Pricing Plan</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do</p>
+                <h2>Reconocimientos</h2>
+                <p>Premios obtenidos por empleados/deptos. top Departamentos premiados</p>
             </div>
             <div class="row">
                 <div class="pricing-list">
                     <div class="col-md-4 col-sm-4 col-xs-12">
                         <div class="pricing-item text-center">
                             <div class="prc-head bg-theme">
-                                <span>Basic</span>
-                                <h4>$50/m</h4>
+                                <span>Departamento</span>
+                                <h4>Auditoría</h4>
                             </div>
                             <ul class="prc-list">
                                 <li>10 User</li>
@@ -246,7 +259,7 @@
                                 <li>100 MB Disk Space</li>
                                 <li>2 Subdomains</li>
                                 <li>Free Updates</li>
-                                <li>Support  24/7</li>
+                                <li>Support 24/7</li>
                             </ul>
                             <div class="btn-area">
                                 <a href="#">purchase</a>
@@ -256,8 +269,8 @@
                     <div class="col-md-4 col-sm-4 col-xs-12">
                         <div class="pricing-item text-center">
                             <div class="prc-head bg-theme">
-                                <span>PREMIUM</span>
-                                <h4>$150/m</h4>
+                                <span>Departamento</span>
+                                <h4>Finanzas</h4>
                             </div>
                             <ul class="prc-list">
                                 <li>10 User</li>
@@ -265,7 +278,7 @@
                                 <li>100 MB Disk Space</li>
                                 <li>2 Subdomains</li>
                                 <li>Free Updates</li>
-                                <li>Support  24/7</li>
+                                <li>Support 24/7</li>
                             </ul>
                             <div class="btn-area">
                                 <a href="#">purchase</a>
@@ -275,8 +288,8 @@
                     <div class="col-md-4 col-sm-4 col-xs-12">
                         <div class="pricing-item text-center">
                             <div class="prc-head bg-theme">
-                                <span>UNLIMITED</span>
-                                <h4>$250/m</h4>
+                                <span>Departamento</span>
+                                <h4>Automotores</h4>
                             </div>
                             <ul class="prc-list">
                                 <li>10 User</li>
@@ -284,7 +297,7 @@
                                 <li>100 MB Disk Space</li>
                                 <li>2 Subdomains</li>
                                 <li>Free Updates</li>
-                                <li>Support  24/7</li>
+                                <li>Support 24/7</li>
                             </ul>
                             <div class="btn-area">
                                 <a href="#">purchase</a>
@@ -297,7 +310,8 @@
     </section>
     <!-- pricing area end -->
     <!-- subscribe area start -->
-    <div class="subscribe-area ptb--120 bg-theme">
+    {{--
+<div class="subscribe-area ptb--120 bg-theme">
         <div class="container">
             <div class="section-title">
                 <h2>Subscribe to our Newsletter</h2>
@@ -324,23 +338,25 @@
             </div>
         </div>
     </div>
+        --}}
     <!-- subscribe area end -->
     <!-- team area start -->
     <div class="team-area ptb--120">
         <div class="container">
             <div class="section-title text-black">
-                <h2>Meet my team</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do</p>
+                <h2>Reconocimiento</h2>
+                <p>Empleados del mes</p>
             </div>
             <div class="row">
                 <div class="member-area">
                     <div class="col-md-3 col-sm-6 col-xs-12">
                         <div class="team-item">
-                            <img src="{{asset('appson/assets/img/team/img1.jpg')}}" alt="team image">
+                            <img src="{{asset('img/tecun/preview1.png')}}" alt="team image">
                             <div class="tmember-info">
                                 <h4>John Deo</h4>
                                 <span>front-end developer</span>
-                                <p>Lorem ipsum dolor sit amet, conse ctetur adipisicing elit, sed do eiusm tempor incididunt ut labore et</p>
+                                <p>Lorem ipsum dolor sit amet, conse ctetur adipisicing elit, sed do eiusm tempor
+                                    incididunt ut labore et</p>
                                 <div class="social-btns">
                                     <a href="#"><i class="fa fa-facebook"></i></a>
                                     <a href="#"><i class="fa fa-twitter"></i></a>
@@ -352,11 +368,12 @@
                     </div>
                     <div class="col-md-3 col-sm-6 col-xs-12">
                         <div class="team-item">
-                            <img src="{{asset('appson/assets/img/team/img2.jpg')}}" alt="team image">
+                            <img src="{{asset('img/tecun/preview1.png')}}" alt="team image">
                             <div class="tmember-info">
                                 <h4>John Deo</h4>
                                 <span>front-end developer</span>
-                                <p>Lorem ipsum dolor sit amet, conse ctetur adipisicing elit, sed do eiusm tempor incididunt ut labore et</p>
+                                <p>Lorem ipsum dolor sit amet, conse ctetur adipisicing elit, sed do eiusm tempor
+                                    incididunt ut labore et</p>
                                 <div class="social-btns">
                                     <a href="#"><i class="fa fa-facebook"></i></a>
                                     <a href="#"><i class="fa fa-twitter"></i></a>
@@ -368,11 +385,12 @@
                     </div>
                     <div class="col-md-3 col-sm-6 col-xs-12">
                         <div class="team-item">
-                            <img src="{{asset('appson/assets/img/team/img3.jpg')}}" alt="team image">
+                            <img src="{{asset('img/tecun/preview1.png')}}" alt="team image">
                             <div class="tmember-info">
                                 <h4>John Deo</h4>
                                 <span>front-end developer</span>
-                                <p>Lorem ipsum dolor sit amet, conse ctetur adipisicing elit, sed do eiusm tempor incididunt ut labore et</p>
+                                <p>Lorem ipsum dolor sit amet, conse ctetur adipisicing elit, sed do eiusm tempor
+                                    incididunt ut labore et</p>
                                 <div class="social-btns">
                                     <a href="#"><i class="fa fa-facebook"></i></a>
                                     <a href="#"><i class="fa fa-twitter"></i></a>
@@ -384,11 +402,12 @@
                     </div>
                     <div class="col-md-3 col-sm-6 col-xs-12">
                         <div class="team-item">
-                            <img src="{{asset('appson/assets/img/team/img4.jpg')}}" alt="team image">
+                            <img src="{{asset('img/tecun/preview1.png')}}" alt="team image">
                             <div class="tmember-info">
                                 <h4>John Deo</h4>
                                 <span>front-end developer</span>
-                                <p>Lorem ipsum dolor sit amet, conse ctetur adipisicing elit, sed do eiusm tempor incididunt ut labore et</p>
+                                <p>Lorem ipsum dolor sit amet, conse ctetur adipisicing elit, sed do eiusm tempor
+                                    incididunt ut labore et</p>
                                 <div class="social-btns">
                                     <a href="#"><i class="fa fa-facebook"></i></a>
                                     <a href="#"><i class="fa fa-twitter"></i></a>
@@ -411,29 +430,29 @@
                 <div class="col-md-3 col-sm-3 col-xs-12">
                     <div class="achive-single">
                         <div class="icon"><i class="fa fa-cloud-download"></i></div>
-                        <h2>20K</h2>
-                        <span>Download</span>
+                        <h2>200</h2>
+                        <span>Descargas</span>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-3 col-xs-12">
                     <div class="achive-single">
-                        <div class="icon"><i class="fa fa-heart"></i></div>
-                        <h2>5K</h2>
-                        <span>Happy Clients</span>
+                        <div class="icon"><i class="fa fa-headphones"></i></div>
+                        <h2>100</h2>
+                        <span>Podcast</span>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-3 col-xs-12">
                     <div class="achive-single">
-                        <div class="icon"><i class="fa fa-coffee"></i></div>
-                        <h2>30K</h2>
-                        <span>Coffee Cups</span>
+                        <div class="icon"><i class="fa fa-newspaper-o"></i></div>
+                        <h2>300</h2>
+                        <span>Publicaciones</span>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-3 col-xs-12">
                     <div class="achive-single">
                         <div class="icon"><i class="fa fa-trophy"></i></div>
-                        <h2>50</h2>
-                        <span>Award</span>
+                        <h2>500</h2>
+                        <span>Reconocimientos</span>
                     </div>
                 </div>
             </div>
@@ -468,7 +487,9 @@
                             </div>
                         </div>
                         <div class="tauthor-text">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do smod tempor incididunt ut labore et dolore magna aliqua. enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do smod tempor incididunt
+                                ut labore et dolore magna aliqua. enim ad minim veniam, quis nostrud exercitation
+                                ullamco laboris nisi ut.</p>
                         </div>
                     </div>
                     <!-- single item end -->
@@ -491,7 +512,9 @@
                             </div>
                         </div>
                         <div class="tauthor-text">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do smod tempor incididunt ut labore et dolore magna aliqua. enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do smod tempor incididunt
+                                ut labore et dolore magna aliqua. enim ad minim veniam, quis nostrud exercitation
+                                ullamco laboris nisi ut.</p>
                         </div>
                     </div>
                     <!-- single item end -->
@@ -514,7 +537,9 @@
                             </div>
                         </div>
                         <div class="tauthor-text">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do smod tempor incididunt ut labore et dolore magna aliqua. enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do smod tempor incididunt
+                                ut labore et dolore magna aliqua. enim ad minim veniam, quis nostrud exercitation
+                                ullamco laboris nisi ut.</p>
                         </div>
                     </div>
                     <!-- single item end -->
@@ -527,7 +552,7 @@
     <div class="letest-blog pb--120">
         <div class="container">
             <div class="section-title text-black">
-                <h2>Our Latest Blog</h2>
+                <h2>Nuevas Publicaciones</h2>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor</p>
             </div>
             <div class="row">
@@ -535,9 +560,11 @@
                     <div class="col-md-4 col-sm-6 col-xs-12">
                         <div class="list-item">
                             <div class="blog-thumbnail">
-                                <a href="blog-details.html"><img src="{{asset('appson/assets/img/blog/blog-thumb1.jpg')}}" alt="blog thumbnail"></a>
+                                <a href="blog-details.html"><img
+                                        src="{{asset('img/tecun/preview2.png')}}"
+                                        alt="blog thumbnail"></a>
                             </div>
-                            <h2 class="blog-title"><a href="blog-details.html">Work For Success</a></h2>
+                            <h2 class="blog-title"><a href="blog-details.html">Vehículo de concepto autónomo</a></h2>
                             <div class="blog-meta">
                                 <ul>
                                     <li><i class="fa fa-calendar"></i>12 Feb 2017</li>
@@ -545,7 +572,7 @@
                                 </ul>
                             </div>
                             <div class="blog-summery">
-                                <p>Lorem ipsum dolor sit amet, consectcing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. enim ad minim niam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis </p>
+                                <p>En Case estamos repensando la productividad. El Vehículo Conceptual Autónomo Case IH tiene el potencial de revolucionar la agricultura.</p>
                             </div>
                             <a href="blog.html" class="read-more">Read More</a>
                         </div>
@@ -553,9 +580,11 @@
                     <div class="col-md-4 col-sm-6 col-xs-12">
                         <div class="list-item">
                             <div class="blog-thumbnail">
-                                <a href="blog-details.html"><img src="{{asset('appson/assets/img/blog/blog-thumb2.jpg')}}" alt="blog thumbnail"></a>
+                                <a href="blog-details.html"><img
+                                        src="{{asset('img/tecun/preview3.png')}}"
+                                        alt="blog thumbnail"></a>
                             </div>
-                            <h2 class="blog-title"><a href="blog-details.html">Work For Success</a></h2>
+                            <h2 class="blog-title"><a href="blog-details.html">50 años investigando accidentes para mejorar la seguridad vial</a></h2>
                             <div class="blog-meta">
                                 <ul>
                                     <li><i class="fa fa-calendar"></i>12 Feb 2017</li>
@@ -563,7 +592,7 @@
                                 </ul>
                             </div>
                             <div class="blog-summery">
-                                <p>Lorem ipsum dolor sit amet, consectcing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. enim ad minim niam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis </p>
+                                <p>Este año se cumple el 50º aniversario desde que el Equipo de Investigación de Accidentes de Volvo Trucks comenzó a recopilar y analizar </p>
                             </div>
                             <a href="blog.html" class="read-more">Read More</a>
                         </div>
@@ -571,9 +600,11 @@
                     <div class="col-md-4 col-sm-6 col-xs-12">
                         <div class="list-item">
                             <div class="blog-thumbnail">
-                                <a href="blog-details.html"><img src="{{asset('appson/assets/img/blog/blog-thumb3.jpg')}}" alt="blog thumbnail"></a>
+                                <a href="blog-details.html"><img
+                                        src="{{asset('img/tecun/preview4.png')}}"
+                                        alt="blog thumbnail"></a>
                             </div>
-                            <h2 class="blog-title"><a href="blog-details.html">Work For Success</a></h2>
+                            <h2 class="blog-title"><a href="blog-details.html">Solución de manipulación de materiales para puertos</a></h2>
                             <div class="blog-meta">
                                 <ul>
                                     <li><i class="fa fa-calendar"></i>12 Feb 2017</li>
@@ -581,7 +612,7 @@
                                 </ul>
                             </div>
                             <div class="blog-summery">
-                                <p>Lorem ipsum dolor sit amet, consectcing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. enim ad minim niam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis </p>
+                                <p>Mantsinen saca al mercado una nueva máquina de manipulación de materiales: Mantsinen 140. Se trata de la primera máquina</p>
                             </div>
                             <a href="blog.html" class="read-more">Read More</a>
                         </div>
@@ -604,9 +635,11 @@
                 <div class="contact-flex-container">
                     <div class="contact-address">
                         <h4 class="contact-title">Address</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et </p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                            labore et </p>
                         <ul>
-                            <li class="h-addres"><i class="fa fa-home"></i>300 Kutubkhallpoint <br>New York,United States</li>
+                            <li class="h-addres"><i class="fa fa-home"></i>300 Kutubkhallpoint <br>New York,United
+                                States</li>
                             <li><i class="fa fa-phone"></i>+0044 545 989 626</li>
                             <li><i class="fa fa-envelope"></i>Example@gmail.com</li>
                         </ul>
@@ -638,9 +671,14 @@
                         <li><a href="#"><i class="fa fa-instagram"></i></a></li>
                         <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
                     </ul>
-                     <p class="copy-right"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                    <p class="copy-right">
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        Copyright &copy;<script>
+                            document.write(new Date().getFullYear());
+                        </script> All rights reserved | This template is made with <i class="fa fa-heart-o"
+                            aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    </p>
                 </div>
             </div>
         </div>
@@ -850,7 +888,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="{{asset('appson/assets/js/owl.carousel.min.js')}}"></script>
     <script src="{{asset('appson/assets/js/jquery.mb.YTPlayer.min.js')}}"></script>
     <script src="{{asset('appson/assets/js/raindrops.js')}}"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBO_5h890WNShs_YLGivCBfs2U89qXR-7Y&callback=initMap"></script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBO_5h890WNShs_YLGivCBfs2U89qXR-7Y&callback=initMap">
+    </script>
     <script src="{{asset('appson/assets/js/theme.js')}}"></script>
 </body>
 
