@@ -19,8 +19,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
 
     <!-- Favicon Icon -->
-    <link rel="icon" type="image/png"
-        href="{{asset('img/logo.png')}}" />
+    <link rel="icon" type="image/png" href="{{asset('img/logo.png')}}" />
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -59,8 +58,7 @@
 <body>
     <div class="container">
         <div class="row justify-content-around mt-5" style="margin-top:15em">
-            <img src="{{asset('img/not-found.png')}}" class="img-fluid" width="50%"
-                alt="Responsive image" style="max-height: 300px;">
+            <img src="{{asset('img/not-found.png')}}" class="img-fluid" style="max-height: 300px;">
         </div>
 
         <div class="row justify-content-around mt-5">
@@ -88,7 +86,8 @@
                 </a>
             </li>
             <li class="align-self-end nav-item text-center">
-                <a class="nav-link" href="{{url('https://api.whatsapp.com/send?phone=50233120413&text='. $exception->getMessage() )}}">
+                <a class="nav-link"
+                    href="{{url('https://api.whatsapp.com/send?phone=50233120413&text='. $exception->getMessage() )}}">
                     <span class="nav-app-icon text-light"><i class="fab fa-whatsapp"></i></span>
                     <p class="text-light" style="margin-top: -5px;"> {{ 'Ayuda' }}</p>
                 </a>

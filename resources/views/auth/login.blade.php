@@ -2,12 +2,11 @@
 @section('content')
 <div class="container ">
     <div class="row justify-content-around" style="margin-top: 4em;">
-        <img src="https://image.flaticon.com/icons/svg/1828/1828503.svg" class="img-fluid" width="20%"
-            alt="Responsive image">
+        <img src="{{asset('img/user.png')}}" class="img-fluid" style="max-height: 250px;">
     </div>
 
     <div class="row justify-content-around">
-        <h1 class="text-light">Bienvenidos</h1>
+        <h1 class="text-light">Bienvenido</h1>
     </div>
     <div class="row justify-content-around mt-4">
         <form method="POST" action="{{ route('login') }}">
@@ -21,7 +20,7 @@
                 <input placeholder="Correo o Número de móvil" type="text" aria-label=" Sizing example input"
                     aria-describedby="inputGroup-sizing-sm"
                     class=" form-control text-light @error('email') is-invalid @enderror" name="email"
-                    value="{{ old('email') }}" required autofocus>
+                    value="{{ old('email') }}" required>
 
                 @error('email')
                 <span class="invalid-feedback" role="alert">

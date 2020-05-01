@@ -20,7 +20,12 @@ Route::get('login/facebook', 'SocialServicesController@redirectToProvider');
 Route::get('login/facebook/callback', 'SocialServicesController@handleProviderCallback');
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/team', 'HomeController@team');
+Route::get('/podcast', 'HomeController@podcast');
+Route::get('/trivia', 'HomeController@games');
+Route::get('/question', 'HomeController@question');
+Route::get('/stores', 'HomeController@stores');
 
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+
+

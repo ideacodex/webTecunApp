@@ -25,4 +25,29 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    public function team()
+    {
+        return view('users.home');
+    }
+
+    public function games()
+    {
+        return view('games.home');
+    }
+
+    public function question()
+    {
+        return view('games.question');
+    }
+
+    public function podcast()
+    {
+        return view('podcasts.home');
+    }
+
+    public function stores()
+    {
+        return view('stores.home');
+    }
 }

@@ -15,38 +15,40 @@
                 </span>
             </a>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true" class="text-light">&times;</span>
+                <span aria-hidden="true">&times;</span>
             </button>
         </div>
         <div class="card-deck">
             <div class="card">
-                <img src="{{asset('img/tecun/preview2.png')}}" class="card-img-top">
+                <img src="{{asset('img/podcasts/podcast-img.png')}}" class="card-img-top">
                 <div class="card-body">
                     <h5 class="card-title" style="color:orange">Vehículo de concepto autónomo</h5>
                     <p class="card-text">
                         En Case estamos repensando la productividad. El Vehículo Conceptual Autónomo Case IH tiene el
                         potencial de revolucionar la agricultura
-                        <a href="{{url('news/1')}}" class="">
+                    </p>
+                    <span>
+                        Entrevista con: 
+                        <a href="{{url('podcast')}}" class="">
                             <span class="text-primary">
-                                Leer más
-                                <i class="fas fa-book-reader"></i>
+                                Ing. Agronomo Mario López
+                                <i class="fas fa-user-tie"></i>
                             </span>
                         </a>
-                    </p>
+                    </span>
                 </div>
                 <div class="card-footer justify-content-around d-flex">
                     <span class="text-muted justify-content-end">
                         <span class="text-primary">
-                            <i class="fas fa-calendar"></i>
-                            25-04-2020
-                        </span>
+                            <i class="fas fa-download"></i>
+Descargar                        </span>
                     </span>
                     <span> </span>
                     <span class="text-muted">
 
                         <span class="text-primary">
-                            <i class="fas fa-comment"></i>
-                            Comentarios
+                            <i class="fas fa-headphones"></i>
+                            Escuchar
                         </span>
                     </span>
                 </div>
