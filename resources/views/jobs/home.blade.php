@@ -7,7 +7,7 @@ $namesUser = explode(" ", Auth::user()->name);
     <div class="mb-3 justify-content-center row ">
         <div class="col-12 col-md-6 offset-md-3 mt-3">
             <div class="d-flex justify-content-around mt-2">
-                <h1 class="text-info">{{'Encontrar Agencia'}}
+                <h1 class="text-info">{{'Encontrar Empleos'}}
                 </h1>
             </div>
             <form class="d-flex justify-content-around  my-lg-0" method="POST" action="{{ url('url') }}"
@@ -17,7 +17,7 @@ $namesUser = explode(" ", Auth::user()->name);
                 <div class="input-group input-group-lg mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                            <i class="text-primary fas fa-map-marker-alt"></i>
+                            <i class="text-primary fas fa-briefcase"></i>
                         </span>
                     </div>
                     <input aria-label=" Sizing example input" aria-describedby="inputGroup-sizing-sm" id="cityData"
@@ -40,64 +40,60 @@ $namesUser = explode(" ", Auth::user()->name);
             <li class="media">
                 <img src="{{asset('img/tecun/logo.png')}}" width="10%" class="mr-3 rounded-circle">
                 <div class="media-body">
-                    <h5 class="mt-0 text-primary h5">Guatemala: </h5>
+                    <h5 class="mt-0 text-primary h5">Vendedor de Repuestos Automotriz: </h5>
                     <span class="">
-                        3a. Calle 3-60, Zona 9,
-                        Guatemala.
-                        <a href="https://www.waze.com/ul?q=grupotecunGuatemala" class="btn btn-sm btn-outline-primary">
-                            Ir...
-                            <i class="fab fa-waze text-dark"></i>
-                        </a>
+                        OBJETIVO: Comercializar repuestos y accesorios correspondientes a nuestras marcas, brindando
+                        servicio excepcional con nuestros clientes, asesorando de la mejor manera para que se ejecuten
+                        ventas efectivas y con un índice alto de satisfacción.
                     </span>
                     <br>
                     <p>
-                        Lunes a Viernes:
-                        08:00 am a 06:00 pm
-                        <i class="fas fa-clock text-dark"></i>
+                        ESTUDIOS: 1er año de Ingeniería Industrial, Mecánica o Licenciatura en Administración de
+                        Empresas.
+                        <a href="https://www.waze.com/ul?q=grupotecunGuatemala" class="text-primary">
+                            Aplicar...
+                            <i class="fas fa-user-tie text-dark#"></i>
+                        </a>
                     </p>
                 </div>
             </li>
             <li class="media">
                 <img src="{{asset('img/tecun/logo.png')}}" width="10%" class="mr-3 rounded-circle">
                 <div class="media-body">
-                    <h5 class="mt-0 mb-1 text-primary h5">Santa Lucía: </h5>
+                    <h5 class="mt-0 text-primary h5">Vendedor de Repuestos Automotriz: </h5>
                     <span class="">
-                        Km 86.5 Carretera a Santa Lucía Cotzumalguapa, Escuintla.
-                        <a href="https://www.waze.com/ul?q=grupotecunGuatemala" class="btn btn-sm btn-outline-primary">
-                            Ir...
-                            <i class="fab fa-waze text-dark"></i>
-                        </a>
+                        OBJETIVO: Comercializar repuestos y accesorios correspondientes a nuestras marcas, brindando
+                        servicio excepcional con nuestros clientes, asesorando de la mejor manera para que se ejecuten
+                        ventas efectivas y con un índice alto de satisfacción.
                     </span>
                     <br>
                     <p>
-                        Lunes a Viernes:
-                        08:00 am a 05:00 pm
-                        <i class="fas fa-clock text-dark"></i>
-                        <br>
-                        Sábado: 08:00 am a 12:00 pm
-                        <i class="fas fa-clock text-dark"></i>
+                        ESTUDIOS: 1er año de Ingeniería Industrial, Mecánica o Licenciatura en Administración de
+                        Empresas.
+                        <a href="https://www.waze.com/ul?q=grupotecunGuatemala" class="text-primary">
+                            Aplicar...
+                            <i class="fas fa-user-tie text-dark#"></i>
+                        </a>
                     </p>
                 </div>
             </li>
             <li class="media">
                 <img src="{{asset('img/tecun/logo.png')}}" width="10%" class="mr-3 rounded-circle">
                 <div class="media-body">
-                    <h5 class="mt-0 text-primary h5">Petén: </h5>
+                    <h5 class="mt-0 text-primary h5">Vendedor de Repuestos Automotriz: </h5>
                     <span class="">
-                        1a. Av. Y 1a. Calle Ciudad Satélite <br> Finca Pontehill, Santa Elena, Petén
-                        <a href="https://www.waze.com/ul?q=grupotecunGuatemala" class="btn btn-sm btn-outline-primary">
-                            Ir...
-                            <i class="fab fa-waze text-dark"></i>
-                        </a>
+                        OBJETIVO: Comercializar repuestos y accesorios correspondientes a nuestras marcas, brindando
+                        servicio excepcional con nuestros clientes, asesorando de la mejor manera para que se ejecuten
+                        ventas efectivas y con un índice alto de satisfacción.
                     </span>
                     <br>
                     <p>
-                        Lunes a Viernes:
-                        08:00 am a 05:00 pm
-                        <i class="fas fa-clock text-dark"></i>
-                        <br>
-                        Sábado: 08:00 am a 12:00 pm
-                        <i class="fas fa-clock text-dark"></i>
+                        ESTUDIOS: 1er año de Ingeniería Industrial, Mecánica o Licenciatura en Administración de
+                        Empresas.
+                        <a href="https://www.waze.com/ul?q=grupotecunGuatemala" class="text-primary">
+                            Aplicar...
+                            <i class="fas fa-user-tie text-dark#"></i>
+                        </a>
                     </p>
                 </div>
             </li>

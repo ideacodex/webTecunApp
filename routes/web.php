@@ -21,10 +21,12 @@ Route::get('login/facebook/callback', 'SocialServicesController@handleProviderCa
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/team', 'HomeController@team');
+Route::get('/specialTeam', 'HomeController@specialTeam');
 Route::get('/podcast', 'HomeController@podcast');
 Route::get('/trivia', 'HomeController@games');
 Route::get('/question', 'HomeController@question');
 Route::get('/stores', 'HomeController@stores');
+Route::get('/jobs', 'HomeController@jobs');
 
 
 

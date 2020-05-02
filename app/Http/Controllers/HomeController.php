@@ -31,6 +31,11 @@ class HomeController extends Controller
         return view('users.home');
     }
 
+    public function specialTeam()
+    {
+        return view('users.index');
+    }
+
     public function games()
     {
         return view('games.home');
@@ -49,5 +54,10 @@ class HomeController extends Controller
     public function stores()
     {
         return view('stores.home');
+    }
+
+    public function jobs()
+    {
+        return view('jobs.home');
     }
 }
