@@ -114,7 +114,7 @@
         <nav class="navbar navbar-expand-md navbar-dark bg-theme-1">
             <div class="container">
                 <a class="navbar-brand" href="{{ url()->previous() }}">
-                    <span class="nav-app-icon text-light"><i class="fas fa-arrow-left"></i></span>
+                    <span class="nav-app-icon text-light"><i class="fas fa-podcast"></i></span>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
                     <span class="navbar-toggler-icon"></span>
@@ -152,7 +152,7 @@
                                 <span class="text-light" style="margin-top: -5px;"> {{ Auth::user()->name }} </span></a>
                         </li>
                         <li class="nav-item" style="margin-right: 1em;">
-                            <a class="nav-link" href="{{url('podcast')}}" data-target="#myModal" data-toggle="modal">
+                            <a class="nav-link" href="{{url('podcast')}}" >
                                 <span class="nav-app-icon text-light" style="margin-top: -4em;"><i
                                         class="fas fa-podcast"></i></span>
                                 <span class="text-light" style="margin-top: -5px;">
@@ -227,8 +227,8 @@
         @endguest
     </nav>
     <!--buttons-->
-    <div class="btn-float d-none">
-        <a class="btn btn-light btn-circle btn-sm bg-danger btn-lg text-light"><i class="fas fa-bell"></i></a>
+    <div class="btn-float">
+    <a href="{{url('denounce')}}" class="btn btn-light btn-circle btn-sm bg-danger btn-lg text-light"><i class="fas fa-bell"></i></a>
     </div>
     <!--fin buttons -->
 </body>

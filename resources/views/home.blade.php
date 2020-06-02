@@ -18,6 +18,18 @@
                 <span aria-hidden="true" class="text-light">&times;</span>
             </button>
         </div>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">Filtrar</label>
+            </div>
+            <select class="custom-select" id="inputGroupSelect01">
+                <option selected>Selecione una categoría...</option>
+                <option value="1">TECUN Automotores</option>
+                <option value="2">TECUN Comercial</option>
+                <option value="3">Salud y Seguridad</option>
+            </select>
+        </div>
+
         <div class="card-deck">
             <div class="card">
                 <img src="{{asset('img/tecun/preview2.png')}}" class="card-img-top">

@@ -26,6 +26,11 @@ class HomeController extends Controller
         return view('home');
     }
 
+    public function news()
+    {
+        return view('news.index');
+    }
+
     public function team()
     {
         return view('users.home');
@@ -59,5 +64,10 @@ class HomeController extends Controller
     public function jobs()
     {
         return view('jobs.home');
+    }
+
+    public function denounce()
+    {
+        return view('denounce.index');
     }
 }

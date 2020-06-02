@@ -27,6 +27,9 @@ Route::get('/trivia', 'HomeController@games');
 Route::get('/question', 'HomeController@question');
 Route::get('/stores', 'HomeController@stores');
 Route::get('/jobs', 'HomeController@jobs');
+Route::get('/denounce', 'HomeController@denounce');
+Route::get('/news', 'HomeController@news');
+
 
 
 
