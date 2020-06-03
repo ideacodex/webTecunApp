@@ -30,6 +30,10 @@ Route::get('/jobs', 'HomeController@jobs');
 Route::get('/denounce', 'HomeController@denounce');
 Route::get('/news', 'HomeController@news');
 
+//*******admin routes****** */
+Route::resource('adminPost', 'PostController');
+//*******admin routes****** */
+
 
 
 

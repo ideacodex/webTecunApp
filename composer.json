@@ -15,7 +15,8 @@
         "laravel/passport": "^8.4",
         "laravel/socialite": "^4.3",
         "laravel/tinker": "^2.0",
-        "spatie/laravel-permission": "^3.6"
+        "spatie/laravel-permission": "^3.6",
+        "te7a-houdini/laravel-trix": "^2.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.3",

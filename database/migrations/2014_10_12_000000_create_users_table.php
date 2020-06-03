@@ -20,10 +20,19 @@ class CreateUsersTable extends Migration
             $table->timestamps();
         });
 
+        Schema::create('scores', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->integer('points');
+            $table->integer('wrong');
+            $table->integer('correct');
+            $table->timestamps();
+            $table->bigInteger('tx_usr_id')->nullable();
+        });
+
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('dpi')->unique()->nullable();
             $table->string('name');
+            $table->bigInteger('dpi')->unique();
             $table->string('lastname', 100)->nullable();
             $table->string('email')->unique();
             $table->integer('phone')->unique();
@@ -34,6 +43,10 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->unsignedInteger('role_id');
+            $table->unsignedBigInteger('score_id');
+            $table->foreign('score_id')
+                ->references('id')->on('scores')
+                ->onDelete('cascade');
             $table->unsignedBigInteger('status_id');
             $table->foreign('status_id')
                 ->references('id')->on('status');
@@ -49,6 +62,8 @@ class CreateUsersTable extends Migration
     {
 
       Schema::dropIfExists('users');
-      Schema::dropIfExists('status');        
+      Schema::dropIfExists('status');   
+      Schema::dropIfExists('scores');        
+     
     }
 }
