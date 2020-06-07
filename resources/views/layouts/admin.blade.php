@@ -24,9 +24,11 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
+    <!-- filtros datatables -->
+    <link href="{{ asset('js/export/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+
     <!-- menuadmin -->
     <link href="{{ asset('css/simple-sidebar.css') }}" rel="stylesheet">
-
 </head>
 <style>
     .btn-circle {
@@ -142,12 +144,18 @@
                     <span class="h3 text-light"> {{ config('app.name', 'Pakal') }} </span>
                 </div>
                 <div class="list-group list-group-flush">
-                    <a href="#" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i class="fas fa-chart-bar"></i></span> Dashboard</a>
-                    <a href="#" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i class="fas fa-at"></i></span> Shortcuts</a>
-                    <a href="#" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i class="fas fa-eye"></i></span> Overview</a>
-                    <a href="#" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i class="fas fa-calendar"></i></span> Events</a>
-                    <a href="#" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i class="fas fa-user"></i></span> Profile</a>
-                    <a href="#" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i class="fas fa-cog"></i></span> Settings</a>
+                    <a href="#" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
+                                class="fas fa-chart-bar"></i></span> Dashboard</a>
+                    <a href="#" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
+                                class="fas fa-at"></i></span> Shortcuts</a>
+                    <a href="#" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
+                                class="fas fa-eye"></i></span> Overview</a>
+                    <a href="#" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
+                                class="fas fa-calendar"></i></span> Events</a>
+                    <a href="#" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
+                                class="fas fa-user"></i></span> Profile</a>
+                    <a href="#" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
+                                class="fas fa-cog"></i></span> Settings</a>
                 </div>
             </div>
             <!-- /#sidebar-wrapper -->
@@ -191,7 +199,7 @@
                     </div>
                 </nav>
 
-                <main class="container-fluid">
+                <main class="mb-5">
                     @yield('content')
                 </main>
             </div>
@@ -199,10 +207,30 @@
 
         </div>
     </div>
-    <!-- Menu Toggle Script -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
     </script>
+
+
+
+    <!-- tableExport -->
+    <script src="{{ asset('js/export/jquery.base64.js') }}" defer></script>
+    <!-- tableExport -->
+    <script src="{{ asset('js/export/tableExport.js') }}" defer></script>
+    <!-- necesario para PDF -->
+    <script src="{{ asset('js/export/jspdf/libs/sprintf.js') }}" defer></script>
+    <!-- necesario para PDF -->
+    <script src="{{ asset('js/export/jspdf/jspdf.js') }}" defer></script>
+    <!-- necesario para PDF -->
+    <script src="{{ asset('js/export/jspdf/libs/base64.js') }}" defer></script>
+
+    <!-- filtros -->
+    <script src="{{ asset('js/export/jquery.dataTables.min.js') }}" defer></script>
+    <!-- filtros -->
+    <script src="{{ asset('js/export/dataTables.bootstrap4.min.js') }}" defer></script>
+
+
+    <!-- Menu Toggle Script -->
     <script>
         $("#menu-toggle").click(function(e) {
       e.preventDefault();
@@ -210,6 +238,7 @@
       
     });
     </script>
+    @yield('js')
 </body>
 
 </html>
