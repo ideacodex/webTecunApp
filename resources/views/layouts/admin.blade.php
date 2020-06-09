@@ -29,6 +29,9 @@
 
     <!-- menuadmin -->
     <link href="{{ asset('css/simple-sidebar.css') }}" rel="stylesheet">
+
+    {{-- packete de editor de texto --}}
+    @trixassets
 </head>
 <style>
     .btn-circle {
@@ -144,18 +147,18 @@
                     <span class="h3 text-light"> {{ config('app.name', 'Pakal') }} </span>
                 </div>
                 <div class="list-group list-group-flush">
-                    <a href="#" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
+                    <a href="{{url('#')}}" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
                                 class="fas fa-chart-bar"></i></span> Dashboard</a>
-                    <a href="#" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
-                                class="fas fa-at"></i></span> Shortcuts</a>
-                    <a href="#" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
+                    <a href="{{url('adminPost')}}" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
+                                class="fas fa-newspaper"></i></span> Noticias</a>
+                    <a href="{{url('#')}}" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
                                 class="fas fa-eye"></i></span> Overview</a>
-                    <a href="#" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
+                    <a href="{{url('#')}}" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
                                 class="fas fa-calendar"></i></span> Events</a>
-                    <a href="#" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
-                                class="fas fa-user"></i></span> Profile</a>
-                    <a href="#" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
-                                class="fas fa-cog"></i></span> Settings</a>
+                    <a href="{{url('users')}}" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
+                                class="fas fa-user"></i></span> Usuarios</a>
+                    <a href="{{url('#')}}" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
+                                class="fas fa-cog"></i></span> Ajustes</a>
                 </div>
             </div>
             <!-- /#sidebar-wrapper -->
@@ -237,6 +240,20 @@
       $("#wrapper").toggleClass("toggled");
       
     });
+    </script>
+    <script>
+        //Bloquear doble envio de formulario******
+        enviando = false; //Obligaremos a entrar el if en el primer submit
+        function checkSubmit() {
+          if (!enviando) {
+            enviando= true;
+            return true;
+          } else {
+            //Si llega hasta aca significa que pulsaron 2 veces el boton submit
+            alert("El formulario ya se esta enviando");
+            return false;
+          }
+        }
     </script>
     @yield('js')
 </body>

@@ -16,7 +16,8 @@ class CreateUsersTable extends Migration
         Schema::create('status', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name', 50);
-            $table->string('description', 250);
+            $table->string('icon', 250);
+            $table->string('color', 250);
             $table->timestamps();
         });
 
@@ -38,12 +39,12 @@ class CreateUsersTable extends Migration
             $table->integer('phone')->unique();
             $table->string('url_image')->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->boolean('check_terms');
+            $table->boolean('check_terms')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
             $table->unsignedInteger('role_id');
-            $table->unsignedBigInteger('score_id');
+            $table->unsignedBigInteger('score_id')->nullable();
             $table->foreign('score_id')
                 ->references('id')->on('scores')
                 ->onDelete('cascade');

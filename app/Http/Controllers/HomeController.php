@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Role;
 
 class HomeController extends Controller
 {
@@ -23,6 +23,10 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
+        if (!$user->hasAnyRole(Role::all())) {
+            auth()->user()->syncRoles('User');
+        }
         return view('home');
     }
 
@@ -33,12 +37,12 @@ class HomeController extends Controller
 
     public function team()
     {
-        return view('users.home');
+        return view('users.team');
     }
 
     public function specialTeam()
     {
-        return view('users.index');
+        return view('users.specialteam');
     }
 
     public function games()

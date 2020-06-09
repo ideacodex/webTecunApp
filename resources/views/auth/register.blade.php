@@ -11,7 +11,7 @@
         <h1 class="text-light">Crear cuenta</h1>
     </div>
     <div class="row justify-content-around mt-4">
-        <form method="POST" action="{{ route('register') }}">
+        <form method="POST" action="{{ route('register') }}" onsubmit="return checkSubmit();">
             @csrf
             <div class="input-group input-group-lg mb-3">
                 <div class="input-group-prepend">

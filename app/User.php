@@ -2,24 +2,21 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Traits\HasRoles;
 use Laravel\Passport\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, Notifiable;
-
+    use Notifiable, HasRoles, HasApiTokens;
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'dpi', 'lastname', 'email', 'phone', 'url_image', 'password', 'role_id', 'status_id', 'check_terms', 'wallet_id'
+        'name', 'dpi', 'lastname', 'email', 'phone', 'url_image', 'password', 'role_id', 'status_id', 'check_terms', 'score_id',
     ];
 
     /**
@@ -40,11 +37,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function wallet(){
-		return $this->belongsTo("App\Wallet", 'wallet_id');
+    public function score()
+    {
+        return $this->belongsTo("App\Score", 'score_id');
     }
-    
-    public function findForPassport($username) {
+
+    public function status()
+    {
+        return $this->belongsTo("App\Status", 'status_id');
+    }
+
+    public function findForPassport($username)
+    {
         return User::orWhere('email', $username)->orWhere('phone', $username)->first();
     }
 }

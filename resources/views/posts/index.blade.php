@@ -1,6 +1,22 @@
 @extends('layouts.admin')
 
 @section('content')
+<div class="alert alert-warning alert-dismissible fade show justify-content-around" role="alert">
+    <a href="#" class="d-none btn bg-theme-1 text-light btn-sm"
+        onClick="$('#tableID').tableExport({type:'json',escape:'false'});">
+        <span class=""><i class="fas fa-ellipsis-v"></i></span> JSON</a>
+    <a href="#" class="btn bg-theme-1 text-light btn-sm" onClick="$('#tableID').tableExport({type:'excel',escape:'false'});">
+        <span class=""><i class="fas fa-file-excel"></i></span> XLS</a>
+    <a href="#" class="btn bg-theme-1 text-light btn-sm" onClick="$('#tableID').tableExport({type:'csv',escape:'false'});">
+        <span class=""><i class="fas fa-file-csv"></i></span> CSV</a>
+    <a href="#" class="btn bg-theme-1 text-light btn-sm"
+        onClick="$('#tableID').tableExport({type:'pdf',escape:'false', htmlContent:'true'});"> <span class=""><i
+                class="fas fa-file-pdf"></i></span> PDF</a>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
 <div class="container-fluid">
     <div>
         <table class="table" id="tableID">
@@ -34,11 +50,6 @@
             </tbody>
         </table>
     </div>
-    <a href="#" onClick="$('#tableID').tableExport({type:'json',escape:'false',tableName:'yourTableName'});">JSON</a>
-    <a href="#" onClick="$('#tableID').tableExport({type:'excel',escape:'false',tableName:'yourTableName'});">XLS</a>
-    <a href="#" onClick="$('#tableID').tableExport({type:'csv',escape:'false',tableName:'yourTableName'});">CSV</a>
-    <a href="#"
-        onClick="$('#tableID').tableExport({type:'pdf',escape:'false',tableName:'yourTableName', htmlContent:'true'});">PDF</a>
 </div>
 @endsection
 @section('js')

@@ -3,11 +3,15 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\User;
 use App\Providers\RouteServiceProvider;
+use App\Score;
+use App\User;
+use DB;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Permission\Models\Role;
 
 class RegisterController extends Controller
 {
@@ -20,7 +24,7 @@ class RegisterController extends Controller
     | validation and creation. By default this controller uses a trait to
     | provide this functionality without requiring any additional code.
     |
-    */
+     */
 
     use RegistersUsers;
 
@@ -67,8 +71,35 @@ class RegisterController extends Controller
      * @return \App\User
      */
     protected function create(array $data)
-    {   
+    {
         //
+        DB::beginTransaction();
+        try {
+            $score = new Score;
+            $score->points = 0;
+            $score->wrong = 0;
+            $score->correct = 0;
+            $score->save();
+            if (!Role::find(1)) { //si no existen roles en la base de datos, crea los roles
+                $roleSuper = Role::create(['name' => 'root']);
+                $roleAdmin = Role::create(['name' => 'Super']);
+                $roleSeller = Role::create(['name' => 'Admin']);
+                $roleFinal = Role::create(['name' => 'User']);
+            }
+            $request = new Request($data);
+            //************correo paraadmin cuando se registra un usuario**************
+            /*Mail::to([$request->email])
+        ->cc('norellanac@miumg.edu.gt') // enviar correo con copia
+        ->send(new welcomeUser($request)); //envia la variables $request a la clase de MAIL.ContactPage
+        //email al correo ingresado al formulario para informar que recibimos su consulta*/
+        }catch (\Illuminate\Database\QueryException $e) {
+            DB::rollback(); //si hay un error previo, desahe los cambios en DB y redirecciona a pagina de error
+            //$response['message'] = $e->errorInfo;
+            //dd($e->errorInfo[2]);
+            abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
+            return response()->json($response, 500);
+        }
+        DB::commit(); //si llega a este punto **FINALILA LA TRANSACCION y guarda en base de datos
         return User::create([
             'name' => $data['name'],
             'lastname' => $data['lastname'],
@@ -78,8 +109,9 @@ class RegisterController extends Controller
             'phone' => $data['phone'],
             'check_terms' => true,
             'url_image' => 'users/default_profile.png',
-            'role_id' => 1, //aca se asigana el id de la tabla roles numero "id=6 name=User"
-            'status_id' => 1,
+            'role_id' => 3, //aca se asigana el id de la tabla roles numero "id=3 name=User"
+            'status_id' => 3,
+            'score_id'=>$score->id,
         ]);
     }
 }

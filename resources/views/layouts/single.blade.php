@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -50,7 +51,23 @@
         background-color: transparent !important;
     }
 </style>
-<body>      
-      <div>@yield('content')</div>
+
+<body>
+    <div>@yield('content')</div>
+    <script>
+        //Bloquear doble envio de formulario******
+        enviando = false; //Obligaremos a entrar el if en el primer submit
+        function checkSubmit() {
+          if (!enviando) {
+            enviando= true;
+            return true;
+          } else {
+            //Si llega hasta aca significa que pulsaron 2 veces el boton submit
+            alert("El formulario ya se esta enviando");
+            return false;
+          }
+        }
+    </script>
 </body>
+
 </html>

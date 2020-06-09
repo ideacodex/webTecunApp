@@ -152,7 +152,7 @@
                                 <span class="text-light" style="margin-top: -5px;"> {{ Auth::user()->name }} </span></a>
                         </li>
                         <li class="nav-item" style="margin-right: 1em;">
-                            <a class="nav-link" href="{{url('podcast')}}" >
+                            <a class="nav-link" href="{{url('podcast')}}">
                                 <span class="nav-app-icon text-light" style="margin-top: -4em;"><i
                                         class="fas fa-podcast"></i></span>
                                 <span class="text-light" style="margin-top: -5px;">
@@ -161,11 +161,22 @@
                                 <span class="badge  badge-warning text-dark">{{ Auth::user()->id }} </span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('logout') }}"
-                                onclick="event.preventDefault();  document.getElementById('logout-form').submit();"><span
-                                    class="nav-app-icon text-light"><i class="fas fa-sign-out-alt"></i></span>
-                                <span class="text-light" style="margin-top: -5px;"> Salir </span></a>
+                        <li class="nav-item dropdown" style="margin-right: 1em;">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Administrar
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{url('adminPost')}}"> <span><i
+                                            class="fas fa-newspaper"></i></span> Publicaciones</a>
+                                <a class="dropdown-item" href="{{url('users')}}"> <span><i
+                                            class="fas fa-users"></i></span> Usuarios</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();  document.getElementById('logout-form').submit();">
+                                    <span class="nav-app-icon"><i class="fas fa-sign-out-alt"></i></span>
+                                    <span class="" style="margin-top: -5px;"> Salir </span></a>
+                            </div>
                         </li>
                     </ul>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -228,9 +239,24 @@
     </nav>
     <!--buttons-->
     <div class="btn-float">
-    <a href="{{url('denounce')}}" class="btn btn-light btn-circle btn-sm bg-danger btn-lg text-light"><i class="fas fa-bell"></i></a>
+        <a href="{{url('denounce')}}" class="btn btn-light btn-circle btn-sm bg-danger btn-lg text-light"><i
+                class="fas fa-bell"></i></a>
     </div>
     <!--fin buttons -->
+    <script>
+        //Bloquear doble envio de formulario******
+        enviando = false; //Obligaremos a entrar el if en el primer submit
+        function checkSubmit() {
+          if (!enviando) {
+            enviando= true;
+            return true;
+          } else {
+            //Si llega hasta aca significa que pulsaron 2 veces el boton submit
+            alert("El formulario ya se esta enviando");
+            return false;
+          }
+        }
+    </script>
 </body>
 
 </html>
