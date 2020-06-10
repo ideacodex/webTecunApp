@@ -147,18 +147,18 @@
                     <span class="h3 text-light"> {{ config('app.name', 'Pakal') }} </span>
                 </div>
                 <div class="list-group list-group-flush">
-                    <a href="{{url('#')}}" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
-                                class="fas fa-chart-bar"></i></span> Dashboard</a>
-                    <a href="{{url('adminPost')}}" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
-                                class="fas fa-newspaper"></i></span> Noticias</a>
-                    <a href="{{url('#')}}" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
-                                class="fas fa-eye"></i></span> Overview</a>
-                    <a href="{{url('#')}}" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
-                                class="fas fa-calendar"></i></span> Events</a>
-                    <a href="{{url('users')}}" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
-                                class="fas fa-user"></i></span> Usuarios</a>
-                    <a href="{{url('#')}}" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
-                                class="fas fa-cog"></i></span> Ajustes</a>
+                    <a href="{{url('#')}}" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span
+                            class=""><i class="fas fa-chart-bar"></i></span> Administracion</a>
+                    <a href="{{url('adminPost')}}" class="list-group-item list-group-item-action bg-theme-1 text-light">
+                        <span class=""><i class="fas fa-newspaper"></i></span> Noticias</a>
+                    <a href="{{url('#')}}" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span
+                            class=""><i class="fas fa-eye"></i></span> Overview</a>
+                    <a href="{{url('#')}}" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span
+                            class=""><i class="fas fa-calendar"></i></span> Events</a>
+                    <a href="{{url('users')}}" class="list-group-item list-group-item-action bg-theme-1 text-light">
+                        <span class=""><i class="fas fa-user"></i></span> Usuarios</a>
+                    <a href="{{url('#')}}" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span
+                            class=""><i class="fas fa-cog"></i></span> Ajustes</a>
                 </div>
             </div>
             <!-- /#sidebar-wrapper -->
@@ -181,7 +181,8 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                             <li class="nav-item active">
-                                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                                <a class="nav-link" href="{{url('adminPost')}}"> <span><i
+                                            class="fas fa-newspaper"></i></span> Publicaciones</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Link</a>
@@ -192,10 +193,19 @@
                                     Dropdown
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
+                                    <a class="dropdown-item" href="{{url('adminPost')}}"> <span><i
+                                                class="fas fa-newspaper"></i></span> Publicaciones</a>
+                                    <a class="dropdown-item" href="{{url('users')}}"> <span><i
+                                                class="fas fa-users"></i></span> Usuarios</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Something else here</a>
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();  document.getElementById('logout-form').submit();">
+                                        <span class="nav-app-icon"><i class="fas fa-sign-out-alt"></i></span>
+                                        <span class="" style="margin-top: -5px;"> Salir </span></a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        style="display: none;">
+                                        @csrf
+                                    </form>
                                 </div>
                             </li>
                         </ul>

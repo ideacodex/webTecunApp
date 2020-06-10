@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\User;
+use App\Score;
 use App\Status;
+use App\User;
+use DB;
+use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -17,7 +20,7 @@ class UserController extends Controller
     {
         //
         $users = User::all();
-        return view("users.index",["users"=>$users ]);
+        return view("users.index", ["users" => $users]);
     }
 
     /**
@@ -28,6 +31,9 @@ class UserController extends Controller
     public function create()
     {
         //
+        $status = Status::all();
+        $roles = Role::all();
+        return view("users.create", ["status" => $status, "roles" => $roles]);
     }
 
     /**
@@ -39,6 +45,50 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
+        request()->validate([
+            'dpi' => 'required|unique:users',
+            'name' => 'required',
+            'lastname' => 'required',
+            'email' => 'required|unique:users',
+            'phone' => 'required|unique:users',
+            'password' => 'required',
+            'role_id' => 'required',
+            'status_id' => 'required',
+        ]);
+
+        DB::beginTransaction();
+        try {
+            //encontrar y asignar rol de Spatie
+            $roleName = Role::find($request->role_id); //obtiene el roll desde la base de datos
+
+            $score = new Score;
+            $score->points = 0;
+            $score->wrong = 0;
+            $score->correct = 0;
+            $score->save();
+
+            $users = new User;
+            $users->dpi = $request->dpi;
+            $users->name = $request->name;
+            $users->lastname = $request->lastname;
+            $users->email = $request->email;
+            $users->phone = $request->phone;
+            $users->password = bcrypt($request->password);
+            $users->role_id = $request->role_id;
+            $users->status_id = $request->status_id;
+            $users->score_id = $score->id;
+            $users->save();
+            $users->syncRoles([$roleName->name]);
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollback(); //si hay un error previo, desahe los cambios en DB y redirecciona a pagina de error
+            //$response['message'] = $e->errorInfo;
+            //dd($e->errorInfo[2]);
+            abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
+            return response()->json($response, 500);
+        }
+        DB::commit();
+        return redirect()->action( //regresa con el error
+            'UserController@index')->with(['message' => 'Se agregó el registro correctamente', 'alert' => 'warning']);
     }
 
     /**
@@ -61,6 +111,10 @@ class UserController extends Controller
     public function edit($id)
     {
         //
+        $users = User::findOrFail($id);
+        $status = Status::all();
+        $roles = Role::all();
+        return view("users.edit", ["status" => $status, "roles" => $roles, 'user' => $users]);
     }
 
     /**
@@ -73,6 +127,43 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         //
+        request()->validate([
+            'dpi' => 'required',
+            'name' => 'required',
+            'lastname' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'role_id' => 'required',
+            'status_id' => 'required',
+        ]);
+
+        DB::beginTransaction();
+        try {
+            //encontrar y asignar rol de Spatie
+            $roleName = Role::find($request->role_id); //obtiene el roll desde la base de datos
+
+            $users = User::findOrFail($id);
+            $users->dpi = $request->dpi;
+            $users->name = $request->name;
+            $users->lastname = $request->lastname;
+            $users->email = $request->email;
+            $users->phone = $request->phone;
+            $users->password = bcrypt($request->password);
+            $users->role_id = $request->role_id;
+            $users->status_id = $request->status_id;
+            $users->save();
+            $users->syncRoles([$roleName->name]);
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollback(); //si hay un error previo, desahe los cambios en DB y redirecciona a pagina de error
+            //$response['message'] = $e->errorInfo;
+            //dd($e->errorInfo[2]);
+            abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
+            return response()->json($response, 500);
+        }
+        DB::commit();
+        return redirect()->action( //regresa con el error
+            'UserController@index')->with(['message' => 'Se actualizo el registro correctamente', 'alert' => 'warning']);
+    
     }
 
     /**
@@ -84,5 +175,10 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+        $users = User::findOrFail($id);
+        $users->delete();
+        return redirect()->action( //regresa con el error
+            'UserController@index')->with(['message' => 'Se eliminó el registro', 'alert' => 'danger']);
+    
     }
 }

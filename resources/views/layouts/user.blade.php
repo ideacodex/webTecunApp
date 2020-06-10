@@ -161,6 +161,14 @@
                                 <span class="badge  badge-warning text-dark">{{ Auth::user()->id }} </span>
                             </a>
                         </li>
+                        @role('User')
+                        <li class="nav-item" style="margin-right: 1em;">
+                            <a class="nav-link"
+                                onclick="event.preventDefault();  document.getElementById('logout-form').submit();">
+                                <span class="nav-app-icon"><i class="fas fa-sign-out-alt"></i></span>
+                                <span class="" style="margin-top: -5px;"> Salir </span></a>
+                        </li>
+                        @else
                         <li class="nav-item dropdown" style="margin-right: 1em;">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -172,12 +180,13 @@
                                 <a class="dropdown-item" href="{{url('users')}}"> <span><i
                                             class="fas fa-users"></i></span> Usuarios</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                <a class="dropdown-item"
                                     onclick="event.preventDefault();  document.getElementById('logout-form').submit();">
                                     <span class="nav-app-icon"><i class="fas fa-sign-out-alt"></i></span>
                                     <span class="" style="margin-top: -5px;"> Salir </span></a>
                             </div>
                         </li>
+                        @endrole
                     </ul>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf

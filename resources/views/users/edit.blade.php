@@ -7,8 +7,9 @@
         <p class="text-primary h2">Agregar</p>
     </div>
     <div class="mt-4">
-        <form method="POST" action="{{ url('users') }}" onsubmit="return checkSubmit();">
+        <form method="POST" action="{{ url('users/'. $user->id) }}" onsubmit="return checkSubmit();">
             @csrf
+            @method('PUT')
             <div class="form-row">
                 <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                     <div class="input-group-prepend">
@@ -18,7 +19,7 @@
                     </div>
                     <input id="name" placeholder="Nombres" type="text"
                         class="text-primary form-control @error('name') is-invalid @enderror" name="name"
-                        value="{{ old('name') }}" required autocomplete="name" autofocus>
+                        value="{{ $user->name }}" required autocomplete="name" autofocus>
 
                     @error('name')
                     <span class="invalid-feedback" role="alert">
@@ -40,7 +41,7 @@
                     </div>
                     <input id="lastname" placeholder="Apellidos" type="text"
                         class="text-primary form-control @error('lastname') is-invalid @enderror" name="lastname"
-                        value="{{ old('lastname') }}" required autocomplete="lastname" autofocus>
+                        value="{{ $user->lastname }}" required autocomplete="lastname" autofocus>
 
                     @error('lastname')
                     <span class="invalid-feedback" role="alert">
@@ -62,7 +63,7 @@
                     </div>
                     <input id="email" placeholder="Correo " type="text"
                         class="text-primary form-control @error('email') is-invalid @enderror" name="email"
-                        value="{{ old('email') }}" required autocomplete="email" autofocus>
+                        value="{{ $user->email }}" required autocomplete="email" autofocus>
 
                     @error('email')
                     <span class="invalid-feedback" role="alert">
@@ -84,7 +85,7 @@
                     </div>
                     <input id="phone" type="text" placeholder="Número de móvil"
                         class="text-primary form-control @error('phone') is-invalid @enderror" name="phone"
-                        value="{{ old('phone') }}" required autocomplete="phone">
+                        value="{{ $user->phone }}" required autocomplete="phone">
 
                     @error('phone')
                     <span class="invalid-feedback" role="alert">
@@ -100,7 +101,7 @@
                     </div>
                     <input id="dpi" placeholder="DPI" type="text"
                         class="text-primary form-control @error('dpi') is-invalid @enderror" name="dpi"
-                        value="{{ old('dpi') }}" required autofocus>
+                        value="{{ $user->dpi }}" required autofocus>
 
                     @error('dpi')
                     <span class="invalid-feedback" role="alert">
@@ -122,7 +123,7 @@
                     </div>
                     <select name="status_id" id="status_id" class="form-control @error('status_id') is-invalid @enderror"
                         required>
-                        <option value="3" selected>Estado</option>
+                <option value="{{$user->status_id}}" selected>{{$user->status->name}}</option>
                         @foreach($status as $item)
                         <option value="{{$item->id}}">{{ $item->name}}</option>
                         @endforeach
@@ -147,7 +148,7 @@
                     </div>
                     <select name="role_id" id="role_id" class="form-control @error('role_id') is-invalid @enderror"
                         required>
-                        <option value="4" selected>Permisos</option>
+                        <option value="{{$user->role_id}}" selected>{{$user->getRoleNames()[0]}}</option>
                         @foreach($roles as $item)
                         <option value="{{$item->id}}">{{ $item->name}}</option>
                         @endforeach

@@ -33,7 +33,7 @@ Route::get('/news', 'HomeController@news')->middleware('auth')  ;
 
 //*******admin routes****** */
 Route::resource('adminPost', 'PostController')->middleware('auth')  ;
-Route::resource('users', 'UserController')->middleware('role:root|Super|Admin|Seller|User');
+Route::resource('users', 'UserController')->middleware('role:root|Super|Admin|root');
 //*******admin routes****** */
 
 
