@@ -1,52 +1,90 @@
 @extends('layouts.admin')
-
 @section('content')
-<div class="alert alert-warning alert-dismissible fade show justify-content-around" role="alert">
-    <a href="#" class="d-none btn bg-theme-1 text-light btn-sm"
-        onClick="$('#tableID').tableExport({type:'json',escape:'false'});">
-        <span class=""><i class="fas fa-ellipsis-v"></i></span> JSON</a>
-    <a href="#" class="btn bg-theme-1 text-light btn-sm" onClick="$('#tableID').tableExport({type:'excel',escape:'false'});">
-        <span class=""><i class="fas fa-file-excel"></i></span> XLS</a>
-    <a href="#" class="btn bg-theme-1 text-light btn-sm" onClick="$('#tableID').tableExport({type:'csv',escape:'false'});">
-        <span class=""><i class="fas fa-file-csv"></i></span> CSV</a>
-    <a href="#" class="btn bg-theme-1 text-light btn-sm"
-        onClick="$('#tableID').tableExport({type:'pdf',escape:'false', htmlContent:'true'});"> <span class=""><i
-                class="fas fa-file-pdf"></i></span> PDF</a>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
-</div>
-
 <div class="container-fluid">
-    <div>
-        <table class="table" id="tableID">
+    @if (session('message'))
+    <div class="sufee-alert alert with-close alert-{{ session('alert') }} alert-dismissible fade show">
+        <span class="badge badge-pill badge-{{ session('alert') }}">{{ session('message') }}</span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    @endif
+    <div class="d-flex bd-highlight mb-3">
+        <div class="p-2 bd-highlight d-none">Usuarios</div>
+        <div class="p-2 bd-highlight">
+            <a href=" {{url('adminPost/create')}}" class="btn btn-success btn-sm" style="border-radius: 95px">
+                <i class="fas fa-plus-circle"></i>
+                Agregar
+            </a>
+        </div>
+        <div class="ml-auto p-2 bd-highlight">
+            <div class="btn-group ml-3" role="group" aria-label="Basic example">
+                <a href="#" class="d-none btn bg-theme-1 text-light btn-sm"
+                    onClick="$('#tableID').tableExport({type:'json',escape:'false'});">
+                    <span class=""><i class="fas fa-ellipsis-v"></i></span> JSON</a>
+                <a href="#" class="btn bg-theme-1 text-light btn-sm"
+                    onClick="$('#tableID').tableExport({type:'excel',escape:'false'});">
+                    <span class=""><i class="fas fa-file-excel"></i></span> XLS</a>
+                <a href="#" class="btn bg-theme-1 text-light btn-sm"
+                    onClick="$('#tableID').tableExport({type:'csv',escape:'false'});">
+                    <span class=""><i class="fas fa-file-csv"></i></span> CSV</a>
+                <a href="#" class="btn bg-theme-1 text-light btn-sm"
+                    onClick="$('#tableID').tableExport({type:'pdf',escape:'false', htmlContent:'true'});"> <span
+                        class=""><i class="fas fa-file-pdf"></i></span> PDF</a>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table " id="tableID">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
+                    <th scope="col">id</th>
+                    <th scope="col">Titulo</th>
+                    <th scope="col">Autor</th>
+                    <th scope="col">Categorias</th>
+                    <th scope="col">Etiquetas</th>
+                    <th scope="col">Commentarios</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Opciones</th>
                 </tr>
             </thead>
             <tbody>
+                @foreach ($posts as $item)
                 <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
+                    <th scope="row">{{$item->id}}</th>
+                    <td>{{$item->name}}</td>
+                    <td>{{$item->lastname}}</td>
+                    <td><a href="mailto:{{$item->email}}" target="blank">{{$item->email}}</a></td>
+                    <td>{{$item->phone}}</td>
+                    <td><span class="badge badge-{{$item->status->color}}"> <i class="{{$item->status->icon}}"></i>
+                            {{$item->status->name}}</span></td>
+                    <td>{{$item->getRoleNames()[0]}}</td>
+                    <td>{{$item->score->points}}</td>
+                    <td>
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <a class="btn btn-sm btn-secondary" href="{{url('users/'. $item->id)}}"
+                                title="Ver Detalles">
+                                <span class=""><i class="fas fa-eye"></i></span>
+                            </a>
+                            <a class="btn btn-sm btn-primary" href="{{url('users/'. $item->id . '/edit')}}"
+                                title="Editar">
+                                <span class=""><i class="fas fa-edit"></i></span>
+                            </a>
+                            <a class="btn btn-sm btn-danger"  title="eliminar"
+                                onclick="event.preventDefault();
+                                                     document.getElementById('formDel{{$item->id}}').submit();">
+                                <span class="text-light"><i class="fas fa-trash"></i></span>
+                            </a>
+                            <form id="formDel{{$item->id}}" action="{{ url('users/'. $item->id) }}" method="POST"
+                                style="display: none;">
+                                @csrf
+                                @method('DELETE')
+                            </form>
+                        </div>
+                    </td>
                 </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
-                </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

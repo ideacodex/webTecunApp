@@ -2,75 +2,197 @@
 
 @section('content')
 
-<div class="container-fluid mt-n5">
-    <div class="row justify-content-around" style="margin-top: 4em;">
-        <img src="{{asset('img/denounce.png')}}" class="img-fluid" style="max-height: 250px;">
+<div class="container-fluid">
+    <div class="row justify-content-center mt-2">
+        <p class="text-primary h2">Nueva publicación <i class="fas fa-newspaper"> </i></p>
     </div>
-
-    <div class="row justify-content-around">
-        <p class="text-primary h2">Línea de denuncia</p>
-    </div>
-    <div class="row justify-content-around mt-4 col-12 ml-2 mr-2">
-        <form method="POST" action="{{ url('adminPost') }}" onsubmit="return checkSubmit();">
+    <div class="mt-4">
+        <form method="POST" action="{{ url('adminPost') }}" enctype="multipart/form-data" onsubmit="return checkSubmit();">
             @csrf
-            @method('POST')
-            <div class="input-group input-group-lg mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                        <i class="text-primary fas fa-user-secret"></i>
+            <div class="form-row">
+                <div class="col-12 input-group input-group-lg mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                            <i class="text-primary fas fa-heading"></i>
+                        </span>
+                    </div>
+                    <input id="title" name="title" placeholder="Agregar titulo" type="text" size="100" maxlength="100"
+                        class="text-primary form-control @error('title') is-invalid @enderror" title="title"
+                        value="{{ old('title') }}" required autocomplete="title" autofocus>
+
+                    @error('title')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
                     </span>
-                </div>
-                <input placeholder="Asunto" type="text" aria-label=" Sizing example input"
-                    aria-describedby="inputGroup-sizing-sm"
-                    class=" form-control text-primary @error('email') is-invalid @enderror" name="email"
-                    value="{{ old('email') }}" required>
+                    @enderror
 
-                @error('email')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-            </div>
-            <div>
-                @trix(\App\Article::class, 'content')
-            </div>
-            <div class="input-group input-group-lg mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                        <i class="text-primary fas fa-comment-dots"></i>
+                    @error('title')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
                     </span>
+                    @enderror
                 </div>
-                <textarea placeholder="Denunciar actividad" id="password" type="password"
-                    aria-label=" Sizing example input" aria-describedby="inputGroup-sizing-sm"
-                    class="text-primary form-control @error('password') is-invalid @enderror" name="password"
-                    required></textarea>
+                <div class="col-12 input-group input-group-lg mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                            <i class="text-primary fas fa-align-left"></i>
+                        </span>
+                    </div>
+                    <input id="description" placeholder="Descripcion o texto corto" type="text" size="250"
+                        maxlength="250" class="text-primary form-control @error('description') is-invalid @enderror"
+                        name="description" value="{{ old('description') }}" required autocomplete="description"
+                        autofocus>
 
-                @error('password')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-            </div>
+                    @error('description')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
 
-            <div class="d-none form-group row justify-content-around ">
-                <div class=" ">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="remember" id="remember"
-                            {{ old('remember') ? 'checked' : '' }}>
+                    @error('description')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+                <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                            <i class="text-primary fas fa-question-circle"></i>
+                        </span>
+                    </div>
+                    <select name="status_id" id="status_id"
+                        class="form-control @error('status_id') is-invalid @enderror" required>
+                        <option value="3" selected>Estado</option>
+                        @foreach($status as $item)
+                        <option value="{{$item->id}}">{{ $item->name}}</option>
+                        @endforeach
+                    </select>
+                    @error('status_id')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
 
-                        <label class="form-check-label text-light" for="remember">
-                            {{ __('Mantener la sesion activa') }}
-                        </label>
+                    @error('status_id')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+                <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text text-primary" id="inputGroup-sizing-sm">
+                            <i class="text-primary fas fa-newspaper"></i> / <i class="text-primary fas fa-podcast"></i>
+                        </span>
+                    </div>
+                    <select name="type_id" id="type_id" class="form-control @error('type_id') is-invalid @enderror"
+                        required>
+                        <option value="1" selected>Tipo</option>
+                        @foreach($categories as $item)
+                        <option value="{{$item->id}}">{{ $item->name}}</option>
+                        @endforeach
+                    </select>
+                    @error('type_id')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+
+                    @error('type_id')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+                <div class="col-12 input-group input-group-lg mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                            <i class="text-primary fas fa-image"></i>
+                        </span>
+                    </div>
+                    <div class="custom-file">
+                        <input title="Selecionar" type="file" accept="image/*" name="image" id="inputGroupFile04"
+                            aria-describedby="inputGroupFileAddon04"
+                            class="custom-file-input form-control{{ $errors->has('image') ? ' is-invalid' : '' }}"
+                            value="{{ old('image') }}">
+                        @if ($errors->has('image'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong><i class="fas fa-exclamation-triangle"></i>{{ $errors->first('image') }}</strong>
+                        </span>
+                        @endif
+                        <label class="custom-file-label" for="inputGroupFile04">Elegir imagen de portada</label>
                     </div>
                 </div>
-            </div>
+                <div class="col-12 input-group input-group-lg mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                            <i class="text-primary fas fa-file-audio"></i>
+                        </span>
+                    </div>
+                    <div class="custom-file">
+                        <input title="Selecionar" type="file" accept="audio/*" name="audio" id="inputGroupFile04"
+                            aria-describedby="inputGroupFileAddon04"
+                            class="custom-file-input form-control{{ $errors->has('audio') ? ' is-invalid' : '' }}"
+                            value="{{ old('audio') }}">
+                        @if ($errors->has('audio'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong><i class="fas fa-exclamation-triangle"></i>{{ $errors->first('audio') }}</strong>
+                        </span>
+                        @endif
+                        <label class="custom-file-label" for="inputGroupFile04">Elegir audio de podcast</label>
+                    </div>
+                </div>
+                <div class="col-12 input-group input-group-lg mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                            <i class="text-primary fas fa-file-video"></i>
+                        </span>
+                    </div>
+                    <div class="custom-file">
+                        <input title="Selecionar" type="file" accept="video/*" name="video" id="inputGroupFile04"
+                            aria-describedby="inputGroupFileAddon04"
+                            class="custom-file-input form-control{{ $errors->has('video') ? ' is-invalid' : '' }}"
+                            value="{{ old('video') }}">
+                        @if ($errors->has('video'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong><i class="fas fa-exclamation-triangle"></i>{{ $errors->first('video') }}</strong>
+                        </span>
+                        @endif
+                        <label class="custom-file-label" for="inputGroupFile04">Elegir video</label>
+                    </div>
+                </div>
+                <div class="col-12 input-group input-group-lg mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                            <i class="text-primary fas fa-file-pdf"></i>
+                        </span>
+                    </div>
+                    <div class="custom-file">
+                        <input title="Selecionar" type="file" accept="file_extension/*" name="pdf" id="inputGroupFile04"
+                            aria-describedby="inputGroupFileAddon04"
+                            class="custom-file-input form-control{{ $errors->has('pdf') ? ' is-invalid' : '' }}"
+                            value="{{ old('pdf') }}">
+                        @if ($errors->has('pdf'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong><i class="fas fa-exclamation-triangle"></i>{{ $errors->first('pdf') }}</strong>
+                        </span>
+                        @endif
+                        <label class="custom-file-label" for="inputGroupFile04">Elegir documento</label>
+                    </div>
+                </div>
 
-            <div class="form-group row mt-3 justify-content-around ">
-                <div class="">
-                    <button type="submit" class="btn btn-lg btn-block btn-dark">
-                        {{ __('Denunciar') }}
-                        <i class="fa fa-paper-plane"></i>
-                    </button>
+                <div class="col-12">
+                    @trix(\App\Article::class, 'content')
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col text-center">
+                            <button type="submit" class="btn btn-lg btn-primary">
+                                <i class="fas fa-save"></i>
+                                {{ __('Guardar') }}
+                            </button> </div>
+                    </div>
                 </div>
             </div>
         </form>
