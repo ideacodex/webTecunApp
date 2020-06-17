@@ -151,8 +151,8 @@
                             class=""><i class="fas fa-chart-bar"></i></span> Administracion</a>
                     <a href="{{url('adminPost')}}" class="list-group-item list-group-item-action bg-theme-1 text-light">
                         <span class=""><i class="fas fa-newspaper"></i></span> Noticias</a>
-                    <a href="{{url('#')}}" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span
-                            class=""><i class="fas fa-eye"></i></span> Overview</a>
+                    <a href="{{url('categories')}}" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span
+                            class=""><i class="fas fa-tags"></i></span> Categorías</a>
                     <a href="{{url('#')}}" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span
                             class=""><i class="fas fa-calendar"></i></span> Events</a>
                     <a href="{{url('users')}}" class="list-group-item list-group-item-action bg-theme-1 text-light">

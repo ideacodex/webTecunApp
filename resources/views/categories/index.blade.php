@@ -10,9 +10,9 @@
     </div>
     @endif
     <div class="d-flex bd-highlight mb-3">
-        <div class="p-2 bd-highlight d-none">Usuarios</div>
+        <div class="p-2 bd-highlight d-none">Categorias</div>
         <div class="p-2 bd-highlight">
-            <a href=" {{url('adminPost/create')}}" class="btn btn-success btn-sm" style="border-radius: 95px">
+            <a href=" {{url('categories/create')}}" class="btn btn-success btn-sm" style="border-radius: 95px">
                 <i class="fas fa-plus-circle"></i>
                 Agregar
             </a>
@@ -39,41 +39,32 @@
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">id</th>
-                    <th scope="col">Titulo</th>
-                    <th scope="col">Autor</th>
-                    <th scope="col">Categorias</th>
-                    <th scope="col">Commentarios</th>
-                    <th scope="col">Estado</th>
-                    <th scope="col">Tipo</th>
+                    <th scope="col">Categoria</th>
+                    <th scope="col">Descripcion</th>
                     <th scope="col">Opciones</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($posts as $item)
+                @foreach ($categories as $item)
                 <tr>
                     <th scope="row">{{$item->id}}</th>
-                    <td>{{$item->title}}</td>
-                    <td>{{$item->user->name}}</td>
-                    <td>{{$item->user_id}}</td>
-                    <td>{{$item->user_id}}</td>
-                    <td>{{$item->status->name}}</td>
-                    <td>{{$item->getType()}}</td>
+                    <td>{{$item->name}}</td>
+                    <td>{{$item->description}}</td>
                     <td>
                         <div class="btn-group" role="group" aria-label="Basic example">
-                            <a class="btn btn-sm btn-secondary" href="{{url('users/'. $item->id)}}"
+                            <a class="btn btn-sm btn-secondary" href="{{url('categories/'. $item->id)}}"
                                 title="Ver Detalles">
                                 <span class=""><i class="fas fa-eye"></i></span>
                             </a>
-                            <a class="btn btn-sm btn-primary" href="{{url('users/'. $item->id . '/edit')}}"
+                            <a class="btn btn-sm btn-primary" href="{{url('categories/'. $item->id . '/edit')}}"
                                 title="Editar">
                                 <span class=""><i class="fas fa-edit"></i></span>
                             </a>
-                            <a class="btn btn-sm btn-danger"  title="eliminar"
-                                onclick="event.preventDefault();
+                            <a class="btn btn-sm btn-danger" title="eliminar" onclick="event.preventDefault();
                                                      document.getElementById('formDel{{$item->id}}').submit();">
                                 <span class="text-light"><i class="fas fa-trash"></i></span>
                             </a>
-                            <form id="formDel{{$item->id}}" action="{{ url('users/'. $item->id) }}" method="POST"
+                            <form id="formDel{{$item->id}}" action="{{ url('categories/'. $item->id) }}" method="POST"
                                 style="display: none;">
                                 @csrf
                                 @method('DELETE')

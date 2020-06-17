@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use DB;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -15,6 +16,8 @@ class CategoryController extends Controller
     public function index()
     {
         //
+        $categories = Category::all();
+        return view("categories.index", ["categories" => $categories]);
     }
 
     /**
@@ -25,6 +28,8 @@ class CategoryController extends Controller
     public function create()
     {
         //
+        $categories=Category::all();
+        return view("categories.create", ['categories'=>$categories]);
     }
 
     /**
@@ -36,6 +41,27 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         //
+        request()->validate([
+            'name' => 'required',
+            'description' => 'max:255',
+        ]);
+
+        DB::beginTransaction();
+        try {
+            $category = new Category;
+            $category->name = $request->name;
+            $category->description = $request->description;
+            $category->save();
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollback(); //si hay un error previo, desahe los cambios en DB y redirecciona a pagina de error
+            //$response['message'] = $e->errorInfo;
+            //dd($e->errorInfo[2]);
+            abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
+            return response()->json($response, 500);
+        }
+        DB::commit();
+        return redirect()->action( //regresa con el error
+            'CategoryController@index')->with(['message' => 'Se agregó el registro correctamente', 'alert' => 'warning']);
     }
 
     /**

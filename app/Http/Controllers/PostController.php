@@ -6,6 +6,7 @@ use App\Category;
 use App\Post;
 use App\Status;
 use DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -107,19 +108,20 @@ class PostController extends Controller
             //******carga de file**********//
             //encontrar y asignar rol de Spatie
             $post = new Post;
-            $post->title = $request->_token;
-            $post->description = $request['attachment-article-trixFields']['content'];
+            $post->title = $request->title;
+            $post->description = $request->description;
+            $post['attachment-post-trixFields'] = $request['attachment-article-trixFields'];
             $post->type_id = $request->type_id;
             $post->content = $request['article-trixFields']['content'];
+            $post['post-trixFields'] = $request['article-trixFields'];
             $post->featured_image = '10';
             $post->featured_video = '10';
             $post->featured_audio = '10';
             //$post->featured_document = $request->featured_document;
             //$post->save();
-            $post->user_id = 1;
-            $post->category_id = 1;
+            $post->user_id = auth()->user()->id;
             $post->status_id = $request->status_id;
-            $post->save();
+            $post->save();            
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollback(); //si hay un error previo, desahe los cambios en DB y redirecciona a pagina de error
             //$response['message'] = $e->errorInfo;
@@ -128,7 +130,6 @@ class PostController extends Controller
             return response()->json($response, 500);
         }
         DB::commit();
-        //dd('se guardó');
         return redirect()->action( //regresa con el error
             'PostController@index')->with(['message' => 'Se agregó el registro correctamente', 'alert' => 'warning']);
 
@@ -143,6 +144,8 @@ class PostController extends Controller
     public function show(Post $post)
     {
         //
+        $posts = Post::all();
+        return view("posts.show", ["posts" => $posts]);
     }
 
     /**
@@ -177,5 +180,21 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         //
+    }
+
+
+    public function news()
+    {
+        //
+        $posts = Post::all();
+        return view("news.index", ["posts" => $posts]);
+    }
+
+    public function newsRead(Request $request, $id)
+    {
+        //
+        $post = Post::findorFail($id);
+        return $post;
+        return view("news.index", ["post" => $post]);
     }
 }

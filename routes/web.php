@@ -28,12 +28,14 @@ Route::get('/question', 'HomeController@question')->middleware('auth')  ;
 Route::get('/stores', 'HomeController@stores')->middleware('auth')  ;
 Route::get('/jobs', 'HomeController@jobs')->middleware('auth')  ;
 Route::get('/denounce', 'HomeController@denounce')->middleware('auth')  ;
-Route::get('/news', 'HomeController@news')->middleware('auth')  ;
+Route::get('/news', 'PostController@news')->middleware('auth');
+Route::get('/newsRead/{id}', 'PostController@newsRead')->middleware('auth');
 
 
 //*******admin routes****** */
 Route::resource('adminPost', 'PostController')->middleware('auth')  ;
 Route::resource('users', 'UserController')->middleware('role:root|Super|Admin|root');
+Route::resource('categories', 'CategoryController')->middleware('role:root|Super|Admin|root');
 //*******admin routes****** */
 
 

@@ -1,7 +1,14 @@
 @extends('layouts.admin')
 
 @section('content')
-
+@if(!$categories->first())
+<div class="sufee-alert alert with-close alert-{{ session('alert') }} alert-dismissible fade show">
+<span class="badge badge-pill badge-warning">No hay categorias aun, <a href="{{url('categories/create')}}"> Agregar un nueva categoria</a> </span>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+@endif
 <div class="container-fluid">
     <div class="row justify-content-center mt-2">
         <p class="text-primary h2">Nueva publicación <i class="fas fa-newspaper"> </i></p>
