@@ -37,6 +37,26 @@ $namesUser = explode(" ", Auth::user()->name);
     </div>
     <div class="mt-2 col-12 col-md-6 offset-md-3 ml-0 mr-0">
         <ul class="list-unstyled">
+            @foreach ($stores as $item)
+            <li class="media mt-3 mb-1">
+                <img src="{{asset('img/tecun/logo.png')}}" width="10%" class="mr-3 rounded-circle">
+                <div class="media-body">
+                    <h5 class="mt-0 text-primary h5">{{$item->name}}: </h5>
+                    <span class="">
+                        {{$item->address}}
+                    </span>
+                    <br>
+                    <p>
+                        {{$item->schedule}}
+                        <i class="fas fa-clock text-dark"></i>
+                    </p>
+                    <a href="{{$item->maps}}" class="btn btn-sm btn-block btn-outline-primary">
+                        Ir...
+                        <i class="fab fa-waze text-dark"></i>
+                    </a>
+                </div>
+            </li>
+            @endforeach
             <li class="media">
                 <img src="{{asset('img/tecun/logo.png')}}" width="10%" class="mr-3 rounded-circle">
                 <div class="media-body">

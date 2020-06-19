@@ -151,14 +151,21 @@
                             class=""><i class="fas fa-chart-bar"></i></span> Administracion</a>
                     <a href="{{url('adminPost')}}" class="list-group-item list-group-item-action bg-theme-1 text-light">
                         <span class=""><i class="fas fa-newspaper"></i></span> Noticias</a>
-                    <a href="{{url('categories')}}" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span
-                            class=""><i class="fas fa-tags"></i></span> Categorías</a>
+                    <a href="{{url('categories')}}"
+                        class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
+                                class="fas fa-tags"></i></span> Categorías</a>
+                    <a href="{{url('jobsAdmin')}}" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span
+                            class=""><i class="fas fa-hard-hat"></i></span> Empleos</a>
+                    <a href="{{url('storesAdmin')}}" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span
+                            class=""><i class="fas fa-building"></i></span> Agencias</a>
                     <a href="{{url('#')}}" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span
-                            class=""><i class="fas fa-calendar"></i></span> Events</a>
+                            class=""><i class="fas fa-medal"></i></span> Reconocimientos</a>
                     <a href="{{url('users')}}" class="list-group-item list-group-item-action bg-theme-1 text-light">
                         <span class=""><i class="fas fa-user"></i></span> Usuarios</a>
-                    <a href="{{url('#')}}" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span
-                            class=""><i class="fas fa-cog"></i></span> Ajustes</a>
+                    <a href="{{url('#')}}" class="list-group-item list-group-item-action bg-theme-1 text-light">
+                        <span class=""><i class="fas fa-gamepad"></i></span> Juego</a>
+                    <a href="{{url('#')}}" class="list-group-item list-group-item-action bg-theme-1 text-light">
+                        <span class=""><i class="fas fa-cog"></i></span> Ajustes</a>
                 </div>
             </div>
             <!-- /#sidebar-wrapper -->

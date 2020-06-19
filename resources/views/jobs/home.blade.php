@@ -37,14 +37,13 @@ $namesUser = explode(" ", Auth::user()->name);
     </div>
     <div class="mt-2 col-12 col-md-6 offset-md-3 ml-0 mr-0">
         <ul class="list-unstyled">
+            @foreach ($jobs as $item)
             <li class="media">
                 <img src="{{asset('img/tecun/logo.png')}}" width="10%" class="mr-3 rounded-circle">
                 <div class="media-body">
-                    <h5 class="mt-0 text-primary h5">Vendedor de Repuestos Automotriz: </h5>
+                    <h5 class="mt-0 text-primary h5">{{$item->title}}: </h5>
                     <span class="">
-                        OBJETIVO: Comercializar repuestos y accesorios correspondientes a nuestras marcas, brindando
-                        servicio excepcional con nuestros clientes, asesorando de la mejor manera para que se ejecuten
-                        ventas efectivas y con un índice alto de satisfacción.
+                        {{$item->description}}
                     </span>
                     <br>
                     <p>
@@ -57,113 +56,7 @@ $namesUser = explode(" ", Auth::user()->name);
                     </p>
                 </div>
             </li>
-            <li class="media">
-                <img src="{{asset('img/tecun/logo.png')}}" width="10%" class="mr-3 rounded-circle">
-                <div class="media-body">
-                    <h5 class="mt-0 text-primary h5">Vendedor de Repuestos Automotriz: </h5>
-                    <span class="">
-                        OBJETIVO: Comercializar repuestos y accesorios correspondientes a nuestras marcas, brindando
-                        servicio excepcional con nuestros clientes, asesorando de la mejor manera para que se ejecuten
-                        ventas efectivas y con un índice alto de satisfacción.
-                    </span>
-                    <br>
-                    <p>
-                        ESTUDIOS: 1er año de Ingeniería Industrial, Mecánica o Licenciatura en Administración de
-                        Empresas.
-                        <a href="https://www.waze.com/ul?q=grupotecunGuatemala" class="text-primary">
-                            Aplicar...
-                            <i class="fas fa-user-tie text-dark#"></i>
-                        </a>
-                    </p>
-                </div>
-            </li>
-            <li class="media">
-                <img src="{{asset('img/tecun/logo.png')}}" width="10%" class="mr-3 rounded-circle">
-                <div class="media-body">
-                    <h5 class="mt-0 text-primary h5">Vendedor de Repuestos Automotriz: </h5>
-                    <span class="">
-                        OBJETIVO: Comercializar repuestos y accesorios correspondientes a nuestras marcas, brindando
-                        servicio excepcional con nuestros clientes, asesorando de la mejor manera para que se ejecuten
-                        ventas efectivas y con un índice alto de satisfacción.
-                    </span>
-                    <br>
-                    <p>
-                        ESTUDIOS: 1er año de Ingeniería Industrial, Mecánica o Licenciatura en Administración de
-                        Empresas.
-                        <a href="https://www.waze.com/ul?q=grupotecunGuatemala" class="text-primary">
-                            Aplicar...
-                            <i class="fas fa-user-tie text-dark#"></i>
-                        </a>
-                    </p>
-                </div>
-            </li>
-            <li class="media">
-                <img src="{{asset('img/tecun/logo.png')}}" width="10%" class="mr-3 rounded-circle">
-                <div class="media-body">
-                    <h5 class="mt-0 text-primary h5">Petén: </h5>
-                    <span class="">
-                        Km 179 San Sebastián,
-                        Retalhuleu.
-                        <a href="https://www.waze.com/ul?q=grupotecunGuatemala" class="btn btn-sm btn-outline-primary">
-                            Ir...
-                            <i class="fab fa-waze text-dark"></i>
-                        </a>
-                    </span>
-                    <br>
-                    <p>
-                        Lunes a Viernes:
-                        08:00 am a 05:00 pm
-                        <i class="fas fa-clock text-dark"></i>
-                        <br>
-                        Sábado: 08:00 am a 12:00 pm
-                        <i class="fas fa-clock text-dark"></i>
-                    </p>
-                </div>
-            </li>
-            <li class="media">
-                <img src="{{asset('img/tecun/logo.png')}}" width="10%" class="mr-3 rounded-circle">
-                <div class="media-body">
-                    <h5 class="mt-0 text-primary h5">Quetzaltenango: </h5>
-                    <span class="">
-                        Diagonal 2, 33-18, zona 8, DIDEA Xela, Quetzaltenango.
-                        <a href="https://www.waze.com/ul?q=grupotecunGuatemala" class="btn btn-sm btn-outline-primary">
-                            Ir...
-                            <i class="fab fa-waze text-dark"></i>
-                        </a>
-                    </span>
-                    <br>
-                    <p>
-                        Lunes a Viernes:
-                        08:00 am a 05:00 pm
-                        <i class="fas fa-clock text-dark"></i>
-                        <br>
-                        Sábado: 08:00 am a 12:00 pm
-                        <i class="fas fa-clock text-dark"></i>
-                    </p>
-                </div>
-            </li>
-            <li class="media">
-                <img src="{{asset('img/tecun/logo.png')}}" width="10%" class="mr-3 rounded-circle">
-                <div class="media-body">
-                    <h5 class="mt-0 text-primary h5">Río Hondo: </h5>
-                    <span class="">
-                        Km 126.5 Carretera al Atlántico, Santa Cruz, Río Hondo, Zacapa.
-                        <a href="https://www.waze.com/ul?q=grupotecunGuatemala" class="btn btn-sm btn-outline-primary">
-                            Ir...
-                            <i class="fab fa-waze text-dark"></i>
-                        </a>
-                    </span>
-                    <br>
-                    <p>
-                        Lunes a Viernes:
-                        08:00 am a 05:00 pm
-                        <i class="fas fa-clock text-dark"></i>
-                        <br>
-                        Sábado: 08:00 am a 12:00 pm
-                        <i class="fas fa-clock text-dark"></i>
-                    </p>
-                </div>
-            </li>
+            @endforeach
         </ul>
     </div>
 </div>

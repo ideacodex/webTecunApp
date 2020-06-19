@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Job;
+use App\Category;
+use App\Status;
+use DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class JobController extends Controller
@@ -15,6 +19,8 @@ class JobController extends Controller
     public function index()
     {
         //
+        $jobs = Job::all();
+        return view("jobs.index", ["jobs" => $jobs]);
     }
 
     /**
@@ -25,6 +31,10 @@ class JobController extends Controller
     public function create()
     {
         //
+        $status = Status::all();
+        $categories = Category::all();
+        return view("jobs.create", ["status" => $status, "categories" => $categories]);
+
     }
 
     /**
@@ -36,6 +46,33 @@ class JobController extends Controller
     public function store(Request $request)
     {
         //
+        request()->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'category_id' => 'required',
+            'email' => 'required',
+        ]);
+
+        DB::beginTransaction();
+        try {
+            $job = new Job;
+            $job->title = $request->title;
+            $job->description = $request->description;
+            $job->category_id = $request->category_id;
+            $job->salary = $request->salary;
+            $job->email = $request->email;
+            $job->save();
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollback(); //si hay un error previo, desahe los cambios en DB y redirecciona a pagina de error
+            //$response['message'] = $e->errorInfo;
+            //dd($e->errorInfo[2]);
+            abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
+            return response()->json($response, 500);
+        }
+        DB::commit();
+        return redirect()->action( //regresa con el error
+            'JobController@index')->with(['message' => 'Se agregó el registro correctamente', 'alert' => 'success']);
+    
     }
 
     /**
@@ -55,9 +92,13 @@ class JobController extends Controller
      * @param  \App\Job  $job
      * @return \Illuminate\Http\Response
      */
-    public function edit(Job $job)
+    public function edit($id)
     {
         //
+        $job = Job::findOrFail($id);
+        $categories = Category::all();
+        return view("jobs.edit", ["categories" => $categories,  'job' => $job]);
+   
     }
 
     /**
@@ -67,9 +108,36 @@ class JobController extends Controller
      * @param  \App\Job  $job
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Job $job)
+    public function update(Request $request, $id)
     {
         //
+        request()->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'category_id' => 'required',
+            'email' => 'required',
+        ]);
+
+        DB::beginTransaction();
+        try {
+            $job = Job::findOrFail($id);
+            $job->title = $request->title;
+            $job->description = $request->description;
+            $job->category_id = $request->category_id;
+            $job->salary = $request->salary;
+            $job->email = $request->email;
+            $job->save();
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollback(); //si hay un error previo, desahe los cambios en DB y redirecciona a pagina de error
+            //$response['message'] = $e->errorInfo;
+            //dd($e->errorInfo[2]);
+            abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
+            return response()->json($response, 500);
+        }
+        DB::commit();
+        return redirect()->action( //regresa con el error
+            'JobController@index')->with(['message' => 'Se actualizó el registro correctamente', 'alert' => 'success']);
+    
     }
 
     /**
@@ -81,5 +149,13 @@ class JobController extends Controller
     public function destroy(Job $job)
     {
         //
+    }
+
+
+    public function jobs()
+    {
+        //
+        $jobs = Job::all();
+        return view("jobs.home", ["jobs" => $jobs]);
     }
 }

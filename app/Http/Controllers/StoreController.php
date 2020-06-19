@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Store;
 use Illuminate\Http\Request;
 
+use App\Status;
+use DB;
+use Illuminate\Support\Facades\Auth;
+
 class StoreController extends Controller
 {
     /**
@@ -15,6 +19,8 @@ class StoreController extends Controller
     public function index()
     {
         //
+        $stores = Store::all();
+        return view("stores.index", ["stores" => $stores]);
     }
 
     /**
@@ -25,6 +31,8 @@ class StoreController extends Controller
     public function create()
     {
         //
+        $status = Status::all();
+        return view("stores.create", ["status" => $status]);
     }
 
     /**
@@ -36,6 +44,31 @@ class StoreController extends Controller
     public function store(Request $request)
     {
         //
+        request()->validate([
+            'name' => 'required',
+            'address' => 'required',
+            'schedule' => 'required',
+        ]);
+
+        DB::beginTransaction();
+        try {
+            $store = new Store;
+            $store->name = $request->name;
+            $store->address = $request->address;
+            $store->schedule = $request->schedule;
+            $store->maps = $request->maps;
+            $store->save();
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollback(); //si hay un error previo, desahe los cambios en DB y redirecciona a pagina de error
+            //$response['message'] = $e->errorInfo;
+            //dd($e->errorInfo[2]);
+            abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
+            return response()->json($response, 500);
+        }
+        DB::commit();
+        return redirect()->action( //regresa con el error
+            'StoreController@index')->with(['message' => 'Se agregó el registro correctamente', 'alert' => 'success']);
+    
     }
 
     /**
@@ -55,9 +88,11 @@ class StoreController extends Controller
      * @param  \App\Store  $store
      * @return \Illuminate\Http\Response
      */
-    public function edit(Store $store)
+    public function edit($id)
     {
         //
+        $store = Store::findOrFail($id);
+        return view("stores.edit", ['store' => $store]);
     }
 
     /**
@@ -67,9 +102,34 @@ class StoreController extends Controller
      * @param  \App\Store  $store
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Store $store)
+    public function update(Request $request, $id)
     {
         //
+        request()->validate([
+            'name' => 'required',
+            'address' => 'required',
+            'schedule' => 'required',
+        ]);
+
+        DB::beginTransaction();
+        try {
+            $store = Store::findOrFail($id);
+            $store->name = $request->name;
+            $store->address = $request->address;
+            $store->schedule = $request->schedule;
+            $store->maps = $request->maps;
+            $store->save();
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollback(); //si hay un error previo, desahe los cambios en DB y redirecciona a pagina de error
+            //$response['message'] = $e->errorInfo;
+            //dd($e->errorInfo[2]);
+            abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
+            return response()->json($response, 500);
+        }
+        DB::commit();
+        return redirect()->action( //regresa con el error
+            'StoreController@index')->with(['message' => 'Se actualizó el registro correctamente', 'alert' => 'success']);
+    
     }
 
     /**
@@ -81,5 +141,12 @@ class StoreController extends Controller
     public function destroy(Store $store)
     {
         //
+    }
+
+    public function stores()
+    {
+        //
+        $stores = Store::all();
+        return view("stores.home", ["stores" => $stores]);
     }
 }
