@@ -21,7 +21,7 @@ Route::get('login/facebook/callback', 'SocialServicesController@handleProviderCa
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth')   ;
 Route::get('/team', 'HomeController@team')->middleware('auth')  ;
-Route::get('/specialTeam', 'HomeController@specialTeam')->middleware('auth')    ;
+Route::get('/specialTeam', 'AwardController@specialTeam')->middleware('auth')    ;
 Route::get('/podcast', 'HomeController@podcast')->middleware('auth')    ;
 Route::get('/trivia', 'HomeController@games')->middleware('auth')   ;
 Route::get('/question', 'HomeController@question')->middleware('auth')  ;
@@ -38,6 +38,7 @@ Route::resource('users', 'UserController')->middleware('role:root|Super|Admin');
 Route::resource('categories', 'CategoryController')->middleware('role:root|Super|Admin');
 Route::resource('jobsAdmin', 'JobController')->middleware('role:root|Super|Admin');
 Route::resource('storesAdmin', 'StoreController')->middleware('role:root|Super|Admin');
+Route::resource('awardsAdmin', 'AwardController')->middleware('role:root|Super|Admin');
 //*******admin routes****** */
 
 

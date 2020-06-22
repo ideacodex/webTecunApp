@@ -11,11 +11,11 @@ class CreateAwardsTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up() 
     {
         Schema::create('awards', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('url_image')->nullable();
+            $table->string('url_image')->nullable();
             $table->integer('type_id');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')

@@ -30,9 +30,9 @@
             </select>
         </div>
 
-        <div class="row">
+        <div class="container-fluid row pr-0 pl-0">
             @foreach ($posts as $item)
-            <div class="card col-12 col-md-4">
+            <div class="card col-12 col-md-4 pr-0 pl-0">
                 <img src="{{asset('/storage/posts/' . $item->featured_image)}}" class="card-img-top"
                     onerror=this.src="{{asset('img/tecun/preview2.png')}}">
                 <div class="card-body">

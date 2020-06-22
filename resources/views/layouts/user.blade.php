@@ -56,8 +56,8 @@
 
     .btn-float {
         position: fixed;
-        right: 37px;
-        bottom: 100px;
+        right: 5px;
+        bottom: 70px;
     }
 </style>
 <style>

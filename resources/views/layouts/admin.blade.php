@@ -32,6 +32,11 @@
 
     {{-- packete de editor de texto --}}
     @trixassets
+
+
+    {{-- selec2 --}}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+
 </head>
 <style>
     .btn-circle {
@@ -133,6 +138,17 @@
         color: #212529;
         background-color: #33f7921c;
     }
+
+
+    /*buscar select */
+    .select2-container .select2-selection--single {
+        height: 46px !important;
+    }
+
+    .select2-container--default .select2-selection--single {
+        border: 1px solid #ccc !important;
+        border-radius: 0px !important;
+    }
 </style>
 
 <body>
@@ -154,12 +170,14 @@
                     <a href="{{url('categories')}}"
                         class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
                                 class="fas fa-tags"></i></span> Categorías</a>
-                    <a href="{{url('jobsAdmin')}}" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span
-                            class=""><i class="fas fa-hard-hat"></i></span> Empleos</a>
-                    <a href="{{url('storesAdmin')}}" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span
-                            class=""><i class="fas fa-building"></i></span> Agencias</a>
-                    <a href="{{url('#')}}" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span
-                            class=""><i class="fas fa-medal"></i></span> Reconocimientos</a>
+                    <a href="{{url('jobsAdmin')}}" class="list-group-item list-group-item-action bg-theme-1 text-light">
+                        <span class=""><i class="fas fa-hard-hat"></i></span> Empleos</a>
+                    <a href="{{url('storesAdmin')}}"
+                        class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
+                                class="fas fa-building"></i></span> Agencias</a>
+                    <a href="{{url('awardsAdmin')}}"
+                        class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
+                                class="fas fa-medal"></i></span> Reconocimientos</a>
                     <a href="{{url('users')}}" class="list-group-item list-group-item-action bg-theme-1 text-light">
                         <span class=""><i class="fas fa-user"></i></span> Usuarios</a>
                     <a href="{{url('#')}}" class="list-group-item list-group-item-action bg-theme-1 text-light">
@@ -230,7 +248,10 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
     </script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script>
+        $('.select2').select2();
+    </script>
 
 
     <!-- tableExport -->
