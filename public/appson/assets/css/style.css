@@ -335,7 +335,7 @@ font-family: 'Open Sans', sans-serif;
 ===========================*/
 
 .background-image {
-    background: url(../img/bg/img-background.jpg) center center/cover no-repeat;
+    background: url(../img/bg/tecunbg.jpg) center center/cover no-repeat;
     position: relative;
 }
 
@@ -494,40 +494,11 @@ font-family: 'Open Sans', sans-serif;
 
 .feature-item {
     position: relative;
-    padding-top: 40px;
+    padding-top: 30px;
     z-index: 7;
-    margin-top: 27px;
+    margin-top: 17px;
 }
 
-.feature-item::before {
-    content: '';
-    position: absolute;
-    right: 34px;
-    top: 0;
-    height: 40px;
-    width: 2px;
-    background-color: #fff;
-}
-
-.feature-list-right .feature-item::before {
-    right: auto;
-    left: 34px;
-}
-
-.feature-item::after {
-    content: '';
-    position: absolute;
-    right: -55px;
-    top: 0;
-    height: 2px;
-    width: 90px;
-    background-color: #fff;
-}
-
-.feature-list-right .feature-item::after {
-    left: -55px;
-    right: 0;
-}
 
 .feature-item .icon {
     height: 70px;
@@ -541,19 +512,6 @@ font-family: 'Open Sans', sans-serif;
     color: #ff6818;
     margin-bottom: 11px;
     position: relative;
-}
-
-.feature-item .icon::before {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: -10px;
-    height: 11px;
-    width: 11px;
-    background: #fff;
-    border: 1px solid #444;
-    border-radius: 50%;
-    transform: translateX(-50%);
 }
 
 .feature-item h4 {

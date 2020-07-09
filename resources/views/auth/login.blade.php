@@ -1,14 +1,15 @@
 @extends('layouts.single')
 @section('content')
 <div class="container ">
-    <div class="row justify-content-around" style="margin-top: 4em;">
-        <img src="{{asset('img/user.png')}}" class="img-fluid" style="max-height: 250px;">
+    <div class="row justify-content-around" style="margin-top: 2em;">
+        <img src="{{asset('img/user.png')}}" class="img-fluid" style="max-height: 150px;">
     </div>
-
     <div class="row justify-content-around">
-        <h1 class="text-light">Bienvenido</h1>
+        <a href="{{url('/')}}">
+            <img src="{{asset('img/tecun/logoBlanco.png')}}" class="img-fluid" style="max-height: 75px;">
+        </a>
     </div>
-    <div class="row justify-content-around mt-4">
+    <div class="row justify-content-around mt-5">
         <form method="POST" action="{{ route('login') }}">
             @csrf
             <div class="input-group input-group-lg mb-3">
@@ -68,12 +69,13 @@
             </div>
         </form>
     </div>
-    <div class="row mt-5 justify-content-center">
+
+    <div class="row justify-content-center">
         @if (Route::has('password.request'))
-        <a class="m-t-5 btn btn-link text-light" href="{{ route('password.request') }}">
+        <a class="m-t-1 btn btn-link text-light" href="{{ route('password.request') }}">
             {{ __('¿Olvidé la contraseña?') }}
         </a>
-        <a class="btn btn-link text-light" href="{{ route('register') }}">
+        <a class="d-none btn btn-link text-light" href="{{ route('register') }}">
             {{ __('Crear cuenta') }}
         </a>
         @endif
