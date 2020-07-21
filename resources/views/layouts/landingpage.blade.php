@@ -28,7 +28,7 @@
     <link href="{{ asset('js/export/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 
     <!-- menuadmin -->
-    <link href="{{ asset('css/simple-sidebar.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/landing-page.css') }}" rel="stylesheet">
 
     {{-- packete de editor de texto --}}
     @trixassets
@@ -37,284 +37,16 @@
     {{-- selec2 --}}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css"
-        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css" />
-    <link rel="stylesheet" type="text/css"
-        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/slick.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/slick-theme.min.css') }}" />
 
 </head>
-<style>
-    /* The device with borders */
-    .smartphone {
-        position: relative;
-        width: 360px;
-        height: 680px;
-        margin: auto;
-        border: 16px #F1DDC8 solid;
-        border-top-width: 60px;
-        border-bottom-width: 60px;
-        border-radius: 36px;
-    }
-
-    /* The horizontal line on the top of the device */
-    .smartphone:before {
-        content: '';
-        display: block;
-        width: 60px;
-        height: 5px;
-        position: absolute;
-        top: -30px;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background: #333;
-        border-radius: 10px;
-    }
-
-    /* The circle on the bottom of the device */
-    .smartphone:after {
-        content: '';
-        display: block;
-        width: 35px;
-        height: 35px;
-        position: absolute;
-        left: 50%;
-        bottom: -65px;
-        transform: translate(-50%, -50%);
-        background: silver;
-        border-radius: 50%;
-    }
-
-    /* The screen (or content) of the device */
-    .smartphone .content {
-        width: 330px;
-        height: 560px;
-        background: white;
-    }
-</style>
-<style>
-    .btn-circle {
-        width: 30px;
-        height: 30px;
-        text-align: center;
-        padding: 6px 0;
-        font-size: 12px;
-        line-height: 1.428571429;
-        border-radius: 15px;
-    }
-
-    .btn-circle.btn-lg {
-        width: 50px;
-        height: 50px;
-        padding: 10px 16px;
-        font-size: 18px;
-        line-height: 1.33;
-        border-radius: 25px;
-    }
-
-    .btn-circle.btn-xl {
-        width: 70px;
-        height: 70px;
-        padding: 10px 16px;
-        font-size: 24px;
-        line-height: 1.33;
-        border-radius: 35px;
-    }
-
-    .btn-float {
-        position: fixed;
-        right: 37px;
-        bottom: 100px;
-    }
-</style>
-<style>
-    .nav-app-icon {
-        font-size: 18px;
-    }
-
-    .badge-notify {
-        position: absolute;
-        top: 1em;
-        margin-right: 1em;
-    }
-
-    .bg-theme-1 {
-        background-color: #f7921c;
-    }
-
-    .bg-gradient {
-        background-image: linear-gradient(to right, #f7921c, #ce8416);
-    }
-
-    .bg-theme-2 {
-        background-color: #519e93;
-    }
-
-    .bg-theme-3 {
-        background-color: #015e88;
-    }
-
-    .bg-theme-4 {
-        background-color: #01d4d9;
-    }
-
-    .bg-theme-5 {
-        background-color: #bcbcbc;
-    }
-
-    .bg-theme-6 {
-        background-color: #ffffff;
-    }
-
-    .bg-theme-7 {
-        background-color: #55c684;
-    }
-
-    .bg-theme-8 {
-        background-color: #87ab10;
-    }
-
-    .bg-theme-9 {
-        background-color: #bf2833;
-    }
-
-    .list-group-item-action {
-        width: 100%;
-        color: #495057;
-        text-align: inherit;
-    }
-
-    .list-group-item-action:hover,
-    .list-group-item-action:focus {
-        z-index: 1;
-        color: #495057;
-        text-decoration: none;
-        background-color: #FFf7921c;
-    }
-
-    .list-group-item-action:active {
-        color: #212529;
-        background-color: #33f7921c;
-    }
-
-
-    /*buscar select */
-    .select2-container .select2-selection--single {
-        height: 46px !important;
-    }
-
-    .select2-container--default .select2-selection--single {
-        border: 1px solid #ccc !important;
-        border-radius: 0px !important;
-    }
-
-    .icon {
-        font-size: 1em;
-        color: #f7921c;
-        background-color: white;
-        border-radius: 50%;
-        padding: 25px
-    }
-
-    /*===========================
-2.9 Team Area
-===========================*/
-
-    .team-area {}
-
-    .member-area {}
-
-    .team-item {
-        position: relative;
-        border-radius: 10px;
-        overflow: hidden;
-    }
-
-    .team-item img {
-        max-width: 100%;
-    }
-
-    .tmember-info {
-        position: absolute;
-        left: 0;
-        bottom: -100%;
-        background: #ff6818;
-        padding: 13px 20px 22px;
-        opacity: 0;
-        transition: all 0.3s ease 0s;
-    }
-
-    .team-item:hover .tmember-info {
-        opacity: 1;
-        bottom: 0;
-    }
-
-    .tmember-info h4 {
-        font-size: 18px;
-        font-weight: 500;
-        letter-spacing: 0;
-        color: #fff;
-    }
-
-    .tmember-info span {
-        display: block;
-        font-size: 10px;
-        color: #fff;
-        letter-spacing: 0;
-        text-transform: capitalize;
-        line-height: 16px;
-    }
-
-    .tmember-info p {
-        font-size: 12px;
-        color: #fff;
-        line-height: 18px;
-        margin: 14px 0px 16px;
-    }
-
-    .social-btns {}
-
-    .social-btns a {
-        height: 30px;
-        width: 30px;
-        border: 1px solid #fff;
-        display: inline-block;
-        text-align: center;
-        line-height: 28px;
-        border-radius: 50%;
-        color: #fff;
-        font-size: 13px;
-        margin-right: 3px;
-    }
-
-    /*===========================
-END Team Area
-===========================*/
-
-    .achive-single {
-        font-size: 3em;
-    }
-
-    }
-</style>
-
-<style>
-    .fixed-top.scrolled {
-        padding-top: 10px;
-        background-color: #f7921c !important;
-    }
-
-    .fixed-top.scrolled .nav-link {
-        color: #555;
-    }
-</style>
-
-
 
 <body>
-    <div id="app">
-        <section class="fixed-top">
+    <div id="app" class="container-fluid pl-0 pr-0 ml-0 mr-0">
+        <section class="fixed-top bg-opacity">
             <!--Navbar -->
-            <nav id="navigation" class="pt-3 pb-2 navbar  navbar-expand-lg fixed-top">
+            <nav id="navigation" class="bg-opacity pt-3 pb-2 navbar  navbar-expand-lg fixed-top">
                 <a class="ml-5 navbar-brand" href="{{url('/')}}"><img src="{{asset('img/tecun/logoBlanco.png')}}"
                         class="d-inline-block align-top ml-1" height="35px"></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -337,9 +69,7 @@ END Team Area
                                 href="#pricing"><strong>Reconocimiento</strong></a></li>
                         <li class="nav-item"><a class="nav-link waves-effect waves-light text-light"
                                 href="#download"><strong>Descargar</strong></a></li>
-                        <li class="nav-item"><a class="nav-link waves-effect waves-light text-light"
-                                href="#review"><strong>Opiniones</strong></a></li>
-                        <li class="nav-item"><a class="nav-link waves-effect waves-light text-light"
+                        <li class="nav-item"><a class="h4 nav-link waves-effect waves-light text-light"
                                 href="{{url('login')}}"><strong>Ingresar</strong></a></li>
                     </ul>
                 </div>
@@ -359,30 +89,33 @@ END Team Area
                         </ol>
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                                <img src="https://img.freepik.com/free-photo/agriculture-thailand-tractor-plowing-soil-field_35954-68.jpg?size=626&ext=jpg"
-                                    style="max-height: 700px" class="d-block w-100">
-                                <div class="carousel-caption mt-n5 mb-5">
-                                    <p class="h1">First slide label</p>
-                                    <p class="h5">Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                                    <a href="" class="btn btn-sm btn-dark"> Enlace </a>
+                                <img src="{{asset('img/bg/bg-1.jpg')}}" style="max-height: 700px" class="d-block w-100">
+                                <div class="carousel-caption mb-2 mb-md-5">
+                                    <p class="h1 mb-2 mb-md-5">Vehículo de concepto autónomo</p>
+                                    <p class="h5 mt-2 mt-md-5 d-none d-md-block">El Vehículo Conceptual Autónomo Case IH tiene
+                                        el potencial de revolucionar la agricultura</p>
+                                    <a href="{{url('home')}}" class="btn btn-lg bg-theme-1 mb-2 mb-md-5 mt-2 mt-md-5 text-light ">
+                                        Ir <i class="fas fa-arrow-right"></i> </a>
                                 </div>
                             </div>
                             <div class="carousel-item">
-                                <img src="https://image.freepik.com/free-photo/tractor-sun-into-shovel-bucket_157744-73.jpg"
-                                    style="max-height: 700px" class="d-block w-100">
-                                <div class="carousel-caption mt-n5 mb-5">
-                                    <p class="h1">Second slide label</p>
-                                    <p class="h5">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                    <a href="" class="btn btn-sm btn-dark"> Enlace </a>
+                                <img src="{{asset('img/bg/bg-2.jpg')}}" style="max-height: 700px" class="d-block w-100">
+                                <div class="carousel-caption mb-2 mb-md-5">
+                                    <p class="h1 mb-2 mb-md-5">50 años investigando accidentes</p>
+                                    <p class="h5 mt-2 mt-md-5 d-none d-md-block">El Vehículo Conceptual Autónomo Case IH tiene
+                                        el potencial de revolucionar la agricultura</p>
+                                    <a href="{{url('home')}}" class="btn btn-lg bg-theme-1 mb-2 mb-md-5 mt-2 mt-md-5 text-light ">
+                                        Ir <i class="fas fa-arrow-right"></i> </a>
                                 </div>
                             </div>
                             <div class="carousel-item">
-                                <img src="https://image.freepik.com/free-photo/man-driving-tractor-through-field_140725-1574.jpg"
-                                    style="max-height: 700px" class="d-block w-100">
-                                <div class="carousel-caption mt-n5 mb-5">
-                                    <p class="h1">Third slide label</p>
-                                    <p class="h5">Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-                                    <a href="" class="btn btn-sm btn-dark"> Enlace </a>
+                                <img src="{{asset('img/bg/bg-3.jpg')}}" style="max-height: 700px" class="d-block w-100">
+                                <div class="carousel-caption mb-2 mb-md-5">
+                                    <p class="h1 mb-2 mb-md-5">Manipulación de materiales para puertos</p>
+                                    <p class="h5 mt-2 mt-md-5 d-none d-md-block">El Vehículo Conceptual Autónomo Case IH tiene
+                                        el potencial de revolucionar la agricultura</p>
+                                    <a href="{{url('home')}}" class="btn btn-lg bg-theme-1 mb-2 mb-md-5 mt-2 mt-md-5 text-light ">
+                                        Ir <i class="fas fa-arrow-right"></i> </a>
                                 </div>
                             </div>
                         </div>
@@ -657,8 +390,8 @@ END Team Area
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     Copyright &copy;<script>
                         document.write(new Date().getFullYear());
-                    </script> All rights reserved | Made with <i class="fa fa-heart"
-                        aria-hidden="true"></i> by <a href="http://norellanac.website/" class="text-light" target="_blank">Norellanac</a>
+                    </script> All rights reserved | Made with <i class="fa fa-heart" aria-hidden="true"></i> by <a
+                        href="http://norellanac.website/" class="text-light" target="_blank">Norellanac</a>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 </p>
             </div>
@@ -692,7 +425,7 @@ END Team Area
     <!-- filtros -->
     <script src="{{ asset('js/export/dataTables.bootstrap4.min.js') }}" defer></script>
 
-    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script type="text/javascript" src="{{ asset('js/slick.min.js') }}"></script>
 
     <script>
         $(function () {

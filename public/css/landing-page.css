@@ -1,0 +1,290 @@
+/**/
+
+
+/* The device with borders */
+
+.smartphone {
+    position: relative;
+    width: 360px;
+    height: 680px;
+    margin: auto;
+    border: 16px #F1DDC8 solid;
+    border-top-width: 60px;
+    border-bottom-width: 60px;
+    border-radius: 36px;
+}
+
+
+/* The horizontal line on the top of the device */
+
+.smartphone:before {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 5px;
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #333;
+    border-radius: 10px;
+}
+
+
+/* The circle on the bottom of the device */
+
+.smartphone:after {
+    content: '';
+    display: block;
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    left: 50%;
+    bottom: -65px;
+    transform: translate(-50%, -50%);
+    background: silver;
+    border-radius: 50%;
+}
+
+
+/* The screen (or content) of the device */
+
+.smartphone .content {
+    width: 330px;
+    height: 560px;
+    background: white;
+}
+
+
+/**/
+
+
+/**/
+
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 1.428571429;
+    border-radius: 15px;
+}
+
+.btn-circle.btn-lg {
+    width: 50px;
+    height: 50px;
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.33;
+    border-radius: 25px;
+}
+
+.btn-circle.btn-xl {
+    width: 70px;
+    height: 70px;
+    padding: 10px 16px;
+    font-size: 24px;
+    line-height: 1.33;
+    border-radius: 35px;
+}
+
+.btn-float {
+    position: fixed;
+    right: 37px;
+    bottom: 100px;
+}
+
+
+/**/
+
+
+/**/
+
+.nav-app-icon {
+    font-size: 18px;
+}
+
+.badge-notify {
+    position: absolute;
+    top: 1em;
+    margin-right: 1em;
+}
+
+.bg-theme-1 {
+    background-color: #f7921c;
+}
+
+.bg-opacity {
+    background-color: #f7921CB3;
+}
+
+.bg-theme-2 {
+    background-color: #519e93;
+}
+
+.bg-theme-3 {
+    background-color: #015e88;
+}
+
+.bg-theme-4 {
+    background-color: #01d4d9;
+}
+
+.bg-theme-5 {
+    background-color: #bcbcbc;
+}
+
+.bg-theme-6 {
+    background-color: #ffffff;
+}
+
+.bg-theme-7 {
+    background-color: #55c684;
+}
+
+.bg-theme-8 {
+    background-color: #87ab10;
+}
+
+.bg-theme-9 {
+    background-color: #bf2833;
+}
+
+.list-group-item-action {
+    width: 100%;
+    color: #495057;
+    text-align: inherit;
+}
+
+.list-group-item-action:hover,
+.list-group-item-action:focus {
+    z-index: 1;
+    color: #495057;
+    text-decoration: none;
+    background-color: #FFf7921c;
+}
+
+.list-group-item-action:active {
+    color: #212529;
+    background-color: #33f7921c;
+}
+
+
+/*buscar select */
+
+.select2-container .select2-selection--single {
+    height: 46px !important;
+}
+
+.select2-container--default .select2-selection--single {
+    border: 1px solid #ccc !important;
+    border-radius: 0px !important;
+}
+
+.icon {
+    font-size: 1em;
+    color: #f7921c;
+    background-color: white;
+    border-radius: 50%;
+    padding: 25px
+}
+
+
+/*===========================
+2.9 Team Area
+===========================*/
+
+.team-area {}
+
+.member-area {}
+
+.team-item {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.team-item img {
+    max-width: 100%;
+}
+
+.tmember-info {
+    position: absolute;
+    left: 0;
+    bottom: -100%;
+    background: #ff6818;
+    padding: 13px 20px 22px;
+    opacity: 0;
+    transition: all 0.3s ease 0s;
+}
+
+.team-item:hover .tmember-info {
+    opacity: 1;
+    bottom: 0;
+}
+
+.tmember-info h4 {
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 0;
+    color: #fff;
+}
+
+.tmember-info span {
+    display: block;
+    font-size: 10px;
+    color: #fff;
+    letter-spacing: 0;
+    text-transform: capitalize;
+    line-height: 16px;
+}
+
+.tmember-info p {
+    font-size: 12px;
+    color: #fff;
+    line-height: 18px;
+    margin: 14px 0px 16px;
+}
+
+.social-btns {}
+
+.social-btns a {
+    height: 30px;
+    width: 30px;
+    border: 1px solid #fff;
+    display: inline-block;
+    text-align: center;
+    line-height: 28px;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 13px;
+    margin-right: 3px;
+}
+
+
+/*===========================
+END Team Area
+===========================*/
+
+.achive-single {
+    font-size: 3em;
+}
+
+
+/**/
+
+
+/**/
+
+.fixed-top.scrolled {
+    padding-top: 10px;
+    background-color: #f7921c !important;
+}
+
+.fixed-top.scrolled .nav-link {
+    color: #555;
+}
+
+
+/**/
