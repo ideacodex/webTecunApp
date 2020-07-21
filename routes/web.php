@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('layouts.appson');
+    return view('layouts.landingpage');
 });
 
 Auth::routes();
