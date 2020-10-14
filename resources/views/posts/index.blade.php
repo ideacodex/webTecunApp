@@ -57,14 +57,14 @@
                     <td>{{$item->user_id}}</td>
                     <td>{{$item->user_id}}</td>
                     <td>{{$item->status->name}}</td>
-                    <td>{{$item->getType()}}</td>
+                    <td>{{$item->type()}}</td>
                     <td>
                         <div class="btn-group" role="group" aria-label="Basic example">
-                            <a class="btn btn-sm btn-secondary" href="{{url('users/'. $item->id)}}"
+                            <a class="btn btn-sm btn-secondary" href="{{url('adminPost/'. $item->id)}}"
                                 title="Ver Detalles">
                                 <span class=""><i class="fas fa-eye"></i></span>
                             </a>
-                            <a class="btn btn-sm btn-primary" href="{{url('users/'. $item->id . '/edit')}}"
+                            <a class="btn btn-sm btn-primary" href="{{url('adminPost/'. $item->id . '/edit')}}"
                                 title="Editar">
                                 <span class=""><i class="fas fa-edit"></i></span>
                             </a>
@@ -73,7 +73,7 @@
                                                      document.getElementById('formDel{{$item->id}}').submit();">
                                 <span class="text-light"><i class="fas fa-trash"></i></span>
                             </a>
-                            <form id="formDel{{$item->id}}" action="{{ url('users/'. $item->id) }}" method="POST"
+                            <form id="formDel{{$item->id}}" action="{{ url('posts/'. $item->id) }}" method="POST"
                                 style="display: none;">
                                 @csrf
                                 @method('DELETE')

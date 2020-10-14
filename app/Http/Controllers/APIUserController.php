@@ -42,7 +42,7 @@ class APIUserController extends Controller
   */
   public function create()
   {
-    //
+    
   }
 
   /**

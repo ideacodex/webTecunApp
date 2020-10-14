@@ -95,10 +95,11 @@
                     </div>
                     <select name="type_id" id="type_id" class="form-control @error('type_id') is-invalid @enderror"
                         required>
-                        <option value="1" selected>Tipo</option>
-                        @foreach($categories as $item)
-                        <option value="{{$item->id}}">{{ $item->name}}</option>
-                        @endforeach
+                        <option value="0" selected>Tipo</option>
+                        <option value="1">Noticias</option>
+                        <option value="2">Podcast</option>
+                        <option value="3">Comunicado</option>
+                        <option value="4">Arte</option>
                     </select>
                     @error('type_id')
                     <span class="invalid-feedback" role="alert">

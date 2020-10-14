@@ -32,12 +32,19 @@ class Post extends Model
         return Comment::where('post_id', $this->id)->count();
     }
 
-    function getType()
+    function type()
     {
         if($this->type_id==1){
             return "Noticias";
-        }else{
+        }
+        if($this->type_id==2){
             return "Podcast";
+        }
+        if($this->type_id==3){
+            return "Comunicado";
+        }
+        if($this->type_id==4){
+            return "Arte";
         }
     }
 }
