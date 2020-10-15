@@ -120,14 +120,14 @@
                     <div class="row">
                         <form action="mail.php" id="contact-form">
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input placeholder="Name" id="name" type="text">
+                                <input placeholder="Nombre" id="name" type="text">
                                 <input placeholder="Email" id="email" type="text">
-                                <input placeholder="Website" id="website" type="text">
+                                <!--<input placeholder="Website" id="website" type="text">-->
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <textarea name="msg" id="message" placeholder="Message"></textarea>
+                                <textarea name="msg" placeholder="Mensaje" rows="2"></textarea>
                             </div>
-                            <div class="col-xs-12">
+                            <div class="col-xs-12 col-md-6 mb-5">
                                 <input value="send message" id="comment-submit" type="submit">
                             </div>
                         </form>

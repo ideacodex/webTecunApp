@@ -196,7 +196,7 @@
                         </div>
                     </div>
                     <div class="col-12">
-                        <td>@php echo($item->content) @endphp</td>
+                     <textarea id="summernote" name="editordata">{{ $record->content }}</textarea>
                     </div>
                     <div class="container">
                         <div class="row">

@@ -241,7 +241,7 @@ class PostController extends Controller
                 $post->description = $request->description;
                 $post['attachment-post-trixFields'] = $request['attachment-article-trixFields'];
                 $post->type_id = $request->type_id;
-                $post->content = $request['article-trixFields']['content'];
+                $post->content = $request->editordata;
                 $post['post-trixFields'] = $request['article-trixFields'];
                 $post->featured_image = '10';
                 $post->featured_video = '10';

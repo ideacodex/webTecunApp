@@ -58,7 +58,7 @@
                     <td>{{$item->category->name}}</td>
                     <td>
                         <div class="btn-group" role="group" aria-label="Basic example">
-                            <a class="btn btn-sm btn-secondary" href="{{url('jobsAdmin/'. $item->id)}}"
+                            <a class="btn btn-sm btn-secondary" href="{{url('jobs/')}}"
                                 title="Ver Detalles">
                                 <span class=""><i class="fas fa-eye"></i></span>
                             </a>

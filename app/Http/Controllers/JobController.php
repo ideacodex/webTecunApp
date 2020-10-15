@@ -11,6 +11,12 @@ use Illuminate\Http\Request;
 
 class JobController extends Controller
 {
+
+    public function home(){
+        $jobs = Job::all();
+        return view("jobs.home", ["jobs" => $jobs]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -81,9 +87,10 @@ class JobController extends Controller
      * @param  \App\Job  $job
      * @return \Illuminate\Http\Response
      */
-    public function show(Job $job)
+    public function show($id)
     {
-        //
+        $jobs = Job::findOrFail($id);
+        return view("jobs.show", ["jobs" => $jobs]);
     }
 
     /**
@@ -157,5 +164,10 @@ class JobController extends Controller
         //
         $jobs = Job::all();
         return view("jobs.home", ["jobs" => $jobs]);
+    }
+
+    public function job($id){
+        $job = Job::findOrFail($id);
+        return view('jobs.show', ['job' => $job]);
     }
 }

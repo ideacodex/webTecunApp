@@ -31,15 +31,14 @@
             </div>
 
             <div class="card-deck">
-
-                <div class="card">
-                    @foreach ($records as $item)
+                @foreach ($records as $item)
+                    <div class="card">
                         <img src="{{ asset('img/tecun/preview2.png') }}" class="card-img-top">
                         <div class="card-body">
                             <h5 class="card-title" style="color:orange">{{ $item->title }}</h5>
                             <p class="card-text">
                                 {{ $item->description }}
-                                <a href="{{ url('adminPost/' .$item->id) }}" class="">
+                                <a href="{{ url('adminPost/' . $item->id) }}" class="">
                                     <span class="text-primary">
                                         Leer más
                                         <i class="fas fa-book-reader"></i>
@@ -62,8 +61,8 @@
                                 </span>
                             </span>
                         </div>
-                    @endforeach
-                </div>
+                    </div>
+                @endforeach
 
                 <div class="card">
                     <img src="{{ asset('img/tecun/preview2.png') }}" class="card-img-top">

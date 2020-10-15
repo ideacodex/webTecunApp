@@ -198,6 +198,7 @@
                     <div class="col-12">
                         <textarea id="summernote" name="editordata"></textarea>
                     </div>
+                    
                     <div class="container">
                         <div class="row">
                             <div class="col text-center">

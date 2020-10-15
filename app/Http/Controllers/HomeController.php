@@ -30,7 +30,7 @@ class HomeController extends Controller
             auth()->user()->syncRoles('User');
         }
 
-        $records = Post::all();
+        $records = Post::where('status_id', 3)->get(); //El estado es activo
         return view('home', ['records' => $records]);
     }
 

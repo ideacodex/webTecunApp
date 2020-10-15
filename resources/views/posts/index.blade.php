@@ -56,7 +56,8 @@
                     <td>{{$item->user->name}}</td>
                     <td>{{$item->user_id}}</td>
                     <td>@php echo($item->content) @endphp</td>
-                    <td>{{$item->status->name}}</td>
+                    <td><span class="badge badge-{{$item->status->color}}"> <i class="{{$item->status->icon}}"></i>
+                        {{$item->status->name}}</span></td>
                     <td>{{$item->type()}}</td>
                     <td>
                         <div class="btn-group" role="group" aria-label="Basic example">

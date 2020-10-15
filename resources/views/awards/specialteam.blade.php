@@ -8,16 +8,16 @@ $namesUser = explode(" ", Auth::user()->name);
         <div class="col col-12 col-md-6 mt-1" style="padding-right:2px; padding-left:2px;">
             <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
-                    @foreach ($awards as $item)
+                    @foreach ($awards->where('type_id', 0) as $item)
                     <li data-target="#carouselExampleCaptions" data-slide-to="{{$item->id}}"
                         class="@if($item->id == $awards->first()->id) active @endif"></li>
                     @endforeach
                 </ol>
                 <div class="carousel-inner">
-                    @foreach ($awards as $item)
+                    @foreach ($awards->where('type_id',1) as $item)
                     <div class="carousel-item @if($item->id == $awards->first()->id) active @endif">
                         <img class="mx-auto d-block" src="{{asset('/storage/awards/' . $item->url_image)}}"
-                            alt="imagen de perfil" width="100%" style="max-height: 500px">
+                            alt="imagen de perfil" width="100%" style="max-height: 300px; min-height: 300px">
                     </div>
                     @endforeach
                 </div>
@@ -43,7 +43,7 @@ $namesUser = explode(" ", Auth::user()->name);
                     @foreach ($awards as $item)
                     <div class="carousel-item @if($item->id == $awards->first()->id) active @endif">
                         <img class="mx-auto d-block" src="{{asset('/storage/awards/' . $item->url_image)}}"
-                            alt="imagen de perfil" width="100%" style="max-height: 500px">
+                            alt="imagen de perfil" width="100%" style="max-height: 300px; min-height: 300px">
                     </div>
                     @endforeach
                 </div>

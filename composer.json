@@ -15,7 +15,6 @@
         "laravel/passport": "^8.4",
         "laravel/socialite": "^4.3",
         "laravel/tinker": "^2.0",
-        "magefan/module-wysiwyg-advanced": "^2.0",
         "spatie/laravel-permission": "^3.6"
     },
     "require-dev": {

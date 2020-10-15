@@ -94,7 +94,7 @@
                     </div>
                     <select name="category_id" id="category_id"
                         class="form-control @error('category_id') is-invalid @enderror" required>
-                <option value="{{$job->category_id}}" selected>Categoría</option>
+                <option value="{{$job->category_id}}" selected>{{ $job->category->name }}</option>
                         @foreach($categories as $item)
                         <option value="{{$item->id}}">{{ $item->name}}</option>
                         @endforeach
