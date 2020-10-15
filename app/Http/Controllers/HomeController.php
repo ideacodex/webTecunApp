@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
+use App\Post;
+
 
 class HomeController extends Controller
 {
@@ -27,7 +29,9 @@ class HomeController extends Controller
         if (!$user->hasAnyRole(Role::all())) {
             auth()->user()->syncRoles('User');
         }
-        return view('home');
+
+        $records = Post::all();
+        return view('home', ['records' => $records]);
     }
 
     public function news()

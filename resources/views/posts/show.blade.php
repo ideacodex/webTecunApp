@@ -1,36 +1,266 @@
-@extends('layouts.admin')
+@extends('layouts.user')
 @section('content')
-<div class="container-fluid">
-    @if (session('message'))
-    <div class="sufee-alert alert with-close alert-{{ session('alert') }} alert-dismissible fade show">
-        <span class="badge badge-pill badge-{{ session('alert') }}">{{ session('message') }}</span>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
+<!-- crumbs area start -->
+<div class="crumbs-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="crumbs-inner">
+                    <h2>Blog Details</h2>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><span>Blog Details</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
-    @endif
-
-    @foreach ($posts as $item)
-    <div class="mt-5">
-        @php
-        echo($item->content) ;   
-        @endphp
-    </div>
-    <div class="mt-2">
-        {!! $item->trixRender("content") !!}
-    </div>
-    @endforeach
-
-
-
-
 </div>
-@endsection
-@section('js')
-<!-- Menu Toggle Script -->
-<script>
-    $(document).ready(function() {
-        $('#tableID').DataTable();
-    } );
-</script>
+<!-- crumbs area end -->
+<!-- blog post area start -->
+<div class="blog-details ptb--320 pb-4">
+    <div class="container">
+        <div class="row">
+            <!-- blog details area start -->
+            <div class="col-md-8 col-sm-8 col-xs-12">
+                <div class="blog-info">
+                    <div class="blog-thumbnail">
+                        <img src="{{asset('appson/assets/img/blog/blog-thumb3.jpg')}}" alt="blog thumbnail">
+                    </div>
+                    <h2 class="blog-title"><a href="blog-details.html">Work For Success</a></h2>
+                    <div class="blog-meta">
+                        <ul>
+                            <li><i class="fa fa-calendar"></i>12 Feb 2017</li>
+                            <li><i class="fa fa-comment"></i>Comments</li>
+                        </ul>
+                    </div>
+                    <div class="blog-summery">
+                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit sed diam nonummy nibh euismod tincid unt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit.
+                            <br>
+                            <br>Lorem ipsum dolor sit amet, consectetuer adipiscing elit sed diam nonummy nibh euismod tincid unt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat.</p>
+                        <div class="blog-single-tags">
+                            <h2>Tag's</h2>
+                            <ul>
+                                <li><a href="#">web design</a></li>
+                                <li><a href="#">landing</a></li>
+                                <li><a href="#">Appland</a></li>
+                                <li><a href="#">Themeforest</a></li>
+                                <li><a href="#">Creative</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- comment area start -->
+                <div class="comment-area pb-5">
+                    <div class="comment-title">
+                        <h4>Visitor Comments <span>(03)</span></h4>
+                    </div>
+                    <ul class="comment-list">
+                        <li class="comment-info-inner">
+                            <article>
+                                <div class="comment-author">
+                                    <img src="assets/img/author/author1.jpg" alt="image">
+                                    <h2>Luisiana garcias</h2>
+                                </div>
+                                <div class="meta-data">
+                                    <p class="category">Category : <span>Apartment</span></p>
+                                </div>
+                                <div class="comment-content">
+                                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam...</p>
+                                </div>
+                                <div class="comment-reply">
+                                    <a href="#"><i class="fa fa-reply"></i></a>
+                                </div>
+                            </article>
+                            <ul class="children">
+                                <li class="comment-info-inner">
+                                    <article>
+                                        <div class="comment-author">
+                                            <img src="assets/img/author/author2.jpg" alt="image">
+                                            <h2>Luisiana garcias</h2>
+                                        </div>
+                                        <div class="meta-data">
+                                            <p class="category">Category : <span>Apartment</span></p>
+                                        </div>
+                                        <div class="comment-content">
+                                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam...</p>
+                                        </div>
+                                        <div class="comment-reply">
+                                            <a href="#"><i class="fa fa-reply"></i></a>
+                                        </div>
+                                    </article>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="comment-info-inner">
+                            <article>
+                                <div class="comment-author">
+                                    <img src="assets/img/author/author3.jpg" alt="image">
+                                    <h2>Luisiana garcias</h2>
+                                </div>
+                                <div class="meta-data">
+                                    <p class="category">Category : <span>Apartment</span></p>
+                                </div>
+                                <div class="comment-content">
+                                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam...</p>
+                                </div>
+                                <div class="comment-reply">
+                                    <a href="#"><i class="fa fa-reply"></i></a>
+                                </div>
+                            </article>
+                        </li>
+                    </ul>
+                </div>
+                <!-- comment area end -->
+                <!-- leave comment area start -->
+                <div class="leave-comment">
+                    <div class="comment-title">
+                        <h4>Leave a Comments</h4>
+                    </div>
+                    <div class="row">
+                        <form action="mail.php" id="contact-form">
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input placeholder="Name" id="name" type="text">
+                                <input placeholder="Email" id="email" type="text">
+                                <input placeholder="Website" id="website" type="text">
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <textarea name="msg" id="message" placeholder="Message"></textarea>
+                            </div>
+                            <div class="col-xs-12">
+                                <input value="send message" id="comment-submit" type="submit">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- leave comment area end -->
+            </div>
+            <!-- blog details area end -->
+            <!-- sidebar area start -->
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="sidebar--area">
+                    <!-- widget search area start -->
+                    <div class="widget widget-search">
+                        <form action="#">
+                            <input type="text" placeholder="Search here">
+                            <button type="submit" id="search-submit"><i class="fa fa-search"></i></button>
+                        </form>
+                    </div>
+                    <!-- widget search area end -->
+                    <!-- widget recent post area start -->
+                    <div class="widget widget-recent-post">
+                        <div class="widget-title">
+                            <h2>Recent Post</h2>
+                        </div>
+                        <div class="recent--post-list">
+                            <div class="rc-single-post">
+                                <div class="meta-thumb">
+                                    <a href="#"><img src="assets/img/sidebar/sidebar-thumb1.jpg" alt="post thumb"></a>
+                                </div>
+                                <div class="meta--content">
+                                    <a href="#">Cras dictum dolor vel eros gravida molestie.</a>
+                                    <span class="up-time">20 jan , 2017 </span>
+                                </div>
+                            </div>
+                            <div class="rc-single-post">
+                                <div class="meta-thumb">
+                                    <a href="#"><img src="assets/img/sidebar/sidebar-thumb2.jpg" alt="post thumb"></a>
+                                </div>
+                                <div class="meta--content">
+                                    <a href="#">Cras dictum dolor vel eros gravida molestie.</a>
+                                    <span class="up-time">20 jan , 2017 </span>
+                                </div>
+                            </div>
+                            <div class="rc-single-post">
+                                <div class="meta-thumb">
+                                    <a href="#"><img src="assets/img/sidebar/sidebar-thumb3.jpg" alt="post thumb"></a>
+                                </div>
+                                <div class="meta--content">
+                                    <a href="#">Cras dictum dolor vel eros gravida molestie.</a>
+                                    <span class="up-time">20 jan , 2017 </span>
+                                </div>
+                            </div>
+                            <div class="rc-single-post">
+                                <div class="meta-thumb">
+                                    <a href="#"><img src="assets/img/sidebar/sidebar-thumb4.jpg" alt="post thumb"></a>
+                                </div>
+                                <div class="meta--content">
+                                    <a href="#">Cras dictum dolor vel eros gravida molestie.</a>
+                                    <span class="up-time">20 jan , 2017 </span>
+                                </div>
+                            </div>
+                            <div class="rc-single-post">
+                                <div class="meta-thumb">
+                                    <a href="#"><img src="assets/img/sidebar/sidebar-thumb5.jpg" alt="post thumb"></a>
+                                </div>
+                                <div class="meta--content">
+                                    <a href="#">Cras dictum dolor vel eros gravida molestie.</a>
+                                    <span class="up-time">20 jan , 2017 </span>
+                                </div>
+                            </div>
+                            <div class="rc-single-post">
+                                <div class="meta-thumb">
+                                    <a href="#"><img src="assets/img/sidebar/sidebar-thumb6.jpg" alt="post thumb"></a>
+                                </div>
+                                <div class="meta--content">
+                                    <a href="#">Cras dictum dolor vel eros gravida molestie.</a>
+                                    <span class="up-time">20 jan , 2017 </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- widget recent post area end -->
+                    <!-- widget categoriy area start -->
+                    <div class="widget widget-category">
+                        <div class="widget-title">
+                            <h2>Categories</h2>
+                        </div>
+                        <div class="widget--category-list">
+                            <ul>
+                                <li><a href="#"> Technology <span>(07)</span></a></li>
+                                <li><a href="#">Mobile Apps <span>(10)</span></a></li>
+                                <li><a href="#">Cognitive Science <span>(08)</span></a></li>
+                                <li><a href="#">Artificial Intelligence <span>(27)</span></a></li>
+                                <li><a href="#">Product Updates <span>(03)</span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- widget categoriy area end -->
+                    <!-- widget archive area start -->
+                    <div class="widget widget-archive">
+                        <div class="widget-title">
+                            <h2>Archive</h2>
+                        </div>
+                        <div class="widget--archive-list">
+                            <ul>
+                                <li><a href="#">Jul 2017 <span>(07)</span></a></li>
+                                <li><a href="#">Jan 2016 <span>(10)</span></a></li>
+                                <li><a href="#">Jul 2015 <span>(08)</span></a></li>
+                                <li><a href="#">Jan 2014 <span>(27)</span></a></li>
+                                <li><a href="#">Jul 2013 <span>(03)</span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- widget archive area end -->
+                    <!-- widget tags area start -->
+                    <div class="widget widget-tags">
+                        <div class="widget-title">
+                            <h2>Tags</h2>
+                        </div>
+                        <div class="widget-tag-list">
+                            <a href="#">BLOG</a>
+                            <a href="#">TECHNOLOGY</a>
+                            <a href="#">MOBILE</a>
+                            <a href="#">PRODUCT UPDATES</a>
+                            <a href="#">CHANGELOG</a>
+                        </div>
+                    </div>
+                    <!-- widget tags area end -->
+                </div>
+            </div>
+            <!-- sidebar area end -->
+        </div>
+    </div>
+</div>
+<!-- blog post area end -->
 @endsection

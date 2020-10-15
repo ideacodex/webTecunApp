@@ -12,10 +12,10 @@
     @endif
     <div class="container-fluid">
         <div class="row justify-content-center mt-2">
-            <p class="text-primary h2">Editar publicacion <i class="fas fa-newspaper"> </i></p>
+            <p class="text-primary h2">Actualizar publicacion <i class="fas fa-newspaper"> </i></p>
         </div>
         <div class="mt-4">
-            <form method="POST" action="{{ url('adminPost/' .$record->id) }}" enctype="multipart/form-data"
+            <form method="POST" action="{{ url('adminPost/' . $record->id) }}" enctype="multipart/form-data"
                 onsubmit="return checkSubmit();">
                 @csrf
                 @method('PUT')
@@ -99,10 +99,10 @@
                         <select name="type_id" id="type_id" class="form-control @error('type_id') is-invalid @enderror"
                             required>
                             <option value={{ $record->type_id }} selected>{{ $record->type() }} </option>
-                                <option value="1">Noticias</option>
-                                <option value="2">Podcast</option>
-                                <option value="3">Comunicado</option>
-                                <option value="4">Arte</option>
+                            <option value="1">Noticias</option>
+                            <option value="2">Podcast</option>
+                            <option value="3">Comunicado</option>
+                            <option value="4">Arte</option>
                         </select>
                         @error('type_id')
                         <span class="invalid-feedback" role="alert">
@@ -196,7 +196,7 @@
                         </div>
                     </div>
                     <div class="col-12">
-                        {!! $record->trix('content') !!}
+                        <td>@php echo($item->content) @endphp</td>
                     </div>
                     <div class="container">
                         <div class="row">
@@ -221,4 +221,29 @@
             @endif
         </div>
     </div>
+@endsection
+@section('js')
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+    </script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <script>
+        $('#summernote').summernote({
+            placeholder: 'Hello stand alone ui',
+            tabsize: 2,
+            height: 120,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+            ]
+        });
+
+    </script>
+
 @endsection

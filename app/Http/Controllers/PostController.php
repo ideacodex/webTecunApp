@@ -111,10 +111,8 @@ class PostController extends Controller
             $post = new Post;
             $post->title = $request->title;
             $post->description = $request->description;
-            $post['attachment-post-trixFields'] = $request['attachment-article-trixFields'];
             $post->type_id = $request->type_id;
-            $post->content = $request['article-trixFields']['content'];
-            $post['post-trixFields'] = $request['article-trixFields'];
+            $post->content = $request->editordata;
             $post->featured_image = '10';
             $post->featured_video = '10';
             $post->featured_audio = '10';
@@ -142,10 +140,10 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show($id)
     {
         //
-        $posts = Post::all();
+        $posts = Post::findOrFail($id);
         return view("posts.show", ["posts" => $posts]);
     }
 
@@ -235,8 +233,8 @@ class PostController extends Controller
                 } else {
                     $pdfNameToStore = 'nofile';
                 }
-
                 //******carga de file**********//
+
                 //encontrar y asignar rol de Spatie
                 $post = Post::findOrFail($id);
                 $post->title = $request->title;
@@ -252,9 +250,7 @@ class PostController extends Controller
                 //$post->save();
                 $post->user_id = auth()->user()->id;
                 $post->status_id = $request->status_id;
-                $post->save();  
-
-                //return view('posts.index');
+                $post->save();
 
             } catch (\Illuminate\Database\QueryException $e) {
                 DB::rollback(); //si hay un error previo, desahe los cambios en DB y redirecciona a pagina de error

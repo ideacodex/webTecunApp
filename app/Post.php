@@ -3,23 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Te7aHoudini\LaravelTrix\Traits\HasTrixRichText;
 
 use App\Comment;
 
 class Post extends Model
 {
-    //
-    use HasTrixRichText;
-
-    public function trixRender($field)
-    {
-        return $this->trixRichText->where('field', $field)->first()->content;
-    }
-
     public function status()
     {
-        return $this->hasOne("App\Status", 'id');
+        return $this->belongsTo("App\Status", 'status_id');
     }
 
     public function user()

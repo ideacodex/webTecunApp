@@ -24,6 +24,14 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
+
+    <link href="{{ asset('appson/assets/css/style.css') }}" rel="stylesheet">
+
+    <link href="{{ asset('appson/assets/css/responsive.css') }}" rel="stylesheet">
+
+
+
+
 </head>
 <style>
     .btn-circle {
@@ -176,9 +184,9 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{url('adminPost')}}"> <span><i
-                                            class="fas fa-newspaper"></i></span> Publicaciones</a>
+                                            class="fas fa-newspaper"></i></span> Ususarios</a>
                                 <a class="dropdown-item" href="{{url('users')}}"> <span><i
-                                            class="fas fa-users"></i></span> Usuarios</a>
+                                            class="fas fa-users"></i></span> Publicaciones</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item"
                                     onclick="event.preventDefault();  document.getElementById('logout-form').submit();">
