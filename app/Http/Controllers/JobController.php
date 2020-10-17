@@ -55,7 +55,6 @@ class JobController extends Controller
         request()->validate([
             'title' => 'required',
             'description' => 'required',
-            'category_id' => 'required',
             'email' => 'required',
         ]);
 
@@ -64,9 +63,9 @@ class JobController extends Controller
             $job = new Job;
             $job->title = $request->title;
             $job->description = $request->description;
-            $job->category_id = $request->category_id;
             $job->salary = $request->salary;
             $job->email = $request->email;
+            $job->skils = $request->editordata;
             $job->save();
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollback(); //si hay un error previo, desahe los cambios en DB y redirecciona a pagina de error
@@ -121,7 +120,6 @@ class JobController extends Controller
         request()->validate([
             'title' => 'required',
             'description' => 'required',
-            'category_id' => 'required',
             'email' => 'required',
         ]);
 
@@ -130,9 +128,9 @@ class JobController extends Controller
             $job = Job::findOrFail($id);
             $job->title = $request->title;
             $job->description = $request->description;
-            $job->category_id = $request->category_id;
             $job->salary = $request->salary;
             $job->email = $request->email;
+            $job->skils = $request->editordata;
             $job->save();
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollback(); //si hay un error previo, desahe los cambios en DB y redirecciona a pagina de error

@@ -81,9 +81,10 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
-        //
+        $categories = Category::findOrFail($id);
+        return view("categories.edit", ['categories' => $categories]);
     }
 
     /**
@@ -93,9 +94,29 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $id)
     {
-        //
+        request()->validate([
+            'name' => 'required',
+            'desciption' => 'required'
+        ]);
+
+        DB::beginTransaction();
+        try{
+            $category = new Category;
+            $category->name = $request->name;
+            $category->description = $request->description;
+            $category->save();
+        } catch (\Illuminate\DataBase\QueryException $e){
+            DB::rollback();//si hay un error previo, desahe los cambios en DB y redirecciona a pagina de error
+            //$response['message'] = $e->errorInfo;
+            //dd($e->errorInfo[2]);
+            abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
+            return response()->json($response, 500);
+        }
+        DB::commit();
+        return  redirect()->action(
+            'CategoryController@index')->with(['message' => 'Se actualizo el registro correctamente', 'alert' => 'success']);
     }
 
     /**

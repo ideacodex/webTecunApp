@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }} | {{ substr(request()->getRequestUri(),1 )}}</title>
+    <title>{{ config('app.name', 'Laravel') }} | {{ substr(request()->getRequestUri(), 1) }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/png" href="{{asset('img/tecun/logo.png')}}">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('img/tecun/logo.png') }}">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -67,6 +67,7 @@
         right: 5px;
         bottom: 70px;
     }
+
 </style>
 <style>
     .nav-app-icon {
@@ -114,6 +115,7 @@
     .bg-theme-9 {
         background-color: #bf2833;
     }
+
 </style>
 
 <body>
@@ -130,7 +132,7 @@
                 <div class="navbar-collapse collapse" id="collapsingNavbar">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a href="{{url('/')}}" class="nav-link">
+                            <a href="{{ url('/') }}" class="nav-link">
                                 <span class="nav-app-icon text-light">
                                     <i class="fas fa-home"> </i>
                                 </span>
@@ -138,67 +140,69 @@
                         </li>
                     </ul>
                     @guest
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link text-light" href="{{ route('login') }}">
-                                <span class="nav-app-icon text-light">
-                                    <i class="fas fa-sign-in-alt"> </i>
-                                </span>
-                                {{ __('Login') }}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" href="{{ route('register') }}"> <span
-                                    class="nav-app-icon text-light"><i class="fas fa-user-plus"> </i> </span>
-                                {{ __('Register') }}</a>
-                        </li>
-                    </ul>
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link text-light" href="{{ route('login') }}">
+                                    <span class="nav-app-icon text-light">
+                                        <i class="fas fa-sign-in-alt"> </i>
+                                    </span>
+                                    {{ __('Login') }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" href="{{ route('register') }}"> <span
+                                        class="nav-app-icon text-light"><i class="fas fa-user-plus"> </i> </span>
+                                    {{ __('Register') }}</a>
+                            </li>
+                        </ul>
                     @else
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{url('#')}}" data-target="#myModal" data-toggle="modal"><span
-                                    class="nav-app-icon text-light"><i class="fas fa-user"></i></span>
-                                <span class="text-light" style="margin-top: -5px;"> {{ Auth::user()->name }} </span></a>
-                        </li>
-                        <li class="nav-item" style="margin-right: 1em;">
-                            <a class="nav-link" href="{{url('podcast')}}">
-                                <span class="nav-app-icon text-light" style="margin-top: -4em;"><i
-                                        class="fas fa-podcast"></i></span>
-                                <span class="text-light" style="margin-top: -5px;">
-                                    Podcast
-                                </span>
-                                <span class="badge  badge-warning text-dark">{{ Auth::user()->id }} </span>
-                            </a>
-                        </li>
-                        @role('User')
-                        <li class="nav-item" style="margin-right: 1em;">
-                            <a class="nav-link"
-                                onclick="event.preventDefault();  document.getElementById('logout-form').submit();">
-                                <span class="nav-app-icon"><i class="fas fa-sign-out-alt"></i></span>
-                                <span class="" style="margin-top: -5px;"> Salir </span></a>
-                        </li>
-                        @else
-                        <li class="nav-item dropdown" style="margin-right: 1em;">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Administrar
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{url('adminPost')}}"> <span><i
-                                            class="fas fa-newspaper"></i></span> Ususarios</a>
-                                <a class="dropdown-item" href="{{url('users')}}"> <span><i
-                                            class="fas fa-users"></i></span> Publicaciones</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item"
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('#') }}" data-target="#myModal" data-toggle="modal"><span
+                                        class="nav-app-icon text-light"><i class="fas fa-user"></i></span>
+                                    <span class="text-light" style="margin-top: -5px;"> {{ Auth::user()->name }} </span></a>
+                            </li>
+                            <li class="nav-item" style="margin-right: 1em;">
+                                <a class="nav-link" href="{{ url('podcast') }}">
+                                    <span class="nav-app-icon text-light" style="margin-top: -4em;"><i
+                                            class="fas fa-podcast"></i></span>
+                                    <span class="text-light" style="margin-top: -5px;">
+                                        Podcast
+                                    </span>
+                                    <span class="badge  badge-warning text-dark">{{ Auth::user()->id }} </span>
+                                </a>
+                            </li>
+                            @role('User')
+                            <li class="nav-item" style="margin-right: 1em;">
+                                <a class="nav-link"
                                     onclick="event.preventDefault();  document.getElementById('logout-form').submit();">
                                     <span class="nav-app-icon"><i class="fas fa-sign-out-alt"></i></span>
                                     <span class="" style="margin-top: -5px;"> Salir </span></a>
-                            </div>
-                        </li>
-                        @endrole
-                    </ul>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
+                            </li>
+                        @else
+                            <li class="nav-item dropdown" style="margin-right: 1em;">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Administrar
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ url('adminPost') }}"> <span><i
+                                                class="fas fa-newspaper"></i></span> Publicaciones</a>
+                                    <a class="dropdown-item" href="{{ url('users') }}"> <span><i
+                                                class="fas fa-users"></i></span> Usuarios</a>
+                                    <a class="dropdown-item" href="{{ url('home') }}"> <span><i
+                                                class="fas fa-newspaper"></i></span> Vista usuario</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item"
+                                        onclick="event.preventDefault();  document.getElementById('logout-form').submit();">
+                                        <span class="nav-app-icon"><i class="fas fa-sign-out-alt"></i></span>
+                                        <span class="" style="margin-top: -5px;"> Salir </span></a>
+                                </div>
+                            </li>
+                            @endrole
+                        </ul>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
                     @endguest
                 </div>
             </div>
@@ -211,52 +215,52 @@
     </div>
     <nav class="fixed-bottom bg-theme-1" style="padding-bottom: 0;">
         @guest
-        <ul class="nav justify-content-around" style="margin-bottom: -1em;">
-            <li class="nav-item text-center">
-                <a class="nav-link" href="{{url('/home')}}">
-                    <span class="nav-app-icon text-light"><i class="fas fa-home"></i></span>
-                    <p class="text-light" style="margin-top: -5px;"> Home</p>
-                </a>
-            </li>
-            <li class="nav-item text-center">
-                <a class="nav-link" href="{{url('/login')}}">
-                    <span class="nav-app-icon text-light"><i class="fas fa-sign-in-alt"></i></span>
-                    <p class="text-light" style="margin-top: -5px;"> Ingresar</p>
-                </a>
-            </li>
-            <li class="align-self-end nav-item text-center">
-                <a class="nav-link" href="{{url('/register')}}">
-                    <span class="nav-app-icon text-light"><i class="fas fa-user-plus"></i></span>
-                    <p class="text-light" style="margin-top: -5px;"> Registrarse</p>
-                </a>
-            </li>
-        </ul>
+            <ul class="nav justify-content-around" style="margin-bottom: -1em;">
+                <li class="nav-item text-center">
+                    <a class="nav-link" href="{{ url('/home') }}">
+                        <span class="nav-app-icon text-light"><i class="fas fa-home"></i></span>
+                        <p class="text-light" style="margin-top: -5px;"> Home</p>
+                    </a>
+                </li>
+                <li class="nav-item text-center">
+                    <a class="nav-link" href="{{ url('/login') }}">
+                        <span class="nav-app-icon text-light"><i class="fas fa-sign-in-alt"></i></span>
+                        <p class="text-light" style="margin-top: -5px;"> Ingresar</p>
+                    </a>
+                </li>
+                <li class="align-self-end nav-item text-center">
+                    <a class="nav-link" href="{{ url('/register') }}">
+                        <span class="nav-app-icon text-light"><i class="fas fa-user-plus"></i></span>
+                        <p class="text-light" style="margin-top: -5px;"> Registrarse</p>
+                    </a>
+                </li>
+            </ul>
         @else
-        <ul class="nav justify-content-around" style="margin-bottom: -1em;">
-            <li class="nav-item text-center">
-                <a class="nav-link" href="{{url('/home')}}">
-                    <span class="nav-app-icon text-light"><i class="fas fa-newspaper"></i></span>
-                    <p class="text-light" style="margin-top: -5px;"> Noticias</p>
-                </a>
-            </li>
-            <li class="nav-item text-center">
-                <a class="nav-link" href="{{url('/team')}}">
-                    <span class="nav-app-icon text-light"><i class="fas fa-hard-hat"></i></span>
-                    <p class="text-light" style="margin-top: -5px;"> Tecun</p>
-                </a>
-            </li>
-            <li class="align-self-end nav-item text-center">
-                <a class="nav-link" href="{{url('/trivia')}}">
-                    <span class="nav-app-icon text-light"><i class="fas fa-gamepad"></i></span>
-                    <p class="text-light" style="margin-top: -5px;"> Juegos</p>
-                </a>
-            </li>
-        </ul>
+            <ul class="nav justify-content-around" style="margin-bottom: -1em;">
+                <li class="nav-item text-center">
+                    <a class="nav-link" href="{{ url('/home') }}">
+                        <span class="nav-app-icon text-light"><i class="fas fa-newspaper"></i></span>
+                        <p class="text-light" style="margin-top: -5px;"> Noticias</p>
+                    </a>
+                </li>
+                <li class="nav-item text-center">
+                    <a class="nav-link" href="{{ url('/team') }}">
+                        <span class="nav-app-icon text-light"><i class="fas fa-hard-hat"></i></span>
+                        <p class="text-light" style="margin-top: -5px;"> Tecun</p>
+                    </a>
+                </li>
+                <li class="align-self-end nav-item text-center">
+                    <a class="nav-link" href="{{ url('/trivia') }}">
+                        <span class="nav-app-icon text-light"><i class="fas fa-gamepad"></i></span>
+                        <p class="text-light" style="margin-top: -5px;"> Juegos</p>
+                    </a>
+                </li>
+            </ul>
         @endguest
     </nav>
     <!--buttons-->
     <div class="btn-float">
-        <a href="{{url('denounce')}}" class="btn btn-light btn-circle btn-sm bg-danger btn-lg text-light"><i
+        <a href="{{ url('denounce') }}" class="btn btn-light btn-circle btn-sm bg-danger btn-lg text-light"><i
                 class="fas fa-bell"></i></a>
     </div>
     <!--fin buttons -->
@@ -264,15 +268,16 @@
         //Bloquear doble envio de formulario******
         enviando = false; //Obligaremos a entrar el if en el primer submit
         function checkSubmit() {
-          if (!enviando) {
-            enviando= true;
-            return true;
-          } else {
-            //Si llega hasta aca significa que pulsaron 2 veces el boton submit
-            alert("El formulario ya se esta enviando");
-            return false;
-          }
+            if (!enviando) {
+                enviando = true;
+                return true;
+            } else {
+                //Si llega hasta aca significa que pulsaron 2 veces el boton submit
+                alert("El formulario ya se esta enviando");
+                return false;
+            }
         }
+
     </script>
 </body>
 

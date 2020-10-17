@@ -8,11 +8,11 @@
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    @endif
+    @endif 
     <div class="d-flex bd-highlight mb-3">
         <div class="p-2 bd-highlight d-none">Usuarios</div>
         <div class="p-2 bd-highlight">
-            <a href=" {{url('jobsAdmin/create')}}" class="btn btn-success btn-sm" style="border-radius: 95px">
+            <a href=" {{url('gamesAdmin/create')}}" class="btn btn-success btn-sm" style="border-radius: 95px">
                 <i class="fas fa-plus-circle"></i>
                 Agregar
             </a>
@@ -39,28 +39,26 @@
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">id</th>
-                    <th scope="col">Título</th>
-                    <th scope="col">Descripcion</th>
-                    <th scope="col">Salario</th>
-                    <th scope="col">Correo</th>
+                    <th scope="col">imagen</th>
+                    <th scope="col">Descipcion</th>
+                    <th scope="col">R// Correcta</th>
                     <th scope="col">Opciones</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($jobs as $item)
+                @foreach ($question as $item)
                 <tr>
                     <th scope="row">{{$item->id}}</th>
-                    <td>{{$item->title}}</td>
+                    <td><img src="{{asset('/storage/questions/' . $item->url_image)}}" height="30px"></td>
                     <td>{{$item->description}}</td>
-                    <td>{{$item->salary}}</td>
-                    <td><a href="mailto:{{$item->email}}" target="blank">{{$item->email}}</a></td>
+                    <td>{{$item->questionTrue}}</td>
                     <td>
                         <div class="btn-group" role="group" aria-label="Basic example">
-                            <a class="btn btn-sm btn-secondary" href="{{url('job/' .$item->id )}}"
+                            <a class="btn btn-sm btn-secondary" href="{{url('question/')}}"
                                 title="Ver Detalles">
                                 <span class=""><i class="fas fa-eye"></i></span>
                             </a>
-                            <a class="btn btn-sm btn-primary" href="{{url('jobsAdmin/'. $item->id . '/edit')}}"
+                            <a class="btn btn-sm btn-primary" href="{{url('gamesAdmin/'. $item->id . '/edit')}}"
                                 title="Editar">
                                 <span class=""><i class="fas fa-edit"></i></span>
                             </a>
@@ -69,7 +67,7 @@
                                                      document.getElementById('formDel{{$item->id}}').submit();">
                                 <span class="text-light"><i class="fas fa-trash"></i></span>
                             </a>
-                            <form id="formDel{{$item->id}}" action="{{ url('jobsAdmin/'. $item->id) }}" method="POST"
+                            <form id="formDel{{$item->id}}" action="{{ url('awardsAdmin/'. $item->id) }}" method="POST"
                                 style="display: none;">
                                 @csrf
                                 @method('DELETE')

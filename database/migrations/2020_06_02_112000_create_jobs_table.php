@@ -20,12 +20,7 @@ class CreateJobsTable extends Migration
             $table->text('skils')->nullable();
             $table->float('salary')->nullable();
             $table->string('email')->nullable();
-            $table->unsignedBigInteger('status_id');
-            $table->foreing('status_id')
-                ->references('id')->on('status');
-            $table->unsignedBigInteger('category_id');
-            $table->foreign('category_id')
-                ->references('id')->on('categories');
+            $table->timestamp('expiration_date')->nullable();
             $table->text('comment')->nullable();
             $table->timestamps();
         });

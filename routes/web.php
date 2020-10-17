@@ -24,7 +24,8 @@ Route::get('/team', 'HomeController@team')->middleware('auth')  ;
 Route::get('/specialTeam', 'AwardController@specialTeam')->middleware('auth')    ;
 Route::get('/podcast', 'HomeController@podcast')->middleware('auth')    ;
 Route::get('/trivia', 'HomeController@games')->middleware('auth')   ;
-Route::get('/question', 'HomeController@question')->middleware('auth')  ;
+//Route::get('/question', 'HomeController@question')->middleware('auth')  ;
+Route::get('/question', 'QuestionController@question')->middleware('auth');
 Route::get('/stores', 'StoreController@stores')->middleware('auth')  ;
 Route::get('/jobs', 'JobController@jobs')->middleware('auth')  ;
 Route::get('/job/{id}', 'JobController@job')->middleware('auth') ; //Vista De empleo, Usuario
@@ -35,6 +36,7 @@ Route::get('/newsRead/{id}', 'PostController@newsRead')->middleware('auth');
 
 //*******admin routes****** */
 Route::resource('adminPost', 'PostController')->middleware('auth')  ;
+Route::resource('gamesAdmin', 'QuestionController')->middleware('role:root|Super|Admin');
 Route::resource('users', 'UserController')->middleware('role:root|Super|Admin');
 Route::resource('categories', 'CategoryController')->middleware('role:root|Super|Admin');
 Route::resource('jobsAdmin', 'JobController')->middleware('role:root|Super|Admin');

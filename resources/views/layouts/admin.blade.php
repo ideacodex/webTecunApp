@@ -172,6 +172,19 @@
                     <a href="{{ url('adminPost') }}"
                         class="list-group-item list-group-item-action bg-theme-1 text-light">
                         <span class=""><i class="fas fa-newspaper"></i></span> Noticias</a>
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Publicaciones
+                    </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ url('adminPost') }}"> <span><i
+                                        class="fas fa-newspaper"></i></span> Noticias</a>
+                            <a class="dropdown-item" href="{{ url('users') }}"> <span><i
+                                        class="fas fa-users"></i></span> Podcast</a>
+                            <a class="dropdown-item" href="{{ url('home') }}"> <span><i
+                                        class="fas fa-newspaper"></i></span>Artes</a>
+                            <div class="dropdown-divider"></div>
+                        </div>
                     <a href="{{ url('categories') }}"
                         class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
                                 class="fas fa-tags"></i></span> Categorías</a>
@@ -186,7 +199,7 @@
                                 class="fas fa-medal"></i></span> Reconocimientos</a>
                     <a href="{{ url('users') }}" class="list-group-item list-group-item-action bg-theme-1 text-light">
                         <span class=""><i class="fas fa-user"></i></span> Usuarios</a>
-                    <a href="{{ url('#') }}" class="list-group-item list-group-item-action bg-theme-1 text-light">
+                    <a href="{{ url('gamesAdmin') }}" class="list-group-item list-group-item-action bg-theme-1 text-light">
                         <span class=""><i class="fas fa-gamepad"></i></span> Juego</a>
                     <a href="{{ url('#') }}" class="list-group-item list-group-item-action bg-theme-1 text-light">
                         <span class=""><i class="fas fa-cog"></i></span> Ajustes</a>
@@ -228,6 +241,9 @@
                                                 class="fas fa-newspaper"></i></span> Publicaciones</a>
                                     <a class="dropdown-item" href="{{ url('users') }}"> <span><i
                                                 class="fas fa-users"></i></span> Usuarios</a>
+                                    <a class="dropdown-item" href="{{ url('home') }}"> <span><i
+                                                class="fas fa-newspaper"></i></span> Inicio</a>
+                                    <div class="dropdown-divider"></div>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();  document.getElementById('logout-form').submit();">

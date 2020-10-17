@@ -24,10 +24,7 @@
             <!-- blog details area start -->
             <div class="col-md-8 col-sm-8 col-xs-12">
                 <div class="blog-info">
-                    <div class="blog-thumbnail">
-                        <img src="{{asset('appson/assets/img/blog/blog-thumb3.jpg')}}" alt="blog thumbnail">
-                    </div>
-                <h2 class="blog-title"><a href="blog-details.html">{{ $job->title }}</a></h2>
+                <h1 class="blog-title">{{ $job->title }}</h1>
                     <div class="blog-meta">
                         <ul>
                             <li><i class="fa fa-calendar"></i>12 Feb 2017</li>

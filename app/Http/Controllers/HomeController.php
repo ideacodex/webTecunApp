@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 use App\Post;
+use App\Question;
 
 
 class HomeController extends Controller
@@ -54,10 +55,11 @@ class HomeController extends Controller
         return view('games.home');
     }
 
-    public function question()
+    /*public function question()
     {
-        return view('games.question');
-    }
+        $question = Question::all();
+        return view('games.question', ['question' => $question]);
+    }*/
 
     public function podcast()
     {
