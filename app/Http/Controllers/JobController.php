@@ -67,6 +67,7 @@ class JobController extends Controller
             $job->email = $request->email;
             $job->skils = $request->editordata;
             $job->save();
+            
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollback(); //si hay un error previo, desahe los cambios en DB y redirecciona a pagina de error
             //$response['message'] = $e->errorInfo;
