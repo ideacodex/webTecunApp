@@ -118,7 +118,7 @@ class AwardController extends Controller
      * @param  \App\Award  $award
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Award $award)
+    public function update(Request $request, $id)
     {
         //
         request()->validate([

@@ -55,6 +55,7 @@
                         <option selected disabled>Tipo</option>
                         <option value="0">Empleado Nuevo</option>
                         <option value="1">Nuevo Puesto</option>
+                        <option value="2">Reconocimientos</option>
 
                     </select>
                     @error('type_id')

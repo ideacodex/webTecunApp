@@ -3,12 +3,11 @@ $namesUser = explode(" ", Auth::user()->name);
 @endphp
 @extends('layouts.user')
 @section('content')
-    <div class="container-fluid">
+    <div class="container-fluid mr-6">
         <div class="mb-3 justify-content-center row ">
-            <div class="col-12 col-md-6 offset-md-3 mt-3">
+            <div class="col-6 col-md-6 mt-3">
                 <div class="d-flex justify-content-around mt-2">
-                    <h1 class="text-info">{{ 'Encontrar Empleos' }}
-                    </h1>
+                    <h1 class="text-info">{{ 'Encontrar Empleos' }}</h1>
                 </div>
                 <form class="d-flex justify-content-around  my-lg-0" method="POST" action="{{ url('url') }}"
                     onsubmit="return checkSubmit();">
@@ -35,25 +34,22 @@ $namesUser = explode(" ", Auth::user()->name);
                 </form>
             </div>
         </div>
-        <div class="mt-2 col-12 col-md-6 offset-md-3 ml-0 mr-0">
+        <div class="mt-3 col-12 col-md-6 offset-md-3 ml-0 mr-0">
             <ul class="list-unstyled">
                 @foreach ($jobs as $items)
                     <li class="media">
                         <img src="{{ asset('img/tecun/logo.png') }}" width="10%" class="mr-3 rounded-circle">
                         <div class="media-body">
-                        <h5 class="mt-0 text-primary h5">{{ $items->title }}</h5>
+                            <h5 class="mt-0 text-primary h5">{{ $items->title }}</h5>
                             <span class="">
                                 {{ $items->description }}
-                            </span>
-                            <br>
-                            <p>
-                                ESTUDIOS: 1er año de Ingeniería Industrial, Mecánica o Licenciatura en Administración de
-                                Empresas.
-                            <a href="{{ url("job/" .$items->id)  }}" class="text-primary">
+                                <a href="{{ url('job/' . $items->id) }}" class="text-primary">
                                     Aplicar...
                                     <i class="fas fa-user-tie text-dark#"></i>
                                 </a>
-                            </p>
+                                </p>
+                            </span>
+                            <br>
                         </div>
                     </li>
                 @endforeach
