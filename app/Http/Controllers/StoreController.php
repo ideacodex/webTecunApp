@@ -143,10 +143,12 @@ class StoreController extends Controller
         //
     }
 
-    public function stores()
+    public function stores(Request $request)
     {
         //
-        $stores = Store::all();
+        $name = $request->get('search');
+        $stores = Store::where('name', 'like', "%$name%")->paginate(20);
+
         return view("stores.home", ["stores" => $stores]);
     }
 }

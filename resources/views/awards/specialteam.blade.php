@@ -10,12 +10,12 @@ $namesUser = explode(" ", Auth::user()->name);
                 <ol class="carousel-indicators">
                     @foreach ($awards->where('type_id', 0) as $item)
                     <li data-target="#carouselExampleCaptions" data-slide-to="{{$item->type_id}}"
-                        class="@if($item->id == $awards->first()->id && $item->type_id == 0) active @endif"></li>
+                        class="@if($item->id == $awards->where('type_id', 0)->first()->id && $item->type_id == 0) active @endif"></li>
                     @endforeach
                 </ol>
                 <div class="carousel-inner">
                     @foreach ($awards->where('type_id', 0) as $item)
-                    <div class="carousel-item @if($item->id == $awards->first()->id && $item->type_id == 0) active @endif">
+                    <div class="carousel-item @if($item->id == $awards->where('type_id', 0)->first()->id && $item->type_id == 0) active @endif">
                         <img class="mx-auto d-block" src="{{asset('/storage/awards/' . $item->url_image)}}"
                         alt="imagen de perfil" width="100%" style="max-height: 300px; min-height: 300px" />
                     </div>
@@ -36,12 +36,12 @@ $namesUser = explode(" ", Auth::user()->name);
                 <ol class="carousel-indicators">
                     @foreach ($awards->where('type_id', 1) as $item)
                     <li data-target="#carouselExampleCaptions1" data-slide-to="{{$item->type_id}}"
-                        class="@if($item->id == $awards->first()->id && $item->type_id == 1) active @endif"></li>
+                        class="@if($item->id == $awards->where('type_id', 1)->first()->id && $item->type_id == 1) active @endif"></li>
                     @endforeach
                 </ol>
                 <div class="carousel-inner">
                     @foreach ($awards->where('type_id', 1) as $item)
-                    <div class="carousel-item @if($item->id == $awards->first()->id && $item->type_id == 1) active @endif">
+                    <div class="carousel-item @if($item->id == $awards->where('type_id', 1)->first()->id && $item->type_id == 1) active @endif">
                         <img class="mx-auto d-block" @if($item->type_id == 2) src="{{asset('/storage/awards/' . $item->url_image)}}" @endif
                         alt="imagen de perfil" width="100%" style="max-height: 300px; min-height: 300px" />
                     </div>

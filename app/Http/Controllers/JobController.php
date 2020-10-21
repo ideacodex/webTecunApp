@@ -12,8 +12,11 @@ use Illuminate\Http\Request;
 class JobController extends Controller
 {
 
-    public function home(){
-        $jobs = Job::all();
+    public function home(Request $request){
+        
+        $title = $request->get('search');
+        $jobs = Job::where('title', 'like', "%$title%")->paginate(5);
+
         return view("jobs.home", ["jobs" => $jobs]);
     }
 
@@ -158,10 +161,12 @@ class JobController extends Controller
     }
 
 
-    public function jobs()
+    public function jobs(Request $request)
     {
         //
-        $jobs = Job::all();
+        $title = $request->get('search');
+        $jobs = Job::where('title', 'like', "%$title%")->paginate(5);
+
         return view("jobs.home", ["jobs" => $jobs]);
     }
 

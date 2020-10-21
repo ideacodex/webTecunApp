@@ -5,33 +5,21 @@ $namesUser = explode(" ", Auth::user()->name);
 @section('content')
 <div class="container-fluid">
     <div class="mb-3 justify-content-center row ">
-        <div class="col-12 col-md-6 offset-md-3 mt-3">
+        <div class="col-6 col-md-6 mt-3">
             <div class="d-flex justify-content-around mt-2">
                 <h1 class="text-info">{{'Encontrar Agencia'}}
                 </h1>
             </div>
-            <form class="d-flex justify-content-around  my-lg-0" method="POST" action="{{ url('url') }}"
-                onsubmit="return checkSubmit();">
-                @csrf
-                <input id="trip" name="key" type="hidden" value="{{''}}">
-                <div class="input-group input-group-lg mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                            <i class="text-primary fas fa-map-marker-alt"></i>
-                        </span>
-                    </div>
-                    <input aria-label=" Sizing example input" aria-describedby="inputGroup-sizing-sm" id="cityData"
-                        name="search" class="text-primary form-control{{ $errors->has('search') ? ' is-invalid' : '' }}"
-                        autofocus required>
-                    @if ($errors->has('search'))
-                    <span class="invalid-feedback" role="alert">
-                        <strong><i class="fas fa-waze"></i>{{ $errors->first('search') }}</strong>
+            <form class="d-flex justify-content-around  my-lg-0">
+                <div class="input-group-prepend">
+                    <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                        <i class="text-primary fas fa-map-marker-alt"></i>
                     </span>
-                    @endif
-                    <button class="btn btn-primary" type="submit">
-                        <i class="text-light fas fa-search"></i>
-                    </button>
                 </div>
+                <input name="search" class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search" >
+                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">
+                    Buscar
+                </button>
             </form>
         </div>
     </div>
@@ -186,6 +174,7 @@ $namesUser = explode(" ", Auth::user()->name);
                         Sábado: 08:00 am a 12:00 pm
                         <i class="fas fa-clock text-dark"></i>
                     </p>
+                    <div class="mb-3"></div>
                 </div>
             </li>
         </ul>

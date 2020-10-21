@@ -24,11 +24,6 @@
                     </div>
                     <div class="row">
                         <form action="mail.php" id="contact-form">
-                            <div class="col-md-20 col-sm-12 col-xs-12">
-                                <input placeholder="Nombre completo" id="name" type="text">
-                                <input placeholder="Email" id="email" type="text">
-                                <!--<input placeholder="Website" id="website" type="text">-->
-                            </div>
                             <div class="custom-file mb-3 ml-4">
                                 <input title="Selecionar" type="file" accept="file_extension/*" name="pdf" id="inputGroupFile04"
                                     aria-describedby="inputGroupFileAddon04"
