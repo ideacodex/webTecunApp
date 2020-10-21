@@ -16,12 +16,13 @@ class CreateJobsTable extends Migration
         Schema::create('jobs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title');
-            $table->text('description');
-            $table->text('skils')->nullable();
+            $table->longText('description');
+            $table->longText('skils')->nullable();
             $table->float('salary')->nullable();
             $table->string('email')->nullable();
             $table->timestamp('expiration_date')->nullable();
             $table->text('comment')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

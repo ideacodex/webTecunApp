@@ -28,12 +28,13 @@ class CreateUsersTable extends Migration
             $table->integer('correct');
             $table->timestamps();
             $table->bigInteger('tx_usr_id')->nullable();
+            $table->softDeletes();
         });
 
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->bigInteger('dpi')->unique();
+            $table->bigInteger('dpi')->unique()->nullable();
             $table->string('lastname', 100)->nullable();
             $table->string('email')->unique();
             $table->integer('phone')->unique();
@@ -43,7 +44,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
-            $table->unsignedInteger('role_id');
+            $table->unsignedInteger('role_id')->nullable();
             $table->unsignedBigInteger('score_id')->nullable();
             $table->foreign('score_id')
                 ->references('id')->on('scores')
@@ -51,6 +52,7 @@ class CreateUsersTable extends Migration
             $table->unsignedBigInteger('status_id');
             $table->foreign('status_id')
                 ->references('id')->on('status');
+            $table->softDeletes();
         });
     }
 

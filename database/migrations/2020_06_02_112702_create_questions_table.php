@@ -28,16 +28,6 @@ class CreateQuestionsTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('answers', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('description', 100);
-            $table->unsignedBigInteger('question_id');
-            $table->foreign('question_id')
-                ->references('id')->on('questions');
-            $table->bigInteger('answer_id')->nullable();
-
-            $table->timestamps();
-        });
     }
 
     /**
@@ -47,7 +37,6 @@ class CreateQuestionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('answers');
         Schema::dropIfExists('questions');
     }
 }

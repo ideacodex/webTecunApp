@@ -19,6 +19,7 @@ class CreateStoresTable extends Migration
             $table->string('address');
             $table->string('schedule');
             $table->string('maps')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

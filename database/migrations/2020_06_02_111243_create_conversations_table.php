@@ -46,9 +46,6 @@ class CreateConversationsTable extends Migration
         Schema::create('notifications', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('message', 250);
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')
-                ->references('id')->on('users');
             $table->timestamps();
             $table->softDeletes();
             $table->bigInteger('tx_usr_id')->nullable();
@@ -57,6 +54,7 @@ class CreateConversationsTable extends Migration
         Schema::create('notifications_details', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('sent_by');
+            $table->boolean('read')->nullable();
             $table->foreign('sent_by')
                 ->references('id')->on('users');
             $table->unsignedBigInteger('sent_to');
@@ -67,7 +65,6 @@ class CreateConversationsTable extends Migration
                 ->references('id')->on('notifications');
             $table->timestamps();
             $table->softDeletes();
-            $table->bigInteger('tx_usr_id')->nullable();
         });
     }
 
