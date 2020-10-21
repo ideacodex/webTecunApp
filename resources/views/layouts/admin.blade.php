@@ -172,19 +172,41 @@
                     <a href="{{ url('adminPost') }}"
                         class="list-group-item list-group-item-action bg-theme-1 text-light">
                         <span class=""><i class="fas fa-newspaper"></i></span> Noticias</a>
+                    <div class="accordion" id="accordionExample">
+                        <div class="">
+                            <a class="list-group-item list-group-item-action bg-theme-1 text-light collapsed"
+                                data-toggle="collapse" data-target="#collapseOne" aria-expanded="false"
+                                aria-controls="collapseOne"> <span class="pr-3"><i class="fas fa-tags"></i></span>
+                                Categorias <span class="pl-3"><i class="fas fa-caret-down"></i></span></a>
+                            <div id="collapseOne" class="collapse" aria-labelledby="headingTwo"
+                                data-parent="#accordionExample">
+                                <div class="">
+                                    <a href="{{ url('categories') }}"
+                                        class="pl-4 list-group-item list-group-item-action bg-theme-1 text-light"> <span
+                                            class=""><i class="fas fa-tags"></i></span> Industrias</a>
+                                    <a href="{{ url('subcategories') }}"
+                                        class="pl-4 list-group-item list-group-item-action bg-theme-1 text-light">
+                                        <span class=""><i class="fas fa-tags"></i></span> Solucion</a>
+                                    <a href="{{ url('ratings') }}"
+                                        class="pl-4 list-group-item list-group-item-action bg-theme-1 text-light">
+                                        <span class=""><i class="fas fa-tags"></i></span> Clasificación</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Publicaciones
                     </a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ url('adminPost') }}"> <span><i
-                                        class="fas fa-newspaper"></i></span> Noticias</a>
-                            <a class="dropdown-item" href="{{ url('users') }}"> <span><i
-                                        class="fas fa-users"></i></span> Podcast</a>
-                            <a class="dropdown-item" href="{{ url('home') }}"> <span><i
-                                        class="fas fa-newspaper"></i></span>Artes</a>
-                            <div class="dropdown-divider"></div>
-                        </div>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ url('adminPost') }}"> <span><i
+                                    class="fas fa-newspaper"></i></span> Noticias</a>
+                        <a class="dropdown-item" href="{{ url('users') }}"> <span><i class="fas fa-users"></i></span>
+                            Podcast</a>
+                        <a class="dropdown-item" href="{{ url('home') }}"> <span><i
+                                    class="fas fa-newspaper"></i></span>Artes</a>
+                        <div class="dropdown-divider"></div>
+                    </div>
                     <a href="{{ url('categories') }}"
                         class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
                                 class="fas fa-tags"></i></span> Categorías</a>
@@ -199,7 +221,8 @@
                                 class="fas fa-medal"></i></span> Reconocimientos</a>
                     <a href="{{ url('users') }}" class="list-group-item list-group-item-action bg-theme-1 text-light">
                         <span class=""><i class="fas fa-user"></i></span> Usuarios</a>
-                    <a href="{{ url('gamesAdmin') }}" class="list-group-item list-group-item-action bg-theme-1 text-light">
+                    <a href="{{ url('gamesAdmin') }}"
+                        class="list-group-item list-group-item-action bg-theme-1 text-light">
                         <span class=""><i class="fas fa-gamepad"></i></span> Juego</a>
                     <a href="{{ url('#') }}" class="list-group-item list-group-item-action bg-theme-1 text-light">
                         <span class=""><i class="fas fa-cog"></i></span> Ajustes</a>

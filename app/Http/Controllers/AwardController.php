@@ -7,6 +7,7 @@ use App\Category;
 use App\User;
 use DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AwardController extends Controller
 {
@@ -166,9 +167,16 @@ class AwardController extends Controller
      * @param  \App\Award  $award
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Award $award)
+    public function destroy($id)
     {
         //
+        $record = Award::find($id);
+        Storage::disk('awards')->delete($record->url_image);
+        //dd($record);
+        $record->delete();
+        return redirect()->action( //regresa con el error
+            'AwardController@index')->with(['message' => 'Se eliminó el registro correctamente', 'alert' => 'danger']);
+
     }
 
     public function specialTeam()
