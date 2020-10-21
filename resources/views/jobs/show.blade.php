@@ -20,7 +20,7 @@
                 <!-- leave comment area start -->
                 <div class="leave-comment">
                     <div class="comment-title">
-                        <h4>Postulate</h4>
+                        <h4>Aplicar</h4>
                     </div>
                     <div class="row">
                         <form action="mail.php" id="contact-form">
