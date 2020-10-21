@@ -40,4 +40,9 @@ class DatabaseSeeder extends Seeder
             $record->color='danger';
             $record->save();
     }
+
+    $this->call([
+        StoreTableSeeder::class,
+    ]);
+}
 }

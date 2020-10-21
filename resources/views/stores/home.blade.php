@@ -43,7 +43,7 @@ $namesUser = explode(" ", Auth::user()->name);
                         <i class="fab fa-waze text-dark"></i>
                     </a>
                 </div>
-            </li>
+            </li> <br>
             @endforeach
             <li class="media">
                 <img src="{{asset('img/tecun/logo.png')}}" width="10%" class="mr-3 rounded-circle">

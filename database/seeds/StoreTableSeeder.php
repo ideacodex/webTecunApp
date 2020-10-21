@@ -68,3 +68,4 @@ class StoreTableSeeder extends Seeder
 
     }
 }
+}
