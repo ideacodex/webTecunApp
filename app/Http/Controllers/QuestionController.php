@@ -169,8 +169,13 @@ class QuestionController extends Controller
      * @param  \App\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Question $question)
+    public function destroy($id)
     {
         //
+        $record = Question::find($id);
+        $record->delete();
+
+        return redirect()->action('QuestionController@index')
+                    ->with(['message' => 'Registro eliminado correctamente', 'alert' => 'danger']);
     }
 }

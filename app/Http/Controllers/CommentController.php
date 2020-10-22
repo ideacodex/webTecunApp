@@ -78,8 +78,12 @@ class CommentController extends Controller
      * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comment $comment)
+    public function destroy($id)
     {
         //
+        $record = Comment::find($id);
+        $record->delete();
+        return redirect()->action('CommentController@index')
+                    ->with(['message' => 'Se elimino el registro correctamente', 'alert' => 'danger']);
     }
 }

@@ -8,6 +8,7 @@ use App\Status;
 use DB;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -239,10 +240,8 @@ class PostController extends Controller
                 $post = Post::findOrFail($id);
                 $post->title = $request->title;
                 $post->description = $request->description;
-                $post['attachment-post-trixFields'] = $request['attachment-article-trixFields'];
                 $post->type_id = $request->type_id;
                 $post->content = $request->editordata;
-                $post['post-trixFields'] = $request['article-trixFields'];
                 $post->featured_image = '10';
                 $post->featured_video = '10';
                 $post->featured_audio = '10';
@@ -272,9 +271,17 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy($id)
     {
         //
+        $record = Post::find($id);
+        Storage::disk('jobs')->delete($record->featured_image);
+        Storage::disk('jobs')->delete($record->featured_video);
+        Storage::disk('jobs')->delete($record->featured_audio);
+        Storage::disk('jobs')->delete($record->featured_document);
+        $record->delete();
+        return redirect()->action('PostController@index')
+                    ->with(['message' => 'Se elimino el registro correctamente', 'alert' => 'danger']);
     }
 
 

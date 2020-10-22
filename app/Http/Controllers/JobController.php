@@ -155,8 +155,13 @@ class JobController extends Controller
      * @param  \App\Job  $job
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Job $job)
+    public function destroy($id)
     {
+        $record = Job::find($id);
+        $record->delete();
+
+        return redirect()->action('JobController@index')
+                    ->with(['message' => 'Se elimino el registro correctamente', 'alert' => 'danger']);
         
     }
 
@@ -165,7 +170,12 @@ class JobController extends Controller
     {
         //
         $title = $request->get('search');
-        $jobs = Job::where('title', 'like', "%$title%")->paginate(5);
+        $description = $request->get('search');
+        $skils = $request->get('search');
+        $jobs = Job::where('title', 'like', "%$title%")
+                ->orWhere('description', 'like', "%$description%")
+                ->orWhere('skils', 'like', "%$skils%")
+                ->paginate(5);
 
         return view("jobs.home", ["jobs" => $jobs]);
     }

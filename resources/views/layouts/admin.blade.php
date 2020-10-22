@@ -103,6 +103,10 @@
         background-color: #01d4d9;
     }
 
+    .accordionList {
+        background: #519e93;
+    }
+
     .bg-theme-5 {
         background-color: #bcbcbc;
     }
@@ -168,45 +172,33 @@
                 </div>
                 <div class="list-group list-group-flush">
                     <a href="{{ url('#') }}" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span
-                            class=""><i class="fas fa-chart-bar"></i></span> Administracion</a>
-                    <a href="{{ url('adminPost') }}"
-                        class="list-group-item list-group-item-action bg-theme-1 text-light">
-                        <span class=""><i class="fas fa-newspaper"></i></span> Noticias</a>
+                            class=""><i class="fas fa-chart-bar"></i></span> Administracion
+                    </a>
                     <div class="accordion" id="accordionExample">
                         <div class="">
                             <a class="list-group-item list-group-item-action bg-theme-1 text-light collapsed"
                                 data-toggle="collapse" data-target="#collapseOne" aria-expanded="false"
-                                aria-controls="collapseOne"> <span class="pr-3"><i class="fas fa-tags"></i></span>
-                                Categorias <span class="pl-3"><i class="fas fa-caret-down"></i></span></a>
-                            <div id="collapseOne" class="collapse" aria-labelledby="headingTwo"
+                                aria-controls="collapseOne"> <span class="pr-3"><i class="fas fa-mail-bulk"></i>
+                                    Publicaciones</span>
+                                <span class="pl-3"><i class="fas fa-caret-down"></i></span></a>
+                            <div id="collapseOne" class="collapse accordionList" aria-labelledby="headingTwo"
                                 data-parent="#accordionExample">
                                 <div class="">
-                                    <a href="{{ url('categories') }}"
-                                        class="pl-4 list-group-item list-group-item-action bg-theme-1 text-light"> <span
-                                            class=""><i class="fas fa-tags"></i></span> Industrias</a>
+                                    <a href="{{ url('adminPost') }}"
+                                        class="list-group-item list-group-item-action bg-theme-1 text-light">
+                                        <span class=""><i class="ml-3 fas fa-newspaper"></i></span> Noticias
+                                    </a>
                                     <a href="{{ url('subcategories') }}"
                                         class="pl-4 list-group-item list-group-item-action bg-theme-1 text-light">
-                                        <span class=""><i class="fas fa-tags"></i></span> Solucion</a>
+                                        <span class=""><i class="ml-3 fas fa-podcast"></i></span> Podcast</a>
                                     <a href="{{ url('ratings') }}"
                                         class="pl-4 list-group-item list-group-item-action bg-theme-1 text-light">
-                                        <span class=""><i class="fas fa-tags"></i></span> Clasificación</a>
+                                        <span class=""><i class="ml-3 far fa-images"></i></span> Artes</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Publicaciones
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ url('adminPost') }}"> <span><i
-                                    class="fas fa-newspaper"></i></span> Noticias</a>
-                        <a class="dropdown-item" href="{{ url('users') }}"> <span><i class="fas fa-users"></i></span>
-                            Podcast</a>
-                        <a class="dropdown-item" href="{{ url('home') }}"> <span><i
-                                    class="fas fa-newspaper"></i></span>Artes</a>
-                        <div class="dropdown-divider"></div>
-                    </div>
+
                     <a href="{{ url('categories') }}"
                         class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
                                 class="fas fa-tags"></i></span> Categorías</a>
