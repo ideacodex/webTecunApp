@@ -48,15 +48,37 @@ class PostController extends Controller
     public function store(Request $request)
     {
         //dd($request['article-trixFields']['content']);
+
+        //dd($request);
+
         request()->validate([
             '_token' => 'required',
-            'description' => 'required',
-            'type_id' => 'required',
-            'status_id' => 'required',
+            'title' => 'required',
+            'editordata' => 'required',
+            'description' => 'required'
         ]);
 
         DB::beginTransaction();
         try {
+
+            //encontrar y asignar rol de Spatie
+            $post = new Post;
+            $post->title = $request->title;
+            $post->description = $request->description;
+            $post->content = $request->editordata;
+            //$post->featured_document = $request->featured_document;
+            //$post->save();
+            $post->user_id = auth()->user()->id;
+            $post->status_id = $request->status_id;
+            $post->save();
+
+            for ($i=0; $i < sizeof($request->category_id); $i++) { 
+                $request->category_id[$i];
+                DB::table('category_post')->insert(
+                    ['category_id' => $request->category_id[$i], 'post_id' => $post->id]
+                );
+            } 
+
             //******carga de imagen**********//
             if ($request->hasFile('image')) {
                 $filename = $request->_token;
@@ -65,23 +87,14 @@ class PostController extends Controller
                 // Upload Image //********nombre de carpeta para almacenar*****
                 $path = $request->file('image')->storeAs('public/posts', $imageNameToStore);
                 //dd($path);
+
+                $post->featured_image = $imageNameToStore;
+                $post->save();
+
             } else {
                 $imageNameToStore = 'no_image.jpg';
             }
             //******carga de imagen**********//
-
-            //******carga de audio**********//
-            if ($request->hasFile('audio')) {
-                $filename = $request->_token;
-                $extension = $request->file('audio')->getClientOriginalExtension();
-                $audioNameToStore = $request->_token . '.' . $extension;
-                // Upload Image //********nombre de carpeta para almacenar*****
-                $path = $request->file('audio')->storeAs('public/posts', $audioNameToStore);
-                //dd($path);
-            } else {
-                $audioNameToStore = 'no_audio.jpg';
-            }
-            //******carga de audio**********//
 
             //******carga de video**********//
             if ($request->hasFile('video')) {
@@ -91,6 +104,10 @@ class PostController extends Controller
                 // Upload Image //********nombre de carpeta para almacenar*****
                 $path = $request->file('video')->storeAs('public/posts', $videoNameToStore);
                 //dd($path);
+
+                $post->featured_video = $videoNameToStore;
+                $post->save();
+
             } else {
                 $videoNameToStore = 'no_video.jpg';
             }
@@ -104,30 +121,24 @@ class PostController extends Controller
                 // Upload Image //********nombre de carpeta para almacenar*****
                 $path = $request->file('pdf')->storeAs('public/posts', $pdfNameToStore);
                 //dd($path);
+
+                $post->featured_document = $pdfNameToStore;
+                $post->save();
+
             } else {
                 $pdfNameToStore = 'nofile';
             }
             //******carga de file**********//
-            //encontrar y asignar rol de Spatie
-            $post = new Post;
-            $post->title = $request->title;
-            $post->description = $request->description;
-            $post->type_id = $request->type_id;
-            $post->content = $request->editordata;
-            $post->featured_image = '10';
-            $post->featured_video = '10';
-            $post->featured_audio = '10';
-            //$post->featured_document = $request->featured_document;
-            //$post->save();
-            $post->user_id = auth()->user()->id;
-            $post->status_id = $request->status_id;
-            $post->save();            
+            
+
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollback(); //si hay un error previo, desahe los cambios en DB y redirecciona a pagina de error
             //$response['message'] = $e->errorInfo;
             //dd($e->errorInfo[2]);
             abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
             return response()->json($response, 500);
+            return redirect()->action('PostController@create')
+                    ->with(['message' => 'Error al crear la noticia', 'alert' => 'warning']);
         }
         DB::commit();
         return redirect()->action( //regresa con el error
@@ -173,68 +184,17 @@ class PostController extends Controller
     {
         {
             //dd($request['article-trixFields']['content']);
-            /*request()->validate([
+
+            request()->validate([
+                '_token' => 'required',
                 'title' => 'required',
-                'description' => 'required',
-                'type_id' => 'required',
-                'status_id' => 'required',
-                'content' => 'required',
-                ''
-            ]);*/
+                'editordata' => 'required',
+                'description' => 'required'
+            ]);
+
             //dd($request);
             DB::beginTransaction();
             try {
-                //******carga de imagen**********//
-                if ($request->hasFile('image')) {
-                    $filename = $request->_token;
-                    $extension = $request->file('image')->getClientOriginalExtension();
-                    $imageNameToStore = $request->_token . '.' . $extension;
-                    // Upload Image //********nombre de carpeta para almacenar*****
-                    $path = $request->file('image')->storeAs('public/posts', $imageNameToStore);
-                    //dd($path);
-                } else {
-                    $imageNameToStore = 'no_image.jpg';
-                }
-                //******carga de imagen**********//
-    
-                //******carga de audio**********//
-                if ($request->hasFile('audio')) {
-                    $filename = $request->_token;
-                    $extension = $request->file('audio')->getClientOriginalExtension();
-                    $audioNameToStore = $request->_token . '.' . $extension;
-                    // Upload Image //********nombre de carpeta para almacenar*****
-                    $path = $request->file('audio')->storeAs('public/posts', $audioNameToStore);
-                    //dd($path);
-                } else {
-                    $audioNameToStore = 'no_audio.jpg';
-                }
-                //******carga de audio**********//
-    
-                //******carga de video**********//
-                if ($request->hasFile('video')) {
-                    $filename = $request->_token;
-                    $extension = $request->file('video')->getClientOriginalExtension();
-                    $videoNameToStore = $request->_token . '.' . $extension;
-                    // Upload Image //********nombre de carpeta para almacenar*****
-                    $path = $request->file('video')->storeAs('public/posts', $videoNameToStore);
-                    //dd($path);
-                } else {
-                    $videoNameToStore = 'no_video.jpg';
-                }
-                //******carga de video**********//
-    
-                //******carga de file**********//
-                if ($request->hasFile('pdf')) {
-                    $filename = $request->_token;
-                    $extension = $request->file('pdf')->getClientOriginalExtension();
-                    $pdfNameToStore = $request->_token . '.' . $extension;
-                    // Upload Image //********nombre de carpeta para almacenar*****
-                    $path = $request->file('pdf')->storeAs('public/posts', $pdfNameToStore);
-                    //dd($path);
-                } else {
-                    $pdfNameToStore = 'nofile';
-                }
-                //******carga de file**********//
 
                 //encontrar y asignar rol de Spatie
                 $post = Post::findOrFail($id);
@@ -242,14 +202,75 @@ class PostController extends Controller
                 $post->description = $request->description;
                 $post->type_id = $request->type_id;
                 $post->content = $request->editordata;
-                $post->featured_image = '10';
-                $post->featured_video = '10';
-                $post->featured_audio = '10';
                 //$post->featured_document = $request->featured_document;
                 //$post->save();
                 $post->user_id = auth()->user()->id;
                 $post->status_id = $request->status_id;
                 $post->save();
+
+                    //******carga de imagen**********//
+                if ($request->hasFile('image')) {
+                    $filename = $request->_token;
+                    $extension = $request->file('image')->getClientOriginalExtension();
+                    $imageNameToStore = $request->_token . '.' . $extension;
+                    // Upload Image //********nombre de carpeta para almacenar*****
+                    $path = $request->file('image')->storeAs('public/posts', $imageNameToStore);
+                    //dd($path);
+
+                    $post->featured_image = $imageNameToStore;
+                    $post->save();
+
+                } else {
+                    $imageNameToStore = 'no_image.jpg';
+                }
+                //******carga de imagen**********//
+        
+                    //******carga de audio**********//
+                    if ($request->hasFile('audio')) {
+                        $filename = $request->_token;
+                        $extension = $request->file('audio')->getClientOriginalExtension();
+                        $audioNameToStore = $request->_token . '.' . $extension;
+                        // Upload Image //********nombre de carpeta para almacenar*****
+                        $path = $request->file('audio')->storeAs('public/posts', $audioNameToStore);
+                        //dd($path);
+                    } else {
+                        $audioNameToStore = 'no_audio.jpg';
+                    }
+                    //******carga de audio**********//
+        
+                    //******carga de video**********//
+                if ($request->hasFile('video')) {
+                    $filename = $request->_token;
+                    $extension = $request->file('video')->getClientOriginalExtension();
+                    $videoNameToStore = $request->_token . '.' . $extension;
+                    // Upload Image //********nombre de carpeta para almacenar*****
+                    $path = $request->file('video')->storeAs('public/posts', $videoNameToStore);
+                    //dd($path);
+
+                    $post->featured_video = $videoNameToStore;
+                    $post->save();
+
+                } else {
+                    $videoNameToStore = 'no_video.jpg';
+                }
+                //******carga de video**********//
+        
+                    //******carga de file**********//
+                if ($request->hasFile('pdf')) {
+                    $filename = $request->_token;
+                    $extension = $request->file('pdf')->getClientOriginalExtension();
+                    $pdfNameToStore = $request->_token . '.' . $extension;
+                    // Upload Image //********nombre de carpeta para almacenar*****
+                    $path = $request->file('pdf')->storeAs('public/posts', $pdfNameToStore);
+                    //dd($path);
+
+                    $post->featured_document = $pdfNameToStore;
+                    $post->save();
+
+                } else {
+                    $pdfNameToStore = 'nofile';
+                }
+                //******carga de file**********//
 
             } catch (\Illuminate\Database\QueryException $e) {
                 DB::rollback(); //si hay un error previo, desahe los cambios en DB y redirecciona a pagina de error
@@ -274,12 +295,28 @@ class PostController extends Controller
     public function destroy($id)
     {
         //
-        $record = Post::find($id);
-        Storage::disk('jobs')->delete($record->featured_image);
-        Storage::disk('jobs')->delete($record->featured_video);
-        Storage::disk('jobs')->delete($record->featured_audio);
-        Storage::disk('jobs')->delete($record->featured_document);
-        $record->delete();
+        DB::beginTransaction();
+        try
+        {
+
+            $post = Post::find($id);
+            DB::table('category_post')->where('post_id', $post->id)->delete();
+
+            Storage::disk('posts')->delete($post->featured_image);
+            Storage::disk('posts')->delete($post->featured_video);
+            Storage::disk('posts')->delete($post->featured_document);
+            $post->delete();
+
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollback(); //si hay un error previo, desahe los cambios en DB y redirecciona a pagina de error
+                //$response['message'] = $e->errorInfo;
+                //dd($e->errorInfo[2]);
+                abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
+                return response()->json($response, 500);
+        }
+
+        DB::commit();
+
         return redirect()->action('PostController@index')
                     ->with(['message' => 'Se elimino el registro correctamente', 'alert' => 'danger']);
     }

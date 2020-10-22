@@ -90,21 +90,22 @@
                         </span>
                         @enderror
                     </div>
+
                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text text-primary" id="inputGroup-sizing-sm">
                                 <i class="text-primary fas fa-newspaper"></i> / <i class="text-primary fas fa-podcast"></i>
                             </span>
                         </div>
-                        <select name="type_id" id="type_id" class="form-control @error('type_id') is-invalid @enderror"
-                            required>
-                            <option value={{ $record->type_id }} selected>{{ $record->type() }} </option>
-                            <option value="1">Noticias</option>
-                            <option value="2">Podcast</option>
-                            <option value="3">Comunicado</option>
-                            <option value="4">Arte</option>
+                        <select
+                            class="js-example-basic-multiple js-states form-control @error('rating_id') is-invalid @enderror"
+                            name="rating_id[]" id="rating_id" multiple="multiple" required>
+                            <option disabled selected>Categorias</option>
+                            @foreach ($categories as $item)
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            @endforeach
                         </select>
-                        @error('type_id')
+                        @error('rating_id')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -116,6 +117,7 @@
                         </span>
                         @enderror
                     </div>
+
                     <div class="col-12 input-group input-group-lg mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text transparent" id="inputGroup-sizing-sm">
@@ -134,26 +136,6 @@
                                 </span>
                             @endif
                             <label class="custom-file-label" for="inputGroupFile04">Elegir imagen de portada</label>
-                        </div>
-                    </div>
-                    <div class="col-12 input-group input-group-lg mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                <i class="text-primary fas fa-file-audio"></i>
-                            </span>
-                        </div>
-                        <div class="custom-file">
-                            <input title="Selecionar" type="file" accept="audio/*" name="audio" id="inputGroupFile04"
-                                aria-describedby="inputGroupFileAddon04"
-                                class="custom-file-input form-control{{ $errors->has('audio') ? ' is-invalid' : '' }}"
-                                value="{{ $record->audio }}">
-                            @if ($errors->has('audio'))
-                                <span class="invalid-feedback" role="alert">
-                                    <strong><i
-                                            class="fas fa-exclamation-triangle"></i>{{ $errors->first('audio') }}</strong>
-                                </span>
-                            @endif
-                            <label class="custom-file-label" for="inputGroupFile04">Elegir audio de podcast</label>
                         </div>
                     </div>
                     <div class="col-12 input-group input-group-lg mb-3">
@@ -196,7 +178,7 @@
                         </div>
                     </div>
                     <div class="col-12">
-                     <textarea id="summernote" name="editordata">{{ $record->content }}</textarea>
+                        <textarea id="summernote" name="editordata">{{ $record->content }}</textarea>
                     </div>
                     <div class="container">
                         <div class="row">
@@ -204,7 +186,8 @@
                                 <button type="submit" class="btn btn-lg btn-primary">
                                     <i class="fas fa-save"></i>
                                     {{ __('Actualizar') }}
-                                </button> </div>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -223,6 +206,10 @@
     </div>
 @endsection
 @section('js')
+    <script>
+        $('.js-example-basic-multiple').select2();
+
+    </script>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
     </script>

@@ -1,31 +1,14 @@
 @extends('layouts.user')
 @section('content')
-<!-- crumbs area start -->
-<div class="crumbs-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="crumbs-inner">
-                    <h2>Blog Details</h2>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><span>Blog Details</span></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- crumbs area end -->
 <!-- blog post area start -->
-<div class="blog-details ptb--320 pb-4">
+<div class="blog-details mt-2 ptb--320 pb-4">
     <div class="container">
         <div class="row">
             <!-- blog details area start -->
-            <div class="col-md-8 col-sm-8 col-xs-12">
+            <div class="col-12 col-md-6 col-lg-6 offset-md-3 offset-lg-3">
                 <div class="blog-info">
                     <div class="blog-thumbnail">
-                        <img src="{{asset('appson/assets/img/blog/blog-thumb3.jpg')}}" alt="blog thumbnail">
+                        <img src="{{asset('appson/assets/img/blog/blog-thumb3.jpg')}}" width="100%" style="max-height: 300px">
                     </div>
                     <h2 class="blog-title"><a href="blog-details.html">Work For Success</a></h2>
                     <div class="blog-meta">
@@ -136,129 +119,6 @@
                 <!-- leave comment area end -->
             </div>
             <!-- blog details area end -->
-            <!-- sidebar area start -->
-            <div class="col-md-4 col-sm-4 col-xs-12">
-                <div class="sidebar--area">
-                    <!-- widget search area start -->
-                    <div class="widget widget-search">
-                        <form action="#">
-                            <input type="text" placeholder="Search here">
-                            <button type="submit" id="search-submit"><i class="fa fa-search"></i></button>
-                        </form>
-                    </div>
-                    <!-- widget search area end -->
-                    <!-- widget recent post area start -->
-                    <div class="widget widget-recent-post">
-                        <div class="widget-title">
-                            <h2>Recent Post</h2>
-                        </div>
-                        <div class="recent--post-list">
-                            <div class="rc-single-post">
-                                <div class="meta-thumb">
-                                    <a href="#"><img src="assets/img/sidebar/sidebar-thumb1.jpg" alt="post thumb"></a>
-                                </div>
-                                <div class="meta--content">
-                                    <a href="#">Cras dictum dolor vel eros gravida molestie.</a>
-                                    <span class="up-time">20 jan , 2017 </span>
-                                </div>
-                            </div>
-                            <div class="rc-single-post">
-                                <div class="meta-thumb">
-                                    <a href="#"><img src="assets/img/sidebar/sidebar-thumb2.jpg" alt="post thumb"></a>
-                                </div>
-                                <div class="meta--content">
-                                    <a href="#">Cras dictum dolor vel eros gravida molestie.</a>
-                                    <span class="up-time">20 jan , 2017 </span>
-                                </div>
-                            </div>
-                            <div class="rc-single-post">
-                                <div class="meta-thumb">
-                                    <a href="#"><img src="assets/img/sidebar/sidebar-thumb3.jpg" alt="post thumb"></a>
-                                </div>
-                                <div class="meta--content">
-                                    <a href="#">Cras dictum dolor vel eros gravida molestie.</a>
-                                    <span class="up-time">20 jan , 2017 </span>
-                                </div>
-                            </div>
-                            <div class="rc-single-post">
-                                <div class="meta-thumb">
-                                    <a href="#"><img src="assets/img/sidebar/sidebar-thumb4.jpg" alt="post thumb"></a>
-                                </div>
-                                <div class="meta--content">
-                                    <a href="#">Cras dictum dolor vel eros gravida molestie.</a>
-                                    <span class="up-time">20 jan , 2017 </span>
-                                </div>
-                            </div>
-                            <div class="rc-single-post">
-                                <div class="meta-thumb">
-                                    <a href="#"><img src="assets/img/sidebar/sidebar-thumb5.jpg" alt="post thumb"></a>
-                                </div>
-                                <div class="meta--content">
-                                    <a href="#">Cras dictum dolor vel eros gravida molestie.</a>
-                                    <span class="up-time">20 jan , 2017 </span>
-                                </div>
-                            </div>
-                            <div class="rc-single-post">
-                                <div class="meta-thumb">
-                                    <a href="#"><img src="assets/img/sidebar/sidebar-thumb6.jpg" alt="post thumb"></a>
-                                </div>
-                                <div class="meta--content">
-                                    <a href="#">Cras dictum dolor vel eros gravida molestie.</a>
-                                    <span class="up-time">20 jan , 2017 </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- widget recent post area end -->
-                    <!-- widget categoriy area start -->
-                    <div class="widget widget-category">
-                        <div class="widget-title">
-                            <h2>Categories</h2>
-                        </div>
-                        <div class="widget--category-list">
-                            <ul>
-                                <li><a href="#"> Technology <span>(07)</span></a></li>
-                                <li><a href="#">Mobile Apps <span>(10)</span></a></li>
-                                <li><a href="#">Cognitive Science <span>(08)</span></a></li>
-                                <li><a href="#">Artificial Intelligence <span>(27)</span></a></li>
-                                <li><a href="#">Product Updates <span>(03)</span></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- widget categoriy area end -->
-                    <!-- widget archive area start -->
-                    <div class="widget widget-archive">
-                        <div class="widget-title">
-                            <h2>Archive</h2>
-                        </div>
-                        <div class="widget--archive-list">
-                            <ul>
-                                <li><a href="#">Jul 2017 <span>(07)</span></a></li>
-                                <li><a href="#">Jan 2016 <span>(10)</span></a></li>
-                                <li><a href="#">Jul 2015 <span>(08)</span></a></li>
-                                <li><a href="#">Jan 2014 <span>(27)</span></a></li>
-                                <li><a href="#">Jul 2013 <span>(03)</span></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- widget archive area end -->
-                    <!-- widget tags area start -->
-                    <div class="widget widget-tags">
-                        <div class="widget-title">
-                            <h2>Tags</h2>
-                        </div>
-                        <div class="widget-tag-list">
-                            <a href="#">BLOG</a>
-                            <a href="#">TECHNOLOGY</a>
-                            <a href="#">MOBILE</a>
-                            <a href="#">PRODUCT UPDATES</a>
-                            <a href="#">CHANGELOG</a>
-                        </div>
-                    </div>
-                    <!-- widget tags area end -->
-                </div>
-            </div>
-            <!-- sidebar area end -->
         </div>
     </div>
 </div>

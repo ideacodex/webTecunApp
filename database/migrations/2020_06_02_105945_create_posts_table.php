@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Schema;
 
 class CreatePostsTable extends Migration
 {
+
+    //Noticias
+
     /**
      * Run the migrations.
      *
@@ -17,7 +20,6 @@ class CreatePostsTable extends Migration
             $table->bigIncrements('id');
             $table->string('title', 100);
             $table->string('description', 250);
-            $table->integer('type_id');
             $table->longText('content')->nullable();
             $table->string('featured_image')->nullable();
             $table->string('featured_video')->nullable();
@@ -32,7 +34,7 @@ class CreatePostsTable extends Migration
             $table->softDeletes();
         });
 
-        Schema::create('categories_posts', function (Blueprint $table) {
+        Schema::create('category_post', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
             $table->unsignedBigInteger('category_id');
@@ -52,7 +54,7 @@ class CreatePostsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories_posts');
+        Schema::dropIfExists('category_post');
         Schema::dropIfExists('posts');
     }
 }

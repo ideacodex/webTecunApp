@@ -62,6 +62,8 @@ class CreateCommentsTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('post_reaction');
+        Schema::dropIfExists('comment_post');
         Schema::dropIfExists('reactions');
         Schema::dropIfExists('comments');
     }

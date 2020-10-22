@@ -181,5 +181,8 @@
             ]
         });
 
+        // Multiples select 
+        $('.js-example-basic-multiple').select2();
+
     </script>
 @endsection

@@ -74,7 +74,7 @@
                                                      document.getElementById('formDel{{$item->id}}').submit();">
                                 <span class="text-light"><i class="fas fa-trash"></i></span>
                             </a>
-                            <form id="formDel{{$item->id}}" action="{{ url('posts/'. $item->id) }}" method="POST"
+                            <form id="formDel{{$item->id}}" action="{{ url('adminPost/'. $item->id) }}" method="POST"
                                 style="display: none;">
                                 @csrf
                                 @method('DELETE')

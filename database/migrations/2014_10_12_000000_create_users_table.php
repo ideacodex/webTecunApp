@@ -65,8 +65,9 @@ class CreateUsersTable extends Migration
     {
 
       Schema::dropIfExists('users');
+      Schema::dropIfExists('scores');
       Schema::dropIfExists('status');   
-      Schema::dropIfExists('scores');        
+              
      
     }
 }
