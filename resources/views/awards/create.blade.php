@@ -21,31 +21,6 @@
             <div class="form-row">
                 <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                            <i class="text-primary fas fa-tags"></i>
-                        </span>
-                    </div>
-                    <select name="category_id" id="category_id"
-                        class="select2 form-control @error('category_id') is-invalid @enderror" required>
-                        <option disabled selected>Categoría</option>
-                        @foreach($categories as $item)
-                        <option value="{{$item->id}}">{{ $item->name}}</option>
-                        @endforeach
-                    </select>
-                    @error('category_id')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-
-                    @error('category_id')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                </div>
-                <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                    <div class="input-group-prepend">
                         <span class="input-group-text text-primary" id="inputGroup-sizing-sm">
                             <i class="text-primary fas fa-question-circle"></i>
                         </span>
@@ -55,7 +30,6 @@
                         <option selected disabled>Tipo</option>
                         <option value="0">Empleado Nuevo</option>
                         <option value="1">Nuevo Puesto</option>
-                        <option value="2">Reconocimientos</option>
 
                     </select>
                     @error('type_id')

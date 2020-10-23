@@ -41,7 +41,6 @@
                     <th scope="col">id</th>
                     <th scope="col">imagen</th>
                     <th scope="col">Tipo</th>
-                    <th scope="col">Categoria</th>
                     <th scope="col">Empleado</th>
                     <th scope="col">Opciones</th>
                 </tr>
@@ -52,11 +51,10 @@
                     <th scope="row">{{$item->id}}</th>
                     <td><img src="{{asset('/storage/awards/' . $item->url_image)}}" height="30px"></td>
                     <td>{{$item->getType()}}</td>
-                    <td>{{$item->category->name}}</td>
                     <td>{{$item->user->name}}</td>
                     <td>
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                            <a class="btn btn-sm btn-secondary" href="{{url('awardsAdmin/'. $item->id)}}"
+                        <div class="btn-group offset-md-3 offset-lg-3" role="group" aria-label="Basic example">
+                            <a class="btn btn-sm btn-secondary" href="{{url('specialTeam')}}"
                                 title="Ver Detalles">
                                 <span class=""><i class="fas fa-eye"></i></span>
                             </a>

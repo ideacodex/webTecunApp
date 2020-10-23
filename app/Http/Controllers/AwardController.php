@@ -50,7 +50,6 @@ class AwardController extends Controller
             'image' => 'required|image',
             'user_id' => 'required',
             'type_id' => 'required',
-            'category_id' => 'required',
         ]);
 
         DB::beginTransaction();
@@ -58,7 +57,6 @@ class AwardController extends Controller
             $award = new Award;
             $award->user_id = $request->user_id;
             $award->type_id = $request->type_id;
-            $award->category_id = $request->category_id;
             $award->save();
             //******carga de imagen**********//
             if ($request->hasFile('image')) {

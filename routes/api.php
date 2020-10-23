@@ -20,3 +20,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::resource('users', 'APIUserController')->except(['destroy'])->middleware('auth:api');
 Route::post('users', 'APIUserController@store');
+
+Route::get('categories', 'APICategoryController@index');
+Route::get('category/{id}', 'APICategoryController@show');
+
+Route::get('award', 'APIAwardController@index');
+Route::get('award/image/{url_image}', 'APIAwardController@getImage');
+Route::get('award/{url_image}', 'APIAwardController@carousel');

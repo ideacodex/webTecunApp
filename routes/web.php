@@ -24,7 +24,6 @@ Route::get('/team', 'HomeController@team')->middleware('auth')  ;
 Route::get('/specialTeam', 'AwardController@specialTeam')->middleware('auth')    ;
 Route::get('/podcast', 'HomeController@podcast')->middleware('auth')    ;
 Route::get('/trivia', 'HomeController@games')->middleware('auth')   ;
-//Route::get('/question', 'HomeController@question')->middleware('auth')  ;
 Route::get('/question', 'QuestionController@question')->middleware('auth');
 Route::get('/stores', 'StoreController@stores')->middleware('auth')  ;
 Route::get('/jobs', 'JobController@jobs')->middleware('auth')  ;
