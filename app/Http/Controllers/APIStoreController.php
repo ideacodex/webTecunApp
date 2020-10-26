@@ -33,9 +33,9 @@ class APIStoreController extends Controller
 
     public function show($id)
     {
-        $store = Store::findOrFail($id);
+        $store = Store::find($id);
 
-        if(!empty($store)){
+        if(is_object($store)){
             $data = [
                 'code' => 200,
                 'status' => 'success',
@@ -45,7 +45,7 @@ class APIStoreController extends Controller
             $data = [
                 'code' => 404,
                 'status' => 'error',
-                'message' => 'No se puede visualizar el record'
+                'message' => 'No se puede visualizar la agencia'
             ];
         }
 

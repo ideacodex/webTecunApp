@@ -29,7 +29,7 @@ Route::get('award/image/{url_image}', 'APIAwardController@getImage');
 Route::get('award/carousel', 'APIAwardController@carousel');
 
 Route::get('store', 'APIStoreController@index');
-Route::get('Store/{id}', 'APIStoreController@show');
+Route::get('store/{id}', 'APIStoreController@show');
 
 Route::get('jobs', 'APIJobController@index');
 Route::get('job/{id}', 'APIJobController@show');

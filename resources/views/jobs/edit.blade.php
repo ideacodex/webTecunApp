@@ -13,7 +13,7 @@
     @endif
     <div class="container-fluid">
         <div class="row justify-content-center mt-2">
-            <p class="text-primary h2">Nueva oferta de empleo <i class="fas fa-briefcase"> </i></p>
+            <p class="text-primary h2">Editar oferta de empleo <i class="fas fa-briefcase"> </i></p>
         </div>
         <div class="mt-4">
             <form method="POST" action="{{ url('jobsAdmin/' . $job->id) }}" enctype="multipart/form-data"
@@ -87,6 +87,30 @@
                         </span>
                         @enderror
                     </div>
+
+                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                <i class="text-primary far fa-building"></i>
+                            </span>
+                        </div>
+                        <input id="company" name="company" placeholder="Empresa" type="text" size="100" maxlength="100"
+                            class="text-primary form-control @error('company') is-invalid @enderror" company="company"
+                            value="{{ $job->company }}" required autocomplete="company" autofocus>
+
+                        @error('company')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+
+                        @error('company')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+
                     <div class="col-12 input-group input-group-lg mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text transparent" id="inputGroup-sizing-sm">

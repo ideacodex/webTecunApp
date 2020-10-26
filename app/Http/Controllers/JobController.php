@@ -186,19 +186,8 @@ class JobController extends Controller
         return view('jobs.show', ['job' => $job]);
     }
 
-    /*public function apply(Request $request)
+    public function apply()
     {
-        request()->validate([
-            '_token' => 'required',
-            'pdf' => 'required',
-            'message' => 'required'
-        ]);
-
-        DB::beginTransaction();
-
-        try{
-
-        }
+        
     }
-    */
 }

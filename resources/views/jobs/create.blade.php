@@ -88,24 +88,21 @@
                     </div>
                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                         <div class="input-group-prepend">
-                            <span class="input-group-text text-primary" id="inputGroup-sizing-sm">
-                                <i class="text-primary fas fa-tags"></i>
+                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                <i class="text-primary far fa-building"></i>
                             </span>
                         </div>
-                        <select name="category_id" id="category_id"
-                            class="form-control @error('category_id') is-invalid @enderror" required>
-                            <option value="1" selected>Categoría</option>
-                            @foreach ($categories as $item)
-                                <option value="{{ $item->id }}">{{ $item->name }}</option>
-                            @endforeach
-                        </select>
-                        @error('category_id')
+                        <input id="company" name="company" placeholder="Empresa" type="text" size="100" maxlength="100"
+                            class="text-primary form-control @error('company') is-invalid @enderror" company="company"
+                            value="{{ old('company') }}" required autocomplete="company" autofocus>
+
+                        @error('company')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
 
-                        @error('category_id')
+                        @error('company')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
