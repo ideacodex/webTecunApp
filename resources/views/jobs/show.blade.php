@@ -37,7 +37,7 @@
                                 <label class="custom-file-label" for="inputGroupFile04">Cv.pdf</label>
                             </div>
                             <div class="col-md-12 col-sm-3 col-xs-3">
-                                <textarea name="msg" placeholder="Mensaje" rows="2"></textarea>
+                                <textarea name="message" placeholder="Mensaje" rows="2"></textarea>
                             </div>
                             <div class="col-xs-12 col-md-6 mb-5">
                                 <input value="Enviar" id="comment-submit" type="submit">

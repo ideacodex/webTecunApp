@@ -21,9 +21,20 @@ class CreateJobsTable extends Migration
             $table->float('salary')->nullable();
             $table->string('email')->nullable();
             $table->timestamp('expiration_date')->nullable();
-            $table->text('comment')->nullable();
             $table->softDeletes();
             $table->timestamps();
+        });
+
+        Schema::create('postulates', function (Blueprint $table) {
+            $table->bigImcrements('id');
+            $table->text('message')->nullable();
+            $table->string('featured_document');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
+                ->references('id')->on('users');
+            $table->unsignedBigInteger('job_id');
+            $table->foreign('job_id')
+                ->references('id')->on('jobs');
         });
     }
 
@@ -34,6 +45,7 @@ class CreateJobsTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('postulates');
         Schema::dropIfExists('jobs');
     }
 }

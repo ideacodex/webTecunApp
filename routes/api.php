@@ -26,4 +26,16 @@ Route::get('category/{id}', 'APICategoryController@show');
 
 Route::get('award', 'APIAwardController@index');
 Route::get('award/image/{url_image}', 'APIAwardController@getImage');
-Route::get('award/{url_image}', 'APIAwardController@carousel');
+Route::get('award/carousel', 'APIAwardController@carousel');
+
+Route::get('store', 'APIStoreController@index');
+Route::get('Store/{id}', 'APIStoreController@show');
+
+Route::get('jobs', 'APIJobController@index');
+Route::get('job/{id}', 'APIJobController@show');
+
+Route::get('posts', 'APIPostController@index');
+Route::get('post/{id}', 'APIPostController@show');
+Route::get('post/{featured_image}', 'APIPostController@getImage');
+Route::get('post/{featured_document}', 'APIPostController@getDocument');
+Route::get('post/{featured_video}', 'APIPostController@getVideo');

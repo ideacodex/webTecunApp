@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
+
 use App\Award;
-use App\User;
-use DB;
 
 class APIAwardController extends Controller
 {
@@ -14,11 +14,21 @@ class APIAwardController extends Controller
     {
         $award = Award::all();
 
-        return response()->json([
-            'code' => 200,
-            'status' => 'success',
-            'award' => $award
-        ]);
+        if(empty($award)){
+            $data = [
+                'code' => 404,
+                'status' => 'error',
+                'message' => 'No hay reconocimientos'
+            ];
+        }else{
+            $data = [
+                'code' => 200,
+                'status' => 'success',
+                'award' => $award
+            ];
+        }
+
+        return response()->json($data, $data['code']);
     }
 
     public function getImage($url_image)
@@ -47,7 +57,7 @@ class APIAwardController extends Controller
     public function carousel()
     {
         //Buscar las imagenes en la DB dependiendo del Type_id
-        $award = Award::where('type_id', 0)->get('url_image');
+        $award = Award::with('user')->with('category')->get();
 
         if(empty($award)){
             $data = [
@@ -56,32 +66,14 @@ class APIAwardController extends Controller
                 'message' => 'Error al obtener los datos'
             ];
 
-            return response()->json($data, $data['code']);
-
         }else{
-            if($award->type_id == 0){
-                $data = [
-                    'code' => 200,
-                    'status' => 'success',
-                    'award' => $award
-                ];
-    
-                return respose()->json($data, $data['code']);
-    
-            }else{
-                $award = Award::where('type_id', 1)->get('url_image');
-    
-                if($award->type_id == 1){
-                    $data = [
-                        'code' => 200,
-                        'status' => 'success',
-                        'award' => $award
-                    ];
-    
-                    return response()->json($data, $data['code']);
-                }
-            }
+            $data = [
+                'code' => 200,
+                'status' => 'success',
+                'award' => $award
+            ];
         }
 
+        return response()->json($data, $data['code']);
     }
 }

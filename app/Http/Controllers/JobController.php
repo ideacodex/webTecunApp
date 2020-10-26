@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Job;
 use App\Category;
 use App\Status;
+use App\User;
 use DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -184,4 +185,20 @@ class JobController extends Controller
         $job = Job::findOrFail($id);
         return view('jobs.show', ['job' => $job]);
     }
+
+    /*public function apply(Request $request)
+    {
+        request()->validate([
+            '_token' => 'required',
+            'pdf' => 'required',
+            'message' => 'required'
+        ]);
+
+        DB::beginTransaction();
+
+        try{
+
+        }
+    }
+    */
 }
