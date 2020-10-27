@@ -45,20 +45,20 @@
                                     <label class="custom-file-label" for="inputGroupFile04">Curriculum.pdf</label>
                                 </div>
                                 <div class="col-xs-12 col-md-12 mb-5 ml-4">
-                                    <textarea id="message" name="message" placeholder="Mensaje" type="text" size="100"
-                                        maxlength="100" class="text-primary form-control @error('message') is-invalid @enderror"
-                                        message="message" value="{{ old('message') }}" required autocomplete="message"
+                                    <textarea id="comment" name="comment" placeholder="Mensaje" type="text" size="100"
+                                        maxlength="100" class="text-primary form-control @error('comment') is-invalid @enderror"
+                                        comment="comment" value="{{ old('comment') }}" required autocomplete="comment"
                                         autofocus></textarea>
 
-                                    @error('message')
+                                    @error('comment')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        <strong>{{ $comment }}</strong>
                                     </span>
                                     @enderror
 
-                                    @error('message')
+                                    @error('comment')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        <strong>{{ $comment }}</strong>
                                     </span>
                                     @enderror
                                 </div>

@@ -6,6 +6,7 @@ use App\Job;
 use App\Category;
 use App\Status;
 use App\User;
+use App\Award;
 
 use Illuminate\Support\Facades\Mail;
 use App\Mail\JobDataUser;
@@ -14,6 +15,7 @@ use DB;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class JobController extends Controller
 {
@@ -200,29 +202,70 @@ class JobController extends Controller
                 '_token' => 'required',
                 'document' => 'required'
             ]);
-    
-            DB::beginTransaction();
-    
+
             try{
-                //Recoger el archivo enviado por post
                 $document = $request->hasFile('document');
-                $filename = $request->_token;
+                $filename = $request->email;
                 $extension = $request->file('document')->getClientOriginalExtension();
-                $pdfNameToStore = $request->_token . '.' . $extension;
-    
+                $pdfNameToStore = $request->email . '.' . $extension;
+                // Upload Image //********nombre de carpeta para almacenar*****
+                $path = $request->file('document')->storeAs('public/jobs', $pdfNameToStore);
+
+                $realPath = 'public/jobs'.$pdfNameToStore;
+
+                $isset = \Storage::disk('jobs')->exists($pdfNameToStore);
+
                 //Recoger el mensaje enviado
-                $message = $request->message;
-    
+                $comment = $request->comment;
+
                 //Recoger la identidad del usuario
                 $userIdentity = $user;
 
                 //Json a enviar
                 $data = [
-                    'pdfNameToStore' => $pdfNameToStore,
-                    'message' => $message,
-                    'mail' => 'salazarvasquezgaryemmanuel@gmail.com',
-                    'userIdentity' => $userIdentity
+                    'use' => $user,
+                    'realPath' => $realPath,
+                    'comment' => $comment
                 ];
+
+                Mail::send('emails.contactForm', $data, function(Request $request, $message) {
+                    $document = $request->hasFile('document');
+                    $filename = $request->email;
+                    $extension = $request->file('document')->getClientOriginalExtension();
+                    $pdfNameToStore = $request->email . '.' . $extension;
+                    // Upload Image //********nombre de carpeta para almacenar*****
+                    $path = $request->file('document')->storeAs('public/jobs', $pdfNameToStore);
+
+                    $realPath = 'public/jobs'.$pdfNameToStore;
+
+                    $data = [
+                        'realPath' => $realPath
+                    ];
+
+                    $message->to('gsalazar@pctecbus.co');
+                    
+                    $message->cc('norellana@pctecbus.co', 'gyuman@pctecbus.co');
+    
+                    $message->attach($data['realPath']);
+    
+                    $message->getSwiftMessage();
+                });
+
+                dd('Correo enviado');
+    
+                return back()->with(['message' => 'Correo enviado exitosamente']);
+
+                Mail::to(['gsalazar@pctecbus.co','norellana@pctecbus.co', 'gyuman@pctecbus.co'])
+                    ->send(new JobDataUser($request))
+                    ->attach($realPath); //Envia un archivo adjunto
+
+                if($isset){
+                    $isset = \Storage::disk('jobs')->get($pdfNameToStore);
+                    dd($isset);
+                    $file = \Storage::disk('jobs')->get($pdfNameToStore);
+                }else{
+                    dd('No hay naiden');
+                }
     
             }catch (\Illuminate\Database\QueryException $e) {
                 DB::rollback(); //si hay un error previo, desahe los cambios en DB y redirecciona a pagina de error
