@@ -25,16 +25,21 @@
                     </div>
                     <div class="row">
                         @auth
-                            <form action="mail.php" id="contact-form">
+                            <form method="POST" action="{{ url('apply/mail') }}" enctype="multipart/form-data"
+                                onsubmit="return checkSubmit();">
+                                @csrf
+                                <input type="hidden" name="user" id="user" value="{{ auth()->user()->name }}">
+                                <input type="hidden" name="email" id="email" value="{{ auth()->user()->email }}">
+                                <input type="hidden" name="phone" id="phone" value="{{ auth()->user()->phone }}">
                                 <div class="col-xs-11 col-md-11 mb-4 ml-5">
-                                    <input title="Selecionar" type="file" accept="file_extension/*" name="pdf"
+                                    <input title="Selecionar" type="file" accept="file_extension/*" name="document"
                                         id="inputGroupFile04" aria-describedby="inputGroupFileAddon04"
-                                        class="custom-file-input form-control{{ $errors->has('pdf') ? ' is-invalid' : '' }}"
-                                        value="{{ old('pdf') }}">
-                                    @if ($errors->has('pdf'))
+                                        class="custom-file-input form-control{{ $errors->has('document') ? ' is-invalid' : '' }}"
+                                        value="{{ old('document') }}">
+                                    @if ($errors->has('document'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong><i
-                                                    class="fas fa-exclamation-triangle"></i>{{ $errors->first('pdf') }}</strong>
+                                                    class="fas fa-exclamation-triangle"></i>{{ $errors->first('document') }}</strong>
                                         </span>
                                     @endif
                                     <label class="custom-file-label" for="inputGroupFile04">Curriculum.pdf</label>
@@ -68,11 +73,13 @@
 
                     <div class="row">
                         @guest
-                            <form action="mail.php" id="contact-form">
+                            <form method="POST" action="{{ url('apply/mail') }}" enctype="multipart/form-data"
+                                onsubmit="return checkSubmit();">
+                                @csrf
                                 <div class="col-xs-12 col-md-12 mb-5 ml-4">
-                                    <input id="name" name="name" placeholder="Nombre completo" type="text" size="100" maxlength="100"
-                                        class="text-primary form-control @error('name') is-invalid @enderror" name="name"
-                                        value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                    <input id="name" name="name" placeholder="Nombre completo" type="text" size="100"
+                                        maxlength="100" class="text-primary form-control @error('name') is-invalid @enderror"
+                                        name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
                                     @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -88,16 +95,16 @@
                                 </div>
 
                                 <div class="col-xs-12 col-md-12 mb-5 ml-4">
-                                    <input id="email" placeholder="Correo " type="text" size="100" maxlength="100" 
-                                    class="text-light form-control @error('email') is-invalid @enderror" name="email" 
-                                    value="{{ old('email') }}" required autocomplete="email" autofocus>
-                    
+                                    <input id="email" placeholder="Correo " type="text" size="100" maxlength="100"
+                                        class="text-light form-control @error('email') is-invalid @enderror" name="email"
+                                        value="{{ old('email') }}" required autocomplete="email" autofocus>
+
                                     @error('email')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                     @enderror
-                    
+
                                     @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -106,9 +113,9 @@
                                 </div>
 
                                 <div class="col-xs-12 col-md-12 mb-5 ml-4">
-                                    <input id="phone" name="phone" placeholder="Número de móvil" type="text" size="100" maxlength="100"
-                                        class="text-primary form-control @error('phone') is-invalid @enderror" phone="phone"
-                                        value="{{ old('phone') }}" required autocomplete="phone" autofocus>
+                                    <input id="phone" name="phone" placeholder="Número de móvil" type="text" size="100"
+                                        maxlength="100" class="text-primary form-control @error('phone') is-invalid @enderror"
+                                        phone="phone" value="{{ old('phone') }}" required autocomplete="phone" autofocus>
 
                                     @error('phone')
                                     <span class="invalid-feedback" role="alert">
@@ -124,11 +131,11 @@
                                 </div>
 
                                 <div class="col-xs-11 col-md-11 mb-4 ml-5">
-                                    <input title="Selecionar" type="file" accept="file_extension/*" name="pdf"
+                                    <input title="Selecionar" type="file" accept="file_extension/*" name="document"
                                         id="inputGroupFile04" aria-describedby="inputGroupFileAddon04"
-                                        class="custom-file-input form-control{{ $errors->has('pdf') ? ' is-invalid' : '' }}"
-                                        value="{{ old('pdf') }}">
-                                    @if ($errors->has('pdf'))
+                                        class="custom-file-input form-control{{ $errors->has('document') ? ' is-invalid' : '' }}"
+                                        value="{{ old('document') }}">
+                                    @if ($errors->has('document'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong><i
                                                     class="fas fa-exclamation-triangle"></i>{{ $errors->first('pdf') }}</strong>

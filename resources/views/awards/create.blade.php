@@ -95,7 +95,8 @@
                             <button type="submit" class="btn btn-lg btn-primary">
                                 <i class="fas fa-save"></i>
                                 {{ __('Guardar') }}
-                            </button> </div>
+                            </button> 
+                        </div>
                     </div>
                 </div>
             </div>

@@ -6,8 +6,13 @@ use App\Job;
 use App\Category;
 use App\Status;
 use App\User;
+
+use Illuminate\Support\Facades\Mail;
+use App\Mail\JobDataUser;
+
 use DB;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
 
 class JobController extends Controller
@@ -176,7 +181,7 @@ class JobController extends Controller
         $jobs = Job::where('title', 'like', "%$title%")
                 ->orWhere('description', 'like', "%$description%")
                 ->orWhere('skils', 'like', "%$skils%")
-                ->paginate(5);
+                ->get();
 
         return view("jobs.home", ["jobs" => $jobs]);
     }
@@ -186,8 +191,102 @@ class JobController extends Controller
         return view('jobs.show', ['job' => $job]);
     }
 
-    public function apply()
+    public function apply(Request $request)
     {
-        
+        $user = auth()->user();
+
+        if(isset($user)){
+            request()->validate([
+                '_token' => 'required',
+                'document' => 'required'
+            ]);
+    
+            DB::beginTransaction();
+    
+            try{
+                //Recoger el archivo enviado por post
+                $document = $request->hasFile('document');
+                $filename = $request->_token;
+                $extension = $request->file('document')->getClientOriginalExtension();
+                $pdfNameToStore = $request->_token . '.' . $extension;
+    
+                //Recoger el mensaje enviado
+                $message = $request->message;
+    
+                //Recoger la identidad del usuario
+                $userIdentity = $user;
+
+                //Json a enviar
+                $data = [
+                    'pdfNameToStore' => $pdfNameToStore,
+                    'message' => $message,
+                    'mail' => 'salazarvasquezgaryemmanuel@gmail.com',
+                    'userIdentity' => $userIdentity
+                ];
+    
+            }catch (\Illuminate\Database\QueryException $e) {
+                DB::rollback(); //si hay un error previo, desahe los cambios en DB y redirecciona a pagina de error
+                //$response['message'] = $e->errorInfo;
+                //dd($e->errorInfo[2]);
+                abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
+                return response()->json($response, 500);
+                return redirect()->action('JobController@jobs')
+                        ->with(['message' => 'Error al enviar el correo', 'alert' => 'warning']);
+            }
+            DB::commit();
+            //return Mail::to($data['mail'])->send(new JobDataUser($data));
+            Mail::to(['gsalazar@pctecbus.co'])
+                ->cc('norellana@pctecbus.co') // enviar correo con copia
+                ->send(new JobDataUser($request)); //envia la variables $request a la clase de MAIL
+                //dd($request);
+
+        }else{
+            request()->validate([
+                'name' => 'required',
+                'email' => 'required',
+                'phone' => 'required',
+                'document' => 'required',
+                'message' => 'required'
+            ]);
+
+            DB::beginTransaction();
+
+            try{
+                //Recoger el archivo enviado por post
+                $document = $request->hasFile('document');
+                $filename = $request->_token;
+                $extension = $request->file('document')->getClientOriginalExtension();
+                $pdfNameToStore = $request->_token . '.' . $extension;
+
+                //Recoger los demas campos de tipo Input
+                $name = $request->name;
+                $email = $request->email;
+                $phone = $request->phone;
+                $message = $request->message;
+
+                $data = [
+                    'pdfToStore' => $pdfNameToStore,
+                    'name' => $name,
+                    'email' => $email,
+                    'phone' => $phone,
+                    'message' => $message
+                ];
+
+            }catch (\Illuminate\Database\QueryException $e) {
+                DB::rollback(); //si hay un error previo, desahe los cambios en DB y redirecciona a pagina de error
+                //$response['message'] = $e->errorInfo;
+                //dd($e->errorInfo[2]);
+                abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
+                return response()->json($response, 500);
+                return redirect()->action('JobController@jobs')
+                        ->with(['message' => 'Error al enviar el mail', 'alert' => 'warning']);
+            }
+            DB::commit();
+            Mail::to(['gsalazar@pctecbus.co'])
+            ->cc('norellana@pctecbus.co') // enviar correo con copia
+            ->send(new JobDataUser($request)); //envia la variables $request a la clase de MAIL
+            //dd($request);
+        }
+
     }
 }
