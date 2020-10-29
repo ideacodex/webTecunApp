@@ -35,6 +35,7 @@ class JobDataUser extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.contactForm');
+        return $this->subject('Postulacion a la plaza '.$this->request->title)
+            ->view('emails.userApply');
     }
 }

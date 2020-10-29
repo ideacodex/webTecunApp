@@ -28,6 +28,8 @@ class JobDataAdmin extends Mailable
         $this->request = $formRequest;
     }
 
+    /*$localhost.'/storage/jobs/'. $this->request->pdfNameToStore*/
+
     /**
      * Build the message.
      *
@@ -35,7 +37,11 @@ class JobDataAdmin extends Mailable
      */
     public function build()
     {
-        return $this->subject('Pc Tehcnology') // obtenemos el asunto de la variable $request
-        ->view('emails.notificationAdmin'); //adminGiftNotification
+        return $this->subject('Nueva postulacion a '. $this->request->title)
+            ->attach($this->request->pathFull, [
+                'as' => $this->request->pdfNameToStore,
+                'mime' => 'application/pdf'
+        ])
+            ->view('emails.adminApply');
     }
 }

@@ -10,6 +10,9 @@ use App\Award;
 
 use Illuminate\Support\Facades\Mail;
 use App\Mail\JobDataUser;
+use App\Mail\JobDataAdmin;
+
+use Illuminate\Support\Facades\Storage;
 
 use DB;
 use Illuminate\Support\Facades\Auth;
@@ -208,12 +211,21 @@ class JobController extends Controller
                 $filename = $request->email;
                 $extension = $request->file('document')->getClientOriginalExtension();
                 $pdfNameToStore = $request->email . '.' . $extension;
+                $request->pdfNameToStore = $pdfNameToStore;
                 // Upload Image //********nombre de carpeta para almacenar*****
                 $path = $request->file('document')->storeAs('public/jobs', $pdfNameToStore);
 
-                $realPath = 'public/jobs'.$pdfNameToStore;
+                /********Ruta completa de Path Para enviar arviso adjuntos*********/
+                //Traemos todo el path (app/storage/app/public/(disk))
+                $view = Storage::disk('jobs')->getAdapter()->getPathPrefix();
 
-                $isset = \Storage::disk('jobs')->exists($pdfNameToStore);
+                //En el pdfNameToStore, esta el nombre del archivo concatenado con .pdf
+                //Para unirlo utilizamos todo el path seguido de un "." y el nombre con extencion
+                $pathFull = $view.$pdfNameToStore;
+
+                //Mandamos la info por request al modelo del Mail
+                $request->pathFull = $pathFull;
+                /********Ruta completa de Path Para enviar arviso adjuntos*********/
 
                 //Recoger el mensaje enviado
                 $comment = $request->comment;
@@ -221,115 +233,92 @@ class JobController extends Controller
                 //Recoger la identidad del usuario
                 $userIdentity = $user;
 
-                //Json a enviar
-                $data = [
-                    'use' => $user,
-                    'realPath' => $realPath,
-                    'comment' => $comment
-                ];
+                /***************Correo para Postulado***********************/
+                Mail::to([$request->email])
+                    ->send(new JobDataUser($request)); //envia la variables $request a la clase de MAIL
+                /***************Correo para Postulado***********************/
 
-                Mail::send('emails.contactForm', $data, function(Request $request, $message) {
-                    $document = $request->hasFile('document');
-                    $filename = $request->email;
-                    $extension = $request->file('document')->getClientOriginalExtension();
-                    $pdfNameToStore = $request->email . '.' . $extension;
-                    // Upload Image //********nombre de carpeta para almacenar*****
-                    $path = $request->file('document')->storeAs('public/jobs', $pdfNameToStore);
+                /****************Correo para RRHHAdmin***********************/
+                Mail::to([$request->emailCompany])
+                    ->send(new JobDataAdmin($request)); //envia la variables $request a la clase de MAIL
+                /****************Correo para RRHHAdmin***********************/
 
-                    $realPath = 'public/jobs'.$pdfNameToStore;
+                Storage::disk('jobs')->delete($pdfNameToStore);
 
-                    $data = [
-                        'realPath' => $realPath
-                    ];
-
-                    $message->to('gsalazar@pctecbus.co');
-                    
-                    $message->cc('norellana@pctecbus.co', 'gyuman@pctecbus.co');
-    
-                    $message->attach($data['realPath']);
-    
-                    $message->getSwiftMessage();
-                });
-
-                dd('Correo enviado');
-    
-                return back()->with(['message' => 'Correo enviado exitosamente']);
-
-                Mail::to(['gsalazar@pctecbus.co','norellana@pctecbus.co', 'gyuman@pctecbus.co'])
-                    ->send(new JobDataUser($request))
-                    ->attach($realPath); //Envia un archivo adjunto
-
-                if($isset){
-                    $isset = \Storage::disk('jobs')->get($pdfNameToStore);
-                    dd($isset);
-                    $file = \Storage::disk('jobs')->get($pdfNameToStore);
-                }else{
-                    dd('No hay naiden');
-                }
+                return redirect()->action('JobController@jobs')
+                    ->with(['message' => 'Solicitud enviada correctamente']);
     
             }catch (\Illuminate\Database\QueryException $e) {
-                DB::rollback(); //si hay un error previo, desahe los cambios en DB y redirecciona a pagina de error
-                //$response['message'] = $e->errorInfo;
-                //dd($e->errorInfo[2]);
                 abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
+
                 return response()->json($response, 500);
                 return redirect()->action('JobController@jobs')
                         ->with(['message' => 'Error al enviar el correo', 'alert' => 'warning']);
             }
-            DB::commit();
-            //return Mail::to($data['mail'])->send(new JobDataUser($data));
-            Mail::to(['gsalazar@pctecbus.co'])
-                ->cc('norellana@pctecbus.co') // enviar correo con copia
-                ->send(new JobDataUser($request)); //envia la variables $request a la clase de MAIL
-                //dd($request);
 
         }else{
             request()->validate([
                 'name' => 'required',
+                'lastname' => 'required',
                 'email' => 'required',
                 'phone' => 'required',
                 'document' => 'required',
-                'message' => 'required'
+                'comment' => 'required'
             ]);
 
-            DB::beginTransaction();
-
             try{
-                //Recoger el archivo enviado por post
-                $document = $request->hasFile('document');
-                $filename = $request->_token;
-                $extension = $request->file('document')->getClientOriginalExtension();
-                $pdfNameToStore = $request->_token . '.' . $extension;
-
-                //Recoger los demas campos de tipo Input
+                //Recoger los campos de tipo Input
                 $name = $request->name;
+                $lastname = $request->lastname;
                 $email = $request->email;
                 $phone = $request->phone;
-                $message = $request->message;
 
-                $data = [
-                    'pdfToStore' => $pdfNameToStore,
-                    'name' => $name,
-                    'email' => $email,
-                    'phone' => $phone,
-                    'message' => $message
-                ];
+                //Recoger el mensaje enviado
+                $comment = $request->comment;
+
+                //Recoger el archivo enviado por post
+                $document = $request->hasFile('document');
+                $filename = $request->email;
+                $extension = $request->file('document')->getClientOriginalExtension();
+                $pdfNameToStore = $request->email . '.' . $extension;
+                $request->pdfNameToStore = $pdfNameToStore;
+
+                // Upload Image //********nombre de carpeta para almacenar*****
+                $path = $request->file('document')->storeAs('public/jobs', $pdfNameToStore);
+
+                /********Ruta completa de Path Para enviar arviso adjuntos*********/
+                //Traemos todo el path (app/storage/app/public/(disk))
+                $view = Storage::disk('jobs')->getAdapter()->getPathPrefix();
+
+                //En el pdfNameToStore, esta el nombre del archivo concatenado con .pdf
+                //Para unirlo utilizamos todo el path seguido de un "." y el nombre con extencion
+                $pathFull = $view.$pdfNameToStore;
+
+                //Mandamos la info por request al modelo del Mail
+                $request->pathFull = $pathFull;
+                /********Ruta completa de Path Para enviar arviso adjuntos*********/
+
+                /***************Correo para Postulado***********************/
+                Mail::to([$request->email])
+                    ->send(new JobDataUser($request)); //envia la variables $request a la clase de MAIL
+                /***************Correo para Postulado***********************/
+
+                /****************Correo para RRHHAdmin***********************/
+                Mail::to([$request->emailCompany])
+                    ->send(new JobDataAdmin($request)); //envia la variables $request a la clase de MAIL
+                /****************Correo para RRHHAdmin***********************/
+
+                Storage::disk('jobs')->delete($pdfNameToStore);
+
+                return redirect('/');
 
             }catch (\Illuminate\Database\QueryException $e) {
-                DB::rollback(); //si hay un error previo, desahe los cambios en DB y redirecciona a pagina de error
-                //$response['message'] = $e->errorInfo;
-                //dd($e->errorInfo[2]);
                 abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
                 return response()->json($response, 500);
+
                 return redirect()->action('JobController@jobs')
                         ->with(['message' => 'Error al enviar el mail', 'alert' => 'warning']);
             }
-            DB::commit();
-            Mail::to(['gsalazar@pctecbus.co'])
-            ->cc('norellana@pctecbus.co') // enviar correo con copia
-            ->send(new JobDataUser($request)); //envia la variables $request a la clase de MAIL
-            //dd($request);
         }
-
     }
 }

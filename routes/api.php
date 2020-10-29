@@ -33,6 +33,7 @@ Route::get('store/{id}', 'APIStoreController@show');
 
 Route::get('jobs', 'APIJobController@index');
 Route::get('job/{id}', 'APIJobController@show');
+Route::post('job/aplly/mail', 'APIJobController@apply');
 
 Route::get('posts', 'APIPostController@index');
 Route::get('post/{id}', 'APIPostController@show');

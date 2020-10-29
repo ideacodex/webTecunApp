@@ -198,35 +198,12 @@
                                         <td valign="top" class="mobile-block mobile-no-padding-bottom mobile-center"
                                             width="270" style="background:orange;padding:10px 10px 10px 20px;">
                                             <a href="#" style="text-decoration:none;">
-                                                <img src="http://pctecbus.co/pctecbus/img/pc-technology-blanco.png"
+                                                <img src="http://www.grupotecun.com/assets/images/blancologo.png"
                                                     height="40" alt="Logo" />
                                             </a>
                                         </td>
                                         <td valign="top" class="mobile-block mobile-center" width="270"
                                             style="background:orange;padding:10px 15px 10px 10px">
-                                            <table border="0" cellpadding="0" cellspacing="0"
-                                                class="mobile-center-block" align="right">
-                                                <tr>
-                                                    <td align="right" style="padding-left:5px">
-                                                        <a href="https://www.linkedin.com/company/pctechnology">
-                                                            <img src="https://images.vexels.com/media/users/3/137382/isolated/preview/c59b2807ea44f0d70f41ca73c61d281d-icono-de-linkedin-logo-by-vexels.png"
-                                                                width="30" height="30" alt="social icon" />
-                                                        </a>
-                                                    </td>
-                                                    <td align="right" style="padding-left:5px">
-                                                        <a href="https://api.whatsapp.com/send?phone=50254954454">
-                                                            <img src="http://flash.com.gt/img/icons/social/WhatsApp.png"
-                                                                width="30" height="30" alt="social icon" />
-                                                        </a>
-                                                    </td>
-                                                    <td align="right" style="padding-left:5px">
-                                                        <a href="https://m.me/pctechnologygt">
-                                                            <img src="https://cdn.iconscout.com/icon/free/png-256/messenger-1856781-1576515.png"
-                                                                width="30" height="30" alt="social icon" />
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            </table>
                                         </td>
                                     </tr>
                                 </table>
@@ -238,62 +215,21 @@
                             <center>
                                 <table cellpadding="0" cellspacing="0" width="600" class="w320">
                                     <tr>
-                                        <td align="left" class="mobile-padding" style="padding:20px">
+                                        <td align="center" class="mobile-padding" style="padding:20px">
 
                                             <br class="mobile-hide" />
 
-                                            <h2>Gracias por contactarnos</h2><br>
-                                            Estimado {{ $request->name }},<br>
-                                            Gracias por su interes en {{ $request->product }}.<br>
-                                            Nuestro personal de servicio al cliente se comunicará con usted para resolver sus inquietudes
-                                            <br>
+                                            <h2>Gracias por postularte a la plaza de {{ $request->title }}</h2><br>
+                                            Si cumple con el perfil solicitado<br>
+                                            uno de nuestros colaboradores de RRHH<br>
+                                            se pondra en contacto con usted<br><br>
 
-                                            <table cellspacing="0" cellpadding="0" width="100%" bgcolor="#ffffff">
-                                                <tr>
-                                                    <td style="width:100px;background:#D84A38;">
-                                                        <div>
-                                                            <!--[if mso]>
-                          <v:rect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="#" style="height:33px;v-text-anchor:middle;width:100px;" stroke="f" fillcolor="#D84A38">
-                            <w:anchorlock/>
-                            <center>
-                          <![endif]-->
-                                                            <a href="tel:50224451422"
-                                                                style="background-color:orange;color:#ffffff;display:inline-block;font-family:sans-serif;font-size:13px;font-weight:bold;line-height:33px;text-align:center;text-decoration:none;width:100px;-webkit-text-size-adjust:none;">
-                                                                Llamar ahora</a>
-                                                            <!--[if mso]>
-                            </center>
-                          </v:rect>
-                          <![endif]-->
-                                                        </div>
-                                                    </td>
-                                                    <td width="281"
-                                                        style="background-color:#ffffff; font-size:0; line-height:0;">
-                                                        &nbsp;</td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td class="mobile-hide"
-                                            style="padding-top:20px;padding-bottom:0; vertical-align:bottom;"
-                                            valign="bottom">
-                                            <table cellspacing="0" cellpadding="0" width="100%">
-                                                <tr>
-                                                    <td align="right" valign="bottom"
-                                                        style="padding-bottom:0; vertical-align:bottom;">
-                                                        <img style="vertical-align:bottom;"
-                                                            src="https://richardgarcia.net/wp-content/uploads/2019/02/ROBOT-PNG-Manychat.png"
-                                                            width="174" />
-                                                    </td>
-                                                </tr>
-                                            </table>
+                                            Exitos en su dia!!!
+                                            <br>
                                         </td>
                                     </tr>
                                 </table>
                             </center>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td valign="top" style="background-color:#f8f8f8;border-bottom:1px solid #e7e7e7;">
-
                         </td>
                     </tr>
                     <tr>
@@ -304,9 +240,16 @@
                                     <tr>
                                         <td align="right" valign="middle" class="mobile-padding"
                                             style="font-size:12px;padding:20px; background-color:#007bff; color:#ffffff; text-align:left; ">
-                                            <a style="color:#ffffff;" href="https://www.facebook.com/pctechnologygt/">Facebook</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-                                            <a style="color:#ffffff;" href="https://www.linkedin.com/company/pctechnology">Linkedin</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-                                            <a style="color:#ffffff;" href="https://api.whatsapp.com/send?phone=50254954454">Chatea</a>
+                                            <a style="color:#ffffff;"
+                                                href="http://www.grupotecun.com/">Nuestro sitio web
+                                            </a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                                            <a style="color:#ffffff;"
+                                                href="https://www.linkedin.com/company/grupo-tecun?trk=parent_company_logo">Contactenos
+                                            </a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                                        </td>
+                                        <td align="left" valign="middle" class="mobile-padding"
+                                            style="font-size:12px;padding:20px; background-color:#007bff; color:#ffffff; text-align:right; ">
+                                            <p>&copy; 2020 grupotecun.com<p>
                                         </td>
                                     </tr>
                                 </table>

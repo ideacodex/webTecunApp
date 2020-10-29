@@ -21,7 +21,11 @@
                 <!-- leave comment area start -->
                 <div class="leave-comment ">
                     <div class="comment-title col-xs-12 col-md-6 ml-2">
-                        <h4>Aplicar</h4>
+                        <h4>Aplicar</h4> 
+                        <a href="whatsapp://send?text= http://172.18.0.3:3000/{{ substr(request()->getRequestUri(), 1) }}" data-action="share/whatsapp/share" 
+                        class="btn btn-primary mb-3">
+                            Copiar postulacion a un conocido via Whatsapp
+                        </a>
                     </div>
                     <div class="row">
                         @auth
@@ -29,7 +33,9 @@
                                 onsubmit="return checkSubmit();">
                                 @csrf
                                 <input type="hidden" name="title" id="title" value="{{ $job->title }}">
-                                <input type="hidden" name="user" id="user" value="{{ auth()->user()->name }}">
+                                <input type="hidden" name="name" id="name" value="{{ auth()->user()->name }}">
+                                <input type="hidden" name="lastname" id="lastname" value="{{ auth()->user()->lastname }}">
+                                <input type="hidden" name="emailCompany" id="emailCompany" value="{{ $job->email }}">
                                 <input type="hidden" name="email" id="email" value="{{ auth()->user()->email }}">
                                 <input type="hidden" name="phone" id="phone" value="{{ auth()->user()->phone }}">
                                 <div class="col-xs-11 col-md-11 mb-4 ml-5">
@@ -48,7 +54,7 @@
                                 <div class="col-xs-12 col-md-12 mb-5 ml-4">
                                     <textarea id="comment" name="comment" placeholder="Mensaje" type="text" size="100"
                                         maxlength="100" class="text-primary form-control @error('comment') is-invalid @enderror"
-                                        comment="comment" value="{{ old('comment') }}" required autocomplete="comment"
+                                        comment="comment" value="{{ old('comment') }}" autocomplete="comment"
                                         autofocus></textarea>
 
                                     @error('comment')
@@ -77,10 +83,12 @@
                             <form method="POST" action="{{ url('apply/mail') }}" enctype="multipart/form-data"
                                 onsubmit="return checkSubmit();">
                                 @csrf
+                                <input type="hidden" name="title" id="title" value="{{ $job->title }}">
+                                <input type="hidden" name="emailCompany" id="emailCompany" value="{{ $job->email }}">
                                 <div class="col-xs-12 col-md-12 mb-5 ml-4">
-                                    <input id="name" name="name" placeholder="Nombre completo" type="text" size="100"
-                                        maxlength="100" class="text-primary form-control @error('name') is-invalid @enderror"
-                                        name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                    <input id="name" name="name" placeholder="Nombre" type="text" size="100" maxlength="100"
+                                        class="text-primary form-control @error('name') is-invalid @enderror" name="name"
+                                        value="{{ old('name') }}" required autocomplete="name" autofocus>
 
                                     @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -89,6 +97,26 @@
                                     @enderror
 
                                     @error('name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+
+                                <div class="col-xs-12 col-md-12 mb-5 ml-4">
+                                    <input id="lastname" name="lastname" placeholder="Apellido" type="text" size="100"
+                                        maxlength="100"
+                                        class="text-primary form-control @error('lastname') is-invalid @enderror"
+                                        lastname="lastname" value="{{ old('lastname') }}" required autocomplete="lastname"
+                                        autofocus>
+
+                                    @error('lastname')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+
+                                    @error('lastname')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -146,20 +174,20 @@
                                 </div>
 
                                 <div class="col-xs-12 col-md-12 mb-5 ml-4">
-                                    <textarea id="message" name="message" placeholder="Mensaje" type="text" size="100"
-                                        maxlength="100" class="text-primary form-control @error('message') is-invalid @enderror"
-                                        message="message" value="{{ old('message') }}" required autocomplete="message"
+                                    <textarea id="comment" name="comment" placeholder="Mensaje" type="text" size="100"
+                                        maxlength="100" class="text-primary form-control @error('comment') is-invalid @enderror"
+                                        comment="comment" value="{{ old('comment') }}" required autocomplete="comment"
                                         autofocus></textarea>
 
-                                    @error('message')
+                                    @error('comment')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        <strong>{{ $comment }}</strong>
                                     </span>
                                     @enderror
 
-                                    @error('message')
+                                    @error('comment')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        <strong>{{ $comment }}</strong>
                                     </span>
                                     @enderror
                                 </div>
