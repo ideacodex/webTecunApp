@@ -97,15 +97,20 @@
                                 <i class="text-primary fas fa-newspaper"></i> / <i class="text-primary fas fa-podcast"></i>
                             </span>
                         </div>
+
                         <select
-                            class="js-example-basic-multiple js-states form-control @error('rating_id') is-invalid @enderror"
-                            name="rating_id[]" id="rating_id" multiple="multiple" required>
-                            <option disabled selected>Categorias</option>
+                            class="js-example-basic-multiple js-states form-control @error('category_id') is-invalid @enderror"
+                            name="category_id[]" id="category_id" multiple="multiple">
+                            @foreach ($categoryName as $items)
+                                <option selected value="{{ $items->id }}">{{ $items->name }}</option>    
+                            @endforeach
+
                             @foreach ($categories as $item)
-                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                <option selectd value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
-                        @error('rating_id')
+
+                        @error('category_id')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -117,6 +122,10 @@
                         </span>
                         @enderror
                     </div>
+
+                    @foreach ($categoryName as $items)
+                        <input type="hidden" name="NamePostCategory[]" multiple="multiple" value="{{ $items->name }}" >
+                    @endforeach
 
                     <div class="col-12 input-group input-group-lg mb-3">
                         <div class="input-group-prepend">
@@ -182,7 +191,7 @@
                     </div>
                     <div class="container">
                         <div class="row">
-                            <div class="col text-center">
+                            <div class="col text-center mt-3">
                                 <button type="submit" class="btn btn-lg btn-primary">
                                     <i class="fas fa-save"></i>
                                     {{ __('Actualizar') }}

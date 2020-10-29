@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePodcastsTable extends Migration
+class CreatePicturesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,11 @@ class CreatePodcastsTable extends Migration
      */
     public function up()
     {
-        Schema::create('podcasts', function (Blueprint $table) {
+        Schema::create('pictures', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title', 100);
-            $table->string('description', 250);
             $table->longText('content')->nullable();
             $table->string('featured_image')->nullable();
-            $table->string('featured_video')->nullable();
-            $table->string('featured_document')->nullable();
-            $table->string('featured_audio')->nullable(); 
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')
                 ->references('id')->on('users');
@@ -32,7 +28,7 @@ class CreatePodcastsTable extends Migration
             $table->softDeletes();
         });
 
-        Schema::create('category_podcast', function (Blueprint $table) {
+        Schema::create('category_picture', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
             $table->unsignedBigInteger('category_id');
@@ -51,7 +47,7 @@ class CreatePodcastsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('category_podcast');
-        Schema::dropIfExists('podcasts');
+        Schema::dropIfExists('category_picture');
+        Schema::dropIfExists('pictures');
     }
 }

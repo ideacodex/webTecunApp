@@ -28,6 +28,7 @@
                             <form method="POST" action="{{ url('apply/mail') }}" enctype="multipart/form-data"
                                 onsubmit="return checkSubmit();">
                                 @csrf
+                                <input type="hidden" name="title" id="title" value="{{ $job->title }}">
                                 <input type="hidden" name="user" id="user" value="{{ auth()->user()->name }}">
                                 <input type="hidden" name="email" id="email" value="{{ auth()->user()->email }}">
                                 <input type="hidden" name="phone" id="phone" value="{{ auth()->user()->phone }}">

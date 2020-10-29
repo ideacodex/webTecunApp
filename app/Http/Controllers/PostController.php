@@ -35,6 +35,7 @@ class PostController extends Controller
         //
         $status = Status::all();
         $categories = Category::all();
+        
         return view("posts.create", ["status" => $status, "categories" => $categories]);
 
     }
@@ -77,7 +78,7 @@ class PostController extends Controller
                 DB::table('category_post')->insert(
                     ['category_id' => $request->category_id[$i], 'post_id' => $post->id]
                 );
-            } 
+            }
 
             //******carga de imagen**********//
             if ($request->hasFile('image')) {
@@ -155,8 +156,13 @@ class PostController extends Controller
     public function show($id)
     {
         //
-        $posts = Post::findOrFail($id);
-        return view("posts.show", ["posts" => $posts]);
+        $post = Post::findOrFail($id);
+        $category = Category::all();
+
+        //Traemos el array con toda la informacion combianda de la BD  
+        $categoryName = $post->category;
+
+        return view("posts.show", ["post" => $post, 'categoryName' => $categoryName]);
     }
 
     /**
@@ -167,10 +173,20 @@ class PostController extends Controller
      */
     public function edit($id)
     {
+        $post = Post::findOrFail($id);
         $status = Status::all();
         $record = Post::findOrFail($id);
         $categories = Category::all();
-        return view("posts.edit", ["status" => $status, "categories" => $categories, "record" => $record ]);
+
+        //Traemos el array con toda la informacion combianda de la BD  
+        $categoryName = $post->category;
+
+        return view("posts.edit", [
+            "status" => $status, 
+            "categories" => $categories, 
+            "record" => $record,
+            "categoryName" => $categoryName
+        ]);
     }
 
     /**
@@ -200,13 +216,42 @@ class PostController extends Controller
                 $post = Post::findOrFail($id);
                 $post->title = $request->title;
                 $post->description = $request->description;
-                $post->type_id = $request->type_id;
                 $post->content = $request->editordata;
                 //$post->featured_document = $request->featured_document;
                 //$post->save();
                 $post->user_id = auth()->user()->id;
                 $post->status_id = $request->status_id;
                 $post->save();
+
+                //Todos los registros de categoria id son llamados
+                $category = Category::find($id);
+
+                //Traemos el array con toda la informacion combianda de la BD  
+                $categoryName = $post->category;
+                
+                //Buscamos los items de category_post relacionados con un solo post
+                $postDB = DB::table('category_post')->where('post_id', $post->id)->get();
+                
+                if(sizeof($request->category_id) > sizeof($postDB)){
+                    DB::table('category_post')->where('post_id', $post->id)->delete();
+
+
+                    for ($i=0; $i < sizeof($request->category_id); $i++) { 
+                        $request->category_id[$i];
+                        DB::table('category_post')->insert(
+                            ['category_id' => $request->category_id[$i], 'post_id' => $post->id]
+                        );
+                    }
+                }else{
+                    DB::table('category_post')->where('post_id', $post->id)->delete();
+
+                    for ($i=0; $i < sizeof($request->category_id); $i++) { 
+                        $request->category_id[$i];
+                        DB::table('category_post')->insert(
+                            ['category_id' => $request->category_id[$i], 'post_id' => $post->id]
+                        );
+                    }                    
+                }
 
                     //******carga de imagen**********//
                 if ($request->hasFile('image')) {
@@ -279,6 +324,7 @@ class PostController extends Controller
                 abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
                 return response()->json($response, 500);
             }
+
             DB::commit();
             return redirect()->action( //regresa con el error
                 'PostController@index')->with(['message' => 'Se actualizó el registro correctamente', 'alert' => 'warning']);
@@ -314,7 +360,6 @@ class PostController extends Controller
                 abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
                 return response()->json($response, 500);
         }
-
         DB::commit();
 
         return redirect()->action('PostController@index')

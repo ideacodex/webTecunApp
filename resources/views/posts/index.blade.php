@@ -42,7 +42,7 @@
                     <th scope="col">Titulo</th>
                     <th scope="col">Autor</th>
                     <th scope="col">Categorias</th>
-                    <th scope="col">Comentarios</th>
+                    <th scope="col">Descripcion</th>
                     <th scope="col">Estado</th>
                     <th scope="col">Tipo</th>
                     <th scope="col">Opciones</th>
@@ -55,7 +55,7 @@
                     <td>{{$item->title}}</td>
                     <td>{{$item->user->name}}</td>
                     <td>{{$item->user_id}}</td>
-                    <td>@php echo($item->content) @endphp</td>
+                    <td>@php echo($item->description) @endphp</td>
                     <td><span class="badge badge-{{$item->status->color}}"> <i class="{{$item->status->icon}}"></i>
                         {{$item->status->name}}</span></td>
                     <td>{{$item->type()}}</td>

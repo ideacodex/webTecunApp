@@ -13,6 +13,13 @@ class Post extends Model
         return $this->belongsTo("App\Status", 'status_id');
     }
 
+    //Agregamos la tabla pivote para utilizarlo con eloquent
+    public function category()
+    {
+        return $this->belongsToMany("App\Category")->withPivot('category_id');
+    }
+    //Agregamos la tabla pivote para utilizarlo con eloquent
+
     public function user()
     {
         return $this->hasOne("App\User", 'id', 'user_id');
