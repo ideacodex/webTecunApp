@@ -40,7 +40,7 @@ class JobDataAdmin extends Mailable
         return $this->subject('Nueva postulacion a '. $this->request->title)
             ->attach($this->request->pathFull, [
                 'as' => $this->request->pdfNameToStore,
-                'mime' => 'application/pdf'
+                'mimes' => 'application/pdf'
         ])
             ->view('emails.adminApply');
     }

@@ -27,7 +27,7 @@ class Post extends Model
 
     public function comments()
     {
-        return Comment::where('post_id', $this->id)->count();
+        return $this->belongsToMany("App\Comment")->withPivot('comment_id');
     }
 
     function type()

@@ -32,6 +32,8 @@ Route::post('/apply/mail', 'JobController@apply');
 Route::get('/denounce', 'HomeController@denounce')->middleware('auth')  ;
 Route::get('/news', 'PostController@news')->middleware('auth');
 Route::get('/newsRead/{id}', 'PostController@newsRead')->middleware('auth');
+Route::post('/comment', 'CommentController@save')->middleware('auth');
+Route::get('/noticia/{id}', 'PostController@show');
 
 
 //*******admin routes****** */

@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Post;
 use App\Status;
+use App\Comment;
 use DB;
+
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Storage;
@@ -157,12 +159,20 @@ class PostController extends Controller
     {
         //
         $post = Post::findOrFail($id);
+        
+        //$comments = DB::table('comment_post')->where('post_id', $post->id)->get();
+
+        $comments_id = DB::table('comment_post')->select('comment_id')
+        ->where('post_id', $post->id)->get();
+
+        $comments = Comment::whereIn('id', $comments_id->pluck("comment_id"))->with('user')->get();
+
         $category = Category::all();
 
         //Traemos el array con toda la informacion combianda de la BD  
         $categoryName = $post->category;
 
-        return view("posts.show", ["post" => $post, 'categoryName' => $categoryName]);
+        return view("posts.show", ["post" => $post, 'categoryName' => $categoryName, 'comments' => $comments]);
     }
 
     /**

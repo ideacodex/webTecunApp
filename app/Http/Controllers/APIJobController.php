@@ -85,13 +85,56 @@ class APIJobController extends Controller
         return response()->json($data, $data['code']);
     }
 
-    public function apply(Request $request)
+    public function applyUploadDocument(Request $request, $email)
     {
+        //El documento sera traido desde la peticion 
+        $document = $request->hasFile('document');
+
+        //Validamos el documento
+        $validate = \Validator::make($request->all(), [
+            'document' => 'required'
+        ]);
+
+        //Guardamos el documento en disk
+        if(empty($docuemnt) && $validate->fails()){
+            $data = [
+                'code' => 404,
+                'status' => 'error',
+                'message' => 'Error al subir el documento'
+            ];
+        }else{
+            $filename = $email;
+            $extension = $request->file('document')->getClientOriginalExtension();
+            $pdfNameToStore = $request->email . '.' . $extension;
+            $request->pdfNameToStore = $pdfNameToStore;
+
+            // Upload Image //********nombre de carpeta para almacenar*****
+            $path = $request->file('document')->storeAs('public/jobs', $pdfNameToStore);
+
+            $data = [
+                'code' => 200,
+                'status' => 'success',
+                'document' => $pdfNameToStore
+            ];
+        }
+
+        return response()->json($data, $data['code']);
+    }
+
+    public function apply(Request $request, $pdfNameToStore)
+    {
+        //Inicializamos las variables
+        $email = null;
+        $emailCompany = null;
+
         //Recoger los datos por post
         $json = $request->input('json', null);
         $params = json_decode($json);
         $params_array = json_decode($json, true);
 
+        $request = new Request($params_array);
+
+        //Validamos si el usuario esta autenticado
         $user = auth()->user();
 
         //Verificar que los datos llegan completos
@@ -102,8 +145,7 @@ class APIJobController extends Controller
                 'name' => 'required',
                 'lastname' => 'required',
                 'email' => 'required',
-                'phone' => 'required',
-                'document' => 'required'
+                'phone' => 'required'
             ]);
 
             if($validate->fails()){
@@ -114,15 +156,11 @@ class APIJobController extends Controller
                 ];
             }else{
                 try{
-                    $document = $request->hasFile('document');
-                    $filename = $request->email;
-                    $extension = $request->file('document')->getClientOriginalExtension();
-                    $pdfNameToStore = $request->email . '.' . $extension;
-                    $request->pdfNameToStore = $pdfNameToStore;
-                    // Upload Image //********nombre de carpeta para almacenar*****
-                    $path = $request->file('document')->storeAs('public/jobs', $pdfNameToStore);
-    
-                    /********Ruta completa de Path Para enviar arviso adjuntos*********/
+                    //test para asignar valor a las variables
+                    $email = $params->email;
+                    $emailCompany = $params->emailCompany;
+
+                    /********Ruta completa de Path Para enviar archivos adjuntos*********/
                     //Traemos todo el path (app/storage/app/public/(disk))
                     $view = Storage::disk('jobs')->getAdapter()->getPathPrefix();
     
@@ -132,18 +170,15 @@ class APIJobController extends Controller
     
                     //Mandamos la info por request al modelo del Mail
                     $request->pathFull = $pathFull;
-                    /********Ruta completa de Path Para enviar arviso adjuntos*********/
-    
-                    //Recoger el mensaje enviado
-                    $comment = $request->comment;
+                    /********Ruta completa de Path Para enviar archivos adjuntos*********/
     
                     /***************Correo para Postulado***********************/
-                    Mail::to([$request->email])
+                    Mail::to([$email])
                         ->send(new JobDataUser($request)); //envia la variables $request a la clase de MAIL
                     /***************Correo para Postulado***********************/
     
                     /****************Correo para RRHHAdmin***********************/
-                    Mail::to([$request->emailCompany])
+                    Mail::to([$emailCompany])
                         ->send(new JobDataAdmin($request)); //envia la variables $request a la clase de MAIL
                     /****************Correo para RRHHAdmin***********************/
     
@@ -152,7 +187,7 @@ class APIJobController extends Controller
                     $data = [
                         'code' => 200,
                         'status' => 'success',
-                        'pathFull' => $pathFull
+                        'message' => 'Correo enviado exitosamente'
                     ];
 
                     return response()->json($data, $data['code']);
@@ -170,20 +205,14 @@ class APIJobController extends Controller
                 }
             }
         }else{
-            //Recoger los datos por post
-            $json = $request->input('json', null);
-            $params = json_decode($json);
-            $params_array = json_decode($json, true);
-
+            
             //Verificar que los datos llegan completos
-            if(!empty($params_array)){
+            if(!empty($params_array) || !empty($params)){
                 $validate = \Validator::make($params_array, [
                     'name' => 'required',
                     'lastname' => 'required',
                     'email' => 'required',
-                    'phone' => 'required',
-                    'document' => 'required',
-                    'comment' => 'required'
+                    'phone' => 'required'
                 ]);
 
                 if($validate->fails()){
@@ -194,25 +223,11 @@ class APIJobController extends Controller
                     ];  
                 }else{
                     try{
-                        //Recoger los campos de tipo Input
-                        $name = $request->name;
-                        $lastname = $request->lastname;
-                        $email = $request->email;
-                        $phone = $request->phone;
-        
-                        //Recoger el mensaje enviado
-                        $comment = $request->comment;
-        
-                        //Recoger el archivo enviado por post
-                        $document = $request->hasFile('document');
-                        $filename = $request->email;
-                        $extension = $request->file('document')->getClientOriginalExtension();
-                        $pdfNameToStore = $request->email . '.' . $extension;
-                        $request->pdfNameToStore = $pdfNameToStore;
-        
-                        // Upload Image //********nombre de carpeta para almacenar*****
-                        $path = $request->file('document')->storeAs('public/jobs', $pdfNameToStore);
-        
+                        //test para asignar valor a las variables
+                        $email = $params->email;
+
+                        $emailCompany = $params->emailCompany;
+
                         /********Ruta completa de Path Para enviar arviso adjuntos*********/
                         //Traemos todo el path (app/storage/app/public/(disk))
                         $view = Storage::disk('jobs')->getAdapter()->getPathPrefix();
@@ -221,17 +236,17 @@ class APIJobController extends Controller
                         //Para unirlo utilizamos todo el path seguido de un "." y el nombre con extencion
                         $pathFull = $view.$pdfNameToStore;
         
-                        //Mandamos la info por request al modelo del Mail
+                        //Mandamos la info por params al modelo del Mail
                         $request->pathFull = $pathFull;
                         /********Ruta completa de Path Para enviar arviso adjuntos*********/
         
                         /***************Correo para Postulado***********************/
-                        Mail::to([$request->email])
+                        Mail::to([$email])
                             ->send(new JobDataUser($request)); //envia la variables $request a la clase de MAIL
                         /***************Correo para Postulado***********************/
         
                         /****************Correo para RRHHAdmin***********************/
-                        Mail::to([$request->emailCompany])
+                        Mail::to([$emailCompany])
                             ->send(new JobDataAdmin($request)); //envia la variables $request a la clase de MAIL
                         /****************Correo para RRHHAdmin***********************/
         
@@ -240,7 +255,7 @@ class APIJobController extends Controller
                         $data = [
                             'code' => 200,
                             'status' => 'success',
-                            'pathFull' => $pathFull
+                            'message' => 'Correo enviado exitosamente',
                         ];
 
                         return response()->json($data, $data['code']);
@@ -254,7 +269,7 @@ class APIJobController extends Controller
                             'message' => 'Mensajes no enviados',
                             'abort' => $abort
                         ];
-                        return response()->json($response, 500);
+                        return response()->json($data, 500);
                     }
                 }
             }else{

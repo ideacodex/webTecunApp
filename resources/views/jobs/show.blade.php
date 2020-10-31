@@ -3,6 +3,14 @@
     <!-- blog post area start -->
     <div class="col-md-9 col-sm-8 col-xs-12 mt-3">
         <div class="container">
+            @if (session('message'))
+                <div class="sufee-alert alert with-close alert-{{ session('alert') }} alert-dismissible fade show">
+                    <span class="badge badge-pill badge-{{ session('alert') }}">{{ session('message') }}</span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
             <div class="row">
                 <!-- blog details area start -->
                 <div class="col-md-9 col-sm-8 col-xs-12 mt-3">
