@@ -29,7 +29,7 @@
                     <p>@php echo($post->content) @endphp</p>
                     <br>
 
-                    <video width="100%" style="max-height: 300px" controls loop>
+                    <video width="100%" style="max-height: 300px" autoplay loop>
                         <source src="{{ asset('/storage/posts/' . $post->featured_video) }}" type="video/mp4">
                     </video>
 

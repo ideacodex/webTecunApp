@@ -387,6 +387,11 @@ class PostController extends Controller
     {
         //
         $posts = Post::all();
+
+        dd($posts->id);
+
+        $reaction = all();
+
         return view("home", ["posts" => $posts]);
     }
 

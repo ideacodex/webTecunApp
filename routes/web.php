@@ -30,11 +30,11 @@ Route::get('/jobs', 'JobController@jobs')->middleware('auth')  ;
 Route::get('/job/{id}', 'JobController@job');
 Route::post('/apply/mail', 'JobController@apply');
 Route::get('/denounce', 'HomeController@denounce')->middleware('auth')  ;
-Route::get('/news', 'PostController@news')->middleware('auth');
+Route::get('/news', 'PostController@news')->name('news')->middleware('auth');
 Route::get('/newsRead/{id}', 'PostController@show')->middleware('auth');
 Route::post('/comment', 'CommentController@save')->middleware('auth');
 Route::get('/comment/delete/{id}', 'CommentController@delete')->middleware('auth');
-Route::post('/likeordislike', 'ReactionController@likeOrDislike')->middleware('auth');
+Route::post('/likeordislikenews', 'ReactionController@likeOrDislikeNews')->middleware('auth');
 
 
 //*******admin routes****** */
