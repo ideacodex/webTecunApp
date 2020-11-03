@@ -168,11 +168,17 @@ class PostController extends Controller
         $comments = Comment::whereIn('id', $comments_id->pluck("comment_id"))->with('user')->get();
 
         $category = Category::all();
+        $commentsLong = sizeof($comments);
 
         //Traemos el array con toda la informacion combianda de la BD  
         $categoryName = $post->category;
 
-        return view("posts.show", ["post" => $post, 'categoryName' => $categoryName, 'comments' => $comments]);
+        return view("posts.show", [
+            "post" => $post, 
+            'categoryName' => $categoryName, 
+            'comments' => $comments,
+            'commentsLong' => $commentsLong    
+        ]);
     }
 
     /**
@@ -381,7 +387,7 @@ class PostController extends Controller
     {
         //
         $posts = Post::all();
-        return view("news.index", ["posts" => $posts]);
+        return view("home", ["posts" => $posts]);
     }
 
     public function newsRead(Request $request, $id)
@@ -389,6 +395,6 @@ class PostController extends Controller
         //
         $post = Post::findorFail($id);
         return $post;
-        return view("news.index", ["post" => $post]);
+        return view("post.show", ["post" => $post]);
     }
 }

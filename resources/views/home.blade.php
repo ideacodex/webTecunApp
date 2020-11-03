@@ -31,7 +31,7 @@
             </div>
 
             <div class="card-deck">
-                @foreach ($records as $item)
+                @foreach ($posts as $item)
                     <div class="card">
                         <img src="{{ asset('img/tecun/preview2.png') }}" class="card-img-top">
                         <div class="card-body">
@@ -47,19 +47,29 @@
                             </p>
                         </div>
                         <div class="card-footer justify-content-around d-flex">
-                            <span class="text-muted justify-content-end">
-                                <span class="text-primary">
-                                    <i class="fas fa-calendar"></i>
-                                </span>
-                            </span>
+                                <!-- Like -->
+                                <a class="btn @if($item->active == 1) btn-primary @endif" title="Me gusta" onclick="event.preventDefault();
+                                    document.getElementById('formDel1').submit();">
+                                    <span><i class="far fa-thumbs-up"></i></span>
+                                </a>
+
+                                <form id="formDel1" action="{{ url('/likeordislike') }}" method="POST"
+                                    style="display: none;">
+                                    @csrf
+                                    <input type="hidden" name="type" value="post">
+                                    <input type="hidden" name="recordsID" value="{{ $item->id }}">
+                                    <input type="hidden" name="active" value="0">
+                                    @method('POST')
+                                </form>
+                            <!-- Like -->
                             <span> </span>
                             <span class="text-muted">
                                 {{ $item->created_at }}
+                            </span>
                                 <span class="text-primary">
                                     <i class="fas fa-comment"></i>
-                                    Comentarios
+                                    <a href="#">Comentarios</a>
                                 </span>
-                            </span>
                         </div>
                     </div>
                 @endforeach
@@ -71,7 +81,7 @@
                         <p class="card-text">
                             En Case estamos repensando la productividad. El Vehículo Conceptual Autónomo Case IH tiene el
                             potencial de revolucionar la agricultura
-                            <a href="{{ url('news/1') }}" class="">
+                            <a href="{{ url('/newsRead/1') }}" class="">
                                 <span class="text-primary">
                                     Leer más
                                     <i class="fas fa-book-reader"></i>
@@ -79,23 +89,97 @@
                             </a>
                         </p>
                     </div>
+
                     <div class="card-footer justify-content-around d-flex">
                         <span class="text-muted justify-content-end">
-                            <span class="text-primary">
-                                <i class="fas fa-calendar"></i>
-                                25-04-2020
-                            </span>
+                            <!-- Like -->
+                            <a class="btn" title="Me gusta" onclick="event.preventDefault();
+                                                    document.getElementById('formDel1').submit();">
+                                <span class="text-light"><i class="far fa-thumbs-up"></i></span>
+                                <form id="formDel1" action="{{ url('/likeordislike') }}" method="POST"
+                                    style="display: none;">
+                                    @csrf
+                                    <input type="hidden" name="likeordislike" value="0">
+                                    <input type="hidden" name="recordsID" value="1">
+                                    <input type="hidden" name="active" value="0">
+                                    <input type="hiddem" name="likeordislike" value="">
+                                    <input type="hidden" name="active" value="">
+                                    @method('POST')
+                                </form>
                         </span>
-                        <span> </span>
-                        <span class="text-muted">
+                        <!-- Like -->
+                        <span class="text-primary">
+                            <span> 02/11/2020 </span>
+                        </span>
 
-                            <span class="text-primary">
-                                <i class="fas fa-comment"></i>
-                                Comentarios
+                        <a href="{{ url('/newsRead/1') }}" class="">
+                            <span class="text-muted">
+                                <span class="text-primary">
+                                    <i class="fas fa-comment"></i>
+                                    Comentarios
+                                </span>
                             </span>
-                        </span>
+                        </a>
                     </div>
                 </div>
+
+
+            </div>
+
+            <div class="card-deck">
+                <!--Pruebas-->
+                <div class="card">
+                    <img src="{{ asset('img/tecun/preview2.png') }}" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title" style="color:orange">Vehículo de concepto autónomo</h5>
+                        <p class="card-text">
+                            En Case estamos repensando la productividad. El Vehículo Conceptual Autónomo Case IH tiene el
+                            potencial de revolucionar la agricultura
+                            <a href="{{ url('/newsRead/1') }}" class="">
+                                <span class="text-primary">
+                                    Leer más
+                                    <i class="fas fa-book-reader"></i>
+                                </span>
+                            </a>
+                        </p>
+                    </div>
+
+                    <div class="card-footer justify-content-around d-flex">
+                        <span class="text-muted justify-content-end">
+                            <!-- Like -->
+                            <span class="text-primary">
+                                <button class="btn btn-primary" onclick="event.preventDefault();
+                                document.getElementById('formDel1').submit();">
+                                    <i class="far fa-thumbs-up"></i>
+                                </button> (3)
+
+                                <form id="formDel1" action="{{ url('/likeordislike') }}" method="POST"
+                                    style="display: none;">
+                                    @csrf
+                                    <input type="hidden" name="likeordislike" value="0">
+                                    <input type="hidden" name="recordsID" value="1">
+                                    <input type="hidden" name="active" value="0">
+                                    @method('POST')
+                                </form>
+                            </span>
+                        </span>
+                        <!-- Like -->
+                        <span class="text-primary">
+                            <span> 02/11/2020 </span>
+                        </span>
+
+                        <a href="{{ url('/newsRead/1') }}" class="">
+                            <span class="text-muted">
+                                <span class="text-primary">
+                                    <i class="fas fa-comment"></i>
+                                    Comentarios
+                                </span>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <!--Pruebas-->
+
                 <div class="card">
                     <img src="{{ asset('img/tecun/preview3.png') }}" class="card-img-top">
                     <div class="card-body">
@@ -110,7 +194,6 @@
                                 </span>
                             </a>
                         </p>
-
                     </div>
                     <div class="card-footer justify-content-around d-flex">
                         <span class="text-muted justify-content-end">
@@ -129,6 +212,7 @@
                         </span>
                     </div>
                 </div>
+
                 <div class="card">
                     <img src="{{ asset('img/tecun/preview4.png') }}" class="card-img-top">
                     <div class="card-body">
@@ -161,6 +245,8 @@
                     </div>
                 </div>
             </div>
+
+
             <div class="card-deck">
                 <div class="card">
                     <img src="{{ asset('img/tecun/preview2.png') }}" class="card-img-top">

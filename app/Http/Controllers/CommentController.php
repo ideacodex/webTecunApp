@@ -57,7 +57,7 @@ class CommentController extends Controller
      * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
         //Conseguimos los datos del usuario identificado
         $user = auth()->user()->id;
@@ -70,7 +70,7 @@ class CommentController extends Controller
         try{
 
             //Validamos los datos
-            if(isset($user) && $comment->user_id == $user->id){
+            if(isset($user) && ($comment->user_id == $user)){
 
                 DB::table('comment_post')->where('comment_id', $comment->id)->delete();
 

@@ -22,6 +22,7 @@
                         <small class="fa fa-calendar small">{{ $job->created_at }}</small>
                     </div>
                     <div class="blog-summery">
+                        <p>{{ $job->description }}</p><br>
                         <p>@php echo($job->skils) @endphp</p>
                     </div>
                 </div>
@@ -29,9 +30,9 @@
                 <!-- leave comment area start -->
                 <div class="leave-comment ">
                     <div class="comment-title col-xs-12 col-md-6 ml-2">
-                        <h4>Aplicar</h4> 
-                        <a href="whatsapp://send?text= http://172.18.0.3:3000/{{ substr(request()->getRequestUri(), 1) }}" data-action="share/whatsapp/share" 
-                        class="btn btn-primary mb-3">
+                        <h4>Aplicar</h4>
+                        <a href="whatsapp://send?text= http://172.18.0.3:3000/{{ substr(request()->getRequestUri(), 1) }}"
+                            data-action="share/whatsapp/share" class="btn btn-primary mb-3">
                             Copiar postulacion a un conocido via Whatsapp
                         </a>
                     </div>

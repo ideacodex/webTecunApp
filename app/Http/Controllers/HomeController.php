@@ -3,8 +3,14 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
+
+use DB;
+
 use App\Post;
+use App\Reaction;
 use App\Question;
+
+
 
 
 class HomeController extends Controller
@@ -31,8 +37,16 @@ class HomeController extends Controller
             auth()->user()->syncRoles('User');
         }
 
-        $records = Post::where('status_id', 3)->get(); //El estado es activo
-        return view('home', ['records' => $records]);
+        $records = Post::all();//El estado es activo
+
+        DB::table('post_reaction')->insert([
+            'reaction_id' => $request->reactionId,
+            'post_id' => $request->postId
+        ]);
+
+        $long = DB::table('post_reaction')->where(['post_id', $request->postId]);
+            
+        return view('home', ['posts' => $records, 'reaction' => $reaction]);
     }
 
     public function news()
