@@ -97,13 +97,12 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         request()->validate([
-            'name' => 'required',
-            'desciption' => 'required'
+            'name' => 'required'
         ]);
 
         DB::beginTransaction();
         try{
-            $category = new Category;
+            $category = Category::findOrFail($id);
             $category->name = $request->name;
             $category->description = $request->description;
             $category->save();

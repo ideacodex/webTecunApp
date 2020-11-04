@@ -32,9 +32,8 @@ Route::post('/apply/mail', 'JobController@apply');
 Route::get('/denounce', 'HomeController@denounce')->middleware('auth')  ;
 Route::get('/news', 'PostController@news')->name('news')->middleware('auth');
 Route::get('/newsRead/{id}', 'PostController@show')->middleware('auth');
-Route::post('/comment', 'CommentController@save')->middleware('auth');
-Route::get('/comment/delete/{id}', 'CommentController@delete')->middleware('auth');
-Route::post('/likeordislikenews', 'ReactionController@likeOrDislikeNews')->middleware('auth');
+Route::post('/comment', 'PostController@commentPost')->name('comment')->middleware('auth');
+Route::get('comment/{id}', 'PostController@delete')->name('commentDelete')->middleware('auth');
 
 
 //*******admin routes****** */

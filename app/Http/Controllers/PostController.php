@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Post;
 use App\Status;
-use App\Comment;
+use App\CommentPost;
 use DB;
 
 use Illuminate\Support\Facades\Auth;
@@ -158,26 +158,16 @@ class PostController extends Controller
     public function show($id)
     {
         //
-        $post = Post::findOrFail($id);
-        
-        //$comments = DB::table('comment_post')->where('post_id', $post->id)->get();
-
-        $comments_id = DB::table('comment_post')->select('comment_id')
-        ->where('post_id', $post->id)->get();
-
-        $comments = Comment::whereIn('id', $comments_id->pluck("comment_id"))->with('user')->get();
-
-        $category = Category::all();
-        $commentsLong = sizeof($comments);
+        $post = Post::with('user')->findOrFail($id);
+        $comments= CommentPost::where('post_id', $post->id)->with('user')->get();
 
         //Traemos el array con toda la informacion combianda de la BD  
         $categoryName = $post->category;
 
         return view("posts.show", [
             "post" => $post, 
-            'categoryName' => $categoryName, 
-            'comments' => $comments,
-            'commentsLong' => $commentsLong    
+            'categoryName' => $categoryName,
+            'comments'=>$comments
         ]);
     }
 
@@ -401,5 +391,62 @@ class PostController extends Controller
         $post = Post::findorFail($id);
         return $post;
         return view("post.show", ["post" => $post]);
+    }
+
+    public function commentPost(Request $request)
+    {
+        $userId = auth()->user()->id;
+
+        request()->validate([
+            'message' => 'required'
+        ]);
+
+        DB::beginTransaction();
+
+        try{
+            $comment = DB::table('commentposts')->insert([
+                'user_id' => $userId,
+                'post_id' => $request->postID,
+                'message' => $request->message
+            ]);
+
+        }catch (\Illuminate\Database\QueryException $e) {
+            DB::rollback(); //si hay un error previo, desahe los cambios en DB y redirecciona a pagina de error
+            //$response['message'] = $e->errorInfo;
+            //dd($e->errorInfo[2]);
+            abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
+            return response()->json($response, 500);
+            return \Redirect::back()->with([
+                'message' => 'No haz publicado tu comentario, vuelve a intentar'
+            ]);
+        }
+
+        DB::commit();
+
+        return \Redirect::back()->with([
+            'message' => 'Haz publicado tu comentario correctamente'
+        ]);
+    }
+
+    public function delete($id)
+    {
+        //Conseguimos el ID del usuario
+        $user = auth()->user()->id;
+
+        //Conseguimos el objeto del comentario
+        $comment = CommentPost::find($id);
+
+        //Comprobar si ID del usuario es el mismo que el user_id de Comments_post
+        if(isset($user) && ($comment->user_id == $user)){
+            $comment->delete();
+
+            return \Redirect::back()->with([
+                'message' => 'Tu comentario a sido borrado exitosamente'
+            ]);
+        }else{
+            return \Redirect::back()->with([
+                'message' => 'No se a eliminado tu comentario, intente de nuevo'
+            ]);  
+        }
     }
 }

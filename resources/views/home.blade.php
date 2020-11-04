@@ -56,25 +56,6 @@
                                 </p>
                             </div>
                             <div class="card-footer justify-content-around d-flex">
-                                @if ($item->likes(auth()->user()->id) >0 )
-                                    <!-- Like -->
-                                    <a class="btn btn-primary text-white btn-lg" title="Me gusta" onclick="event.preventDefault();
-                                        document.getElementById('formDel1').submit();">
-                                        <h4><i class="far fa-thumbs-up"></i> ({{ $item->reactions->where('active',1)->count()}})</h4>
-                                    </a>
-                                @else
-                                    <a class="btn btn-lg" title="Me gusta" onclick="event.preventDefault();
-                                        document.getElementById('formDel1').submit();">
-                                        <h4><i class="far fa-thumbs-up"></i> ({{ $item->reactions->where('active',1)->count()}})</h4>
-                                    </a>
-                                @endif
-                                <form id="formDel1" action="{{ url('/likeordislikenews') }}" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="type" value="{{ $item->id }}">
-                                    <input type="hidden" name="active" value="{{ $reactionActive }}">
-                                    @method('POST')
-                                </form>
-                                    <!-- Like -->
                                 <span> {{ $item->created_at }} </span>
                                 <span class="text-muted">
                                 </span>

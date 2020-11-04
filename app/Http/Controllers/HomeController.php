@@ -38,25 +38,9 @@ class HomeController extends Controller
         }
 
         $records = Post::all();//El estado es activo
-
-        $reaction = Reaction::all();
-
-        $reactionActive = $reaction[0]->active;
-
-        //Obtener el ID de la reaccion por medio de la tabla pivote
-        $reactionID = DB::table('post_reaction')->where('reaction_id', $reaction[0]->id)->get();
-
-        //Obtener el objecto de la reaccion dependiendo del ID obtenido por el pivote
-        $likes = DB::table('reactions')->where('active', 1)->get();
-
-        //sizeof de reacciones
-        $sizeofReaction = sizeof($likes);
             
         return view('home', [
-            'posts' => $records,
-            'reaction' => $reaction,
-            'reactionActive' => $reactionActive,
-            'sizeofReaction' => $sizeofReaction
+            'posts' => $records
         ]);
     }
 

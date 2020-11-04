@@ -34,6 +34,32 @@ class CreatePostsTable extends Migration
             $table->softDeletes();
         });
 
+        Schema::create('commentposts', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('message', 250);
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
+                ->references('id')->on('users');
+            $table->unsignedBigInteger('post_id');
+            $table->foreign('post_id')
+                ->references('id')->on('posts');
+            $table->timestamps();
+            $table->softDeletes();
+        });
+
+        Schema::create('reactionposts', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->boolean('active')->default(0);
+            $table->string('type')->nullable();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
+                ->references('id')->on('users');
+            $table->unsignedBigInteger('post_id');
+            $table->foreign('post_id')
+                ->references('id')->on('posts');
+            $table->timestamps();
+        });
+
         Schema::create('category_post', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
@@ -55,6 +81,8 @@ class CreatePostsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('category_post');
+        Schema::dropIfExists('reactionposts');
+        Schema::dropIfExists('commentposts');
         Schema::dropIfExists('posts');
     }
 }

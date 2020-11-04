@@ -29,13 +29,17 @@
                     <p>@php echo($post->content) @endphp</p>
                     <br>
 
-                    <video width="100%" style="max-height: 300px" autoplay loop>
-                        <source src="{{ asset('/storage/posts/' . $post->featured_video) }}" type="video/mp4">
-                    </video>
+                    @if(isset($post->featured_video))
+                        <video width="100%" style="max-height: 300px" autoplay controls loop>
+                            <source src="{{ asset('/storage/posts/' . $post->featured_video) }}" type="video/mp4">
+                        </video>
+                    @endif
 
-                    <p><a href="{{ asset('/storage/posts/' . $post->featured_document) }}" download>
-                        Descarga el Pdf con las sugerencias para el agronomo
-                    </a></p>
+                    @if(isset($post->featured_document))
+                        <p><a href="{{ asset('/storage/posts/' . $post->featured_document) }}" download>
+                            Descarga aqui el documento adjunto a la noticia
+                        </a></p>
+                    @endif
 
                     <div class="blog-single-tags">
                         <h2>Categorias</h2>
@@ -50,41 +54,29 @@
             <!-- comment area start -->
             <div class="comment-area pb-5">
                 <div class="comment-title">
-                    <h4>Comentarios de la publicacion <span>({{ $commentsLong }})</span></h4>
+                    <h4>Comentarios de la publicacion <span>({{ $comments->count() }})</span></h4>
                 </div>
                 <ul class="comment-list">
                     <li class="comment-info-inner">
-                        <article>
-                            @foreach ($comments as $items)
+                        @foreach ($comments as $item)
+                            <article>
                                 <div class="comment-author">
-                                    <img src="assets/img/author/author3.jpg" alt="image">
-                                    <h2>{{ $items->user->name }} {{ $items->user->lastname }}</h2>
+                                    <img src="{{ asset('/storage/userCommnet.jpg') }}" alt="image">
+                                    <h2>{{ $item->user->name }} {{ $item->user->lastname }}</h2>
                                 </div>
                                 <div class="comment-content">
-                                    <p>{{ $items->message }}</p>
-
-                                    <!--<a class="btn btn-sm btn-danger" title="eliminar" onclick="event.preventDefault();
-                                                         document.getElementById('formDel{{ $items->id }}').submit();">
-                                                    <span class="text-light"><i class="fas fa-trash"></i></span>
-                                                </a>
-                                                <form id="formDel{{ $item->id }}" action="{{ url('jobsAdmin/' . $item->id) }}"
-                                                    method="POST" style="display: none;">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                </form> -->
-
-                                    @if (auth()->check() && $items->user_id == auth()->user()->id)
-                                        <a href="{{ url('comment/delete/' . $items->id) }}" class="btn btn-sm btn-danger">
+                                    <p>{{ $item->message }}</p>
+                                    @if(auth()->check() && ($item->user_id == auth()->user()->id))
+                                        <a href="{{ url('comment/'. $item->id) }}" class="btn btn-sm btn-danger">
                                             Eliminar
                                         </a>
                                     @endif
-
                                 </div>
                                 <div class="comment-reply">
                                     <a href="#"><i class="fa fa-reply"></i></a>
                                 </div>
-                            @endforeach
-                        </article>
+                            </article>
+                        @endforeach
                     </li>
                 </ul>
             </div>
@@ -98,23 +90,21 @@
                     <div class="row">
                         <form method="POST" action="{{ url('comment') }}" onsubmit="return checkSubmit();">
                             @csrf
-                            <input type="hidden" name="postId" id="postId" value="{{ $post->id }}">
-                            <input type="hidden" name="name" id="name" value="{{ auth()->user()->name }}">
-                            <input type="hidden" name="lastname" id="lastname" value="{{ auth()->user()->lastname }}">
-                            <div class="col-xs-12 col-md-12 mb-5 ml-4">
-                                <textarea id="comment" name="comment" placeholder="Mensaje" type="text" size="100"
-                                    maxlength="100" class="text-primary form-control @error('comment') is-invalid @enderror"
-                                    comment="comment" value="{{ old('comment') }}" autocomplete="comment" autofocus></textarea>
+                            <div class="blog-details mt-2 ptb--320 pb-4">
+                                <input type="hidden" name="postID" value="{{ $post->id }}" >
+                                <textarea id="message" name="message" placeholder="Mensaje" type="text" size="100"
+                                    maxlength="100" class="text-primary form-control @error('message') is-invalid @enderror"
+                                    message="message" value="{{ old('message') }}" autocomplete="Comentario" required autofocus></textarea>
 
-                                @error('comment')
+                                @error('message')
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $comment }}</strong>
+                                    <strong>{{ $message }}</strong>
                                 </span>
                                 @enderror
 
-                                @error('comment')
+                                @error('message')
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $comment }}</strong>
+                                    <strong>{{ $message }}</strong>
                                 </span>
                                 @enderror
                             </div>
