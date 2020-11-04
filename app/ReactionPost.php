@@ -4,15 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CommentPost extends Model
+class ReactionsPost extends Model
 {
     //
-    protected $table = 'commentposts';
-    
+    protected $table = 'reactionposts';
+
     public function user()
     {
         return $this->hasOne("App\User", 'id', 'user_id');
     }
-
 }
-

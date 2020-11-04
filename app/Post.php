@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Commentposts;
-use App\Reaction;
+use App\ReactionsPost;
 
 class Post extends Model
 {
@@ -26,26 +26,14 @@ class Post extends Model
         return $this->hasOne("App\User", 'id', 'user_id');
     }
 
-    public function reactions()
-    {
-        return $this->belongsToMany("App\Reaction")->withPivot('post_id');
-    }
-
     public function comments()
     {
         return $this->hasMany('App\CommentPost', 'post_id');
     }
 
-    /*public static function comment($post)
+    public function likes()
     {
-        $comment = Commentposts::where('post_id', $post)->count();
-        return $comment;
-    }*/
-
-    public function likes($user)
-    {
-        $likes= Reaction::where('user_id', $user)->where('active',1)->count();
-        return $likes;
+        return $this->hasMany('App\ReactionsPost', 'post_id');
     }
 
     function type()

@@ -6,6 +6,8 @@ use App\Category;
 use App\Post;
 use App\Status;
 use App\CommentPost;
+use App\ReactionsPost;
+
 use DB;
 
 use Illuminate\Support\Facades\Auth;
@@ -378,10 +380,6 @@ class PostController extends Controller
         //
         $posts = Post::all();
 
-        dd($posts->id);
-
-        $reaction = all();
-
         return view("home", ["posts" => $posts]);
     }
 
@@ -447,6 +445,70 @@ class PostController extends Controller
             return \Redirect::back()->with([
                 'message' => 'No se a eliminado tu comentario, intente de nuevo'
             ]);  
+        }
+    }
+
+    public function likeOrDislikeNews(Request $request, $reactionActive)
+    {
+        //Recogemos los datos del usuario
+        $user = auth()->user()->id;
+
+        //Verificar que existe el like del usuario
+        $issetReactionUser = DB::table('reactionposts')->where('user_id', $user)->count();
+
+        DB::beginTransaction();
+
+        try{
+            if($issetReactionUser == 0){
+                $like = DB::table('reactionposts')->insert([
+                    'user_id' => $userId,
+                    'post_id' => $request->postID,
+                    'active' => 1
+                ]);
+
+                DB::commit();
+    
+                return redirect()->action('HomeController@index')->with([
+                    'message' => 'Tu reaccion a sido publicada correctamente', 
+                    'alert' => 'success',
+                    'reactionActive' => $reactionActive
+                ]);
+    
+            }else{
+
+                /*for ($i=0; $i < sizeof($request->category_id); $i++) { 
+
+                }*/
+
+                if(isset($reactionActive) && ($reactionActive == 0)){
+
+                    $reactionActive = DB::table('reactions')->where('id', $reactionID[0]->reaction_id)->update(['active' => 1]);
+
+                    DB::commit();
+
+                    return redirect()->action('HomeController@index')->with([
+                        'message' => 'Tu reaccion a sido publicada correctamente', 
+                        'alert' => 'success',
+                        'reactionActive' => $reactionActive
+                    ]);
+                }else{
+                    $reactionActive = DB::table('reactions')->where('id', $reactionID[0]->reaction_id)->update(['active' => 0]);
+
+                    DB::commit();
+                    
+                    return redirect()->action('HomeController@index')->with([
+                        'message' => 'Tu reaccion a sido quitada correctamente Del Home', 
+                        'alert' => 'success',
+                        'reactionActive' => $reactionActive
+                    ]);
+                }
+            }
+        }catch (\Illuminate\Database\QueryException $e) {
+            DB::rollback(); //si hay un error previo, desahe los cambios en DB y redirecciona a pagina de error
+                //$response['message'] = $e->errorInfo;
+                //dd($e->errorInfo[2]);
+                abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
+                return response()->json($response, 500);
         }
     }
 }

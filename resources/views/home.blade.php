@@ -55,7 +55,20 @@
                                     </a>
                                 </p>
                             </div>
+                            <input type="hidden" name="postID" value="{{ $item->id }}" >
                             <div class="card-footer justify-content-around d-flex">
+                                @if (isset($posts))
+                                    <!-- Like -->
+                                    <a class="btn btn-primary text-white btn-lg" title="Me gusta" onclick="event.preventDefault();
+                                        document.getElementById('formDel1').submit();">
+                                        <h4><i class="far fa-thumbs-up"></i> (2)</h4>
+                                    </a>
+                                @else
+                                    <a class="btn btn-lg" title="Me gusta" onclick="event.preventDefault();
+                                        document.getElementById('formDel1').submit();">
+                                        <h4><i class="far fa-thumbs-up"></i> (2)</h4>
+                                    </a>
+                                @endif
                                 <span> {{ $item->created_at }} </span>
                                 <span class="text-muted">
                                 </span>
