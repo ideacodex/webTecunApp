@@ -34,6 +34,7 @@ Route::get('/news', 'PostController@news')->name('news')->middleware('auth');
 Route::get('/newsRead/{id}', 'PostController@show')->middleware('auth');
 Route::post('/comment', 'PostController@commentPost')->name('comment')->middleware('auth');
 Route::get('comment/{id}', 'PostController@delete')->name('commentDelete')->middleware('auth');
+Route::post('/likeordislike', 'PostController@likeOrDislikeNews')->name('like')->middleware('auth');
 
 
 //*******admin routes****** */

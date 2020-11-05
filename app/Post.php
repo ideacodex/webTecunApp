@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use App\Commentposts;
 use App\ReactionsPost;
 
+use DB;
+
 class Post extends Model
 {
     public function status()
@@ -32,6 +34,11 @@ class Post extends Model
     }
 
     public function likes()
+    {
+        return $this->hasMany('App\ReactionsPost', 'post_id');
+    }
+
+    public function likesActive()
     {
         return $this->hasMany('App\ReactionsPost', 'post_id');
     }

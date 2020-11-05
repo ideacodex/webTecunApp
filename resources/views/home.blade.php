@@ -41,13 +41,13 @@
                 <div class="card-deck">
                     @foreach ($posts as $item)
                         <div class="card">
-                            <img src="{{ asset('/storage/posts/'. $item->featured_image) }}" width="100%"
-                            style="max-height: 600px">
+                            <img src="{{ asset('/storage/posts/' . $item->featured_image) }}" width="100%"
+                                style="max-height: 600px">
                             <div class="card-body">
                                 <h5 class="card-title" style="color:orange">{{ $item->title }}</h5>
                                 <p class="card-text">
                                     {{ $item->description }}
-                                    <a href="{{url('newsRead/'. $item->id)}}" class="">
+                                    <a href="{{ url('newsRead/' . $item->id) }}" class="">
                                         <span class="text-primary">
                                             Leer más
                                             <i class="fas fa-book-reader"></i>
@@ -55,26 +55,54 @@
                                     </a>
                                 </p>
                             </div>
-                            <input type="hidden" name="postID" value="{{ $item->id }}" >
                             <div class="card-footer justify-content-around d-flex">
-                                @if (isset($posts))
-                                    <!-- Like -->
-                                    <a class="btn btn-primary text-white btn-lg" title="Me gusta" onclick="event.preventDefault();
-                                        document.getElementById('formDel1').submit();">
-                                        <h4><i class="far fa-thumbs-up"></i> (2)</h4>
-                                    </a>
+                                <input type="hidden" name="active"
+                                    value="{{ $ractionActive = $item->likes->where('user_id', auth()->user()->id)->first() }} ">
+                                @if ($ractionActive->count() == 0)
+                                    <form method="POST" action="{{ url('likeordislike') }}"
+                                        onsubmit="return checkSubmit();">
+                                        @csrf
+                                        <input type="hidden" name="postID" value="{{ $item->id }}">
+                                        <input type="hidden" name="reactionActive" id="reactionActive" value="0">
+                                        <button type="submit" class="btn btn-lg">
+                                            <h4><i
+                                                    class="far fa-thumbs-up"></i>({{ $item->likes->where('active', 1)->count() }})
+                                            </h4>
+                                        </button>
+                                    </form>
                                 @else
-                                    <a class="btn btn-lg" title="Me gusta" onclick="event.preventDefault();
-                                        document.getElementById('formDel1').submit();">
-                                        <h4><i class="far fa-thumbs-up"></i> (2)</h4>
-                                    </a>
+                                    @if ($ractionActive->active == 1)
+                                        <form method="POST" action="{{ url('likeordislike') }}"
+                                            onsubmit="return checkSubmit();">
+                                            @csrf
+                                            <input type="hidden" name="postID" value="{{ $item->id }}">
+                                            <input type="hidden" name="reactionActive" id="reactionActive" value="1">
+                                            <button type="submit" class="btn btn-lg btn-primary ">
+                                                <h4><i
+                                                        class="far fa-thumbs-up"></i>({{ $item->likes->where('active', 1)->count() }})
+                                                </h4>
+                                            </button>
+                                        </form>
+                                    @else
+                                        <form method="POST" action="{{ url('likeordislike') }}"
+                                            onsubmit="return checkSubmit();">
+                                            @csrf
+                                            <input type="hidden" name="postID" id="postID" value="{{ $item->id }}">
+                                            <input type="hidden" name="reactionActive" id="reactionActive" value="0">
+                                            <button type="submit" class="btn btn-lg">
+                                                <h4><i
+                                                        class="far fa-thumbs-up"></i>({{ $item->likes->where('active', 1)->count() }})
+                                                </h4>
+                                            </button>
+                                        </form>
+                                    @endif
                                 @endif
                                 <span> {{ $item->created_at }} </span>
                                 <span class="text-muted">
                                 </span>
                                 <span class="text-primary">
                                     <i class="fas fa-comment"></i>
-                                    <a href="{{url('newsRead/'. $item->id)}}">Comentarios</a>
+                                    <a href="{{ url('newsRead/' . $item->id) }}">Comentarios</a>
                                 </span>
                             </div>
                         </div>
@@ -87,9 +115,9 @@
                         <div class="card-body">
                             <h5 class="card-title" style="color:orange">Sin noticias por mostrar</h5>
                             <p class="card-text">
-                                <p>Por el momento no hay ninguna noticia para mostrar</p>
-                                <p>En breve uno de nuestros colaboradores posteara una noticia nueva</p><br>
-                                <p>Estar atento!!!</p>
+                            <p>Por el momento no hay ninguna noticia para mostrar</p>
+                            <p>En breve uno de nuestros colaboradores posteara una noticia nueva</p><br>
+                            <p>Estar atento!!!</p>
                             </p>
                         </div>
                         <div class="card-footer justify-content-around d-flex">

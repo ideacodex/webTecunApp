@@ -448,10 +448,18 @@ class PostController extends Controller
         }
     }
 
-    public function likeOrDislikeNews(Request $request, $reactionActive)
+    public function likeOrDislikeNews(Request $request)
     {
         //Recogemos los datos del usuario
         $user = auth()->user()->id;
+
+        $active = DB::table('reactionposts')->where('post_id', $request->postID)
+                ->where('user_id', $user)->get('active');
+
+        $activeObject = json_decode($active)[0]->active;
+
+        //Recogemos el reactionActive
+        $reactionActive = $request->reactionActive;
 
         //Verificar que existe el like del usuario
         $issetReactionUser = DB::table('reactionposts')->where('user_id', $user)->count();
@@ -461,7 +469,7 @@ class PostController extends Controller
         try{
             if($issetReactionUser == 0){
                 $like = DB::table('reactionposts')->insert([
-                    'user_id' => $userId,
+                    'user_id' => $user,
                     'post_id' => $request->postID,
                     'active' => 1
                 ]);
@@ -470,8 +478,7 @@ class PostController extends Controller
     
                 return redirect()->action('HomeController@index')->with([
                     'message' => 'Tu reaccion a sido publicada correctamente', 
-                    'alert' => 'success',
-                    'reactionActive' => $reactionActive
+                    'alert' => 'success'
                 ]);
     
             }else{
@@ -480,26 +487,24 @@ class PostController extends Controller
 
                 }*/
 
-                if(isset($reactionActive) && ($reactionActive == 0)){
+                if($activeObject == 0){
 
-                    $reactionActive = DB::table('reactions')->where('id', $reactionID[0]->reaction_id)->update(['active' => 1]);
+                    $activeObject = DB::table('reactionposts')->where('user_id', $user)->update(['active' => 1]);
 
                     DB::commit();
 
                     return redirect()->action('HomeController@index')->with([
                         'message' => 'Tu reaccion a sido publicada correctamente', 
-                        'alert' => 'success',
-                        'reactionActive' => $reactionActive
+                        'alert' => 'success'
                     ]);
                 }else{
-                    $reactionActive = DB::table('reactions')->where('id', $reactionID[0]->reaction_id)->update(['active' => 0]);
+                    $activeObject = DB::table('reactionposts')->where('user_id', $user)->update(['active' => 0]);
 
                     DB::commit();
                     
                     return redirect()->action('HomeController@index')->with([
                         'message' => 'Tu reaccion a sido quitada correctamente Del Home', 
-                        'alert' => 'success',
-                        'reactionActive' => $reactionActive
+                        'alert' => 'success'
                     ]);
                 }
             }
@@ -512,3 +517,4 @@ class PostController extends Controller
         }
     }
 }
+
