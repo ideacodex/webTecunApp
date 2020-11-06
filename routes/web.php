@@ -38,7 +38,9 @@ Route::post('/likeordislike', 'PostController@likeOrDislikeNews')->name('like')-
 
 
 //*******admin routes****** */
-Route::resource('adminPost', 'PostController')->middleware('auth')  ;
+Route::resource('adminPost', 'PostController')->middleware('auth');
+Route::resource('adminPodcast', 'PodcastController')->middleware('auth');
+Route::resource('adminPicture', 'PictureController')->middleware('auth');
 Route::resource('gamesAdmin', 'QuestionController')->middleware('role:root|Super|Admin');
 Route::resource('users', 'UserController')->middleware('role:root|Super|Admin');
 Route::resource('categories', 'CategoryController')->middleware('role:root|Super|Admin');

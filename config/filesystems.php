@@ -76,6 +76,20 @@ return [
             'visibility' => 'public',
         ],
 
+        'podcast' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/podcast'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+
+        'pictures' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/pictures'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+
         'questions' => [
             'driver' => 'local',
             'root' => storage_path('app/public/questions'),

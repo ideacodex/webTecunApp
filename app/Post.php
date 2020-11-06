@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 use App\Commentposts;
 use App\ReactionsPost;
 
-use DB;
-
 class Post extends Model
 {
     public function status()

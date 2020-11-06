@@ -16,7 +16,6 @@ class CreatePicturesTable extends Migration
         Schema::create('pictures', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title', 100);
-            $table->longText('content')->nullable();
             $table->string('featured_image')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')
@@ -27,17 +26,6 @@ class CreatePicturesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
-
-        Schema::create('category_picture', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->timestamps();
-            $table->unsignedBigInteger('category_id');
-            $table->foreign('category_id')
-                ->references('id')->on('categories');
-            $table->unsignedBigInteger('post_id');
-            $table->foreign('post_id')
-                ->references('id')->on('posts');
-        });
     }
 
     /**
@@ -47,7 +35,6 @@ class CreatePicturesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('category_picture');
         Schema::dropIfExists('pictures');
     }
 }

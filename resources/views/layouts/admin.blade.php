@@ -188,10 +188,10 @@
                                         class="list-group-item list-group-item-action bg-theme-1 text-light">
                                         <span class=""><i class="ml-3 fas fa-newspaper"></i></span> Noticias
                                     </a>
-                                    <a href="{{ url('subcategories') }}"
+                                    <a href="{{ url('adminPodcast') }}"
                                         class="pl-4 list-group-item list-group-item-action bg-theme-1 text-light">
                                         <span class=""><i class="ml-3 fas fa-podcast"></i></span> Podcast</a>
-                                    <a href="{{ url('ratings') }}"
+                                    <a href="{{ url('adminPicture') }}"
                                         class="pl-4 list-group-item list-group-item-action bg-theme-1 text-light">
                                         <span class=""><i class="ml-3 far fa-images"></i></span> Artes</a>
                                 </div>

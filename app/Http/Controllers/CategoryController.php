@@ -128,6 +128,8 @@ class CategoryController extends Controller
     {
         //
         $category = Category::find($id);
+        $categoryPost = DB::table('category_podcast')->where('category_id', $category->id)->delete();
+        $categoryPost = DB::table('category_post')->where('category_id', $category->id)->delete();
         $category->delete();
         return redirect()->action('CategoryController@index')
                     ->with(['message' => 'Se elimino el registro correctamente', 'alert' => 'danger']);

@@ -383,7 +383,7 @@ class PostController extends Controller
         return view("home", ["posts" => $posts]);
     }
 
-    public function newsRead(Request $request, $id)
+    public function newsRead($id)
     {
         //
         $post = Post::findorFail($id);
