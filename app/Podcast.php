@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Commentpodcast;
-use App\ReactionsPodcast;
+use App\ReactionPodcast;
 
 class Podcast extends Model
 {
@@ -34,12 +34,12 @@ class Podcast extends Model
 
     public function likes()
     {
-        return $this->hasMany('App\ReactionsPodcast', 'podcast_id');
+        return $this->hasMany('App\ReactionPodcast', 'podcast_id');
     }
 
-    public function likesActive()
+    public function userLikesNew()
     {
-        return $this->hasMany('App\ReactionsPodcast', 'podcast_id');
+        return $this->hasMany('App\ReactionPodcast', 'podcast_id')->where('user_id', auth()->user()->id);
     }
 
     function type()

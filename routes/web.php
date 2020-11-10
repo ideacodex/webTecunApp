@@ -30,11 +30,22 @@ Route::get('/jobs', 'JobController@jobs')->middleware('auth')  ;
 Route::get('/job/{id}', 'JobController@job');
 Route::post('/apply/mail', 'JobController@apply');
 Route::get('/denounce', 'HomeController@denounce')->middleware('auth')  ;
+
+//*******Post Routes****** */
 Route::get('/news', 'PostController@news')->name('news')->middleware('auth');
 Route::get('/newsRead/{id}', 'PostController@show')->middleware('auth');
 Route::post('/comment', 'PostController@commentPost')->name('comment')->middleware('auth');
 Route::get('comment/{id}', 'PostController@delete')->name('commentDelete')->middleware('auth');
 Route::post('/likeordislike', 'PostController@likeOrDislikeNews')->name('like')->middleware('auth');
+//*******Post Routes****** */
+
+//*******Podcast Routes****** */
+Route::get('/podcasts', 'PodcastController@podcasts')->name('newspodcast')->middleware('auth');
+Route::get('/podcastRead/{id}', 'PodcastController@show')->middleware('auth');
+Route::post('/commentpodcast', 'PodcastController@commentPodcast')->name('commentpodcast')->middleware('auth');
+Route::get('commentpodcast/{id}', 'PodcastController@deleteCommentPodcast')->name('commentdeletepodcast')->middleware('auth');
+Route::post('/likeordislikepodcast', 'PodcastController@likeOrDislikePodcast')->name('likepodcast')->middleware('auth');
+//*******Podcast Routes****** */
 
 
 //*******admin routes****** */

@@ -8,6 +8,7 @@ use App\Status;
 use DB;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PictureController extends Controller
 {

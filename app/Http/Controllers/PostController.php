@@ -355,6 +355,8 @@ class PostController extends Controller
 
             $post = Post::find($id);
             DB::table('category_post')->where('post_id', $post->id)->delete();
+            DB::table('commentposts')->where('post_id', $post->id)->delete();
+            DB::table('reactionposts')->where('post_id', $post->id)->delete();
 
             Storage::disk('posts')->delete($post->featured_image);
             Storage::disk('posts')->delete($post->featured_video);
@@ -377,18 +379,38 @@ class PostController extends Controller
 
     public function news()
     {
-        //
-        $posts = Post::all();
+        //Mostramos todos los POSTS creados y junto a ello los likes de cada uno
+        $posts = Post::with('likes')->get();//El estado es activo
+        
+        //De la tabla pivote, sacamos solo los category_id
+        $category_id = DB::table('category_post')->get('category_id');
 
-        return view("home", ["posts" => $posts]);
+        //Decodificamos el array con json_decode
+        $categoryID = json_decode($category_id, true);
+
+        //La variable anterior la utilizamos para sacar solo las categorias con esos ID's
+        $categories = Category::find($categoryID);
+
+        return view("posts.news", [
+            "posts" => $posts,
+            'categories' => $categories 
+        ]);
     }
 
     public function newsRead($id)
     {
         //
-        $post = Post::findorFail($id);
-        return $post;
-        return view("post.show", ["post" => $post]);
+        $post = Post::with('user')->findOrFail($id);
+        $comments= CommentPost::where('post_id', $post->id)->with('user')->get();
+
+        //Traemos el array con toda la informacion combianda de la BD  
+        $categoryName = $post->category;
+
+        return view("posts.show", [
+            "post" => $post, 
+            'categoryName' => $categoryName,
+            'comments'=>$comments
+        ]);
     }
 
     public function commentPost(Request $request)
@@ -453,16 +475,12 @@ class PostController extends Controller
         //Recogemos los datos del usuario
         $user = auth()->user()->id;
 
-        $active = DB::table('reactionposts')->where('post_id', $request->postID)
-                ->where('user_id', $user)->get('active');
-
-        $activeObject = json_decode($active)[0]->active;
-
         //Recogemos el reactionActive
         $reactionActive = $request->reactionActive;
+        $postID = $request->postID;
 
         //Verificar que existe el like del usuario
-        $issetReactionUser = DB::table('reactionposts')->where('user_id', $user)->count();
+        $issetReactionUser = DB::table('reactionposts')->where('user_id', $user)->where('post_id', $postID)->count();
 
         DB::beginTransaction();
 
@@ -476,33 +494,29 @@ class PostController extends Controller
 
                 DB::commit();
     
-                return redirect()->action('HomeController@index')->with([
+                return \Redirect::back()->with([
                     'message' => 'Tu reaccion a sido publicada correctamente', 
                     'alert' => 'success'
                 ]);
     
             }else{
-
-                /*for ($i=0; $i < sizeof($request->category_id); $i++) { 
-
-                }*/
-
-                if($activeObject == 0){
-
-                    $activeObject = DB::table('reactionposts')->where('user_id', $user)->update(['active' => 1]);
+                if($reactionActive == 0){
+                    DB::table('reactionposts')->where('user_id', $user)
+                        ->where('post_id', $postID)->update(['active' => 1]);
 
                     DB::commit();
 
-                    return redirect()->action('HomeController@index')->with([
+                    return \Redirect::back()->with([
                         'message' => 'Tu reaccion a sido publicada correctamente', 
                         'alert' => 'success'
                     ]);
                 }else{
-                    $activeObject = DB::table('reactionposts')->where('user_id', $user)->update(['active' => 0]);
+                    DB::table('reactionposts')->where('user_id', $user)
+                        ->where('post_id', $postID)->update(['active' => 0]);
 
                     DB::commit();
                     
-                    return redirect()->action('HomeController@index')->with([
+                    return \Redirect::back()->with([
                         'message' => 'Tu reaccion a sido quitada correctamente Del Home', 
                         'alert' => 'success'
                     ]);

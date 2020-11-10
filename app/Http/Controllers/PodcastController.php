@@ -169,7 +169,7 @@ class PodcastController extends Controller
         //Traemos el array con toda la informacion combianda de la BD  
         $categoryName = $podcast->category;
 
-        return view("podcast.show", [
+        return view("podcasts.show", [
             "podcast" => $podcast, 
             'categoryName' => $categoryName,
             'comments'=>$comments
@@ -351,6 +351,8 @@ class PodcastController extends Controller
 
             $podcast = Podcast::find($id);
             DB::table('category_podcast')->where('podcast_id', $podcast->id)->delete();
+            DB::table('commentpodcast')->where('podcast_id', $podcast->id)->delete();
+            DB::table('reactionpodcast')->where('podcast_id', $podcast->id)->delete();
 
             Storage::disk('podcast')->delete($podcast->featured_image);
             Storage::disk('podcast')->delete($podcast->featured_audio);
@@ -372,8 +374,22 @@ class PodcastController extends Controller
 
     public function podcasts()
     {
-        $podcast = Podcast::all();
-        return view("podcasts.index", ["podcast" => $podcast]);
+        //Mostramos todos los POSTS creados y junto a ello los likes de cada uno
+        $podcasts = Podcast::with('likes')->get();//El estado es activo
+        
+        //De la tabla pivote, sacamos solo los category_id
+        $category_id = DB::table('category_podcast')->get('category_id');
+
+        //Decodificamos el array con json_decode
+        $categoryID = json_decode($category_id, true);
+
+        //La variable anterior la utilizamos para sacar solo las categorias con esos ID's
+        $categories = Category::find($categoryID);
+
+        return view("podcasts.podcast", [
+            "podcasts" => $podcasts,
+            'categories' => $categories 
+        ]);
     }
 
     public function podcastRead($id)
@@ -426,7 +442,7 @@ class PodcastController extends Controller
         ]);
     }
 
-    public function deleteCommentPost($id)
+    public function deleteCommentPodcast($id)
     {
         //Conseguimos el ID del usuario
         $user = auth()->user()->id;
@@ -448,21 +464,17 @@ class PodcastController extends Controller
         }
     }
 
-    public function likeOrDislikeNews(Request $request)
+    public function likeOrDislikePodcast(Request $request)
     {
         //Recogemos los datos del usuario
         $user = auth()->user()->id;
 
-        $active = DB::table('reactionpodcast')->where('podcast_id', $request->podcastID)
-                ->where('user_id', $user)->get('active');
-
-        $activeObject = json_decode($active)[0]->active;
-
         //Recogemos el reactionActive
         $reactionActive = $request->reactionActive;
+        $podcastID = $request->podcastID;
 
         //Verificar que existe el like del usuario
-        $issetReactionUser = DB::table('reactionpodcast')->where('user_id', $user)->count();
+        $issetReactionUser = DB::table('reactionpodcast')->where('user_id', $user)->where('podcast_id', $podcastID)->count();
 
         DB::beginTransaction();
 
@@ -476,29 +488,29 @@ class PodcastController extends Controller
 
                 DB::commit();
     
-                return redirect()->action('HomeController@index')->with([
+                return \Redirect::back()->with([
                     'message' => 'Tu reaccion a sido publicada correctamente', 
                     'alert' => 'success'
                 ]);
     
             }else{
-
-                if($activeObject == 0){
-
-                    $activeObject = DB::table('reactionpodcast')->where('user_id', $user)->update(['active' => 1]);
+                if($reactionActive == 0){
+                    DB::table('reactionpodcast')->where('user_id', $user)
+                        ->where('podcast_id', $podcastID)->update(['active' => 1]);
 
                     DB::commit();
 
-                    return redirect()->action('HomeController@index')->with([
+                    return \Redirect::back()->with([
                         'message' => 'Tu reaccion a sido publicada correctamente', 
                         'alert' => 'success'
                     ]);
                 }else{
-                    $activeObject = DB::table('reactionpodcast')->where('user_id', $user)->update(['active' => 0]);
+                    DB::table('reactionpodcast')->where('user_id', $user)
+                        ->where('podcast_id', $podcastID)->update(['active' => 0]);
 
                     DB::commit();
                     
-                    return redirect()->action('HomeController@index')->with([
+                    return \Redirect::back()->with([
                         'message' => 'Tu reaccion a sido quitada correctamente Del Home', 
                         'alert' => 'success'
                     ]);

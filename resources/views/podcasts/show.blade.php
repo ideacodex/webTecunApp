@@ -14,30 +14,41 @@
             <!-- blog details area start -->
             <div class="blog-info">
                 <div class="blog-thumbnail">
-                    <img src="{{ asset('/storage/posts/' . $post->featured_image) }}" width="100%"
-                        style="max-height: 600px">
+                    <iframe width="882" height="496" src="{{ $podcast->featured_video }}" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                    <br>
+                    <iframe src="https://open.spotify.com/embed-podcast/episode/2KEjuwECqFvmneRncRwrO6" 
+                            width="100%" height="232" 
+                            frameborder="0" 
+                            allowtransparency="true" 
+                            allow="encrypted-media">
+                    </iframe>
                 </div>
-                <h1 class="blog-title text-center">{{ $post->title }}</h1>
+                <h1 class="blog-title text-center">{{ $podcast->title }}</h1>
                 <div class="blog-meta">
                     <ul>
-                        <li><i class="fa fa-calendar"></i>{{ $post->created_at }}</li>
+                        <li><i class="fa fa-calendar"></i>{{ $podcast->created_at }}</li>
                     </ul>
                 </div>
                 <div class="blog-summery">
-                    <p>{{ $post->desciption }}</p>
+                    <p>{{ $podcast->desciption }}</p>
                     <br>
-                    <p>@php echo($post->content) @endphp</p>
+                    <p>@php echo($podcast->content) @endphp</p>
                     <br>
 
-                    @if(isset($post->featured_video))
-                        <video width="100%" style="max-height: 300px" autoplay controls loop>
-                            <source src="{{ asset('/storage/posts/' . $post->featured_video) }}" type="video/mp4">
-                        </video>
+                    @if(isset($podcast->featured_audio))
+                        <audio src="{{ asset('/storage/podcast/' . $podcast->featured_audio) }}" 
+                            preload="auto" controls>
+                        </audio>
+
                     @endif
 
-                    @if(isset($post->featured_document))
-                        <p><a href="{{ asset('/storage/posts/' . $post->featured_document) }}" download>
-                            Descarga aqui el documento adjunto a la noticia
+                    @if(isset($podcast->featured_document))
+                        <p><a href="{{ asset('/storage/posts/' . $podcast->featured_document) }}" download>
+                            Descarga aqui el documento adjunto al podcast
                         </a></p>
                     @endif
 
@@ -67,7 +78,7 @@
                                 <div class="comment-content">
                                     <p>{{ $item->message }}</p>
                                     @if(auth()->check() && ($item->user_id == auth()->user()->id))
-                                        <a href="{{ url('comment/'. $item->id) }}" class="btn btn-sm btn-danger">
+                                        <a href="{{ url('commentDeletepodcast/'. $item->id) }}" class="btn btn-sm btn-danger">
                                             Eliminar
                                         </a>
                                     @endif
@@ -88,10 +99,10 @@
                         <h4>Envia un comentario</h4>
                     </div>
                     <div class="row">
-                        <form method="POST" action="{{ url('comment') }}" onsubmit="return checkSubmit();">
+                        <form method="POST" action="{{ url('commentpodcast') }}" onsubmit="return checkSubmit();">
                             @csrf
                             <div class="blog-details mt-2 ptb--320 pb-4">
-                                <input type="hidden" name="postID" value="{{ $post->id }}" >
+                                <input type="hidden" name="podcastID" value="{{ $podcast->id }}" >
                                 <textarea id="message" name="message" placeholder="Mensaje" type="text" size="100"
                                     maxlength="100" class="text-primary form-control @error('message') is-invalid @enderror"
                                     message="message" value="{{ old('message') }}" autocomplete="Comentario" required autofocus></textarea>

@@ -9,6 +9,7 @@ use DB;
 use App\Post;
 use App\Reaction;
 use App\Question;
+use App\Category;
 
 
 
@@ -38,9 +39,12 @@ class HomeController extends Controller
         }
 
         $records = Post::with('likes')->get();//El estado es activo
+
+        $categories = Category::all();
             
         return view('home', [
-            'posts' => $records
+            'posts' => $records,
+            'categories' => $categories
         ]);
     }
 
