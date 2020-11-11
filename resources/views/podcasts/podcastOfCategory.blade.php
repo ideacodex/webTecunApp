@@ -27,9 +27,8 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     @foreach ($categories as $item)
-                        <a class="btn btn-primary"  title="{{ $item->name }}"
-                            onclick="event.preventDefault();
-                            document.getElementById('formDel{{$item->id}}').submit();">
+                        <a class="btn btn-primary" onclick="event.preventDefault();
+                                document.getElementById('formDel{{$item->id}}').submit();">
                             {{ $item->name }}
                         </a>
                         <form id="formDel{{$item->id}}" action="{{ url('category/podcast/'. $item->id) }}" method="POST"
@@ -47,6 +46,9 @@
                     </button>
                 </div>
             @endif
+            <div class="alert alert-success" role="alert">
+                <h1 class="display-1">{{ $categoryPodcastName }}</h1>
+            </div>
             @if (sizeof($podcasts) >= 1)
                 <div class="card-deck">
                     @foreach ($podcasts as $item)

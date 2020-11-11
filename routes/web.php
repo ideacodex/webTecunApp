@@ -37,6 +37,7 @@ Route::get('/newsRead/{id}', 'PostController@show')->middleware('auth');
 Route::post('/comment', 'PostController@commentPost')->name('comment')->middleware('auth');
 Route::get('comment/{id}', 'PostController@delete')->name('commentDelete')->middleware('auth');
 Route::post('/likeordislike', 'PostController@likeOrDislikeNews')->name('like')->middleware('auth');
+Route::post('/category/post/{id}', 'PostController@categoryPost')->name('categorypost')->middleware('auth');
 //*******Post Routes****** */
 
 //*******Podcast Routes****** */
@@ -45,6 +46,7 @@ Route::get('/podcastRead/{id}', 'PodcastController@show')->middleware('auth');
 Route::post('/commentpodcast', 'PodcastController@commentPodcast')->name('commentpodcast')->middleware('auth');
 Route::get('commentpodcast/{id}', 'PodcastController@deleteCommentPodcast')->name('commentdeletepodcast')->middleware('auth');
 Route::post('/likeordislikepodcast', 'PodcastController@likeOrDislikePodcast')->name('likepodcast')->middleware('auth');
+Route::post('/category/podcast/{id}', 'PodcastController@categoryPodcast')->name('categorypodcast')->middleware('auth');
 //*******Podcast Routes****** */
 
 

@@ -530,5 +530,40 @@ class PostController extends Controller
                 return response()->json($response, 500);
         }
     }
+
+    public function categoryPost($id)
+    {
+        //Obtenemos todo el objeto de la categoria por medio del ID
+        $categoryPost = Category::find($id);
+
+        //Sacamos solo el nombre de la categoria para mostrarla en un alert
+        $categoryPostName = $categoryPost->name;
+
+        //En la tabla pivote, obtenemos el/los ID de los post que hace referencia a la categoria
+        $postID = DB::table('category_post')->where('category_id', $id)->get('post_id');
+
+        //Decodificamos los datos anteriores para tener una mejor manipulacion y obtener el/los ID del podcast
+        $postDecode = json_decode($postID, true);
+
+        //Al obtener el valor decodificado lo mandamos a llamar con un find para sacar el/los objecto completo
+        $posts = Post::find($postDecode);
+
+        /******************************************************************************************************** */
+
+        //De la tabla pivote, sacamos solo los category_id
+        $category_id = DB::table('category_post')->get('category_id');
+
+        //Decodificamos el array con json_decode
+        $categoryID = json_decode($category_id, true);
+
+        //La variable anterior la utilizamos para sacar solo las categorias con esos ID's
+        $categories = Category::find($categoryID);
+
+        return view("posts.postOfCategory", [
+            "posts" => $posts,
+            'categories' => $categories,
+            'categoryPodcastName' => $categoryPostName
+        ]);
+    }
 }
 
