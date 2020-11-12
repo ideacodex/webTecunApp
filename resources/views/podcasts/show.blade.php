@@ -21,13 +21,14 @@
                             allowfullscreen>
                         </iframe>
                     @endif
-                    <br>
-                    <iframe src="https://open.spotify.com/embed-podcast/episode/2KEjuwECqFvmneRncRwrO6" 
-                            width="100%" height="232" 
-                            frameborder="0" 
-                            allowtransparency="true" 
-                            allow="encrypted-media">
-                    </iframe>
+                    @if(isset($podcast->featured_spotify))
+                        <iframe src="{{ $podcast->featured_spotify }}" 
+                                width="100%" height="232" 
+                                frameborder="0" 
+                                allowtransparency="true" 
+                                allow="encrypted-media">
+                        </iframe>
+                    @endif
                 </div>
                 <h1 class="blog-title text-center">{{ $podcast->title }}</h1>
                 <div class="blog-meta">

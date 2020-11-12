@@ -71,17 +71,17 @@
                                 <i class="text-primary fas fa-money-bill-wave"></i>
                             </span>
                         </div>
-                        <input id="salary" name="salary" placeholder="Salario (opcional)" type="number" size="100"
-                            maxlength="100" class="text-primary form-control @error('salary') is-invalid @enderror"
-                            salary="salary" value="{{ $job->salary }}" autofocus>
+                        <input id="public_link" name="public_link" placeholder="Url de plaza externa" type="text" size="100"
+                            maxlength="100" class="text-primary form-control @error('public_link') is-invalid @enderror"
+                            public_link="public_link" value="{{ $job->public_link }}" autofocus>
 
-                        @error('salary')
+                        @error('public_link')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
 
-                        @error('salary')
+                        @error('public_link')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>

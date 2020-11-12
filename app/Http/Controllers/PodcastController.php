@@ -73,10 +73,22 @@ class PodcastController extends Controller
             //Modificar la ruta del video YouTube
             $video = $request->video;
 
-            $routeVideo = str_replace("watch?v=","embed/",$video);
+            if($video){
+                $routeVideo = "https://www.youtube.com/embed/".$video;
 
-            $podcast->featured_video = $routeVideo;
-            //Modificar la ruta del video YouTube    
+                $podcast->featured_video = $routeVideo;
+            }
+            //Modificar la ruta del video YouTube   
+            
+            //Modificar la ruta del Spotify 
+            $spotify = $request->spotify;
+
+            if($spotify){
+                $routeSpotify = "https://open.spotify.com/embed-podcast/episode/".$spotify;
+
+                $podcast->featured_spotify = $routeSpotify;
+            }
+            //Modificar la ruta del Spotify  
 
             $podcast->save();
 
@@ -232,10 +244,22 @@ class PodcastController extends Controller
             //Modificar la ruta del video YouTube
             $video = $request->video;
 
-            $routeVideo = str_replace("watch?v=","embed/",$video);
+            if($video){
+                $routeVideo = "https://www.youtube.com/embed/".$video;
 
-            $podcast->featured_video = $routeVideo;
-            //Modificar la ruta del video YouTube    
+                $podcast->featured_video = $routeVideo;
+            }
+            //Modificar la ruta del video YouTube   
+            
+            //Modificar la ruta del Spotify 
+            $spotify = $request->spotify;
+
+            if($spotify){
+                $routeSpotify = "https://open.spotify.com/embed-podcast/episode/".$spotify;
+
+                $podcast->featured_spotify = $routeSpotify;
+            }
+            //Modificar la ruta del Spotify    
 
             $podcast->save();
 

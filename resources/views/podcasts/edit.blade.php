@@ -133,9 +133,10 @@
                                 <i class="text-primary fab fa-youtube"></i>
                             </span>
                         </div>
-                        <input id="video" placeholder="URL de YouTube" type="text" size="250"
+                        <input id="video" placeholder="Codigo Youtube" type="text" size="250" 
+                            title="Ejemplo: 2KEjuwECqFvmneRncRwrO6"
                             maxlength="250" class="text-primary form-control @error('video') is-invalid @enderror"
-                            name="video" value="{{ $podcast->featured_video }}" autocomplete="video"
+                            name="video" value="{{ $item->featured_video }}" autocomplete="video"
                             autofocus>
 
                         @error('video')
@@ -150,6 +151,30 @@
                         </span>
                         @enderror
                     </div>
+
+                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                <i class="text-primary fab fa-spotify"></i>
+                            </span>
+                        </div>
+                        <input id="spotify" placeholder="Codigo Spotify" type="text" size="250" title="Ejemplo: VYOjWnS4cMY"
+                            title="Ejemplo: 2KEjuwECqFvmneRncRwrO6" maxlength="250" class="text-primary form-control @error('spotify') is-invalid @enderror"
+                            name="spotify" value="{{ $item->featured_spotify }}" autocomplete="spotify"
+                            autofocus>
+
+                        @error('spotify')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+
+                        @error('spotify')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>  
                     <div class="col-12 input-group input-group-lg mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text transparent" id="inputGroup-sizing-sm">
