@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Category;
-use App\Post;
+use App\Podcast;
 use App\Status;
-use App\CommentPost;
-use App\ReactionsPost;
+use App\CommentPodcast;
+use App\ReactionPodcast;
 
 use DB;
 
@@ -16,18 +16,18 @@ use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Storage;
 
-class APIPostController extends Controller
+class APIPodcastController extends Controller
 {
     //
     public function index()
     {
-        $posts = Post::all();
+        $podcasts = Podcast::all();
 
-        if(!empty($posts)){
+        if(!empty($podcasts)){
             $data = [
                 'code' => 200,
                 'status' => 'success',
-                'posts' => $posts
+                'podcasts' => $podcasts
             ];
         }else{
             $data = [
@@ -42,17 +42,17 @@ class APIPostController extends Controller
 
     public function show($id)
     {
-        $post = Post::with('user')->findOrFail($id);
-        $comments= CommentPost::where('post_id', $post->id)->with('user')->get();
+        $podcast = Podcast::with('user')->findOrFail($id);
+        $comments= CommentPodcast::where('podcast_id', $podcast->id)->with('user')->get();
 
         //Traemos el array con toda la informacion combianda de la BD  
-        $categoryName = $post->category;
+        $categoryName = $podcast->category;
 
-        if(is_object($post)){
+        if(is_object($podcast)){
             $data = [
                 'code' => 200,
                 'status' => 'success',
-                'post' => $post,
+                'podcast' => $podcast,
                 'comments' => $comments
             ];
         }else{
@@ -68,10 +68,10 @@ class APIPostController extends Controller
 
     public function getImage($featured_image)
     {
-        $isset = \Storage::disk('posts')->exists($featured_image);
+        $isset = \Storage::disk('podcast')->exists($featured_image);
 
         if($isset){
-            $file = \Storage::disk('posts')->get($featured_image);
+            $file = \Storage::disk('podcast')->get($featured_image);
 
             return new response($file, 200);
         }else{
@@ -87,10 +87,10 @@ class APIPostController extends Controller
 
     public function getDocument($featured_document)
     {
-        $isset = \Storage::disk('posts')->exists($featured_document);
+        $isset = \Storage::disk('podcast')->exists($featured_document);
 
         if($isset){
-            $file = \Storage::disk('posts')->get($featured_document);
+            $file = \Storage::disk('podcast')->get($featured_document);
 
             return new response($file, 200);
         }else{
@@ -104,32 +104,13 @@ class APIPostController extends Controller
         return response()->json($data, $data['code']);
     }
 
-    public function getVideo($featured_video)
-    {
-        $isset = \Storage::disk('posts')->exists($featured_video);
-
-        if($isset){
-            $file = \Storage::disk('posts')->get($featured_video);
-
-            return new response($file, 200);
-        }else{
-            $data = [
-                'code' => 404,
-                'status' => 'error',
-                'message' => 'No existe el video'
-            ];
-        }
-
-        return response()->json($data, $data['code']);
-    }
-
-    public function news()
+    public function podcasts()
     {
         //Mostramos todos los POSTS creados y junto a ello los likes de cada uno
-        $posts = Post::with('likes')->get();//El estado es activo
+        $podcasts = Podcast::with('likes')->get();//El estado es activo
         
         //De la tabla pivote, sacamos solo los category_id
-        $category_id = DB::table('category_post')->get('category_id');
+        $category_id = DB::table('category_podcast')->get('category_id');
 
         //Decodificamos el array con json_decode
         $categoryID = json_decode($category_id, true);
@@ -137,11 +118,11 @@ class APIPostController extends Controller
         //La variable anterior la utilizamos para sacar solo las categorias con esos ID's
         $categories = Category::find($categoryID);
 
-        if(isset($categories) && $isset($posts)){
+        if(isset($categories) && $isset($podcasts)){
             $data = [
                 'code' => 200,
                 'status' => 'success',
-                'posts' => $posts,
+                'podcasts' => $podcasts,
                 'categories' => $categories
             ];
         }else{
@@ -155,20 +136,20 @@ class APIPostController extends Controller
         return response()->json($data, $data['code']);
     }
 
-    public function newsRead($id)
+    public function podcastRead($id)
     {
         //
-        $post = Post::with('user')->findOrFail($id);
-        $comments= CommentPost::where('post_id', $post->id)->with('user')->get();
+        $podcast = Podcast::with('user')->findOrFail($id);
+        $comments= CommentPodcast::where('podcast_id', $podcast->id)->with('user')->get();
 
         //Traemos el array con toda la informacion combianda de la BD  
-        $categoryName = $post->category;
+        $categoryName = $podcast->category;
 
-        if(isset($post)){
+        if(isset($podcast)){
             $data = [
                 'code' => 200,
                 'status' => 'success',
-                'post' => $post,
+                'podcast' => $podcast,
                 'comments' => $comments,
                 'categoryName' => $categoryName
             ];
@@ -210,9 +191,9 @@ class APIPostController extends Controller
                 DB::beginTransaction();
 
                 try{
-                    $comment = DB::table('commentposts')->insert([
+                    $comment = DB::table('commentpodcast')->insert([
                         'user_id' => $userId,
-                        'post_id' => $params_array['post_id'],
+                        'podcast_id' => $params_array['podcast_id'],
                         'message' => $params->message
                     ]);
 
@@ -243,7 +224,7 @@ class APIPostController extends Controller
         $user = auth()->user()->id;
 
         //Conseguimos el objeto del comentario
-        $comment = CommentPost::find($id);
+        $comment = CommentPodcast::find($id);
 
         //Comprobar si ID del usuario es el mismo que el user_id de Comments_post
         if(isset($user) && ($comment->user_id == $user)){
@@ -279,18 +260,18 @@ class APIPostController extends Controller
 
             //Recogemos el reactionActive
             $reactionActive = $params->reactionActive;
-            $postID = $params->postID;
+            $podcastID = $params->podcastID;
 
             //Verificar que existe el like del usuario
-            $issetReactionUser = DB::table('reactionposts')->where('user_id', $user)->where('post_id', $postID)->count();
+            $issetReactionUser = DB::table('reactionpodcast')->where('user_id', $user)->where('podcast_id', $podcastID)->count();
 
             DB::beginTransaction();
 
             try{
                 if($issetReactionUser == 0){
-                    $like = DB::table('reactionposts')->insert([
+                    $like = DB::table('reactionpodcast')->insert([
                         'user_id' => $user,
-                        'post_id' => $postID,
+                        'podcast_id' => $podcastID,
                         'active' => 1
                     ]);
 
@@ -304,8 +285,8 @@ class APIPostController extends Controller
         
                 }else{
                     if($reactionActive == 0){
-                        DB::table('reactionposts')->where('user_id', $user)
-                            ->where('post_id', $postID)->update(['active' => 1]);
+                        DB::table('reactionpodcast')->where('user_id', $user)
+                            ->where('podcast_id', $podcastID)->update(['active' => 1]);
 
                         DB::commit();
 
@@ -315,8 +296,8 @@ class APIPostController extends Controller
                             'message' => 'Haz publicado tu reaccion correctamente'
                         ];
                     }else{
-                        DB::table('reactionposts')->where('user_id', $user)
-                            ->where('post_id', $postID)->update(['active' => 0]);
+                        DB::table('reactionpodcast')->where('user_id', $user)
+                            ->where('podcast_id', $podcastID)->update(['active' => 0]);
 
                         DB::commit();
                         
@@ -345,27 +326,27 @@ class APIPostController extends Controller
         return response()->json($data, $data['code']);
     }
 
-    public function categoryPost($id)
+    public function categoryPodcast($id)
     {
         //Obtenemos todo el objeto de la categoria por medio del ID
-        $categoryPost = Category::find($id);
+        $categoryPodcast = Category::find($id);
 
         //Sacamos solo el nombre de la categoria para mostrarla en un alert
-        $categoryPostName = $categoryPost->name;
+        $categoryPostName = $categoryPodcast->name;
 
         //En la tabla pivote, obtenemos el/los ID de los post que hace referencia a la categoria
-        $postID = DB::table('category_post')->where('category_id', $id)->get('post_id');
+        $postID = DB::table('category_podcast')->where('category_id', $id)->get('podcast_id');
 
         //Decodificamos los datos anteriores para tener una mejor manipulacion y obtener el/los ID del podcast
-        $postDecode = json_decode($postID, true);
+        $podcastDecode = json_decode($postID, true);
 
         //Al obtener el valor decodificado lo mandamos a llamar con un find para sacar el/los objecto completo
-        $posts = Post::find($postDecode);
+        $podcast = Podcast::find($podcastDecode);
 
         /******************************************************************************************************** */
 
         //De la tabla pivote, sacamos solo los category_id
-        $category_id = DB::table('category_post')->get('category_id');
+        $category_id = DB::table('category_podcast')->get('category_id');
 
         //Decodificamos el array con json_decode
         $categoryID = json_decode($category_id, true);
@@ -373,11 +354,11 @@ class APIPostController extends Controller
         //La variable anterior la utilizamos para sacar solo las categorias con esos ID's
         $categories = Category::find($categoryID);
 
-        if(!empty($categoryPost) && !empty($posts) && !empty($categories)){
+        if(!empty($categoryPodcast) && !empty($podcast) && !empty($categories)){
             $data = [
                 'code' => 200,
                 'status' => 'success',
-                'posts' => $posts,
+                'podcast' => $podcast,
                 'categories' => $categories,
                 'categoryPodcastName' => $categoryPostName
             ];

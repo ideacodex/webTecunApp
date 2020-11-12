@@ -41,3 +41,12 @@ Route::get('post/{id}', 'APIPostController@show');
 Route::get('post/{featured_image}', 'APIPostController@getImage');
 Route::get('post/{featured_document}', 'APIPostController@getDocument');
 Route::get('post/{featured_video}', 'APIPostController@getVideo');
+Route::get('news', 'APIPostController@news');
+Route::get('news/{id}', 'APIPostController@newsRead');
+Route::post('commentpost', 'APIPostController@commentPost');
+Route::get('commentpost/{id}', 'APIPostController@delete');
+Route::post('likeordislikenews', 'APIPostController@likeOrDislikeNews');
+Route::get('categorypost/{id}', 'APIPostController@categoryPost');
+
+
+
