@@ -14,11 +14,13 @@
             <!-- blog details area start -->
             <div class="blog-info">
                 <div class="blog-thumbnail">
-                    <iframe width="882" height="496" src="{{ $podcast->featured_video }}" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen>
-                    </iframe>
+                    @if(isset($podcast->featured_video))
+                        <iframe width="882" height="496" src="{{ $podcast->featured_video }}" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    @endif
                     <br>
                     <iframe src="https://open.spotify.com/embed-podcast/episode/2KEjuwECqFvmneRncRwrO6" 
                             width="100%" height="232" 

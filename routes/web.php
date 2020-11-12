@@ -49,6 +49,14 @@ Route::post('/likeordislikepodcast', 'PodcastController@likeOrDislikePodcast')->
 Route::post('/category/podcast/{id}', 'PodcastController@categoryPodcast')->name('categorypodcast')->middleware('auth');
 //*******Podcast Routes****** */
 
+//*******Settings Routes****** */
+Route::get('/adminSetting', 'SettingController@index')->name('setting')->middleware('auth');
+Route::get('/adminSetting/crear', 'SettingController@create')->middleware('auth');
+Route::post('adminSetting', 'SettingController@store')->name('adminSetting.store')->middleware('auth');
+Route::get('/adminSetting/{id}/edit', 'SettingController@edit')->middleware('auth');
+Route::put('adminSetting/{id}', 'SettingController@update')->name('adminSetting.update')->middleware('auth');
+//*******Settings Routes****** */
+
 
 //*******admin routes****** */
 Route::resource('adminPost', 'PostController')->middleware('auth');

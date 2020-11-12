@@ -216,7 +216,7 @@
                     <a href="{{ url('gamesAdmin') }}"
                         class="list-group-item list-group-item-action bg-theme-1 text-light">
                         <span class=""><i class="fas fa-gamepad"></i></span> Juego</a>
-                    <a href="{{ url('#') }}" class="list-group-item list-group-item-action bg-theme-1 text-light">
+                    <a href="{{ url('adminSetting') }}" class="list-group-item list-group-item-action bg-theme-1 text-light">
                         <span class=""><i class="fas fa-cog"></i></span> Ajustes</a>
                 </div>
             </div>

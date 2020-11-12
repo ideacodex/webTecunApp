@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Setting;
+use DB;
+
 use Illuminate\Http\Request;
 
 class SettingController extends Controller
@@ -14,7 +16,14 @@ class SettingController extends Controller
      */
     public function index()
     {
-        //
+        $settingAll = Setting::all();
+
+        $setting = $settingAll->first();
+
+        return view('settings.index', [
+            'settingAll' => $settingAll,
+            'setting' => $setting
+        ]);
     }
 
     /**
@@ -25,6 +34,7 @@ class SettingController extends Controller
     public function create()
     {
         //
+        return view('settings.create');
     }
 
     /**
@@ -36,6 +46,35 @@ class SettingController extends Controller
     public function store(Request $request)
     {
         //
+        request()->validate([
+            'emailRRHH' => 'required',
+            'emailReports' => 'required',
+            'emailWarnings' => 'required',
+            'phoneSupport' => 'required',
+            'phoneInfo' => 'required'
+        ]);
+
+        DB::beginTransaction();
+        try {
+            $setting = new Setting;
+            $setting->email_rrhh = $request->emailRRHH;
+            $setting->email_reports = $request->emailReports;
+            $setting->email_warnings = $request->emailWarnings;
+            $setting->phone_support = $request->phoneSupport;
+            $setting->phone_info = $request->phoneInfo;
+            $setting->save();
+            
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollback(); //si hay un error previo, desahe los cambios en DB y redirecciona a pagina de error
+            //$response['message'] = $e->errorInfo;
+            //dd($e->errorInfo[2]);
+            abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
+            return response()->json($response, 500);
+        }
+        DB::commit();
+        return redirect()->action( //regresa con el error
+            'SettingController@index')->with(['message' => 'Se agregó el registro correctamente', 'alert' => 'success']);
+    
     }
 
     /**
@@ -55,9 +94,11 @@ class SettingController extends Controller
      * @param  \App\Setting  $setting
      * @return \Illuminate\Http\Response
      */
-    public function edit(Setting $setting)
+    public function edit($id)
     {
         //
+        $setting = Setting::find($id);
+        return view('settings.edit', ['setting' => $setting]);
     }
 
     /**
@@ -67,9 +108,38 @@ class SettingController extends Controller
      * @param  \App\Setting  $setting
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Setting $setting)
+    public function update(Request $request)
     {
         //
+        request()->validate([
+            'emailRRHH' => 'required',
+            'emailReports' => 'required',
+            'emailWarnings' => 'required',
+            'phoneSupport' => 'required',
+            'phoneInfo' => 'required'
+        ]);
+
+        DB::beginTransaction();
+        try {
+            $setting = Setting::findOrFails($id);
+            $setting->email_rrhh = $request->emailRRHH;
+            $setting->email_reports = $request->emailReports;
+            $setting->email_warnings = $request->emailWarnings;
+            $setting->phone_support = $request->phoneSupport;
+            $setting->phone_info = $request->phoneInfo;
+            $setting->save();
+            
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollback(); //si hay un error previo, desahe los cambios en DB y redirecciona a pagina de error
+            //$response['message'] = $e->errorInfo;
+            //dd($e->errorInfo[2]);
+            abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
+            return response()->json($response, 500);
+        }
+        DB::commit();
+        return redirect()->action( //regresa con el error
+            'SettingController@index')->with(['message' => 'El registro se actualizo correctamente', 'alert' => 'success']);
+    
     }
 
     /**
