@@ -37,10 +37,11 @@ class CreateUsersTable extends Migration
             $table->bigInteger('dpi')->unique()->nullable();
             $table->string('lastname', 100)->nullable();
             $table->string('email')->unique();
-            $table->integer('phone')->unique();
+            $table->integer('phone')->unique()->nullable();
             $table->string('url_image')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->boolean('check_terms')->nullable();
+            $table->boolean('ldap')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
@@ -49,7 +50,7 @@ class CreateUsersTable extends Migration
             $table->foreign('score_id')
                 ->references('id')->on('scores')
                 ->onDelete('cascade');
-            $table->unsignedBigInteger('status_id');
+            $table->unsignedBigInteger('status_id')->nullable();
             $table->foreign('status_id')
                 ->references('id')->on('status');
             $table->softDeletes();
