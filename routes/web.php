@@ -26,10 +26,17 @@ Route::get('/podcast', 'HomeController@podcast')->middleware('auth')    ;
 Route::get('/trivia', 'HomeController@games')->middleware('auth')   ;
 Route::get('/question', 'QuestionController@question')->middleware('auth');
 Route::get('/stores', 'StoreController@stores')->middleware('auth')  ;
+
+//*******Jobs Routes****** */
 Route::get('/jobs', 'JobController@jobs')->middleware('auth')  ;
 Route::get('/job/{id}', 'JobController@job');
 Route::post('/apply/mail', 'JobController@apply');
-Route::get('/denounce', 'HomeController@denounce')->middleware('auth')  ;
+//*******Jobs Routes****** */
+
+//*******Denunce Routes****** */
+Route::get('/denounce', 'DenounceController@denounce')->middleware('auth')  ;
+Route::post('send/denounce', 'DenounceController@sendMailDenounce')->middleware('auth');
+//*******Denunce Routes****** */
 
 //*******Post Routes****** */
 Route::get('/news', 'PostController@news')->name('news')->middleware('auth');

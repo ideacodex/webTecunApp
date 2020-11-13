@@ -108,7 +108,7 @@ class SettingController extends Controller
      * @param  \App\Setting  $setting
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         //
         request()->validate([
@@ -121,7 +121,7 @@ class SettingController extends Controller
 
         DB::beginTransaction();
         try {
-            $setting = Setting::findOrFails($id);
+            $setting = Setting::find($id);
             $setting->email_rrhh = $request->emailRRHH;
             $setting->email_reports = $request->emailReports;
             $setting->email_warnings = $request->emailWarnings;

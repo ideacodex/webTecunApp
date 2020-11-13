@@ -134,9 +134,9 @@
                             </span>
                         </div>
                         <input id="video" placeholder="Codigo Youtube" type="text" size="250" 
-                            title="Ejemplo: 2KEjuwECqFvmneRncRwrO6"
+                            title="Ejemplo: VYOjWnS4cMY"
                             maxlength="250" class="text-primary form-control @error('video') is-invalid @enderror"
-                            name="video" value="{{ $item->featured_video }}" autocomplete="video"
+                            name="video" value="{{ $codeYoutube }}" autocomplete="video"
                             autofocus>
 
                         @error('video')
@@ -160,7 +160,7 @@
                         </div>
                         <input id="spotify" placeholder="Codigo Spotify" type="text" size="250" title="Ejemplo: VYOjWnS4cMY"
                             title="Ejemplo: 2KEjuwECqFvmneRncRwrO6" maxlength="250" class="text-primary form-control @error('spotify') is-invalid @enderror"
-                            name="spotify" value="{{ $item->featured_spotify }}" autocomplete="spotify"
+                            name="spotify" value="{{ $codeSpotify }}" autocomplete="spotify"
                             autofocus>
 
                         @error('spotify')
@@ -185,7 +185,7 @@
                             <input title="Selecionar" type="file" accept="file_extension/*" name="pdf" id="inputGroupFile04"
                                 aria-describedby="inputGroupFileAddon04"
                                 class="custom-file-input form-control{{ $errors->has('pdf') ? ' is-invalid' : '' }}"
-                                value="{{ old('pdf') }}">
+                                value="{{ $podcast->featured_document }}">
                             @if ($errors->has('pdf'))
                                 <span class="invalid-feedback" role="alert">
                                     <strong><i class="fas fa-exclamation-triangle"></i>{{ $errors->first('pdf') }}</strong>
@@ -205,7 +205,7 @@
                             <input title="Selecionar" type="file" accept="image/*" name="image" id="inputGroupFile04"
                                 aria-describedby="inputGroupFileAddon04"
                                 class="custom-file-input form-control{{ $errors->has('image') ? ' is-invalid' : '' }}"
-                                value="{{ old('image') }}" required>
+                                value="{{ $podcast->featured_image }}" >
                             @if ($errors->has('image'))
                                 <span class="invalid-feedback" role="alert">
                                     <strong><i
@@ -226,7 +226,7 @@
                             <input title="Selecionar" type="file" accept="audio/*" name="audio" id="inputGroupFile04"
                                 aria-describedby="inputGroupFileAddon04"
                                 class="custom-file-input form-control{{ $errors->has('audio') ? ' is-invalid' : '' }}"
-                                value="{{ old('audio') }}">
+                                value="{{ $podcast->featured_audio }}">
                             @if ($errors->has('audio'))
                                 <span class="invalid-feedback" role="alert">
                                     <strong><i class="fas fa-exclamation-triangle"></i>{{ $errors->first('audio') }}</strong>

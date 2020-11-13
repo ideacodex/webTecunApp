@@ -240,7 +240,7 @@ class PostController extends Controller
                 //Buscamos los items de category_post relacionados con un solo post
                 $postDB = DB::table('category_post')->where('post_id', $post->id)->get();
                 
-                if(sizeof($request->category_id) > sizeof($postDB)){
+                if(sizeof($request->category_id) >= sizeof($postDB)){
                     DB::table('category_post')->where('post_id', $post->id)->delete();
 
 

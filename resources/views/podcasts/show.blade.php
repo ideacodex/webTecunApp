@@ -29,6 +29,12 @@
                                 allow="encrypted-media">
                         </iframe>
                     @endif
+                    @if(isset($podcast->featured_audio))
+                        <audio src="{{ asset('/storage/podcast/' . $podcast->featured_audio) }}" 
+                            preload="auto" controls>
+                        </audio>
+
+                    @endif
                 </div>
                 <h1 class="blog-title text-center">{{ $podcast->title }}</h1>
                 <div class="blog-meta">
@@ -41,13 +47,6 @@
                     <br>
                     <p>@php echo($podcast->content) @endphp</p>
                     <br>
-
-                    @if(isset($podcast->featured_audio))
-                        <audio src="{{ asset('/storage/podcast/' . $podcast->featured_audio) }}" 
-                            preload="auto" controls>
-                        </audio>
-
-                    @endif
 
                     @if(isset($podcast->featured_document))
                         <p><a href="{{ asset('/storage/posts/' . $podcast->featured_document) }}" download>

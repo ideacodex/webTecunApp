@@ -73,20 +73,24 @@ class PodcastController extends Controller
             //Modificar la ruta del video YouTube
             $video = $request->video;
 
-            if($video){
+            if($video && !is_null($video)){
                 $routeVideo = "https://www.youtube.com/embed/".$video;
 
                 $podcast->featured_video = $routeVideo;
+            }else{
+                $podcast->featured_video = null;
             }
             //Modificar la ruta del video YouTube   
             
             //Modificar la ruta del Spotify 
             $spotify = $request->spotify;
 
-            if($spotify){
+            if($spotify && !is_null($spotify)){
                 $routeSpotify = "https://open.spotify.com/embed-podcast/episode/".$spotify;
 
                 $podcast->featured_spotify = $routeSpotify;
+            }else{
+                $podcast->featured_spotify = null;
             }
             //Modificar la ruta del Spotify  
 
@@ -201,6 +205,26 @@ class PodcastController extends Controller
         $status = Status::all();
         $categories = Category::all();
 
+        //Remplazamos la Url de Youtube y dejamos solo el codigo
+        $stringUrlYoutube = $podcast->featured_video;
+
+        if($stringUrlYoutube && !is_null($stringUrlYoutube)){
+            $codeYoutube = str_replace("https://www.youtube.com/embed/", "", $stringUrlYoutube);
+        }else{
+            $codeYoutube = null;
+        }
+        //Remplazamos la Url de Youtube y dejamos solo el codigo
+
+        //Remplazamos la Url de Spotify y dejamos solo el codigo
+        $stringUrlSpotify = $podcast->featured_spotify;
+
+        if($stringUrlSpotify && !is_null($stringUrlSpotify)){
+            $codeSpotify = str_replace("https://open.spotify.com/embed-podcast/episode/", "", $stringUrlSpotify);
+        }else{
+            $codeSpotify = null;
+        }
+        //Remplazamos la Url de Spotify y dejamos solo el codigo
+
         //Traemos el array con toda la informacion combianda de la BD  
         $categoryName = $podcast->category;
 
@@ -208,7 +232,9 @@ class PodcastController extends Controller
             "status" => $status, 
             "categories" => $categories, 
             "podcast" => $podcast,
-            "categoryName" => $categoryName
+            "categoryName" => $categoryName,
+            'codeYoutube' => $codeYoutube,
+            'codeSpotify' => $codeSpotify
         ]);
     }
 
@@ -226,8 +252,7 @@ class PodcastController extends Controller
             '_token' => 'required',
             'title' => 'required',
             'editordata' => 'required',
-            'description' => 'required',
-            'video' => 'required'
+            'description' => 'required'
         ]);
 
         DB::beginTransaction();
@@ -244,20 +269,24 @@ class PodcastController extends Controller
             //Modificar la ruta del video YouTube
             $video = $request->video;
 
-            if($video){
+            if($video && !is_null($video)){
                 $routeVideo = "https://www.youtube.com/embed/".$video;
 
                 $podcast->featured_video = $routeVideo;
+            }else{
+                $podcast->featured_video = null;
             }
             //Modificar la ruta del video YouTube   
             
             //Modificar la ruta del Spotify 
             $spotify = $request->spotify;
 
-            if($spotify){
+            if($spotify && !is_null($spotify)){
                 $routeSpotify = "https://open.spotify.com/embed-podcast/episode/".$spotify;
 
                 $podcast->featured_spotify = $routeSpotify;
+            }else{
+                $podcast->featured_spotify = null;
             }
             //Modificar la ruta del Spotify    
 
@@ -272,7 +301,7 @@ class PodcastController extends Controller
             //Buscamos los items de category_post relacionados con un solo post
             $podcastDB = DB::table('category_podcast')->where('podcast_id', $podcast->id)->get();
             
-            if(sizeof($request->category_id) > sizeof($podcastDB)){
+            if(sizeof($request->category_id) >= sizeof($podcastDB)){
                 DB::table('category_podcast')->where('podcast_id', $podcast->id)->delete();
 
 

@@ -88,9 +88,4 @@ class HomeController extends Controller
     {
         return view('jobs.home');
     }
-
-    public function denounce()
-    {
-        return view('denounce.index');
-    }
 }
