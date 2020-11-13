@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\denounceAdmin;
 
 use App\Setting;
+use App\Denounce;
 
 class DenounceController extends Controller
 {
@@ -30,11 +31,17 @@ class DenounceController extends Controller
         $setting = $settingAll->first();
         $emailDenounce = $setting->email_reports;
 
+        //Guardamos los datos en la DB
+        $denounce = new Denounce;
+        $denounce->subject = $request->subject;
+        $denounce->denounce = $request->denounce;
+        $denounce->save();
+
         //Se envia el correo al mail de denuncias, lo enviamos al modelo para enviarlo a la vista
         Mail::to([$emailDenounce])
             ->send(new denounceAdmin($request));
         
 
-            return redirect('/')->with(['message' => 'Haz enviado tu denuncia correctamente']);
+            return redirect('/home')->with(['message' => 'Haz enviado tu denuncia correctamente']);
     }
 }
