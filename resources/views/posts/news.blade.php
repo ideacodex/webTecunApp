@@ -39,6 +39,20 @@
                     @endforeach
                 </div>
             </div>
+            <div class="bg-theme-1 col-12 mt-1">
+
+                <ul class="nav nav-pills nav-fill nav-justified">
+                    <li class="nav-item animate__animated animate__pulse">
+                        <a class="nav-link" href="{{ url('news') }}"><span class="text-light font-weight-bold ">Noticias</span></a>
+                    </li>
+                    <li class="nav-item animate__animated animate__pulse">
+                        <a class="nav-link" href="{{ url('podcasts') }}"><span class="text-light font-weight-bold">Podcast</span></a>
+                    </li>
+                    <li class="nav-item animate__animated animate__pulse">
+                        <a class="nav-link" href="{{ url('news') }}"><span class="text-light font-weight-bold">Artes</span></a>
+                    </li>
+                </ul>
+            </div>
             @if (session('message'))
                 <div class="sufee-alert alert with-close alert-{{ session('alert') }} alert-dismissible fade show">
                     <span class="badge badge-pill badge-{{ session('alert') }}">{{ session('message') }}</span>

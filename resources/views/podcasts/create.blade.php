@@ -190,7 +190,7 @@
                             <input title="Selecionar" type="file" accept="audio/*" name="audio" id="inputGroupFile04"
                                 aria-describedby="inputGroupFileAddon04"
                                 class="custom-file-input form-control{{ $errors->has('audio') ? ' is-invalid' : '' }}"
-                                value="{{ old('audio') }}">
+                                value="{{ old('audio') }}" required>
                             @if ($errors->has('audio'))
                                 <span class="invalid-feedback" role="alert">
                                     <strong><i class="fas fa-exclamation-triangle"></i>{{ $errors->first('audio') }}</strong>

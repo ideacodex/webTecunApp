@@ -56,7 +56,7 @@ class PodcastController extends Controller
             'title' => 'required',
             'editordata' => 'required',
             'description' => 'required',
-            'video' => 'required'
+            'audio' => 'required'
         ]);
 
         DB::beginTransaction();
@@ -215,7 +215,7 @@ class PodcastController extends Controller
             'title' => 'required',
             'editordata' => 'required',
             'description' => 'required',
-            'video' => 'required'
+            'audio' => 'required'
         ]);
 
         DB::beginTransaction();
