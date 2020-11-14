@@ -19,7 +19,7 @@ Auth::routes();
 Route::get('login/facebook', 'SocialServicesController@redirectToProvider');
 Route::get('login/facebook/callback', 'SocialServicesController@handleProviderCallback');
 
-Route::get('/home', 'HomeController@index')->name('home')->middleware('auth')   ;
+Route::get('/home', 'PostController@news')->name('home')->middleware('auth')   ;
 Route::get('/team', 'HomeController@team')->middleware('auth')  ;
 Route::get('/specialTeam', 'AwardController@specialTeam')->middleware('auth')    ;
 Route::get('/podcast', 'HomeController@podcast')->middleware('auth')    ;
