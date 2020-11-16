@@ -24,6 +24,13 @@ class PictureController extends Controller
         return view("pictures.index", ["pictures" => $pictures]);
     }
 
+    public function home()
+    {
+        //
+        $pictures = Picture::all();
+        return view("pictures.home", ["pictures" => $pictures]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

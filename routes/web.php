@@ -19,7 +19,7 @@ Auth::routes();
 Route::get('login/facebook', 'SocialServicesController@redirectToProvider');
 Route::get('login/facebook/callback', 'SocialServicesController@handleProviderCallback');
 
-Route::get('/home', 'HomeController@index')->name('home')->middleware('auth')   ;
+Route::get('/home', 'PostController@news')->name('home')->middleware('auth')   ;
 Route::get('/team', 'HomeController@team')->middleware('auth')  ;
 Route::get('/specialTeam', 'AwardController@specialTeam')->middleware('auth')    ;
 Route::get('/podcast', 'HomeController@podcast')->middleware('auth')    ;
@@ -63,6 +63,10 @@ Route::post('adminSetting', 'SettingController@store')->name('adminSetting.store
 Route::get('/adminSetting/{id}/edit', 'SettingController@edit')->middleware('auth');
 Route::put('adminSetting/{id}', 'SettingController@update')->name('adminSetting.update')->middleware('auth');
 //*******Settings Routes****** */
+
+//*******Pictures Routes****** */
+Route::get('/artes', 'PictureController@home')->middleware('auth');
+//*******Pictures Routes****** */
 
 
 //*******admin routes****** */

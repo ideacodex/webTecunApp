@@ -1,42 +1,70 @@
 @extends('layouts.user')
 
 @section('content')
+<style>
+    .dropdown-toggle::after {}
+
+    .firefox.dropdown-toggle::after {
+        text-align: right;
+        float: right;
+        /*Firefox fix*/
+        margin-top: -12px;
+    }
+
+    .chrome.dropdown-toggle::after {
+        text-align: right;
+        float: right;
+        /*Chrome IE fix*/
+        margin-top: 8px;
+    }
+
+</style>
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="mb-n1 text-center col-12 bg-primary  alert alert-warning alert-dismissible fade show" role="alert">
-                <a href="{{ url('podcast') }}">
-                    <span class=" text-light">
-                        Nuevos Episodios.
-                        <strong>¡TECUN Podcast!
-                            <span class=" text-light justify-content-end">
-                                <i class="fas fa-podcast ml-2  justify-content-start text-light"></i>
-                            </span>
-                        </strong>
-                    </span>
-                </a>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true" class="text-light">&times;</span>
-                </button>
+            <div class="bg-theme-1 col-12 mt-1">
+
+                <ul class="nav nav-pills nav-fill nav-justified">
+                    <li class="nav-item animate__animated animate__pulse">
+                        <a class="nav-link" href="{{ url('news') }}"><span
+                                class="text-light font-weight-bold ">Noticias</span></a>
+                    </li>
+                    <li class="nav-item animate__animated animate__pulse">
+                        <a class="nav-link" href="{{ url('podcasts') }}"><span
+                                class="text-light font-weight-bold">Podcast</span></a>
+                    </li>
+                    <li class="nav-item animate__animated animate__pulse">
+                        <a class="nav-link" href="{{ url('/artes') }}"><span
+                                class="text-light font-weight-bold">Artes</span></a>
+                    </li>
+                </ul>
             </div>
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <label class="input-group-text" for="inputGroupSelect01">Filtrar</label>
-                </div>
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Busca tus categorias favoritas aqui!!!
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    @foreach ($categories as $item)
-                        <a class="btn btn-primary"  title="{{ $item->name }}"
-                            onclick="event.preventDefault();
-                            document.getElementById('formDel{{$item->id}}').submit();">
-                            {{ $item->name }}
-                        </a>
-                        <form id="formDel{{$item->id}}" action="{{ url('category/post/'. $item->id) }}" method="POST"
-                            style="display: none;">
-                            @csrf
-                        </form>
-                    @endforeach
+            <div class="col-12 mt-1">
+                <div class="form-group row">
+                    <div class="col-12 pl-0 pr-0">
+                        <div class="">
+                            <div class="dropdown flatmenu bg-secondary">
+                                <div class="btn btn-dark btn-block btn-lg dropdown-toggle text-justify" type="button"
+                                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    <span>Selecionar Categoría</span>
+                                </div>
+                                <div class="dropdown-menu w-100 bg-secondary" aria-labelledby="dropdownMenuButton">
+                                    @foreach ($categories as $item)
+                                        <a class="dropdown-item bg-secondary text-light" title="{{ $item->name }}"
+                                            onclick="event.preventDefault();
+                                                                    document.getElementById('formDel{{ $item->id }}').submit();">
+                                            {{ $item->name }}
+                                        </a>
+                                        <form id="formDel{{ $item->id }}"
+                                            action="{{ url('category/post/' . $item->id) }}" method="POST"
+                                            style="display: none;">
+                                            @csrf
+                                        </form>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             @if (session('message'))
@@ -47,6 +75,9 @@
                     </button>
                 </div>
             @endif
+            <div class="alert alert-success" role="alert">
+                <h1 class="display-1">{{ $categoryPostName }}</h1>
+            </div>
             @if (sizeof($posts) >= 1)
                 <div class="card-deck">
                     @foreach ($posts as $item)

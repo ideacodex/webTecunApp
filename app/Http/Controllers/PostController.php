@@ -86,9 +86,9 @@ class PostController extends Controller
 
             //******carga de imagen**********//
             if ($request->hasFile('image')) {
-                $filename = $request->_token;
+                $filename = $post->id;
                 $extension = $request->file('image')->getClientOriginalExtension();
-                $imageNameToStore = $request->_token . '.' . $extension;
+                $imageNameToStore = $post->id . '.' . $extension;
                 // Upload Image //********nombre de carpeta para almacenar*****
                 $path = $request->file('image')->storeAs('public/posts', $imageNameToStore);
                 //dd($path);
@@ -263,9 +263,9 @@ class PostController extends Controller
 
                     //******carga de imagen**********//
                 if ($request->hasFile('image')) {
-                    $filename = $request->_token;
+                    $filename = $id;
                     $extension = $request->file('image')->getClientOriginalExtension();
-                    $imageNameToStore = $request->_token . '.' . $extension;
+                    $imageNameToStore = $id . '.' . $extension;
                     // Upload Image //********nombre de carpeta para almacenar*****
                     $path = $request->file('image')->storeAs('public/posts', $imageNameToStore);
                     //dd($path);
@@ -562,7 +562,7 @@ class PostController extends Controller
         return view("posts.postOfCategory", [
             "posts" => $posts,
             'categories' => $categories,
-            'categoryPodcastName' => $categoryPostName
+            'categoryPostName' => $categoryPostName
         ]);
     }
 }

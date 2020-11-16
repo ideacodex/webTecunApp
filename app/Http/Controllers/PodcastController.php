@@ -55,8 +55,7 @@ class PodcastController extends Controller
             '_token' => 'required',
             'title' => 'required',
             'editordata' => 'required',
-            'description' => 'required',
-            'video' => 'required'
+            'description' => 'required'
         ]);
 
         DB::beginTransaction();
