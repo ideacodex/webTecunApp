@@ -186,12 +186,14 @@ class ContactController extends Controller
         $pais = $request->get('searchPais');
         $puesto = $request->get('searchPuesto');
         $contacts = Contact::where('nombre', 'LIKE', "%$nombre%")
-                    ->orWhere('departamento', 'LIKE', "%$departamento%")
-                    ->orWhere('pais', 'LIKE', "%$pais%")
-                    ->orWhere('puesto', 'LIKE', "%$puesto%")
-                    ->orWhere('subDepartamento', 'LIKE', "%$subDepartamento%")
-                    ->get();
-        return view('contacts.home', ['contacts' => $contacts]);
+                    ->where('departamento', 'LIKE', "%$departamento%")
+                    ->where('pais', 'LIKE', "%$pais%")
+                    ->where('puesto', 'LIKE', "%$puesto%")
+                    ->paginate(10);
+
+        return view('contacts.home', [
+            'contacts' => $contacts
+        ]);
     }
 
     public function ContactUser($id)

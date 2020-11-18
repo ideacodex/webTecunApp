@@ -28,8 +28,8 @@ Route::get('award', 'APIAwardController@index');
 Route::get('award/image/{url_image}', 'APIAwardController@getImage');
 Route::get('award/carousel', 'APIAwardController@carousel');
 
-Route::get('store', 'APIStoreController@index');
-Route::get('store/{id}', 'APIStoreController@show');
+Route::get('store', 'APIStoreController@index')->middleware('auth:api');
+Route::get('store/{id}', 'APIStoreController@show')->middleware('auth:api');
 
 Route::get('jobs', 'APIJobController@index');
 Route::get('job/{id}', 'APIJobController@show');
