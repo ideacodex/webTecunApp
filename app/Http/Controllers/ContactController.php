@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Contact;
+
+use DB;
+
 use Illuminate\Http\Request;
 
 class ContactController extends Controller
@@ -15,6 +18,8 @@ class ContactController extends Controller
     public function index()
     {
         //
+        $contacts = Contact::all();
+        return view('contacts.index', ['contacts' => $contacts]);
     }
 
     /**
@@ -25,6 +30,7 @@ class ContactController extends Controller
     public function create()
     {
         //
+        return view('contacts.create');
     }
 
     /**
@@ -35,7 +41,52 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        DB::beginTransaction();
+
+        try{
+            //Instanciamos el objecto
+            $contact = new Contact;
+            $contact->departamento = $request->departamento;
+            $contact->subDepartamento = $request->subDepartamento;
+            $contact->puesto = $request->puesto;
+            $contact->numeroDirecto = $request->numeroDirecto;
+            $contact->celular = $request->celular;
+            $contact->extension = $request->extension;
+            $contact->asistente = $request->asistente;
+            $contact->extensionAsistente = $request->extensionAsistente;
+            $contact->correo = $request->correo;
+            $contact->pais = $request->pais;
+            $contact->empresa = $request->empresa;
+            $contact->comentarios = $request->comentarios;
+            $contact->mailGeneral = $request->mailGeneral;
+
+            //Inicializamos las variables obteniendo los datos de la request
+            $nombre = $request->nombre;
+            $apellido = $request->apellido;
+
+            //Concatenamos las 2 variables para seguir el orden en la BD
+            $nombreDB = $apellido.", ".$nombre;
+
+            //Guardamos el valor resultante de la contactenacion
+            $contact->nombre = $nombreDB;
+
+            $contact->save();
+        }catch (\Illuminate\Database\QueryException $e) {
+            DB::rollback(); //si hay un error previo, desahe los cambios en DB y redirecciona a pagina de error
+            //$response['message'] = $e->errorInfo;
+            //dd($e->errorInfo[2]);
+            abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
+            return response()->json($response, 500);
+            return redirect()->action('ContactController@create')
+                    ->with(['message' => 'Error al crear el contacto', 'alert' => 'warning']);
+
+        }
+
+        DB::commit();
+
+        return redirect()->action('ContactController@index')
+            ->with(['message' => 'Contacto creado con exito', 'alert' => 'success']);
     }
 
     /**
@@ -44,9 +95,11 @@ class ContactController extends Controller
      * @param  \App\Contact  $contact
      * @return \Illuminate\Http\Response
      */
-    public function show(Contact $contact)
+    public function show($id)
     {
         //
+        $contact = Contact::findOrFails($id);
+        return view('contacts.show', ['contact' => $contact]);
     }
 
     /**
@@ -55,9 +108,11 @@ class ContactController extends Controller
      * @param  \App\Contact  $contact
      * @return \Illuminate\Http\Response
      */
-    public function edit(Contact $contact)
+    public function edit($id)
     {
         //
+        $contact = Contact::find($id);
+        return view('contacts.edit', ['contact' => $contact]);
     }
 
     /**
@@ -67,9 +122,45 @@ class ContactController extends Controller
      * @param  \App\Contact  $contact
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Contact $contact)
+    public function update(Request $request, $id)
     {
-        //
+
+        DB::beginTransaction();
+
+        try{
+            //Instanciamos el objecto
+            $contact = Contact::find($id);
+            $contact->departamento = $request->departamento;
+            $contact->subDepartamento = $request->subDepartamento;
+            $contact->puesto = $request->puesto;
+            $contact->numeroDirecto = $request->numeroDirecto;
+            $contact->celular = $request->celular;
+            $contact->extension = $request->extension;
+            $contact->asistente = $request->asistente;
+            $contact->extensionAsistente = $request->extensionAsistente;
+            $contact->correo = $request->correo;
+            $contact->pais = $request->pais;
+            $contact->empresa = $request->empresa;
+            $contact->comentarios = $request->comentarios;
+            $contact->mailGeneral = $request->mailGeneral;
+            $contact->nombre = $request->nombre;
+
+            $contact->save();
+        }catch (\Illuminate\Database\QueryException $e) {
+            DB::rollback(); //si hay un error previo, desahe los cambios en DB y redirecciona a pagina de error
+            //$response['message'] = $e->errorInfo;
+            //dd($e->errorInfo[2]);
+            abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
+            return response()->json($response, 500);
+            return redirect()->action('ContactController@create')
+                    ->with(['message' => 'Error al crear el contacto', 'alert' => 'warning']);
+
+        }
+
+        DB::commit();
+
+        return redirect()->action('ContactController@index')
+            ->with(['message' => 'Contacto creado con exito', 'alert' => 'success']);
     }
 
     /**
@@ -78,8 +169,34 @@ class ContactController extends Controller
      * @param  \App\Contact  $contact
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Contact $contact)
+    public function destroy($id)
     {
         //
+        $contact = Contact::find($id);
+        $contact->delete();
+
+        return redirect()->action('ContactController@index')
+            ->with(['message' => 'Contacto eliminado correctamente', 'alert' => 'warning']);
+    }
+
+    public function contactsUser(Request $request)
+    {
+        $nombre = $request->get('searchNombre');
+        $departamento = $request->get('searchDepartamento');
+        $pais = $request->get('searchPais');
+        $puesto = $request->get('searchPuesto');
+        $contacts = Contact::where('nombre', 'LIKE', "%$nombre%")
+                    ->orWhere('departamento', 'LIKE', "%$departamento%")
+                    ->orWhere('pais', 'LIKE', "%$pais%")
+                    ->orWhere('puesto', 'LIKE', "%$puesto%")
+                    ->orWhere('subDepartamento', 'LIKE', "%$subDepartamento%")
+                    ->get();
+        return view('contacts.home', ['contacts' => $contacts]);
+    }
+
+    public function ContactUser($id)
+    {
+        $contact = Contact::findOrFails($id);
+        return view('contacts.show', ['contact' => $contact]);
     }
 }

@@ -68,6 +68,10 @@ Route::put('adminSetting/{id}', 'SettingController@update')->name('adminSetting.
 Route::get('/artes', 'PictureController@home')->middleware('auth');
 //*******Pictures Routes****** */
 
+//*******Contact Routes****** */
+
+//*******Contact Routes****** */
+
 
 //*******admin routes****** */
 Route::resource('adminPost', 'PostController')->middleware('auth');
@@ -79,6 +83,7 @@ Route::resource('categories', 'CategoryController')->middleware('role:root|Super
 Route::resource('jobsAdmin', 'JobController')->middleware('role:root|Super|Admin');
 Route::resource('storesAdmin', 'StoreController')->middleware('role:root|Super|Admin');
 Route::resource('awardsAdmin', 'AwardController')->middleware('role:root|Super|Admin');
+Route::resource('contactAdmin', 'ContactController')->middleware('auth');
 //*******admin routes****** */
 
 
