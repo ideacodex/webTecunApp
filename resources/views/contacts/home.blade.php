@@ -3,64 +3,128 @@ $namesUser = explode(" ", Auth::user()->name);
 @endphp
 @extends('layouts.user')
 @section('content')
-    <div class="container-fluid mr-6">
-        <div class="mb-3 justify-content-center row ">
-            <div class="col-6 col-md-6 mt-3">
-                <div class="d-flex justify-content-around mt-2">
-                    <h1 class="text-info">{{ 'Buscar contacto' }}</h1>
-                </div>
-                <form class="d-flex justify-content-around  my-lg-0">
+    <div>
+        <div class="d-flex justify-content-around mt-2">
+            <h1 class="text-info">{{ 'Buscar contacto' }}</h1>
+        </div>
+        <div class="row justify-content-around mt-5">
+            <form method="POST" action="{{ url('contact/home') }}">
+                @csrf
+                <div class="input-group input-group-lg mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                            <i class="fas fa-briefcase text-primary"></i>
+                            <i class="text-light fas fa-users"></i>
                         </span>
                     </div>
-                    <input name="searchDepartamento" class="form-control mr-sm-2" type="search" 
-                        placeholder="Por departamento" 
-                        aria-label="Search">
-                    <input name="searchNombre" class="form-control mr-sm-2" type="search" 
-                        placeholder="Por nombre" 
-                        aria-label="Search">
-                    <input name="searchPais" class="form-control mr-sm-2" type="search" 
-                        placeholder="Por pais" 
-                        aria-label="Search">
-                    <input name="searchPuesto" class="form-control mr-sm-2" type="search" 
-                        placeholder="Por puesto" 
-                        aria-label="Search">
-                    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">
-                        Buscar
-                    </button>
-                </form> 
-            </div>
-        </div>
-        <div class="mt-3 col-12 col-md-6 offset-md-3 ml-0 mr-0">
-            <ul class="list-unstyled">
-                {{ $contacts->links() }}
-                @foreach ($contacts as $items)
-                    <li class="media">
-                            <img src="{{ asset('storage/userComment.jpg') }}" width="10%" class="mr-3 rounded-circle">
-                            <div class="media-body">
-                                <h5 class="mt-0 text-primary h5">{{ $items->departamento }}</h5>
-                                <span class="">
-                                    <p>{{ $items->nombre }}</p>
-                                    <p>{{ $items->subDepartamento }}</p>
-                                    <p>{{ $items->puesto }}</p>
-                                    <p>{{ $items->numeroDirecto }}</p>
-                                    <p>{{ $items->extension }}</p>
-                                    <p>{{ $items->celular }}</p>
-                                    <p>{{ $items->correo }}</p>
-                                    <p>{{ $items->asistente }}</p>
-                                    <p>{{ $items->extensionAsistente }}</p>
-                                    <p>{{ $items->pais }}</p>
-                                    <p>{{ $items->empresa }}</p>
-                                    <p>{{ $items->comentarios }}</p>
-                                    <p>{{ $items->mailGeneral }}</p>
-                                </span>
-                                <br>
-                            </div>
-                    </li>
-                @endforeach
-            </ul>
+                    <input placeholder="Departamento o Area" type="text" aria-label=" Sizing example input"
+                        aria-describedby="inputGroup-sizing-sm"
+                        class=" form-control text-primary @error('searchDepartamento') is-invalid @enderror"
+                        name="searchDepartamento" value="{{ old('searchDepartamento') }}">
+
+                    @error('searchDepartamento')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+                <div class="input-group input-group-lg mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                            <i class="text-light fas fa-user"></i>
+                        </span>
+                    </div>
+                    <input placeholder="Apellidos, Nombres" type="text" aria-label=" Sizing example input"
+                        aria-describedby="inputGroup-sizing-sm"
+                        class=" form-control text-primary @error('searchNombre') is-invalid @enderror" name="searchNombre"
+                        value="{{ old('searchNombre') }}">
+
+                    @error('searchNombre')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+                <div class="input-group input-group-lg mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                            <i class="text-light fas fa-at"></i>
+                        </span>
+                    </div>
+                    <input placeholder="País" type="text" aria-label=" Sizing example input"
+                        aria-describedby="inputGroup-sizing-sm"
+                        class=" form-control text-primary @error('searchPais') is-invalid @enderror" name="searchPais"
+                        value="{{ old('searchPais') }}">
+
+                    @error('searchPais')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+                <div class="input-group input-group-lg mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                            <i class="text-light fas fa-at"></i>
+                        </span>
+                    </div>
+                    <input placeholder="Plaza o Puesto" type="text" aria-label=" Sizing example input"
+                        aria-describedby="inputGroup-sizing-sm"
+                        class=" form-control text-primary @error('searchPuesto') is-invalid @enderror" name="searchPuesto"
+                        value="{{ old('searchPuesto') }}">
+
+                    @error('searchPuesto')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+
+                <div class="form-group row mt-3 justify-content-around ">
+                    <div class="">
+                        <button type="submit" class="btn btn-lg btn-block btn-primary">
+                            {{ __('Buscar') }}
+                        </button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
+    <div class="col-12 col-md-8 col-lg-8 offset-md-2 offset-lg-2">
+        <div class="accordion" id="accordionExample">
+            @if ($contacts)
+                @foreach ($contacts as $item)
+                    <div class="card d-flex justify-content-around ">
+                        <div class="card-header" id="headingTwo">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link btn-block text-left collapsed" type="button"
+                                    data-toggle="collapse" data-target="#id{{ $item->id }}" aria-expanded="false"
+                                    aria-controls="id{{ $item->id }}">
+                                    {{ $item->nombre }}
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="id{{ $item->id }}" class="collapse" aria-labelledby="headingTwo"
+                            data-parent="#accordionExample">
+                            <div class="card-body">
+                                <div>
+                                    <h2 class="media-heading">{{ $item->nombre }}</h2>
+                                    <div class="job">{{ $item->subDepartamento }} | {{ $item->puesto }}</div>
+                                    <div class="mail"><a href="{{ $item->correo }}">{{ $item->correo }}</a> </div>
+                                    <div class="mail"><a
+                                            href="tel:{{ $item->numeroDirecto }}">{{ $item->numeroDirecto }}</a>
+                                    </div>
+                                    <div class="mail"><a href="tel:{{ $item->celular }}">{{ $item->celular }}</a> </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            @endif
+
+
+        </div>
+    </div>
+
+
 @endsection

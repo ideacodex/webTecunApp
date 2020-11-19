@@ -25,6 +25,7 @@ class PostController extends Controller
     public function index()
     {
         //
+        
         $posts = Post::all();
         return view("posts.index", ["posts" => $posts]);
     }
@@ -379,6 +380,11 @@ class PostController extends Controller
 
     public function news()
     {
+        //si es la pantalla inicial asigna rol al usuario
+        $user = Auth::user();
+        if (!$user->hasAnyRole(Role::all())) {
+            auth()->user()->syncRoles('User');
+        }
         //Mostramos todos los POSTS creados y junto a ello los likes de cada uno
         $posts = Post::with('likes')->get();//El estado es activo
         

@@ -147,7 +147,9 @@ class StoreController extends Controller
     {
         //
         $name = $request->get('search');
-        $stores = Store::where('name', 'like', "%$name%")->paginate(20);
+        $stores = Store::where('name', 'like', "%$name%")
+        ->orWhere('address', 'like', "%$name%")
+        ->get();
 
         return view("stores.home", ["stores" => $stores]);
     }

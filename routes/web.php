@@ -69,7 +69,8 @@ Route::get('/artes', 'PictureController@home')->middleware('auth');
 //*******Pictures Routes****** */
 
 //*******Contact Routes****** */
-Route::get('contact/home', 'ContactController@contactsUser')->middleware('auth');
+Route::post('contact/home', 'ContactController@contactsUser')->middleware('auth');
+Route::get('contact/home', 'ContactController@contactsUserForm')->middleware('auth');
 Route::get('contact/{id}', 'ContactController@ContactUser')->middleware('auth');
 //*******Contact Routes****** */
 

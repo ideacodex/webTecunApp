@@ -100,7 +100,8 @@ class RegisterController extends Controller
             return response()->json($response, 500);
         }
         DB::commit(); //si llega a este punto **FINALILA LA TRANSACCION y guarda en base de datos
-        return User::create([
+        
+        $user= User::create([
             'name' => $data['name'],
             'lastname' => $data['lastname'],
             'dpi' => $data['dpi'],
@@ -109,9 +110,11 @@ class RegisterController extends Controller
             'phone' => $data['phone'],
             'check_terms' => true,
             'url_image' => 'users/default_profile.png',
-            'role_id' => 3, //aca se asigana el id de la tabla roles numero "id=3 name=User"
+            'role_id' => 4, //aca se asigana el id de la tabla roles numero "id=3 name=User"
             'status_id' => 3,
             'score_id'=>$score->id,
         ]);
+
+        return $user;
     }
 }

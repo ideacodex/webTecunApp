@@ -179,6 +179,15 @@ class ContactController extends Controller
             ->with(['message' => 'Contacto eliminado correctamente', 'alert' => 'warning']);
     }
 
+    public function contactsUserForm()
+    {
+        //$contacts = Contact::take(10)->get();
+
+        return view('contacts.home', [
+            'contacts' => null
+        ]);
+    }
+
     public function contactsUser(Request $request)
     {
         $nombre = $request->get('searchNombre');
@@ -189,7 +198,8 @@ class ContactController extends Controller
                     ->where('departamento', 'LIKE', "%$departamento%")
                     ->where('pais', 'LIKE', "%$pais%")
                     ->where('puesto', 'LIKE', "%$puesto%")
-                    ->paginate(10);
+                    ->take(10)
+                    ->get();
 
         return view('contacts.home', [
             'contacts' => $contacts
