@@ -23,7 +23,6 @@ Route::get('/home', 'PostController@news')->name('home')->middleware('auth')   ;
 Route::get('/team', 'HomeController@team')->middleware('auth')  ;
 Route::get('/specialTeam', 'AwardController@specialTeam')->middleware('auth')    ;
 Route::get('/podcast', 'HomeController@podcast')->middleware('auth')    ;
-Route::get('/trivia', 'HomeController@games')->middleware('auth')   ;
 Route::get('/question', 'QuestionController@question')->middleware('auth');
 Route::get('/stores', 'StoreController@stores')->middleware('auth')  ;
 
@@ -73,6 +72,11 @@ Route::get('contact/home', 'ContactController@contactsUser')->middleware('auth')
 Route::get('contact/{id}', 'ContactController@ContactUser')->middleware('auth');
 //*******Contact Routes****** */
 
+//*******Trivia Routes****** */
+Route::get('/trivia', 'HomeController@games')->middleware('auth')   ;
+Route::get('/question', 'QuestionController@question')->middleware('auth');
+Route::post('storeUser', 'QuestionController@storeUser')->middleware('auth');
+//*******Trivia Routes****** */
 
 //*******admin routes****** */
 Route::resource('adminPost', 'PostController')->middleware('auth');

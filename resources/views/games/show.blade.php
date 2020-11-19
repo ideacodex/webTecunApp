@@ -24,43 +24,38 @@
                 </div>
             </div>
             <div class="mt-2 col-12 col-md-6 offset-md-3 ml-0 mr-0" role="group" aria-label="Basic example">
-                <a type="button" class="btn btn-lg btn-block btn-outline-info  justify-content-center d-flex"
+                <a type="button" class="btn btn-lg btn-block btn-outline-primary  justify-content-center d-flex"
                     href="{{ url('question') }}">
                     <i class="fas fa-coins mr-3  d-none"></i>
                     <span class="mr-3  justify-content-center">{{ $question->questionTrue }}</span>
-                    <span class="d-none badge  badge-secondary text-light  justify-content-end">{{ Auth::user()->id }}
-                    </span>
+                    <span class="d-none badge  badge-secondary text-light  justify-content-end"></span>
                 </a>
 
                 <a type="button" class="btn btn-lg btn-block btn-outline-primary  justify-content-center d-flex"
                     href="{{ url('question') }}">
                     <i class="fas fa-coins mr-3  d-none "></i>
                     <span class="mr-3  justify-content-center">{{ $question->questionFalse1 }}</span>
-                    <span class="d-none badge  badge-secondary text-light  justify-content-end">{{ Auth::user()->id }}
-                    </span>
+                    <span class="d-none badge  badge-secondary text-light  justify-content-end"></span>
                 </a>
 
                 <a type="button" class="btn btn-lg btn-block btn-outline-primary bg-theme-3# justify-content-center d-flex"
                     href="{{ url('question') }}">
                     <i class="fas fa-coins mr-3  d-none "></i>
                     <span class="mr-3  justify-content-center">{{ $question->questionFalse2 }}</span>
-                    <span class="d-none badge  badge-secondary text-light  justify-content-end">{{ Auth::user()->id }}
-                    </span>
+                    <span class="d-none badge  badge-secondary text-light  justify-content-end"></span>
                 </a>
                 <a type="button" class="btn btn-lg btn-block btn-outline-primary bg-theme-3# justify-content-center d-flex"
                     href="{{ url('question') }}">
                     <i class="fas fa-coins mr-3  d-none "></i>
                     <span class="mr-3  justify-content-center">{{ $question->questionFalse2 }}</span>
-                    <span class="d-none badge  badge-secondary text-light  justify-content-end">{{ Auth::user()->id }}
-                    </span>
+                    <span class="d-none badge  badge-secondary text-light  justify-content-end"></span>
                 </a>
 
                 <a type="button" class="btn btn-lg btn-block btn-outline-primary bg-theme-3# justify-content-center d-flex"
                     href="{{ url('question') }}">
                     <i class="fas fa-coins mr-3  d-none "></i>
                     <span class="mr-3  justify-content-center">{{ $question->questionFalse3 }}</span>
-                    <span class="d-none badge  badge-secondary text-light  justify-content-end">{{ Auth::user()->id }}
-                    </span>
+                    <span class="d-none badge  badge-secondary text-light  justify-content-end"></span>
                 </a>
             </div>
         </div>
