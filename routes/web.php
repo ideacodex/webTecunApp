@@ -74,7 +74,8 @@ Route::get('contact/{id}', 'ContactController@ContactUser')->middleware('auth');
 //*******Contact Routes****** */
 
 //*******Trivia Routes****** */
-Route::get('/trivia', 'HomeController@games')->middleware('auth')   ;
+Route::get('/trivia', 'HomeController@games')->middleware('auth');
+Route::get('/proccess', 'HomeController@proccess')->middleware('auth');
 Route::get('/question', 'QuestionController@question')->middleware('auth');
 Route::post('storeUser', 'QuestionController@storeUser')->middleware('auth');
 //*******Trivia Routes****** */
