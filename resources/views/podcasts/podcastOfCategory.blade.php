@@ -1,24 +1,24 @@
 @extends('layouts.user')
 
 @section('content')
-<style>
-    .dropdown-toggle::after {}
+    <style>
+        .dropdown-toggle::after {}
 
-    .firefox.dropdown-toggle::after {
-        text-align: right;
-        float: right;
-        /*Firefox fix*/
-        margin-top: -12px;
-    }
+        .firefox.dropdown-toggle::after {
+            text-align: right;
+            float: right;
+            /*Firefox fix*/
+            margin-top: -12px;
+        }
 
-    .chrome.dropdown-toggle::after {
-        text-align: right;
-        float: right;
-        /*Chrome IE fix*/
-        margin-top: 8px;
-    }
+        .chrome.dropdown-toggle::after {
+            text-align: right;
+            float: right;
+            /*Chrome IE fix*/
+            margin-top: 8px;
+        }
 
-</style>
+    </style>
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="bg-theme-1 col-12 mt-1">
@@ -52,7 +52,7 @@
                                     @foreach ($categories as $item)
                                         <a class="dropdown-item bg-secondary text-light" title="{{ $item->name }}"
                                             onclick="event.preventDefault();
-                                                                    document.getElementById('formDel{{ $item->id }}').submit();">
+                                                                        document.getElementById('formDel{{ $item->id }}').submit();">
                                             {{ $item->name }}
                                         </a>
                                         <form id="formDel{{ $item->id }}"
@@ -69,15 +69,12 @@
             </div>
             @if (session('message'))
                 <div class="sufee-alert alert with-close alert-{{ session('alert') }} alert-dismissible fade show">
-                    <span class="badge badge-pill badge-{{ session('alert') }}">{{ session('message') }}</span>
+                    <span class="badge badge-pill badge-{{ session('alert') }}">{{ $categoryPodcastName }}</span>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
             @endif
-            <div class="alert alert-success" role="alert">
-                <h1 class="display-1">{{ $categoryPodcastName }}</h1>
-            </div>
             @if (sizeof($podcasts) >= 1)
                 <div class="card-deck">
                     @foreach ($podcasts as $item)

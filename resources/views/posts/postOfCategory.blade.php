@@ -67,17 +67,6 @@
                     </div>
                 </div>
             </div>
-            @if (session('message'))
-                <div class="sufee-alert alert with-close alert-{{ session('alert') }} alert-dismissible fade show">
-                    <span class="badge badge-pill badge-{{ session('alert') }}">{{ session('message') }}</span>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            @endif
-            <div class="alert alert-success" role="alert">
-                <h1 class="display-1">{{ $categoryPostName }}</h1>
-            </div>
             @if (sizeof($posts) >= 1)
                 <div class="card-deck">
                     @foreach ($posts as $item)
