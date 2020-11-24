@@ -257,7 +257,7 @@ class JobController extends Controller
                 Storage::disk('jobs')->delete($pdfNameToStore);
 
                 return redirect()->action('JobController@jobs')
-                    ->with(['message' => 'Solicitud enviada correctamente']);
+                    ->with(['message' => 'Solicitud enviada correctamente', 'alert' => 'success']);
     
             }catch (\Illuminate\Database\QueryException $e) {
                 abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
