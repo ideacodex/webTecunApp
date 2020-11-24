@@ -227,11 +227,17 @@ class QuestionController extends Controller
                         $score->wrong = $tempScore->wrong + (3 - $corrects);
                     }
 
+                    //Aumentamos el puntaje total del usuario
                     $score->points = $score->correct * 10;
 
+                    //No actualizamos el ID del punteo
                     unset($score->id);
 
+                    //Actualizamos las valores
                     $score->update();
+
+                    $tempScore->correct = $corrects;
+                    $questionTrue = $tempScore->correct;
 
                 }catch (\Illuminate\Database\QueryException $e) {
                     DB::rollback(); //si hay un error previo, desahe los cambios en DB y redirecciona a pagina de error
@@ -247,7 +253,8 @@ class QuestionController extends Controller
                 $uniquedObject->delete();
 
                 //Retornaremos una vista que sea mas o menos una despedida
-                return redirect()->action('QuestionController@question');
+                return redirect()->action('HomeController@games')
+                    ->with(['message' => $questionTrue.' respuestas correctas de 3', 'alert' => 'success']);
             }else{
                 //Retornamos una vista con una pregunta Random
                 return view('games.question', [
@@ -320,15 +327,23 @@ class QuestionController extends Controller
                 if($uniquedObject->status == 'X'){
                     dd('Llegaste a tu tercer juego', $uniquedObject);
                 }else{
+                    //Los ultimos valores de la tabla, las almacenamos en variables
                     $passedMore = $uniquedObject->passed;
                     $trueQuestion = $uniquedObject->questionTrue;
 
+                    //Los nuevos registros de la tabla, le sumamos los nuevos valores
+                    //con los almacenados en las variables en el paso anterior
                     $uniquedObject->passed = $passedMore + $item;
+
+                    //Sacamos el nuevo ID de la pregunta
                     $uniquedObject->question_id = $question_id;
 
+                    //Si existe y no es nulo la request de questionTrue, es porque el usuario
+                    //Selecciono la respuesta correcta, sumamos 1 mas al registro anterior y lo almacenamos
                     if(isset($questionTrue) && !is_null($questionTrue)){
                         $uniquedObject->questionTrue = $trueQuestion + $item;
                     }else{
+                        //De lo contrario, no se actualizara
                         unset($uniquedObject->questionTrue);
                     }
 

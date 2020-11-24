@@ -75,10 +75,16 @@ Route::get('contact/{id}', 'ContactController@ContactUser')->middleware('auth');
 
 //*******Trivia Routes****** */
 Route::get('/trivia', 'HomeController@games')->middleware('auth');
-Route::get('/proccess', 'HomeController@proccess')->middleware('auth');
 Route::get('/question', 'QuestionController@question')->middleware('auth');
 Route::post('storeUser', 'QuestionController@storeUser')->middleware('auth');
 //*******Trivia Routes****** */
+
+//*******ProccessRRHH Routes****** */
+Route::get('/procesos', 'ProccessController@proccess')->middleware('auth');
+Route::get('/procesos/rrhh', 'ProccessController@proccessRRHH')->name('proccessRRHH')->middleware('auth');
+Route::post('mailRRHHVacation', 'ProccessController@mailRRHHVacation')->middleware('auth');
+Route::post('mailRRHHConstancy', 'ProccessController@mailRRHHConstancy')->middleware('auth');
+//*******ProccessRRHH Routes****** */
 
 //*******admin routes****** */
 Route::resource('adminPost', 'PostController')->middleware('auth');

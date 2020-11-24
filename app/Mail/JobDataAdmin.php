@@ -15,7 +15,6 @@ class JobDataAdmin extends Mailable
 
     public $request; //funcion publica para que sea usada por toda la case
 
-
     /**
      * Create a new message instance.
      *

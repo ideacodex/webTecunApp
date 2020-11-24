@@ -8,12 +8,13 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Http\Request;
 use Illuminate\Queue\SerializesModels;
 
-class denounceAdmin extends Mailable
+class QueryConstancyRRHH extends Mailable
 {
     use Queueable, SerializesModels;
 
 
     public $request; //funcion publica para que sea usada por toda la case
+
 
     /**
      * Create a new message instance.
@@ -27,6 +28,8 @@ class denounceAdmin extends Mailable
         $this->request = $formRequest;
     }
 
+    /*$localhost.'/storage/jobs/'. $this->request->pdfNameToStore*/
+
     /**
      * Build the message.
      *
@@ -34,7 +37,7 @@ class denounceAdmin extends Mailable
      */
     public function build()
     {
-        return $this->subject($this->request->subject)
-            ->view('emails.rrhhDenounce');
+        return $this->subject('Solicitud de constancia laboral '.$this->request->mailGroup)
+            ->view('emails.rrhhConstancy');
     }
 }

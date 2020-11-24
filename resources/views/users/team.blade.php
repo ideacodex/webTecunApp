@@ -85,7 +85,7 @@ $namesUser = explode(" ", Auth::user()->name);
                     </span>
                 </a>
 
-                <a type="button" class="btn btn-lg btn-block btn-light d-flex" href="{{ url('proccess') }}">
+                <a type="button" class="btn btn-lg btn-block btn-light d-flex" href="{{ url('procesos') }}">
                     <span class="h3"><i class="fas fa-mail-bulk mr-3  justify-content-start text-dark"></i></span>
                     <span class="mr-3  justify-content-center h3">Gestiones RRHH</span>
                     <span class="d-none badge  badge-secondary text-light  justify-content-end">{{ Auth::user()->id }}

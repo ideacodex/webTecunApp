@@ -88,11 +88,4 @@ class HomeController extends Controller
     {
         return view('jobs.home');
     }
-
-    public function proccess()
-    {
-        
-            
-        return view('users.proccess');
-    }
 }
