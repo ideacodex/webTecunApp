@@ -3,6 +3,14 @@ $namesUser = explode(" ", Auth::user()->name);
 @endphp
 @extends('layouts.user')
 @section('content')
+    @if (session('message'))
+        <div class="sufee-alert alert with-close alert-{{ session('alert') }} alert-dismissible fade show">
+            <span class="badge badge-pill badge-{{ session('alert') }}">{{ session('message') }}</span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
     <div class="container-fluid">
         <div class="card-group mt-5 mb-5">
             <div class="card text-center">
@@ -28,9 +36,11 @@ $namesUser = explode(" ", Auth::user()->name);
                 <div class="card-body">
                     <h5 class="card-title">Constacia Laboral</h5>
                 </div>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenterOthers">
-                    Enviar solicitud
-                </button>
+                <div class="card-footer">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenterOthers">
+                        Enviar solicitud
+                    </button>
+                </div>
             </div>
 
             <div class="card text-center">
@@ -58,12 +68,12 @@ $namesUser = explode(" ", Auth::user()->name);
                 <div class="modal-body">
                     Se esta procesando un correo electronico al encargado de su solicitud,
 
-                    Para continuar con la solicitud sobre su solicitud
+                    Para continuar con la solicitud sobre su constancia laboral
                     por favor presione Aceptar. Automaticamente se eviara un correo con tu informacion.
                     Se contactaran contigo lo mas pronto posible.
                 </div>
                 <div class="modal-footer">
-                    <form method="POST" action="{{ url('mailRRHHVacation') }}" onsubmit="return checkSubmit();">
+                    <form method="POST" action="{{ url('mailRRHHConstancy') }}" onsubmit="return checkSubmit();">
                         @csrf
                         <input type="hidden" name="emailUser" id="emailUser" value="{{ auth()->user()->email }}">
                         <input type="hidden" name="name" id="name" value="{{ auth()->user()->name }}">

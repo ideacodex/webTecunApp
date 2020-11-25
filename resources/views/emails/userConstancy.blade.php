@@ -219,8 +219,11 @@
 
                                             <br class="mobile-hide" />
 
-                                            <h2>{{ $request->subject }}</h2><br>
-                                            <p> {{ $request->denounce }} </p>
+                                            <h2>Solicitud enviada para su constancia laboral</h2><br>
+                                            Su solicitud fue enviada al encargado de dicho proceso<br>
+                                            el cual se pondra en contacto con usted lo mas pronto posible.<br>
+
+                                            Exitos en su dia!!!
                                             <br>
                                         </td>
                                     </tr>

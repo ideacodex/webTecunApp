@@ -220,7 +220,7 @@
                                             <br class="mobile-hide" />
 
                                             <h2>Solicitud verificar los dias de vacaciones</h2><br>
-                                            <p>Solicitud enviada para la verificacion de dias de vacaciones.</p>
+                                            <p>Se han comunicado contigo para la verificacion de dias de vacaciones.</p>
                                             <p>El usuario que envia esta solicitud es:</p>
                                             <p>{{ $request->name }} {{ $request->lastname }}</p>
                                             <p>El usuario compartio su correo electronico</p>
