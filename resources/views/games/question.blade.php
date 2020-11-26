@@ -22,75 +22,97 @@
                         </div>
                     </div>
                 </div>
-                @php
-                    $tirada1 = $item->answer->random(2);
-
-                    $random = $item->answer->whereNotIn('id', [$tirada1[0]->id, $tirada1[1]->id]);
-
-                    dd($random, $tirada1[0]->id, $tirada1[1]->id);
-
-                    foreach($tirada1 as $item1){
-                        $random = $item->answer->where('id' != $item1->id);
-                    }
-
-                    dd($random);
-
-                    /*
-                    foreach($tirada3 as $item){
-                        $tirada3ID = $item->id;
-                    }
-
-                    foreach($tirada4 as $item){
-                        $tirada4ID = $item->id;
-                    }
-
-                    if($tirada1ID === $tirada2ID){
-                        $tirada1 = $item->answer->random(1);
-                    }
-
-                    if($tirada2ID === $tirada3ID){
-                        $tirada2 = $item->answer->random(1);
-                    }
-
-                    if($tirada3ID === $tirada4ID){
-                        $tirada3 = $item->answer->random(1);
-                    }
-
-                    if($tirada4ID === $tirada1ID){
-                        $tirada4 = $item->answer->random(1);
-                    }
-                    */
-
-                    dd($tirada1ID, $tirada2ID, $tirada3ID, $tirada4ID);
-
-                @endphp
-                @dd($tirada1ID, $tirada2ID, $tirada3ID, $tirada4ID)
                 <form method="POST" action="{{ url('storeUser') }}" onsubmit="return checkSubmit();">
                     @csrf
-                    <input type="hidden" name="item" value="1" >
-                    <input type="hidden" name="questionID" value="{{ $item->id }}" >
+                    <input type="hidden" name="item" value="1">
+                    <input type="hidden" name="questionID" value="{{ $item->id }}">
                     <div class="col-12 col-md-6 offset-md-3 pl-0 pr-0 mt-4" role="group" aria-label="Basic example">
-                        <input type="submit" class="btn btn-lg btn-block btn-outline-primary  justify-content-center d0-flex mb-3"
-                            name="questionTrue"
-                            value="{{ $item->questionTrue }}"
-                        >
 
-                        <input type="submit" class="btn btn-lg btn-block btn-outline-primary  justify-content-center d0-flex mb-3"
-                            name="questionFalse1"
-                            value="{{ $item->questionFalse1 }} "
-                        >
-
-                        <input type="submit" class="btn btn-lg btn-block btn-outline-primary  justify-content-center d0-flex mb-3"
-                            name="questionFalse2"
-                            value="{{ $item->questionFalse2 }}"
-                        >
-
-                        <input type="submit" class="btn btn-lg btn-block btn-outline-primary  justify-content-center d0-flex mb-3"
-                            name="questionFalse3"
-                            value="{{ $item->questionFalse3 }}"
-                        >
+                        <input type="hidden" name="answerID" value="{{ $ansRand1->id }}">
+                        <input type="hidden" name="flag" value="{{ $ansRand1->flag }}">
+                        <input type="submit"
+                            class="btn btn-lg btn-block btn-outline-primary  justify-content-center d0-flex mb-3"
+                            name="question" value="{{ $ansRand1->reply }}">
                     </div>
                 </form>
+
+                <form method="POST" action="{{ url('storeUser') }}" onsubmit="return checkSubmit();">
+                    @csrf
+                    <input type="hidden" name="item" value="1">
+                    <input type="hidden" name="questionID" value="{{ $item->id }}">
+                    <div class="col-12 col-md-6 offset-md-3 pl-0 pr-0 mt-4" role="group" aria-label="Basic example">
+
+                        <input type="hidden" name="answerID" value="{{ $ansRand2->id }}">
+                        <input type="hidden" name="flag" value="{{ $ansRand2->flag }}">
+                        <input type="submit"
+                            class="btn btn-lg btn-block btn-outline-primary  justify-content-center d0-flex mb-3"
+                            name="question" value="{{ $ansRand2->reply }}">
+                    </div>
+                </form>
+
+                @if (isset($ansOthers[0]))
+                    <form method="POST" action="{{ url('storeUser') }}" onsubmit="return checkSubmit();">
+                        @csrf
+                        <input type="hidden" name="item" value="1">
+                        <input type="hidden" name="questionID" value="{{ $item->id }}">
+                        <div class="col-12 col-md-6 offset-md-3 pl-0 pr-0 mt-4" role="group" aria-label="Basic example">
+
+                            <input type="hidden" name="answerID" value="{{ $ansOthers[0]->id }}">
+                            <input type="hidden" name="flag" value="{{ $ansOthers[0]->flag }}">
+                            <input type="submit"
+                                class="btn btn-lg btn-block btn-outline-primary  justify-content-center d0-flex mb-3"
+                                name="question" value="{{ $ansOthers[0]->reply }}">
+                        </div>
+                    </form>
+                @endif
+
+                @if (isset($ansOthers[1]))
+                    <form method="POST" action="{{ url('storeUser') }}" onsubmit="return checkSubmit();">
+                        @csrf
+                        <input type="hidden" name="item" value="1">
+                        <input type="hidden" name="questionID" value="{{ $item->id }}">
+                        <div class="col-12 col-md-6 offset-md-3 pl-0 pr-0 mt-4" role="group" aria-label="Basic example">
+
+                            <input type="hidden" name="answerID" value="{{ $ansOthers[1]->id }}">
+                            <input type="hidden" name="flag" value="{{ $ansOthers[1]->flag }}">
+                            <input type="submit"
+                                class="btn btn-lg btn-block btn-outline-primary  justify-content-center d0-flex mb-3"
+                                name="question" value="{{ $ansOthers[1]->reply }}">
+                        </div>
+                    </form>
+                @endif
+
+                @if (isset($ansOthers[2]))
+                    <form method="POST" action="{{ url('storeUser') }}" onsubmit="return checkSubmit();">
+                        @csrf
+                        <input type="hidden" name="item" value="1">
+                        <input type="hidden" name="questionID" value="{{ $item->id }}">
+                        <div class="col-12 col-md-6 offset-md-3 pl-0 pr-0 mt-4" role="group" aria-label="Basic example">
+
+                            <input type="hidden" name="answerID" value="{{ $ansOthers[2]->id }}">
+                            <input type="hidden" name="flag" value="{{ $ansOthers[2]->flag }}">
+                            <input type="submit"
+                                class="btn btn-lg btn-block btn-outline-primary  justify-content-center d0-flex mb-3"
+                                name="question" value="{{ $ansOthers[2]->reply }}">
+                        </div>
+                    </form>
+                @endif
+
+                @if (isset($ansOthers[3]))
+                    <form method="POST" action="{{ url('storeUser') }}" onsubmit="return checkSubmit();">
+                        @csrf
+                        <input type="hidden" name="item" value="1">
+                        <input type="hidden" name="questionID" value="{{ $item->id }}">
+                        <div class="col-12 col-md-6 offset-md-3 pl-0 pr-0 mt-4" role="group" aria-label="Basic example">
+
+                            <input type="hidden" name="answerID" value="{{ $ansOthers[3]->id }}">
+                            <input type="hidden" name="flag" value="{{ $ansOthers[3]->flag }}">
+                            <input type="submit"
+                                class="btn btn-lg btn-block btn-outline-primary  justify-content-center d0-flex mb-3"
+                                name="question" value="{{ $ansOthers[3]->reply }}">
+                        </div>
+                    </form>
+                @endif
             @endforeach
         </div>
     </div>
