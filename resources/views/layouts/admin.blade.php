@@ -247,17 +247,11 @@
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="{{ url('adminPost') }}"> <span><i
-                                            class="fas fa-newspaper"></i></span> Publicaciones</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Link</a>
-                            </li>
-                            <li class="nav-item dropdown">
+                            <li class="nav-item active dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Dropdown
+                                    <i class="fas fa-cog"></i>
+                                    Administrar
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ url('adminPost') }}"> <span><i
@@ -265,7 +259,7 @@
                                     <a class="dropdown-item" href="{{ url('users') }}"> <span><i
                                                 class="fas fa-users"></i></span> Usuarios</a>
                                     <a class="dropdown-item" href="{{ url('home') }}"> <span><i
-                                                class="fas fa-newspaper"></i></span> Inicio</a>
+                                                class="fas fa-newspaper"></i></span> Vista Usuario</a>
                                     <div class="dropdown-divider"></div>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="{{ route('logout') }}"

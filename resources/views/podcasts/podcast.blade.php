@@ -38,35 +38,37 @@
                     </li>
                 </ul>
             </div>
-            <div class="col-12 mt-1">
-                <div class="form-group row">
-                    <div class="col-12 pl-0 pr-0">
-                        <div class="">
-                            <div class="dropdown flatmenu bg-secondary">
-                                <div class="btn btn-dark btn-block btn-lg dropdown-toggle text-justify" type="button"
-                                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">
-                                    <span>Selecionar Categoría</span>
-                                </div>
-                                <div class="dropdown-menu w-100 bg-secondary" aria-labelledby="dropdownMenuButton">
-                                    @foreach ($categories as $item)
-                                        <a class="dropdown-item bg-secondary text-light" title="{{ $item->name }}"
-                                            onclick="event.preventDefault();
-                                                                    document.getElementById('formDel{{ $item->id }}').submit();">
-                                            {{ $item->name }}
-                                        </a>
-                                        <form id="formDel{{ $item->id }}"
-                                            action="{{ url('category/podcast/' . $item->id) }}" method="POST"
-                                            style="display: none;">
-                                            @csrf
-                                        </form>
-                                    @endforeach
+            @if ($categories->first())
+                <div class="col-12 mt-1">
+                    <div class="form-group row">
+                        <div class="col-12 pl-0 pr-0">
+                            <div class="">
+                                <div class="dropdown flatmenu bg-secondary">
+                                    <div class="btn btn-dark btn-block btn-lg dropdown-toggle text-justify" type="button"
+                                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        <span>Selecionar Categoría</span>
+                                    </div>
+                                    <div class="dropdown-menu w-100 bg-secondary" aria-labelledby="dropdownMenuButton">
+                                        @foreach ($categories as $item)
+                                            <a class="dropdown-item bg-secondary text-light" title="{{ $item->name }}"
+                                                onclick="event.preventDefault();
+                                                                        document.getElementById('formDel{{ $item->id }}').submit();">
+                                                {{ $item->name }}
+                                            </a>
+                                            <form id="formDel{{ $item->id }}"
+                                                action="{{ url('category/podcast/' . $item->id) }}" method="POST"
+                                                style="display: none;">
+                                                @csrf
+                                            </form>
+                                        @endforeach
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            @endif
 
             @if (sizeof($podcasts) >= 1)
                 @if ($podcasts->count() <= 3)
@@ -148,7 +150,7 @@
                     $countItems=3;
                     $j=0;
                     @endphp
-                    @while ((sizeof($podcasts) - $countItems) >= 0)
+                    @while (sizeof($podcasts) - $countItems >= 0)
                         <div class="card-deck mt-3">
                             @for ($i = 3; $i > 0; $i--)
                                 <div class="card">
@@ -228,7 +230,7 @@
                                 </div>
                             @endfor
                             @php
-                                $countItems=$countItems+3;
+                            $countItems=$countItems+3;
                             @endphp
                         </div>
                     @endwhile
@@ -236,20 +238,19 @@
 
 
             @else
-                <div class="card-deck">
-                    <div class="card">
-                        <img src="{{ asset('img/tecun/preview2.png') }}" class="card-img-top">
-                        <div class="card-body">
-                            <h5 class="card-title" style="color:orange">Sin noticias por mostrar</h5>
-                            <p class="card-text">
-                            <p>Por el momento no hay ninguna noticia para mostrar</p>
-                            <p>En breve uno de nuestros colaboradores posteara una noticia nueva</p><br>
-                            <p>Estar atento!!!</p>
-                            </p>
-                        </div>
-                        <div class="card-footer justify-content-around d-flex">
-                            <p>Preparate para la nueva experiencia de Grupo Tecun</p>
-                        </div>
+                <div class="container">
+                    <div class="row justify-content-around mt-5" style="margin-top:15em">
+                        <img src="{{ asset('img/not-found.png') }}" class="img-fluid" style="max-height: 300px;">
+                    </div>
+
+                    <div class="row justify-content-around mt-5">
+                        <p class="h1 text-primary">Vaya</p>
+                    </div>
+                    <div class="row justify-content-around mt-1">
+                        <p class="h5 text-primary">Aun no hay publicaciones</p>
+                    </div>
+                    <div class="row justify-content-center mt-1">
+                        <span class="text-primary">  ...</span>
                     </div>
                 </div>
             @endif

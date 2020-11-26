@@ -124,9 +124,6 @@
         <!-- example 1 - using absolute position for center -->
         <nav class="navbar navbar-expand-md navbar-dark bg-theme-1">
             <div class="container">
-                <a class="navbar-brand" href="{{ url()->previous() }}">
-                    <span class="nav-app-icon text-light"><i class="fas fa-podcast"></i></span>
-                </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -162,16 +159,6 @@
                                         class="nav-app-icon text-light"><i class="fas fa-user"></i></span>
                                     <span class="text-light" style="margin-top: -5px;"> {{ Auth::user()->name }} </span></a>
                             </li>
-                            <li class="nav-item" style="margin-right: 1em;">
-                                <a class="nav-link" href="{{ url('podcast') }}">
-                                    <span class="nav-app-icon text-light" style="margin-top: -4em;"><i
-                                            class="fas fa-podcast"></i></span>
-                                    <span class="text-light" style="margin-top: -5px;">
-                                        Podcast
-                                    </span>
-                                    <span class="badge  badge-warning text-dark">{{ Auth::user()->id }} </span>
-                                </a>
-                            </li>
                             @role('User')
                             <li class="nav-item" style="margin-right: 1em;">
                                 <a class="nav-link"
@@ -180,9 +167,10 @@
                                     <span class="" style="margin-top: -5px;"> Salir </span></a>
                             </li>
                         @else
-                            <li class="nav-item dropdown" style="margin-right: 1em;">
+                            <li class="nav-item active dropdown" style="margin-right: 1em;">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-cog"></i>
                                     Administrar
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">

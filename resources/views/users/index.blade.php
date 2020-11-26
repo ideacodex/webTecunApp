@@ -71,7 +71,7 @@
                                 title="Editar">
                                 <span class=""><i class="fas fa-edit"></i></span>
                             </a>
-                            <a class="btn btn-sm btn-danger"  title="eliminar"
+                            <a class="d-none btn btn-sm btn-danger"  title="eliminar"
                                 onclick="event.preventDefault();
                                                      document.getElementById('formDel{{$item->id}}').submit();">
                                 <span class="text-light"><i class="fas fa-trash"></i></span>

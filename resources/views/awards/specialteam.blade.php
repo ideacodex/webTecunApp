@@ -5,6 +5,7 @@ $namesUser = explode(" ", Auth::user()->name);
 @section('content')
 <div class="container-fluid">
     <div class="mb-3 justify-content-center row ">
+        @if ($awards->first())
         <div class="col col-12 col-md-6 mt-1" style="padding-right:2px; padding-left:2px;">
             <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
@@ -57,6 +58,23 @@ $namesUser = explode(" ", Auth::user()->name);
                 </a>
             </div>
         </div>
+        @else
+        <div class="container">
+            <div class="row justify-content-around mt-5" style="margin-top:15em">
+                <img src="{{ asset('img/not-found.png') }}" class="img-fluid" style="max-height: 300px;">
+            </div>
+
+            <div class="row justify-content-around mt-5">
+                <p class="h1 text-primary">Vaya</p>
+            </div>
+            <div class="row justify-content-around mt-1">
+                <p class="h5 text-primary">No hay publicaciones</p>
+            </div>
+            <div class="row justify-content-center mt-1">
+                <span class="text-primary"> ...</span>
+            </div>
+        </div>
+        @endif
     </div>
 </div>
 @endsection
