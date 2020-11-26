@@ -219,8 +219,12 @@
 
                                             <br class="mobile-hide" />
 
-                                            <h2>{{ $request->subject }}</h2><br>
-                                            <p> {{ $request->denounce }} </p>
+                                            <h2>Solicitud sobre constancia laboral</h2><br>
+                                            <p>Han solicitado una constancia laboral</p>
+                                            <p>El usuario que envia esta solicitud es:</p>
+                                            <p>{{ $request->name }} {{ $request->lastname }}</p>
+                                            <p>El usuario compartio su correo electronico</p>
+                                            <p>{{ $request->emailUser }}</p>
                                             <br>
                                         </td>
                                     </tr>

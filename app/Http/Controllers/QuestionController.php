@@ -6,12 +6,13 @@ use App\Question;
 use App\passingFlag;
 use App\Category;
 use App\Status;
-
 use App\Score;
+use App\Answer;
 
 use DB;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 
@@ -24,8 +25,11 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        $question = Question::all();
-        return view('games.index', ['question' => $question]);
+        $question = Question::with('answer')->get();
+
+        return view('games.index', [
+            'question' => $question
+        ]);
     }
 
     /**
@@ -36,11 +40,7 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        //
-        $question = Question::all();
-        $status = Status::all();
-        $categories = Category::all();
-        return view('games.create', ['status' => $status, 'categories' => $categories, 'question' => $question]);
+        return view('games.create');
     }
 
     /**
@@ -55,7 +55,6 @@ class QuestionController extends Controller
         request()->validate([
             '_token' => 'required',
             'description' => 'required',
-            'image' => 'required',
             'questionTrue' => 'required',
             'questionFalse1' => 'required',
             'questionFalse2' => 'required',
@@ -65,12 +64,28 @@ class QuestionController extends Controller
         try{
             $question = new Question;
             $question->description = $request->description;
-            $question->questionTrue = $request->questionTrue;
-            $question->questionFalse1 = $request->questionFalse1;
-            $question->questionFalse2 = $request->questionFalse2;
-            $question->questionFalse3 = $request->questionFalse3;
-            $question->user_id = auth()->user()->id;
             $question->save();
+
+            $answerOne = new Answer;
+            $answerOne->question_id = $question->id;
+            $answerOne->reply = $request->questionTrue;
+            $answerOne->flag = 1;
+            $answerOne->save();
+
+            $answerTwo = new Answer;
+            $answerTwo->question_id = $question->id;
+            $answerTwo->reply = $request->questionFalse1;
+            $answerTwo->save();
+
+            $answerTree = new Answer;
+            $answerTree->question_id = $question->id;
+            $answerTree->reply = $request->questionFalse2;
+            $answerTree->save();
+
+            $answerFor = new Answer;
+            $answerFor->question_id = $question->id;
+            $answerFor->reply = $request->questionFalse3;
+            $answerFor->save();
 
              //******carga de imagen**********//
              if ($request->hasFile('image')) {
@@ -106,7 +121,7 @@ class QuestionController extends Controller
     {
         //
         $question = Question::findOrFail($id);
-        return view('/*Vista del usuario*/', ['question' => $question]);
+        return view('games.question', ['question' => $question]);
     }
 
     /**
@@ -117,10 +132,8 @@ class QuestionController extends Controller
      */
     public function edit($id)
     {
-        $question = Question::findOrFail($id);
-        $categories = Category::all();
-        $status = Status::all();
-        return view('games.edit', ['status' => $status, 'categories' => $categories, 'question' => $question]);
+        $question = Question::with('answer')->where('id', $id)->get();
+        return view('games.edit', ['question' => $question]);
     }
 
     /**
@@ -130,11 +143,10 @@ class QuestionController extends Controller
      * @param  \App\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Question $question)
+    public function update(Request $request, $id)
     {
         request()->validate([
             'description' => 'required',
-            'image' => 'required',
             'questionTrue' => 'required',
             'questionFalse1' => 'required',
             'questionFalse2' => 'required',
@@ -143,15 +155,45 @@ class QuestionController extends Controller
 
         DB::beginTransaction();
         try{
-            $question = new Question;
+            $question = Question::with('answer')->find($id);
             $question->description = $request->description;
-            $question->image = $request->image;
-            $question->questionTrue = $request->questionTrue;
-            $question->questionFalse1 = $request->questionFalse1;
-            $question->questionFalse2 = $request->questionFalse2;
-            $question->questionFalse3 = $request->questionFalse3;
-            $question->user_id = auth()->user()->id;
-            $question->update();
+            unset($question->id);
+            $question->save();
+
+            $answerOne = $question->answer->find($request->oneAnswer);
+            unset($answerOne->question_id);
+            unset($answerOne->flag);
+            $answerOne->reply = $request->questionTrue;
+            $answerOne->save();
+
+            $answerTwo = $question->answer->find($request->twoAnswer);
+            unset($answerTwo->question_id);
+            $answerTwo->reply = $request->questionFalse1;
+            $answerTwo->save();
+
+            $answerTree = $question->answer->find($request->treeAnswer);
+            unset($answerTree->question_id);
+            $answerTree->reply = $request->questionFalse2;
+            $answerTree->save();
+
+            $answerFor = $question->answer->find($request->forAnswer);
+            unset($answerFor->question_id);
+            $answerFor->reply = $request->questionFalse3;
+            $answerFor->save();
+
+            //******carga de imagen**********//
+            if ($request->hasFile('image')) {
+                $extension = $request->file('image')->getClientOriginalExtension();
+                $imageNameToStore = $question->id . '.' . $extension;
+                // Upload Image //********nombre de carpeta para almacenar*****
+                $path = $request->file('image')->storeAs('public/questions', $imageNameToStore);
+                //dd($path);
+
+                $question->url_image = $imageNameToStore;
+                $question->update();
+            }
+            //******carga de imagen**********//
+
         } catch(\Illuminate\Database\QueryException $e){
             DB::rollback();
             abort(500, $e->infoError[2]);
@@ -172,11 +214,26 @@ class QuestionController extends Controller
     public function destroy($id)
     {
         //
-        $record = Question::find($id);
-        $record->delete();
+        $question = Question::with('answer')->find($id);
 
-        return redirect()->action('QuestionController@index')
+        try{
+            $question->answer[0]->delete();
+            $question->answer[1]->delete();
+            $question->answer[2]->delete();
+            $question->answer[3]->delete();
+
+            Storage::disk('questions')->delete($question->url_image);
+
+            $question->delete();
+
+            return redirect()->action('QuestionController@index')
                     ->with(['message' => 'Registro eliminado correctamente', 'alert' => 'danger']);
+
+        }catch(\Illuminate\Database\QueryException $e){
+            DB::rollback();
+            abort(500, $e->infoError[2]);
+            return response()->json($response, 500);
+        }
     }
 
     public function question()
@@ -189,8 +246,13 @@ class QuestionController extends Controller
         $isset = passingFlag::where('user_id', $user_id)->count();
 
         //Sacamos una pregunta aleatoria
-        $questionAll = Question::all();
-        $questionRandom = $questionAll->random(1);
+        $question = Question::all();
+
+        $questionRandom = $question->random(1);
+        $answers= Answer::where('question_id', $questionRandom[0]->id)->get();
+        $ansRand=$answers->random(2);
+        $ansOthers=$answers->whereNotIn('id', [$ansRand[0]->id, $ansRand[1]->id]);
+        dd($answers, $ansRand, $ansOthers);
 
         //Validamos si el usuario no existe
         if($isset == 0){

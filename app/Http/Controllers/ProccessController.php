@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
 use App\Company;
+Use App\Setting;
 use App\Mail\QueryConstancyRRHH;
 use App\Mail\QueryConstancyUSER;
 use App\Mail\QueryVacationRRHH;
@@ -45,6 +46,10 @@ class ProccessController extends Controller
     {
         //
         $user = auth()->user();
+
+        //Luego de las pruebas poner la variable mailGroup en el correo rrhhNominal
+        $mailGroup = $request->mailGroup;
+        //Luego de las pruebas poner la variable mailGroup en el correo rrhhNominal
         
         if(isset($user)){
             try{
@@ -54,7 +59,7 @@ class ProccessController extends Controller
                 /***************Correo para Solicitante***********************/
 
                 /****************Correo para rrhhNominal***********************/
-                Mail::to([$request->mailGroup])
+                Mail::to(['norellana@pctecbus.co'])
                     ->send(new QueryVacationRRHH($request)); //envia la variables $request a la clase de MAIL
                 /****************Correo para rrhhNominal***********************/
 
@@ -79,6 +84,15 @@ class ProccessController extends Controller
     {
         //
         $user = auth()->user();
+
+        $settingAll = Setting::all();
+        if ($settingAll) {
+            $SettingMail = $settingAll->first();
+        }
+
+        //Luego de las pruebas poner la variable mailGroup en el correo RRHH
+        $mailRRHH = $SettingMail->email_rrhh;
+        //Luego de las pruebas poner la variable mailGroup en el correo RRHH
         
         if(isset($user)){
             try{
