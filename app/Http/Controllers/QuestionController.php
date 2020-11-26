@@ -245,20 +245,34 @@ class QuestionController extends Controller
         //Validamos si el usuario ya existe en la base de datos de Flag
         $isset = passingFlag::where('user_id', $user_id)->count();
 
-        //Sacamos una pregunta aleatoria
+        //Sacamos Todas las preguntas
         $question = Question::all();
 
+        //Conseguimos una respuesta aleatoria
         $questionRandom = $question->random(1);
-        $answers= Answer::where('question_id', $questionRandom[0]->id)->get();
-        $ansRand=$answers->random(2);
-        $ansOthers=$answers->whereNotIn('id', [$ansRand[0]->id, $ansRand[1]->id]);
-        dd($answers, $ansRand, $ansOthers);
+
+        //Encontramos las respuestas asignadas a la pregunta por medio del ID
+        $answers = Answer::where('question_id', $questionRandom[0]->id)->get();
+
+        //Sacamos solo 2 respuestas random del total que son 4
+        $ansRand = $answers->random(2);
+
+        //Sacamos las otras 2 respuestas que no son iguales a las anteriores y que tambien pueden ser random
+        $ansOthers = $answers->whereNotIn('id', [$ansRand[0]->id, $ansRand[1]->id]);
+
+        //Mandamos a la vista las respuestas individualmente
+        $ansRand1 = $ansRand[0];
+        $ansRand2 = $ansRand[1];
+        //Mandamos a la vista las respuestas individualmente
 
         //Validamos si el usuario no existe
         if($isset == 0){
             //retornamos la vista con la unica pregunta random
             return view('games.question', [
-                'questionRandom' => $questionRandom
+                'questionRandom' => $questionRandom,
+                'ansRand1' => $ansRand1,
+                'ansRand2' => $ansRand2,
+                'ansOthers' => $ansOthers
             ]);
 
         }else{
@@ -320,7 +334,10 @@ class QuestionController extends Controller
             }else{
                 //Retornamos una vista con una pregunta Random
                 return view('games.question', [
-                    'questionRandom' => $questionRandom
+                    'questionRandom' => $questionRandom,
+                    'ansRand1' => $ansRand1,
+                    'ansRand2' => $ansRand2,
+                    'ansOthers' => $ansOthers
                 ]);
             }
             
@@ -346,8 +363,8 @@ class QuestionController extends Controller
         //Recogemos el ID de la question
         $question_id = $request->questionID;
 
-        //Recogemos la respuesta correcta si existiera o fuera seleccionada
-        $questionTrue = $request->questionTrue;
+        //Recogemos la respuesta correcta si es 1 o 0
+        $flagTrue = $request->flag;
 
         //Verificamos si el usuario existe en la DB;
         $isset = passingFlag::where('user_id', $user_id)->count();
@@ -363,9 +380,9 @@ class QuestionController extends Controller
                 $flag->user_id = $user_id;
                 $flag->question_id = $question_id;
 
-                //Si existe y no es nulo la request de questionTrue, es porque el usuario
+                //Si existe y no es nulo la request de questionTrue, es porque el usuario $request->flag === 1
                 //Selecciono la respuesta correcta, de lo contrario se asigna como valor 0
-                if(isset($questionTrue) && !is_null($questionTrue)){
+                if($flagTrue == 1){
                     $flag->questionTrue = $item;
                 }else{
                     $flag->questiontrue = 0;
@@ -402,7 +419,7 @@ class QuestionController extends Controller
 
                     //Si existe y no es nulo la request de questionTrue, es porque el usuario
                     //Selecciono la respuesta correcta, sumamos 1 mas al registro anterior y lo almacenamos
-                    if(isset($questionTrue) && !is_null($questionTrue)){
+                    if($flagTrue == 1){
                         $uniquedObject->questionTrue = $trueQuestion + $item;
                     }else{
                         //De lo contrario, no se actualizara
