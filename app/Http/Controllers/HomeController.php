@@ -10,6 +10,7 @@ use App\Post;
 use App\Reaction;
 use App\Question;
 use App\Category;
+use App\Award;
 
 
 
@@ -55,7 +56,8 @@ class HomeController extends Controller
 
     public function team()
     {
-        return view('users.team');
+        $awards = Award::with('user')->with('category')->get();
+        return view('users.team', ["awards" => $awards]);
     }
 
     public function specialTeam()

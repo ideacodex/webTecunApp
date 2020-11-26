@@ -8,40 +8,18 @@ $namesUser = explode(" ", Auth::user()->name);
             <div class="col col-12 col-md-6 mt-1" style="padding-right:2px; padding-left:2px;">
                 <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
-                        <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-                        <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-                        <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+                        @foreach ($awards as $item)
+                        <li data-target="#carouselExampleCaptions" data-slide-to="{{$item->type_id}}"
+                            class="@if($item->id == $awards->first()->id && $item->type_id == 0) active @endif"></li>
+                        @endforeach
                     </ol>
                     <div class="carousel-inner">
-                        <div class="carousel-item active ">
-                            <img src="{{ asset('img/tecun/puesto.png') }}" class=" mx-auto d-block img-fluid" width="100%" style="max-height: 300px">
-                            <div class="carousel-caption d-none">
-                                <h5>
-                                    <span class="nav-app-icon text-light">
-                                        <i class="fas fa-medal"></i>
-                                    </span>
-                                    Javier Estrada
-                                    <span class="nav-app-icon text-light">
-                                        <i class="fas fa-medal"></i>
-                                    </span>
-                                </h5>
-                                <p>Nuevo director Ejecutivo.</p>
-                            </div>
+                        @foreach ($awards as $item)
+                        <div class="carousel-item @if($item->id == $awards->first()->id && $item->type_id == 0) active @endif">
+                            <img class="mx-auto d-block" src="{{asset('/storage/awards/' . $item->url_image)}}"
+                            alt="imagen de perfil" width="100%" style="max-height: 300px; min-height: 300px" />
                         </div>
-                        <div class="carousel-item ">
-                            <img src="{{ asset('img/tecun/puesto.png') }}" class=" mx-auto d-block img-fluid" width="100%" style="max-height: 300px">
-                            <div class="carousel-caption d-none">
-                                <h5>Second slide label</h5>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            </div>
-                        </div>
-                        <div class="carousel-item ">
-                            <img src="{{ asset('img/tecun/puesto.png') }}" class=" mx-auto d-block img-fluid" width="100%" style="max-height: 300px">
-                            <div class="carousel-caption d-none">
-                                <h5>Third slide label</h5>
-                                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                     <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
