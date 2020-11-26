@@ -212,9 +212,11 @@
         <main class="mb-5">
             @yield('content')
         </main>
+        <span class="mb-5"> .</span>
 
     </div>
-    <nav class="fixed-bottom bg-theme-1" style="padding-bottom: 0;">
+    
+    <nav class="fixed-bottom bg-theme-1 mt-5" style="padding-bottom: 0;">
         @guest
             <ul class="nav justify-content-around" style="margin-bottom: -1em;">
                 <li class="nav-item text-center">
@@ -280,6 +282,7 @@
         }
 
     </script>
+    @yield('js')
 </body>
 
 </html>
