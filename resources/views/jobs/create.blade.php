@@ -83,7 +83,7 @@
                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                <i class="text-primary fas fa-money-bill-wave"></i>
+                                <i class="text-primary fas fa-link"></i>
                             </span>
                         </div>
                         <input id="public_link" name="public_link" placeholder="Url de plaza externa" type="text" size="100"

@@ -478,14 +478,16 @@ class PodcastController extends Controller
             abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
             return response()->json($response, 500);
             return \Redirect::back()->with([
-                'message' => 'No haz publicado tu comentario, vuelve a intentar'
+                'message' => 'No haz publicado tu comentario, vuelve a intentar',
+                'alert' => 'danger'
             ]);
         }
 
         DB::commit();
 
         return \Redirect::back()->with([
-            'message' => 'Haz publicado tu comentario correctamente'
+            'message' => 'Haz publicado tu comentario correctamente',
+            'alert' => 'success'
         ]);
     }
 
