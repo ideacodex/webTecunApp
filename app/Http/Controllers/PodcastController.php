@@ -104,9 +104,8 @@ class PodcastController extends Controller
 
             //******carga de imagen**********//
             if ($request->hasFile('image')) {
-                $filename = $request->_token;
                 $extension = $request->file('image')->getClientOriginalExtension();
-                $imageNameToStore = $request->_token . '.' . $extension;
+                $imageNameToStore = $podcast->id . '.' . $extension;
                 // Upload Image //********nombre de carpeta para almacenar*****
                 $path = $request->file('image')->storeAs('public/podcast', $imageNameToStore);
                 //dd($path);
@@ -121,9 +120,8 @@ class PodcastController extends Controller
 
             //******carga de audio**********//
             if ($request->hasFile('audio')) {
-                $filename = $request->_token;
                 $extension = $request->file('audio')->getClientOriginalExtension();
-                $audioNameToStore = $request->_token . '.' . $extension;
+                $audioNameToStore = $podcast->id . '.' . $extension;
                 // Upload Image //********nombre de carpeta para almacenar*****
                 $path = $request->file('audio')->storeAs('public/podcast', $audioNameToStore);
                 //dd($path);
@@ -138,9 +136,8 @@ class PodcastController extends Controller
 
             //******carga de file**********//
             if ($request->hasFile('pdf')) {
-                $filename = $request->_token;
                 $extension = $request->file('pdf')->getClientOriginalExtension();
-                $pdfNameToStore = $request->_token . '.' . $extension;
+                $pdfNameToStore = $podcast->id . '.' . $extension;
                 // Upload Image //********nombre de carpeta para almacenar*****
                 $path = $request->file('pdf')->storeAs('public/podcast', $pdfNameToStore);
                 //dd($path);
@@ -323,9 +320,8 @@ class PodcastController extends Controller
 
             //******carga de imagen**********//
             if ($request->hasFile('image')) {
-                $filename = $request->_token;
                 $extension = $request->file('image')->getClientOriginalExtension();
-                $imageNameToStore = $request->_token . '.' . $extension;
+                $imageNameToStore = $podcast->id . '.' . $extension;
                 // Upload Image //********nombre de carpeta para almacenar*****
                 $path = $request->file('image')->storeAs('public/podcast', $imageNameToStore);
                 //dd($path);
@@ -357,9 +353,8 @@ class PodcastController extends Controller
 
             //******carga de file**********//
             if ($request->hasFile('pdf')) {
-                $filename = $request->_token;
                 $extension = $request->file('pdf')->getClientOriginalExtension();
-                $pdfNameToStore = $request->_token . '.' . $extension;
+                $pdfNameToStore = $podcast->id . '.' . $extension;
                 // Upload Image //********nombre de carpeta para almacenar*****
                 $path = $request->file('pdf')->storeAs('public/podcast', $pdfNameToStore);
                 //dd($path);

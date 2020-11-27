@@ -104,9 +104,8 @@ class PostController extends Controller
 
             //******carga de video**********//
             if ($request->hasFile('video')) {
-                $filename = $request->_token;
                 $extension = $request->file('video')->getClientOriginalExtension();
-                $videoNameToStore = $request->_token . '.' . $extension;
+                $videoNameToStore = $post->id . '.' . $extension;
                 // Upload Image //********nombre de carpeta para almacenar*****
                 $path = $request->file('video')->storeAs('public/posts', $videoNameToStore);
                 //dd($path);
@@ -121,9 +120,8 @@ class PostController extends Controller
 
             //******carga de file**********//
             if ($request->hasFile('pdf')) {
-                $filename = $request->_token;
                 $extension = $request->file('pdf')->getClientOriginalExtension();
-                $pdfNameToStore = $request->_token . '.' . $extension;
+                $pdfNameToStore = $post->id . '.' . $extension;
                 // Upload Image //********nombre de carpeta para almacenar*****
                 $path = $request->file('pdf')->storeAs('public/posts', $pdfNameToStore);
                 //dd($path);
@@ -264,9 +262,8 @@ class PostController extends Controller
 
                     //******carga de imagen**********//
                 if ($request->hasFile('image')) {
-                    $filename = $id;
                     $extension = $request->file('image')->getClientOriginalExtension();
-                    $imageNameToStore = $id . '.' . $extension;
+                    $imageNameToStore = $post->$id . '.' . $extension;
                     // Upload Image //********nombre de carpeta para almacenar*****
                     $path = $request->file('image')->storeAs('public/posts', $imageNameToStore);
                     //dd($path);
@@ -279,24 +276,22 @@ class PostController extends Controller
                 }
                 //******carga de imagen**********//
         
-                    //******carga de audio**********//
-                    if ($request->hasFile('audio')) {
-                        $filename = $request->_token;
-                        $extension = $request->file('audio')->getClientOriginalExtension();
-                        $audioNameToStore = $request->_token . '.' . $extension;
-                        // Upload Image //********nombre de carpeta para almacenar*****
-                        $path = $request->file('audio')->storeAs('public/posts', $audioNameToStore);
-                        //dd($path);
-                    } else {
-                        $audioNameToStore = 'no_audio.jpg';
-                    }
-                    //******carga de audio**********//
+                //******carga de audio**********//
+                if ($request->hasFile('audio')) {
+                    $extension = $request->file('audio')->getClientOriginalExtension();
+                    $audioNameToStore = $post->id . '.' . $extension;
+                    // Upload Image //********nombre de carpeta para almacenar*****
+                    $path = $request->file('audio')->storeAs('public/posts', $audioNameToStore);
+                    //dd($path);
+                } else {
+                    $audioNameToStore = 'no_audio.jpg';
+                }
+                //******carga de audio**********//
         
                     //******carga de video**********//
                 if ($request->hasFile('video')) {
-                    $filename = $request->_token;
                     $extension = $request->file('video')->getClientOriginalExtension();
-                    $videoNameToStore = $request->_token . '.' . $extension;
+                    $videoNameToStore = $post->id . '.' . $extension;
                     // Upload Image //********nombre de carpeta para almacenar*****
                     $path = $request->file('video')->storeAs('public/posts', $videoNameToStore);
                     //dd($path);
@@ -311,9 +306,8 @@ class PostController extends Controller
         
                     //******carga de file**********//
                 if ($request->hasFile('pdf')) {
-                    $filename = $request->_token;
                     $extension = $request->file('pdf')->getClientOriginalExtension();
-                    $pdfNameToStore = $request->_token . '.' . $extension;
+                    $pdfNameToStore = $post->id . '.' . $extension;
                     // Upload Image //********nombre de carpeta para almacenar*****
                     $path = $request->file('pdf')->storeAs('public/posts', $pdfNameToStore);
                     //dd($path);

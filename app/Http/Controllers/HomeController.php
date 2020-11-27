@@ -70,12 +70,6 @@ class HomeController extends Controller
         return view('games.home');
     }
 
-    /*public function question()
-    {
-        $question = Question::all();
-        return view('games.question', ['question' => $question]);
-    }*/
-
     public function podcast()
     {
         return view('podcasts.home');

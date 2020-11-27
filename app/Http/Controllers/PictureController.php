@@ -75,9 +75,8 @@ class PictureController extends Controller
 
             //******carga de imagen**********//
             if ($request->hasFile('image')) {
-                $filename = $request->title;
                 $extension = $request->file('image')->getClientOriginalExtension();
-                $imageNameToStore = $request->title . '.' . $extension;
+                $imageNameToStore = $picture->id . '.' . $extension;
                 // Upload Image //********nombre de carpeta para almacenar*****
                 $path = $request->file('image')->storeAs('public/pictures', $imageNameToStore);
                 //dd($path);
@@ -164,9 +163,8 @@ class PictureController extends Controller
 
             //******carga de imagen**********//
             if ($request->hasFile('image')) {
-                $filename = $request->title;
                 $extension = $request->file('image')->getClientOriginalExtension();
-                $imageNameToStore = $request->title . '.' . $extension;
+                $imageNameToStore = $picture->id . '.' . $extension;
                 // Upload Image //********nombre de carpeta para almacenar*****
                 $path = $request->file('image')->storeAs('public/pictures', $imageNameToStore);
                 //dd($path);
