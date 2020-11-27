@@ -13,9 +13,10 @@
 
         <div class="row justify-content-around mt-3">
             <p>
-                <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button"
-                    aria-expanded="false" aria-controls="collapseExample">
-                    Link with href
+                <a class="" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
+                    aria-controls="collapseExample">
+                    <img src="https://www.flaticon.com/svg/static/icons/svg/3593/3593584.svg"
+                        class="mx-auto d-block img-fluid" width="20%">
                 </a>
             </p>
         </div>
@@ -23,17 +24,24 @@
             <div class="collapse" id="collapseExample">
                 <ul class="list-group">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span class="badge badge-primary badge-pill">14</span>
-                         <i class="fas fa-user"> </i> Cras justo odio
-                        <span class="badge badge-success badge-pill">14</span>
+                        <span class="">#</span>
+                        <i class="ml-2 fas fa-user"> </i> 
+                        <span class="">Puntos</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Dapibus ac facilisis in
-                        <span class="badge badge-primary badge-pill">2</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Morbi leo risus
                         <span class="badge badge-primary badge-pill">1</span>
+                        <i class="ml-3 fas fa-user"> fmartinez </i> 
+                        <span class="ml-3 badge badge-success badge-pill">12</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span class="badge badge-primary badge-pill">2</span>
+                        <i class="ml-3 fas fa-user"> pmontalvo </i> 
+                        <span class="ml-3 badge badge-success badge-pill">10</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span class="badge badge-primary badge-pill">3</span>
+                        <i class="ml-3 fas fa-user"> eavila </i> 
+                        <span class="ml-3 badge badge-success badge-pill">8</span>
                     </li>
                 </ul>
             </div>
