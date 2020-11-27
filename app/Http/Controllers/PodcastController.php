@@ -518,12 +518,18 @@ class PodcastController extends Controller
         //Recogemos los datos del usuario
         $user = auth()->user()->id;
 
+        //Buscamos el ID de la Categoria si existe
+        $categoryID = $request->categoryId;
+
         //Recogemos el reactionActive
         $reactionActive = $request->reactionActive;
         $podcastID = $request->podcastID;
 
         //Verificar que existe el like del usuario
-        $issetReactionUser = DB::table('reactionpodcast')->where('user_id', $user)->where('podcast_id', $podcastID)->count();
+        $issetReactionUser = DB::table('reactionpodcast')
+                ->where('user_id', $user)
+                ->where('podcast_id', $podcastID)
+                ->count();
 
         DB::beginTransaction();
 

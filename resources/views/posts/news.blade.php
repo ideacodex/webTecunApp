@@ -52,15 +52,9 @@
                                     <div class="dropdown-menu w-100 bg-secondary" aria-labelledby="dropdownMenuButton">
                                         @foreach ($categories as $item)
                                             <a class="dropdown-item bg-secondary text-light" title="{{ $item->name }}"
-                                                onclick="event.preventDefault();
-                                                                            document.getElementById('formDel{{ $item->id }}').submit();">
+                                                href="{{ url('category/post/' . $item->id) }}">
                                                 {{ $item->name }}
                                             </a>
-                                            <form id="formDel{{ $item->id }}"
-                                                action="{{ url('category/post/' . $item->id) }}" method="POST"
-                                                style="display: none;">
-                                                @csrf
-                                            </form>
                                         @endforeach
                                     </div>
                                 </div>

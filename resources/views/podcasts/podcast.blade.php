@@ -52,15 +52,9 @@
                                     <div class="dropdown-menu w-100 bg-secondary" aria-labelledby="dropdownMenuButton">
                                         @foreach ($categories as $item)
                                             <a class="dropdown-item bg-secondary text-light" title="{{ $item->name }}"
-                                                onclick="event.preventDefault();
-                                                                        document.getElementById('formDel{{ $item->id }}').submit();">
+                                                href="{{ url('category/podcast/' . $item->id) }}">
                                                 {{ $item->name }}
                                             </a>
-                                            <form id="formDel{{ $item->id }}"
-                                                action="{{ url('category/podcast/' . $item->id) }}" method="POST"
-                                                style="display: none;">
-                                                @csrf
-                                            </form>
                                         @endforeach
                                     </div>
                                 </div>
@@ -122,8 +116,7 @@
                                             <form method="POST" action="{{ url('likeordislikepodcast') }}"
                                                 onsubmit="return checkSubmit();">
                                                 @csrf
-                                                <input type="hidden" name="podcastID" id="podcastID"
-                                                    value="{{ $item->id }}">
+                                                <input type="hidden" name="podcastID" id="podcastID" value="{{ $item->id }}">
                                                 <input type="hidden" name="reactionActive" id="reactionActive" value="0">
                                                 <button type="submit" class="btn btn-lg">
                                                     <h4>

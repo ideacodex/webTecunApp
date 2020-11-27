@@ -48,6 +48,16 @@
                                     aria-expanded="false">
                                     <span>Selecionar Categoría</span>
                                 </div>
+
+                                @if (session('message'))
+                                    <div class="sufee-alert alert with-close alert-{{ session('alert') }} alert-dismissible fade show">
+                                        <span class="badge badge-pill badge-{{ session('alert') }}">{{ $categoryPodcastName }}</span>
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                @endif
+
                                 <div class="dropdown-menu w-100 bg-secondary" aria-labelledby="dropdownMenuButton">
                                     @foreach ($categories as $item)
                                         <a class="dropdown-item bg-secondary text-light" title="{{ $item->name }}"
@@ -67,14 +77,6 @@
                     </div>
                 </div>
             </div>
-            @if (session('message'))
-                <div class="sufee-alert alert with-close alert-{{ session('alert') }} alert-dismissible fade show">
-                    <span class="badge badge-pill badge-{{ session('alert') }}">{{ $categoryPodcastName }}</span>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            @endif
             @if (sizeof($podcasts) >= 1)
                 <div class="card-deck">
                     @foreach ($podcasts as $item)
@@ -100,6 +102,9 @@
                                     <form method="POST" action="{{ url('likeordislikepodcast') }}"
                                         onsubmit="return checkSubmit();">
                                         @csrf
+                                        @foreach ($categories as $itemID)
+                                            <input type="hidden" name="categoryId" value="{{ $itemID->id }}">
+                                        @endforeach
                                         <input type="hidden" name="podcastID" value="{{ $item->id }}">
                                         <input type="hidden" name="reactionActive" id="reactionActive" value="0">
                                         <button type="submit" class="btn btn-lg">
@@ -113,6 +118,9 @@
                                         <form method="POST" action="{{ url('likeordislikepodcast') }}"
                                             onsubmit="return checkSubmit();">
                                             @csrf
+                                            @foreach ($categories as $itemID)
+                                                <input type="hidden" name="categoryId" value="{{ $itemID->id }}">
+                                            @endforeach
                                             <input type="hidden" name="podcastID" value="{{ $item->id }}">
                                             <input type="hidden" name="reactionActive" id="reactionActive" value="1">
                                             <button type="submit" class="btn btn-lg btn-primary ">
@@ -126,6 +134,9 @@
                                         <form method="POST" action="{{ url('likeordislikepodcast') }}"
                                             onsubmit="return checkSubmit();">
                                             @csrf
+                                            @foreach ($categories as $itemID)
+                                                <input type="hidden" name="categoryId" value="{{ $itemID->id }}">
+                                            @endforeach
                                             <input type="hidden" name="podcastID" id="podcastID" value="{{ $item->id }}">
                                             <input type="hidden" name="reactionActive" id="reactionActive" value="0">
                                             <button type="submit" class="btn btn-lg">
@@ -149,20 +160,19 @@
                     @endforeach
                 </div>
             @else
-                <div class="card-deck">
-                    <div class="card">
-                        <img src="{{ asset('img/tecun/preview2.png') }}" class="card-img-top">
-                        <div class="card-body">
-                            <h5 class="card-title" style="color:orange">Sin noticias por mostrar</h5>
-                            <p class="card-text">
-                            <p>Por el momento no hay ninguna noticia para mostrar</p>
-                            <p>En breve uno de nuestros colaboradores posteara una noticia nueva</p><br>
-                            <p>Estar atento!!!</p>
-                            </p>
-                        </div>
-                        <div class="card-footer justify-content-around d-flex">
-                            <p>Preparate para la nueva experiencia de Grupo Tecun</p>
-                        </div>
+                <div class="container">
+                    <div class="row justify-content-around mt-5" style="margin-top:15em">
+                        <img src="{{ asset('img/not-found.png') }}" class="img-fluid" style="max-height: 300px;">
+                    </div>
+
+                    <div class="row justify-content-around mt-5">
+                        <p class="h1 text-primary">Vaya</p>
+                    </div>
+                    <div class="row justify-content-around mt-1">
+                        <p class="h5 text-primary">Aun no hay publicaciones</p>
+                    </div>
+                    <div class="row justify-content-center mt-1">
+                        <span class="text-primary">  ...</span>
                     </div>
                 </div>
             @endif

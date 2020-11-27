@@ -44,6 +44,7 @@ class DatabaseSeeder extends Seeder
     $this->call([
         StoreTableSeeder::class,
         CategoriesSeeder::class,
+        GamesSeeder::class
     ]);
 }
 }

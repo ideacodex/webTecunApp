@@ -38,6 +38,12 @@ $namesUser = explode(" ", Auth::user()->name);
                                 {{ $item->schedule }}
                                 <i class="fas fa-clock text-dark"></i>
                             </p>
+                            @if($item->number)
+                                <p>
+                                    <a href="tel:{{ $item->number }}">{{ $item->number }}</a>
+                                    <i class="fas fa-phone-volume text-dark"></i>
+                                </p>
+                            @endif
                             <a href="{{ $item->maps }}" class="btn btn-sm btn-block btn-outline-primary">
                                 Ir...
                                 <i class="fab fa-waze text-dark"></i>
