@@ -16,6 +16,11 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+//*******LDAP Routes****** */
+Route::get('ingresar', 'LdapController@index');
+Route::post('ldap', 'LdapController@ldap');
+//*******LDAP Routes****** */
+
 Route::get('login/facebook', 'SocialServicesController@redirectToProvider');
 Route::get('login/facebook/callback', 'SocialServicesController@handleProviderCallback');
 
