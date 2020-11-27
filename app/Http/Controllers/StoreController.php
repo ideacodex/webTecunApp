@@ -138,9 +138,14 @@ class StoreController extends Controller
      * @param  \App\Store  $store
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Store $store)
+    public function destroy($id)
     {
         //
+        $store = Store::find($id);
+        $store->delete();
+
+        return redirect()->action('StoreController@index')
+            ->with(['message' => 'Agencia eliminada correctamente', 'alert' => 'danger']);
     }
 
     public function stores(Request $request)
