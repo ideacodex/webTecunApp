@@ -56,6 +56,7 @@ class StoreController extends Controller
             $store->name = $request->name;
             $store->address = $request->address;
             $store->schedule = $request->schedule;
+            $store->number = $request->number;
             $store->maps = $request->maps;
             $store->save();
         } catch (\Illuminate\Database\QueryException $e) {
@@ -117,6 +118,7 @@ class StoreController extends Controller
             $store->name = $request->name;
             $store->address = $request->address;
             $store->schedule = $request->schedule;
+            $store->number = $request->number;
             $store->maps = $request->maps;
             $store->save();
         } catch (\Illuminate\Database\QueryException $e) {

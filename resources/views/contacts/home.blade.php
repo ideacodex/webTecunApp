@@ -109,12 +109,15 @@ $namesUser = explode(" ", Auth::user()->name);
                                 <div>
                                     <h2 class="media-heading">{{ $item->nombre }}</h2>
                                     <div class="job">{{ $item->subDepartamento }} | {{ $item->puesto }}</div>
-                                    <div class="mail"><a href="{{ $item->correo }}">{{ $item->correo }}</a> </div>
+                                    @if($item->correo != 'nulo')
+                                        <div class="mail"><a href="{{ $item->correo }}">{{ $item->correo }}</a> </div>
+                                    @endif
                                     <div class="mail"><a
                                             href="tel:{{ $item->numeroDirecto }}">{{ $item->numeroDirecto }}</a>
                                     </div>
-                                    <div class="mail"><a href="tel:{{ $item->celular }}">{{ $item->celular }}</a> </div>
-
+                                    @if($item->celular != 'nulo')
+                                        <div class="mail"><a href="tel:{{ $item->celular }}">{{ $item->celular }}</a> </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
