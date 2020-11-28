@@ -19,6 +19,8 @@ Auth::routes();
 //*******LDAP Routes****** */
 Route::get('ingresar', 'LdapController@index');
 Route::post('ldap', 'LdapController@ldap');
+Route::get('pctec', 'LdapController@pctec');
+Route::get('tecun', 'LdapController@test');
 //*******LDAP Routes****** */
 
 Route::get('login/facebook', 'SocialServicesController@redirectToProvider');
