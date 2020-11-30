@@ -157,7 +157,6 @@ class QuestionController extends Controller
         try{
             $question = Question::with('answer')->find($id);
             $question->description = $request->description;
-            unset($question->id);
             $question->save();
 
             $answerOne = $question->answer->find($request->oneAnswer);
@@ -190,7 +189,7 @@ class QuestionController extends Controller
                 //dd($path);
 
                 $question->url_image = $imageNameToStore;
-                $question->update();
+                $question->save();
             }
             //******carga de imagen**********//
 

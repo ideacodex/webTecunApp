@@ -11,9 +11,8 @@ use App\Reaction;
 use App\Question;
 use App\Category;
 use App\Award;
-
-
-
+use App\User;
+use App\Score;
 
 class HomeController extends Controller
 {
@@ -67,7 +66,14 @@ class HomeController extends Controller
 
     public function games()
     {
-        return view('games.home');
+
+        $score = Score::with('user')->orderBy('points', 'DESC')->limit(5)->get();
+
+        $i = array(1, 2, 3, 4, 5);
+
+        return view('games.home', [
+            'score' => $score,
+        ]);
     }
 
     public function podcast()

@@ -48,6 +48,7 @@ class StoreTableSeeder extends Seeder
             $record->address='Km 179 San Sebastián, Retalhuleu.';
             $record->schedule='Lunes a Viernes: 08:00 am a 05:00 pm
             Sábado: 08:00 am a 12:00 pm ';
+            $record->number = '+502 2328888';
             $record->maps='https://ul.waze.com/ul?place=ChIJ4SSo5drtjoUROg2MiAHlddQ&ll=14.56941970%2C-91.64885360&navigate=yes';
             $record->save();
 

@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Score extends Model
 {
     //
-    public function points()
+    public function user()
     {
-        return $this->hasMany('App\User', 'user_id');
+        return $this->belongsTo('App\User', 'id','score_id');
     }
 }
