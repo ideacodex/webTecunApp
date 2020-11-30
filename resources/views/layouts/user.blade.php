@@ -155,10 +155,132 @@
                     @else
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('#') }}" data-target="#myModal" data-toggle="modal"><span
-                                        class="nav-app-icon text-light"><i class="fas fa-user"></i></span>
-                                    <span class="text-light" style="margin-top: -5px;"> {{ Auth::user()->name }} </span></a>
+                                <button type="button" class="btn btn-lg" style="background:#f7921c" data-toggle="modal" data-target="#exampleModalCenter">
+                                    <span class="nav-app-icon text-light"><i class="fas fa-user"></i></span>
+                                    <span class="text-light" style="margin-top: -5px;"> 
+                                        {{ Auth::user()->name }} {{ Auth::user()->lastname }} 
+                                    </span>
+                                </button>
                             </li>
+
+                            <!-- Modal -->
+                            <form method="POST" action="{{ url('updateUser') }}" onsubmit="return checkSubmit();">
+                                @csrf
+                                <input type="hidden" name="userID" value="{{ Auth::user()->id }}" >
+                                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLongTitle">
+                                                <span class="text-black" style="margin-top: -5px;"> 
+                                                    {{ Auth::user()->name }} {{ Auth::user()->lastname }} 
+                                                </span>
+                                            </h5>
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="container ">
+                                                    <div class="row justify-content-around" style="margin-top: 1em;">
+                                                        <img src="https://image.flaticon.com/icons/svg/2633/2633848.svg" class="img-fluid" width="20%"
+                                                            alt="Responsive image">
+                                                    </div>
+                                                    <div class="input-group input-group-lg mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                                                <i class="text-primary fas fa-user-edit"></i>
+                                                            </span>
+                                                        </div>
+                                                        <input id="name" placeholder="Nombres" type="text"
+                                                            class="text-primary form-control @error('name') is-invalid @enderror" name="name"
+                                                            value="{{ Auth::user()->name }}" required autofocus>
+                                    
+                                                        @error('name')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
+                                    
+                                                        @error('name')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="input-group input-group-lg mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                                                <i class="text-primary fas fa-user-edit"></i>
+                                                            </span>
+                                                        </div>
+                                                        <input id="lastname" placeholder="Apellidos" type="text"
+                                                            class="text-primary form-control @error('lastname') is-invalid @enderror" name="lastname"
+                                                            value="{{ Auth::user()->lastname }}" required autofocus>
+                                    
+                                                        @error('lastname')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
+                                    
+                                                        @error('lastname')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
+                                                    </div>
+
+                                                    <div class="input-group input-group-lg mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                                                <i class="text-primary fas fa-at"></i>
+                                                            </span>
+                                                        </div>
+                                                        <input id="email" placeholder="Correo " type="text"
+                                                            class="text-primary form-control @error('email') is-invalid @enderror" name="email"
+                                                            value="{{ Auth::user()->email }}" required autocomplete="email" autofocus>
+                                    
+                                                        @error('email')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
+                                    
+                                                        @error('email')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
+                                                    </div>
+
+                                                    <div class="input-group input-group-lg mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                                                <i class="text-primary fas fa-mobile"></i>
+                                                            </span>
+                                                        </div>
+                                                        <input id="phone" type="text" placeholder="Número de móvil"
+                                                            class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ Auth::user()->phone }}"
+                                                            required autofocus>
+                                    
+                                                        @error('phone')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                <input type="submit" class="btn btn-success" data-toggle="modal" value="Actualizar">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
                             @role('User')
                             <li class="nav-item" style="margin-right: 1em;">
                                 <a class="nav-link"

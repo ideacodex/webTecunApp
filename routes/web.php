@@ -17,19 +17,26 @@ Route::get('/', function () {
 
 Auth::routes();
 
+//*******User Routes****** */
+Route::get('user/setting', 'UserController@View');
+Route::post('updateUser', 'UserController@updateUser');
+//*******User Routes****** */
+
 //*******LDAP Routes****** */
 Route::get('ingresar', 'LdapController@index');
 Route::post('ldap', 'LdapController@ldap');
 //*******LDAP Routes****** */
 
+//*******Register Routes****** */
 Route::get('login/facebook', 'SocialServicesController@redirectToProvider');
 Route::get('login/facebook/callback', 'SocialServicesController@handleProviderCallback');
+//*******Register Routes****** */
 
-Route::get('/home', 'PostController@news')->name('home')->middleware('auth')   ;
+//*******Home Routes****** */
 Route::get('/team', 'HomeController@team')->middleware('auth')  ;
 Route::get('/specialTeam', 'AwardController@specialTeam')->middleware('auth')    ;
 Route::get('/podcast', 'HomeController@podcast')->middleware('auth')    ;
-Route::get('/stores', 'StoreController@stores')->middleware('auth')  ;
+//*******Home Routes****** */
 
 //*******Jobs Routes****** */
 Route::get('/jobs', 'JobController@jobs')->middleware('auth')  ;
@@ -43,6 +50,7 @@ Route::post('send/denounce', 'DenounceController@sendMailDenounce')->middleware(
 //*******Denunce Routes****** */
 
 //*******Post Routes****** */
+Route::get('/home', 'PostController@news')->name('home')->middleware('auth')   ;
 Route::get('/news', 'PostController@news')->name('news')->middleware('auth');
 Route::get('/newsRead/{id}', 'PostController@show')->middleware('auth');
 Route::post('/comment', 'PostController@commentPost')->name('comment')->middleware('auth');
@@ -71,6 +79,10 @@ Route::put('adminSetting/{id}', 'SettingController@update')->name('adminSetting.
 //*******Pictures Routes****** */
 Route::get('/artes', 'PictureController@home')->middleware('auth');
 //*******Pictures Routes****** */
+
+//*******Store Routes****** */
+Route::get('/stores', 'StoreController@stores')->middleware('auth')  ;
+//*******Store Routes****** */
 
 //*******Contact Routes****** */
 Route::post('contact/home', 'ContactController@contactsUser')->middleware('auth');

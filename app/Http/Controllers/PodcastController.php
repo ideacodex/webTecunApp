@@ -259,10 +259,7 @@ class PodcastController extends Controller
             $podcast->title = $request->title;
             $podcast->description = $request->description;
             $podcast->content = $request->editordata;
-            $podcast->user_id = auth()->user()->id;
-            $podcast->status_id = $request->status_id;
-
-            //Modificar la ruta del video YouTube
+            $podc//Modificar la ruta del video YouTube
             $video = $request->video;
 
             if($video && !is_null($video)){
@@ -272,7 +269,10 @@ class PodcastController extends Controller
             }else{
                 $podcast->featured_video = null;
             }
-            //Modificar la ruta del video YouTube   
+            //Modificar la ruta del video YouTube  ast->user_id = auth()->user()->id;
+            $podcast->status_id = $request->status_id;
+
+             
             
             //Modificar la ruta del Spotify 
             $spotify = $request->spotify;

@@ -181,4 +181,57 @@ class UserController extends Controller
             'UserController@index')->with(['message' => 'Se eliminó el registro', 'alert' => 'danger']);
     
     }
+
+    public function view()
+    {
+        $userID = auth()->user()->id;
+        $user = User::find($userID);
+
+        return view('users.setting',[
+            'user' => $user
+        ]);
+    }
+
+    public function updateUser(Request $request)
+    {
+        $userID = $request->userID;
+
+        DB::beginTransaction();
+
+        if(isset($userID) && !empty($userID)){
+            try{
+                $user = User::find($userID);
+                $user->name = $request->name;
+                $user->lastname = $request->lastname;
+                $user->phone = $request->phone;
+                $user->email = $request->email;
+
+                $user->update();
+
+            }catch (\Illuminate\Database\QueryException $e) {
+                DB::rollback(); //si hay un error previo, desahe los cambios en DB y redirecciona a pagina de error
+                //$response['message'] = $e->errorInfo;
+                //dd($e->errorInfo[2]);
+                abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
+                return response()->json($response, 500);
+                return \Redirect::back()->with([
+                    'message' => 'No haz publicado tu comentario, vuelve a intentar',
+                    'alert' => 'danger'
+                ]);
+            }
+        }else{
+            return \Redirect::back()->with([
+                'message' => 'No haz publicado tu comentario, vuelve a intentar',
+                'alert' => 'danger'
+            ]);
+        }
+
+        DB::commit();
+
+        return \Redirect::back()->with([
+            'message' => 'Haz actualizado tus datos correctamente',
+            'alert' => 'success'
+        ]);
+
+    }
 }
