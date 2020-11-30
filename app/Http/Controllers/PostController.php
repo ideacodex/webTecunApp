@@ -76,6 +76,19 @@ class PostController extends Controller
             //$post->save();
             $post->user_id = auth()->user()->id;
             $post->status_id = $request->status_id;
+
+            //Modificar la ruta del video YouTube
+            $video = $request->video;
+
+            if($video && !is_null($video)){
+                $routeVideo = "https://www.youtube.com/embed/".$video;
+
+                $podcast->featured_video = $routeVideo;
+            }else{
+                $podcast->featured_video = null;
+            }
+            //Modificar la ruta del video YouTube 
+
             $post->save();
 
             for ($i=0; $i < sizeof($request->category_id); $i++) { 
@@ -214,7 +227,17 @@ class PostController extends Controller
                 'editordata' => 'required',
                 'description' => 'required'
             ]);
+//Modificar la ruta del video YouTube
+$video = $request->video;
 
+if($video && !is_null($video)){
+    $routeVideo = "https://www.youtube.com/embed/".$video;
+
+    $podcast->featured_video = $routeVideo;
+}else{
+    $podcast->featured_video = null;
+}
+//Modificar la ruta del video YouTube  
             //dd($request);
             DB::beginTransaction();
             try {
@@ -228,6 +251,19 @@ class PostController extends Controller
                 //$post->save();
                 $post->user_id = auth()->user()->id;
                 $post->status_id = $request->status_id;
+
+                //Modificar la ruta del video YouTube
+                $video = $request->video;
+
+                if($video && !is_null($video)){
+                    $routeVideo = "https://www.youtube.com/embed/".$video;
+
+                    $post->featured_video = $routeVideo;
+                }else{
+                    $post->featured_video = null;
+                }
+                //Modificar la ruta del video YouTube  
+
                 $post->save();
 
                 //Todos los registros de categoria id son llamados

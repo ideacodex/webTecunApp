@@ -150,26 +150,6 @@
                     <div class="col-12 input-group input-group-lg mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                <i class="text-primary fas fa-file-video"></i>
-                            </span>
-                        </div>
-                        <div class="custom-file">
-                            <input title="Selecionar" type="file" accept="video/*" name="video" id="inputGroupFile04"
-                                aria-describedby="inputGroupFileAddon04"
-                                class="custom-file-input form-control{{ $errors->has('video') ? ' is-invalid' : '' }}"
-                                value="{{ $record->video }}">
-                            @if ($errors->has('video'))
-                                <span class="invalid-feedback" role="alert">
-                                    <strong><i
-                                            class="fas fa-exclamation-triangle"></i>{{ $errors->first('video') }}</strong>
-                                </span>
-                            @endif
-                            <label class="custom-file-label" for="inputGroupFile04">Elegir video</label>
-                        </div>
-                    </div>
-                    <div class="col-12 input-group input-group-lg mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
                                 <i class="text-primary fas fa-file-pdf"></i>
                             </span>
                         </div>
