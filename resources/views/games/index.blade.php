@@ -49,7 +49,7 @@
                 @foreach ($question as $item)
                 <tr>
                     <th scope="row">{{$item->id}}</th>
-                    <td><img src="{{asset('/storage/questions/' . $item->url_image)}}" height="30px"></td>
+                    <td><img src="{{asset('/storage/questions/'. $item->url_image)}}" height="30px"></td>
                     <td>{{$item->description}}</td>
                     @if(isset($item->answer->where('flag', 1)->first()->reply))
                         <td>{{ $item->answer->where('flag', 1)->first()->reply }}</td>

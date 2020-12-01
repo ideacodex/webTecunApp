@@ -76,6 +76,19 @@ class PostController extends Controller
             //$post->save();
             $post->user_id = auth()->user()->id;
             $post->status_id = $request->status_id;
+
+            //Modificar la ruta del video YouTube
+            $video = $request->video;
+
+            if($video && !is_null($video)){
+                $routeVideo = "https://www.youtube.com/embed/".$video;
+
+                $podcast->featured_video = $routeVideo;
+            }else{
+                $podcast->featured_video = null;
+            }
+            //Modificar la ruta del video YouTube 
+
             $post->save();
 
             for ($i=0; $i < sizeof($request->category_id); $i++) { 
@@ -104,9 +117,8 @@ class PostController extends Controller
 
             //******carga de video**********//
             if ($request->hasFile('video')) {
-                $filename = $request->_token;
                 $extension = $request->file('video')->getClientOriginalExtension();
-                $videoNameToStore = $request->_token . '.' . $extension;
+                $videoNameToStore = $post->id . '.' . $extension;
                 // Upload Image //********nombre de carpeta para almacenar*****
                 $path = $request->file('video')->storeAs('public/posts', $videoNameToStore);
                 //dd($path);
@@ -121,9 +133,8 @@ class PostController extends Controller
 
             //******carga de file**********//
             if ($request->hasFile('pdf')) {
-                $filename = $request->_token;
                 $extension = $request->file('pdf')->getClientOriginalExtension();
-                $pdfNameToStore = $request->_token . '.' . $extension;
+                $pdfNameToStore = $post->id . '.' . $extension;
                 // Upload Image //********nombre de carpeta para almacenar*****
                 $path = $request->file('pdf')->storeAs('public/posts', $pdfNameToStore);
                 //dd($path);
@@ -216,7 +227,17 @@ class PostController extends Controller
                 'editordata' => 'required',
                 'description' => 'required'
             ]);
+//Modificar la ruta del video YouTube
+$video = $request->video;
 
+if($video && !is_null($video)){
+    $routeVideo = "https://www.youtube.com/embed/".$video;
+
+    $podcast->featured_video = $routeVideo;
+}else{
+    $podcast->featured_video = null;
+}
+//Modificar la ruta del video YouTube  
             //dd($request);
             DB::beginTransaction();
             try {
@@ -230,6 +251,19 @@ class PostController extends Controller
                 //$post->save();
                 $post->user_id = auth()->user()->id;
                 $post->status_id = $request->status_id;
+
+                //Modificar la ruta del video YouTube
+                $video = $request->video;
+
+                if($video && !is_null($video)){
+                    $routeVideo = "https://www.youtube.com/embed/".$video;
+
+                    $post->featured_video = $routeVideo;
+                }else{
+                    $post->featured_video = null;
+                }
+                //Modificar la ruta del video YouTube  
+
                 $post->save();
 
                 //Todos los registros de categoria id son llamados
@@ -264,9 +298,8 @@ class PostController extends Controller
 
                     //******carga de imagen**********//
                 if ($request->hasFile('image')) {
-                    $filename = $id;
                     $extension = $request->file('image')->getClientOriginalExtension();
-                    $imageNameToStore = $id . '.' . $extension;
+                    $imageNameToStore = $post->$id . '.' . $extension;
                     // Upload Image //********nombre de carpeta para almacenar*****
                     $path = $request->file('image')->storeAs('public/posts', $imageNameToStore);
                     //dd($path);
@@ -279,24 +312,22 @@ class PostController extends Controller
                 }
                 //******carga de imagen**********//
         
-                    //******carga de audio**********//
-                    if ($request->hasFile('audio')) {
-                        $filename = $request->_token;
-                        $extension = $request->file('audio')->getClientOriginalExtension();
-                        $audioNameToStore = $request->_token . '.' . $extension;
-                        // Upload Image //********nombre de carpeta para almacenar*****
-                        $path = $request->file('audio')->storeAs('public/posts', $audioNameToStore);
-                        //dd($path);
-                    } else {
-                        $audioNameToStore = 'no_audio.jpg';
-                    }
-                    //******carga de audio**********//
+                //******carga de audio**********//
+                if ($request->hasFile('audio')) {
+                    $extension = $request->file('audio')->getClientOriginalExtension();
+                    $audioNameToStore = $post->id . '.' . $extension;
+                    // Upload Image //********nombre de carpeta para almacenar*****
+                    $path = $request->file('audio')->storeAs('public/posts', $audioNameToStore);
+                    //dd($path);
+                } else {
+                    $audioNameToStore = 'no_audio.jpg';
+                }
+                //******carga de audio**********//
         
                     //******carga de video**********//
                 if ($request->hasFile('video')) {
-                    $filename = $request->_token;
                     $extension = $request->file('video')->getClientOriginalExtension();
-                    $videoNameToStore = $request->_token . '.' . $extension;
+                    $videoNameToStore = $post->id . '.' . $extension;
                     // Upload Image //********nombre de carpeta para almacenar*****
                     $path = $request->file('video')->storeAs('public/posts', $videoNameToStore);
                     //dd($path);
@@ -311,9 +342,8 @@ class PostController extends Controller
         
                     //******carga de file**********//
                 if ($request->hasFile('pdf')) {
-                    $filename = $request->_token;
                     $extension = $request->file('pdf')->getClientOriginalExtension();
-                    $pdfNameToStore = $request->_token . '.' . $extension;
+                    $pdfNameToStore = $post->id . '.' . $extension;
                     // Upload Image //********nombre de carpeta para almacenar*****
                     $path = $request->file('pdf')->storeAs('public/posts', $pdfNameToStore);
                     //dd($path);
@@ -443,14 +473,16 @@ class PostController extends Controller
             abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
             return response()->json($response, 500);
             return \Redirect::back()->with([
-                'message' => 'No haz publicado tu comentario, vuelve a intentar'
+                'message' => 'No haz publicado tu comentario, vuelve a intentar',
+                'alert' => 'danger'
             ]);
         }
 
         DB::commit();
 
         return \Redirect::back()->with([
-            'message' => 'Haz publicado tu comentario correctamente'
+            'message' => 'Haz publicado tu comentario correctamente',
+            'alert' => 'success'
         ]);
     }
 

@@ -28,21 +28,13 @@
                         <i class="ml-2 fas fa-user"> </i> 
                         <span class="">Puntos</span>
                     </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span class="badge badge-primary badge-pill">1</span>
-                        <i class="ml-3 fas fa-user"> fmartinez </i> 
-                        <span class="ml-3 badge badge-success badge-pill">12</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span class="badge badge-primary badge-pill">2</span>
-                        <i class="ml-3 fas fa-user"> pmontalvo </i> 
-                        <span class="ml-3 badge badge-success badge-pill">10</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span class="badge badge-primary badge-pill">3</span>
-                        <i class="ml-3 fas fa-user"> eavila </i> 
-                        <span class="ml-3 badge badge-success badge-pill">8</span>
-                    </li>
+                    @foreach ($score as $item)
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span class="badge badge-primary badge-pill">{{ $loop->index + 1 }}</span>
+                            <i class="ml-3 fas fa-user"> {{ $item->user->name }} {{ $item->user->lastname }}</i> 
+                            <span class="ml-3 badge badge-success badge-pill">{{ $item->points }}</span>
+                        </li>
+                    @endforeach
                 </ul>
             </div>
         </div>

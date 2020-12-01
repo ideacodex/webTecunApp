@@ -17,6 +17,13 @@
                     <div class="blog-info">
                         <div class="blog-thumbnail">
                             <img src="{{ asset('/storage/posts/' . $post->featured_image) }}" style="max-height: 300px">
+                            <br>
+                            @if (isset($post->featured_video))
+                                <iframe width="882" height="496" src="{{ $podcast->featured_video }}" frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen>
+                                </iframe>
+                            @endif
                         </div>
                         <h1 class="blog-title text-center">{{ $post->title }}</h1>
                         <div class="blog-meta">

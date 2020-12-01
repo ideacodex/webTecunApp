@@ -27,18 +27,12 @@ $namesUser = explode(" ", Auth::user()->name);
                     <div class="card-deck">
                         @foreach ($pictures as $item)
                             <div class="card">
-                                <img src="{{ asset('/storage/podcast/' . $item->featured_image) }}" width="100%"
+                                <img src="{{ asset('/storage/pictures/' . $item->featured_image) }}" width="100%"
                                     style="max-height: 200px">
                                 <div class="card-body">
                                     <h5 class="card-title" style="color:orange">{{ $item->title }}</h5>
                                     <p class="card-text">
                                         {{ $item->description }}
-                                        <a href="{{ url('podcastRead/' . $item->id) }}" class="">
-                                            <span class="text-primary">
-                                                Leer más
-                                                <i class="fas fa-book-reader"></i>
-                                            </span>
-                                        </a>
                                     </p>
                                 </div>
                                 <div class="card-footer justify-content-around d-flex">

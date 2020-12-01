@@ -78,6 +78,31 @@
                     </span>
                     @enderror
                 </div>
+
+                <div class="col-12 input-group input-group-lg mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                            <i class="text-primary fas fa-phone-square-alt"></i>
+                        </span>
+                    </div>
+                    <input id="number" name="number" placeholder="PBX de agecia" type="text"
+                        size="100" maxlength="100"
+                        class="text-primary form-control @error('number') is-invalid @enderror" name="number"
+                        value="{{ $store->number }}" required autocomplete="number" autofocus>
+
+                    @error('number')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+
+                    @error('number')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+
                 <div class="col-12 input-group input-group-lg mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text transparent" id="inputGroup-sizing-sm">

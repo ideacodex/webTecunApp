@@ -139,20 +139,19 @@
                     @endforeach
                 </div>
             @else
-                <div class="card-deck">
-                    <div class="card">
-                        <img src="{{ asset('img/tecun/preview2.png') }}" class="card-img-top">
-                        <div class="card-body">
-                            <h5 class="card-title" style="color:orange">Sin noticias por mostrar</h5>
-                            <p class="card-text">
-                            <p>Por el momento no hay ninguna noticia para mostrar</p>
-                            <p>En breve uno de nuestros colaboradores posteara una noticia nueva</p><br>
-                            <p>Estar atento!!!</p>
-                            </p>
-                        </div>
-                        <div class="card-footer justify-content-around d-flex">
-                            <p>Preparate para la nueva experiencia de Grupo Tecun</p>
-                        </div>
+                <div class="container">
+                    <div class="row justify-content-around mt-5" style="margin-top:15em">
+                        <img src="{{ asset('img/not-found.png') }}" class="img-fluid" style="max-height: 300px;">
+                    </div>
+
+                    <div class="row justify-content-around mt-5">
+                        <p class="h1 text-primary">Vaya</p>
+                    </div>
+                    <div class="row justify-content-around mt-1">
+                        <p class="h5 text-primary">Aun no hay publicaciones</p>
+                    </div>
+                    <div class="row justify-content-center mt-1">
+                        <span class="text-primary">  ...</span>
                     </div>
                 </div>
             @endif
