@@ -259,7 +259,7 @@ class PodcastController extends Controller
             $podcast->title = $request->title;
             $podcast->description = $request->description;
             $podcast->content = $request->editordata;
-            $podc//Modificar la ruta del video YouTube
+            //Modificar la ruta del video YouTube
             $video = $request->video;
 
             if($video && !is_null($video)){
