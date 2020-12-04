@@ -25,6 +25,8 @@ Route::post('updateUser', 'UserController@updateUser');
 //*******LDAP Routes****** */
 Route::get('ingresar', 'LdapController@index');
 Route::post('ldap', 'LdapController@ldap');
+Route::get('pctec', 'LdapController@pctec');
+Route::get('tecun', 'LdapController@test');
 //*******LDAP Routes****** */
 
 //*******Register Routes****** */
