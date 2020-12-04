@@ -57,6 +57,13 @@ class AwardController extends Controller
             $award = new Award;
             $award->user_id = $request->user_id;
             $award->type_id = $request->type_id;
+
+            if($request->active == 1 || $request->active == 'Si'){
+                $award->active = 1;
+            }else{
+                $award->active = 0;
+            }
+
             $award->save();
             //******carga de imagen**********//
             if ($request->hasFile('image')) {
@@ -107,6 +114,7 @@ class AwardController extends Controller
         $award=Award::findOrFail($id);
         $users = User::all();
         $categories = Category::all();
+
         return view("awards.edit", ["users" => $users, "categories" => $categories, 'award'=>$award]);
     }
 
@@ -120,18 +128,29 @@ class AwardController extends Controller
     public function update(Request $request, $id)
     {
         //
-        request()->validate([
-            'user_id' => 'required',
-            'type_id' => 'required',
-            'category_id' => 'required',
-        ]);
 
         DB::beginTransaction();
         try {
             $award = Award::findOrFail($id);
-            $award->user_id = $request->user_id;
-            $award->type_id = $request->type_id;
-            $award->category_id = $request->category_id;
+
+            if($request->user_id){
+                $award->user_id = $request->user_id;
+            }else{
+                unset($award->user_id);
+            }
+
+            if($request->type_id){
+                $award->type_id = $request->type_id;
+            }else{
+                unset($award->type_id);
+            }
+
+            if($request->active == 1 || $request->active == 'Si'){
+                $award->active = 1;
+            }else{
+                $award->active = 0;
+            }
+
             $award->save();
             //******carga de imagen**********//
             if ($request->hasFile('image')) {

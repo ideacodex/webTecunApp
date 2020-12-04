@@ -15,27 +15,6 @@ use App\Job;
 
 class APIJobController extends Controller
 {
-    public function index()
-    {
-        $jobs = Job::all();
-
-        if(!empty($jobs)){
-            $data = [
-                'code' => 200,
-                'status' => 'success',
-                'jobs' => $jobs
-            ];
-        }else{
-            $data = [
-                'code' => 404,
-                'status' => 'error',
-                'message' => 'Sin trabajos por mostrar'
-            ];
-        }
-
-        return response()->json($data, $data['code']);
-    }
-
     public function jobs(Request $request)
     {
         $title = $request->get('search');

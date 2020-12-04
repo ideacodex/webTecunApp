@@ -16,7 +16,7 @@ class CreateAwardsTable extends Migration
         Schema::create('awards', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('url_image')->nullable();
-            $table->boolean('active')->default(0);
+            $table->boolean('active')->default(1);
             $table->integer('type_id');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')

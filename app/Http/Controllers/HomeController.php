@@ -55,7 +55,7 @@ class HomeController extends Controller
 
     public function team()
     {
-        $awards = Award::with('user')->with('category')->get();
+        $awards = Award::with('user')->where('active',1)->get();
         return view('users.team', ["awards" => $awards]);
     }
 

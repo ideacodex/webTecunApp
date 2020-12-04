@@ -44,6 +44,31 @@
                     </span>
                     @enderror
                 </div>
+                <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text text-primary" id="inputGroup-sizing-sm">
+                            <i class="text-primary fas fa-question-circle"></i>
+                        </span>
+                    </div>
+                    <select name="active" id="active" class="form-control @error('active') is-invalid @enderror"
+                        required>
+                        <option selected disabled>Desea publicarlo en la vista principal?</option>
+                        <option value="1">Si</option>
+                        <option value="0">No</option>
+
+                    </select>
+                    @error('active')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+
+                    @error('active')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
                 <div class="col-10 input-group input-group-lg mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text text-primary" id="inputGroup-sizing-sm">
