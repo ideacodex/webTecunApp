@@ -10,42 +10,36 @@ use App\Status;
 
 class APIStoreController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $store = Store::all();
+        //Recoger los datos por get
+        $search = $request->input('search');
 
-        if(empty($store)){
-            $data = [
-                'code' => 404,
-                'status' => 'error',
-                'message' => 'No hay records almacenados'
-            ];
-        }else{
-            $data = [
-                'code' => 200,
-                'status' => 'success',
-                'store' => $store
-            ];
-        }
+        //Verificamos que la variable exista y que llego con algun dato
+        if(isset($search) && !is_null($search)){
+            $name = $search;
 
-        return response()->json($data, $data['code']);
-    }
+            //Utilizamos la variable para buscarla en el metodo
+            $store = Store::where('name', 'like', "%$name%")
+                        ->orWhere('address', 'like', "%$name%")
+                        ->get();
 
-    public function show($id)
-    {
-        $store = Store::find($id);
-
-        if(is_object($store)){
+            //Pasamos los datos en un array con status success
             $data = [
                 'code' => 200,
                 'status' => 'success',
                 'store' => $store
             ];
         }else{
+
+            //Si no tenemos nada en la variable search sacamos todos los elementos
+            $store = Store::all();
+
+            //Pasamos los datos en un array con status success
             $data = [
-                'code' => 404,
-                'status' => 'error',
-                'message' => 'No se puede visualizar la agencia'
+                'code' => 200,
+                'status' => 'success',
+                'store' => $store
             ];
         }
 
