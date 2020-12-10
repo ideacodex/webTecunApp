@@ -18,54 +18,6 @@ use Illuminate\Support\Facades\Storage;
 
 class APIPostController extends Controller
 {
-    //
-    public function index()
-    {
-        $posts = Post::all();
-
-        if(!empty($posts)){
-            $data = [
-                'code' => 200,
-                'status' => 'success',
-                'posts' => $posts
-            ];
-        }else{
-            $data = [
-                'code' => 404,
-                'status' => 'error',
-                'message' => 'No hay noticias para mostrar'
-            ];
-        }
-
-        return response()->json($data, $data['code']);
-    }
-
-    public function show($id)
-    {
-        $post = Post::with('user')->findOrFail($id);
-        $comments= CommentPost::where('post_id', $post->id)->with('user')->get();
-
-        //Traemos el array con toda la informacion combianda de la BD  
-        $categoryName = $post->category;
-
-        if(is_object($post)){
-            $data = [
-                'code' => 200,
-                'status' => 'success',
-                'post' => $post,
-                'comments' => $comments
-            ];
-        }else{
-            $data = [
-                'code' => 404,
-                'status' => 'error',
-                'message' => 'No existe la noticia'
-            ];
-        }
-
-        return response()->json($data, $data['code']);
-    }
-
     public function getImage($featured_image)
     {
         $isset = \Storage::disk('posts')->exists($featured_image);
@@ -104,25 +56,6 @@ class APIPostController extends Controller
         return response()->json($data, $data['code']);
     }
 
-    public function getVideo($featured_video)
-    {
-        $isset = \Storage::disk('posts')->exists($featured_video);
-
-        if($isset){
-            $file = \Storage::disk('posts')->get($featured_video);
-
-            return new response($file, 200);
-        }else{
-            $data = [
-                'code' => 404,
-                'status' => 'error',
-                'message' => 'No existe el video'
-            ];
-        }
-
-        return response()->json($data, $data['code']);
-    }
-
     public function news()
     {
         //Mostramos todos los POSTS creados y junto a ello los likes de cada uno
@@ -137,7 +70,7 @@ class APIPostController extends Controller
         //La variable anterior la utilizamos para sacar solo las categorias con esos ID's
         $categories = Category::find($categoryID);
 
-        if(isset($categories) && $isset($posts)){
+        if(isset($categories) && isset($posts)){
             $data = [
                 'code' => 200,
                 'status' => 'success',
@@ -252,8 +185,7 @@ class APIPostController extends Controller
             $data = [
                 'code' => 200,
                 'status' => 'success',
-                'message' => 'Commentario eliminado',
-                'comment' => $comment
+                'message' => 'Commentario eliminado'
             ];
         }else{
             $data = [

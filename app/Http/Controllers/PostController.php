@@ -83,9 +83,9 @@ class PostController extends Controller
             if($video && !is_null($video)){
                 $routeVideo = "https://www.youtube.com/embed/".$video;
 
-                $podcast->featured_video = $routeVideo;
+                $post->featured_video = $routeVideo;
             }else{
-                $podcast->featured_video = null;
+                $post->featured_video = null;
             }
             //Modificar la ruta del video YouTube 
 
@@ -227,17 +227,7 @@ class PostController extends Controller
                 'editordata' => 'required',
                 'description' => 'required'
             ]);
-//Modificar la ruta del video YouTube
-$video = $request->video;
-
-if($video && !is_null($video)){
-    $routeVideo = "https://www.youtube.com/embed/".$video;
-
-    $podcast->featured_video = $routeVideo;
-}else{
-    $podcast->featured_video = null;
-}
-//Modificar la ruta del video YouTube  
+             
             //dd($request);
             DB::beginTransaction();
             try {
