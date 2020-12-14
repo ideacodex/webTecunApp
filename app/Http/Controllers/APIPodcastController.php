@@ -294,7 +294,7 @@ class APIPodcastController extends Controller
         $podcastDecode = json_decode($postID, true);
 
         //Al obtener el valor decodificado lo mandamos a llamar con un find para sacar el/los objecto completo
-        $podcast = Podcast::find($podcastDecode);
+        $podcast = Podcast::with('likes')->where(id, $podcastDecode)->get();
 
         /******************************************************************************************************** */
 

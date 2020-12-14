@@ -31,7 +31,7 @@ Route::get('award/carousel', 'APIAwardController@carousel');
 Route::get('stores', 'APIStoreController@index');
 
 Route::get('jobs', 'APIJobController@jobs');
-Route::get('job/{id}', 'APIJobController@show');
+Route::get('job/{id}', 'APIJobController@show');''
 Route::post('job/apply/upload/{email}', 'APIJobController@applyUploadDocument');
 Route::post('job/apply/mail/{pdfNameToStore}', 'APIJobController@apply');
 
