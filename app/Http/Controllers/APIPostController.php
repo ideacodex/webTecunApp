@@ -292,7 +292,7 @@ class APIPostController extends Controller
         $postDecode = json_decode($postID, true);
 
         //Al obtener el valor decodificado lo mandamos a llamar con un find para sacar el/los objecto completo
-        $posts = Post::with('likes')->where(id, $postDecode)->get();
+        $posts = Post::with('likes')->whereIn('id', $postDecode)->get();
 
         /******************************************************************************************************** */
 
