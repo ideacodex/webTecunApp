@@ -65728,3 +65728,8 @@ module.exports = __webpack_require__(/*! /home/norellanac/Documentos/volDockerCo
 /***/ })
 
 /******/ });
+
+// Material Select Initialization
+  $(document).ready(function() {
+    $('.mdb-select').materialSelect();
+  });

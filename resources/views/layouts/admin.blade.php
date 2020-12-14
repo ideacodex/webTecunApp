@@ -171,9 +171,6 @@
                     <span class="h3 text-light"> {{ config('app.name', 'Pakal') }} </span>
                 </div>
                 <div class="list-group list-group-flush">
-                    <a href="{{ url('#') }}" class="list-group-item list-group-item-action bg-theme-1 text-light"> <span
-                            class=""><i class="fas fa-chart-bar"></i></span> Administracion
-                    </a>
                     <div class="accordion" id="accordionExample">
                         <div class="">
                             <a class="list-group-item list-group-item-action bg-theme-1 text-light collapsed"
@@ -201,23 +198,34 @@
 
                     <a href="{{ url('categories') }}"
                         class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
-                                class="fas fa-tags"></i></span> Categorías</a>
+                        class="fas fa-tags"></i></span> Categorías
+                    </a>
                     <a href="{{ url('jobsAdmin') }}"
                         class="list-group-item list-group-item-action bg-theme-1 text-light">
-                        <span class=""><i class="fas fa-hard-hat"></i></span> Empleos</a>
+                        <span class=""><i class="fas fa-hard-hat"></i></span> Empleos
+                    </a>
                     <a href="{{ url('storesAdmin') }}"
                         class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
-                                class="fas fa-building"></i></span> Agencias</a>
+                        class="fas fa-building"></i></span> Agencias
+                    </a>
+                    <a href="{{ url('contactAdmin') }}"
+                        class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
+                        class="fas fa-id-card"></i></span> LLama Ahora
+                    </a>
                     <a href="{{ url('awardsAdmin') }}"
                         class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
-                                class="fas fa-medal"></i></span> Reconocimientos</a>
+                        class="fas fa-medal"></i></span> Reconocimientos
+                    </a>
                     <a href="{{ url('users') }}" class="list-group-item list-group-item-action bg-theme-1 text-light">
-                        <span class=""><i class="fas fa-user"></i></span> Usuarios</a>
+                        <span class=""><i class="fas fa-user"></i></span> Usuarios
+                    </a>
                     <a href="{{ url('gamesAdmin') }}"
                         class="list-group-item list-group-item-action bg-theme-1 text-light">
-                        <span class=""><i class="fas fa-gamepad"></i></span> Juego</a>
+                        <span class=""><i class="fas fa-gamepad"></i></span> Juego
+                    </a>
                     <a href="{{ url('adminSetting') }}" class="list-group-item list-group-item-action bg-theme-1 text-light">
-                        <span class=""><i class="fas fa-cog"></i></span> Ajustes</a>
+                        <span class=""><i class="fas fa-cog"></i></span> Ajustes
+                    </a>
                 </div>
             </div>
             <!-- /#sidebar-wrapper -->
@@ -239,17 +247,11 @@
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="{{ url('adminPost') }}"> <span><i
-                                            class="fas fa-newspaper"></i></span> Publicaciones</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Link</a>
-                            </li>
-                            <li class="nav-item dropdown">
+                            <li class="nav-item active dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Dropdown
+                                    <i class="fas fa-cog"></i>
+                                    Administrar
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ url('adminPost') }}"> <span><i
@@ -257,7 +259,7 @@
                                     <a class="dropdown-item" href="{{ url('users') }}"> <span><i
                                                 class="fas fa-users"></i></span> Usuarios</a>
                                     <a class="dropdown-item" href="{{ url('home') }}"> <span><i
-                                                class="fas fa-newspaper"></i></span> Inicio</a>
+                                                class="fas fa-newspaper"></i></span> Vista Usuario</a>
                                     <div class="dropdown-divider"></div>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="{{ route('logout') }}"

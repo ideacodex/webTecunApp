@@ -13,7 +13,7 @@ $namesUser = explode(" ", Auth::user()->name);
         <p class="text-primary h2">Línea de denuncia</p>
     </div>
     <div class="row justify-content-around mt-4">
-        <form method="POST" action="{{ route('login') }}">
+        <form method="POST" action="{{ url('send/denounce') }}" onsubmit="return checkSubmit();">
             @csrf
             <div class="input-group input-group-lg mb-3">
                 <div class="input-group-prepend">
@@ -23,44 +23,32 @@ $namesUser = explode(" ", Auth::user()->name);
                 </div>
                 <input placeholder="Asunto" type="text" aria-label=" Sizing example input"
                     aria-describedby="inputGroup-sizing-sm"
-                    class=" form-control text-primary @error('email') is-invalid @enderror" name="email"
-                    value="{{ old('email') }}" required>
+                    class=" form-control text-primary @error('subject') is-invalid @enderror" name="subject"
+                    value="{{ old('subject') }}" required>
 
-                @error('email')
+                @error('subject')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
                 @enderror
             </div>
+
             <div class="input-group input-group-lg mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text transparent" id="inputGroup-sizing-sm">
                         <i class="text-primary fas fa-comment-dots"></i>
                     </span>
                 </div>
-                <textarea placeholder="Denunciar actividad" id="password" type="password" aria-label=" Sizing example input"
+                <textarea placeholder="Denunciar actividad" id="denounce" type="text" aria-label=" Sizing example input"
                     aria-describedby="inputGroup-sizing-sm"
-                    class="text-primary form-control @error('password') is-invalid @enderror" name="password" required
+                    class="text-primary form-control @error('denounce') is-invalid @enderror" name="denounce" required
                     ></textarea>
 
-                @error('password')
+                @error('denounce')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
                 @enderror
-            </div>
-
-            <div class="d-none form-group row justify-content-around ">
-                <div class=" ">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="remember" id="remember"
-                            {{ old('remember') ? 'checked' : '' }}>
-
-                        <label class="form-check-label text-light" for="remember">
-                            {{ __('Mantener la sesion activa') }}
-                        </label>
-                    </div>
-                </div>
             </div>
 
             <div class="form-group row mt-3 justify-content-around ">
@@ -72,16 +60,6 @@ $namesUser = explode(" ", Auth::user()->name);
                 </div>
             </div>
         </form>
-    </div>
-    <div class="row mt-5 justify-content-center">
-        @if (Route::has('password.request'))
-        <a class="m-t-5 btn btn-link text-light" href="{{ route('password.request') }}">
-            {{ __('¿Olvidé la contraseña?') }}
-        </a>
-        <a class="btn btn-link text-light" href="{{ route('register') }}">
-            {{ __('Crear cuenta') }}
-        </a>
-        @endif
     </div>
 </div>
 @endsection

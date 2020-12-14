@@ -8,6 +8,8 @@ use App\Status;
 use App\User;
 use App\Award;
 
+use App\Setting;
+
 use Illuminate\Support\Facades\Mail;
 use App\Mail\JobDataUser;
 use App\Mail\JobDataAdmin;
@@ -53,7 +55,16 @@ class JobController extends Controller
         //
         $status = Status::all();
         $categories = Category::all();
-        return view("jobs.create", ["status" => $status, "categories" => $categories]);
+        $settingAll = Setting::all();
+        if ($settingAll) {
+            $setting = $settingAll->first();
+        }
+
+        return view("jobs.create", [
+            "status" => $status, 
+            "categories" => $categories,
+            'setting' => $setting
+        ]);
 
     }
 
@@ -77,7 +88,7 @@ class JobController extends Controller
             $job = new Job;
             $job->title = $request->title;
             $job->description = $request->description;
-            $job->salary = $request->salary;
+            $job->public_link = $request->public_link;
             $job->email = $request->email;
             $job->skils = $request->editordata;
             $job->save();
@@ -143,7 +154,7 @@ class JobController extends Controller
             $job = Job::findOrFail($id);
             $job->title = $request->title;
             $job->description = $request->description;
-            $job->salary = $request->salary;
+            $job->public_link = $request->public_link;
             $job->email = $request->email;
             $job->skils = $request->editordata;
             $job->save();
@@ -186,6 +197,7 @@ class JobController extends Controller
         $jobs = Job::where('title', 'like', "%$title%")
                 ->orWhere('description', 'like', "%$description%")
                 ->orWhere('skils', 'like', "%$skils%")
+                ->orderBy('created_at', 'desc')
                 ->get();
 
         return view("jobs.home", ["jobs" => $jobs]);
@@ -246,7 +258,7 @@ class JobController extends Controller
                 Storage::disk('jobs')->delete($pdfNameToStore);
 
                 return redirect()->action('JobController@jobs')
-                    ->with(['message' => 'Solicitud enviada correctamente']);
+                    ->with(['message' => 'Solicitud enviada correctamente', 'alert' => 'success']);
     
             }catch (\Illuminate\Database\QueryException $e) {
                 abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje

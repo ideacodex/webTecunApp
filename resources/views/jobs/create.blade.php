@@ -3,9 +3,25 @@
 @section('content')
     @if (!$categories->first())
         <div class="sufee-alert alert with-close alert-{{ session('alert') }} alert-dismissible fade show">
-            <span class="badge badge-pill badge-warning">No hay categorias aun, <a href="{{ url('categories/create') }}">
+            <span class="badge badge-pill badge-warning">No hay categorias aun, 
+                <a href="{{ url('categories/create') }}">
                     Agregar
-                    un nueva categoria</a> </span>
+                    un nueva categoria
+                </a> 
+            </span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
+    @if (!$setting)
+        <div class="sufee-alert alert with-close alert-{{ session('alert') }} alert-dismissible fade show">
+            <span class="badge badge-pill badge-warning">No hay ajustes configurados aun, 
+                <a href="{{ url('adminSetting/crear') }}">
+                    Agregar
+                    la configuracion de tus ajustes
+                </a> 
+            </span>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -67,20 +83,20 @@
                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                <i class="text-primary fas fa-money-bill-wave"></i>
+                                <i class="text-primary fas fa-link"></i>
                             </span>
                         </div>
-                        <input id="salary" name="salary" placeholder="Salario (opcional)" type="text" size="100"
-                            maxlength="100" class="text-primary form-control @error('salary') is-invalid @enderror"
-                            salary="salary" value="{{ old('salary') }}" autofocus>
+                        <input id="public_link" name="public_link" placeholder="Url de plaza externa" type="text" size="100"
+                            maxlength="100" class="text-primary form-control @error('public_link') is-invalid @enderror"
+                            public_link="public_link" value="{{ old('public_link') }}" autofocus>
 
-                        @error('salary')
+                        @error('public_link')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
 
-                        @error('salary')
+                        @error('public_link')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -117,7 +133,7 @@
                         <input id="email" name="email" placeholder="correo electronico del reclutador" type="text"
                             size="100" maxlength="100"
                             class="text-primary form-control @error('email') is-invalid @enderror" email="email"
-                            value="{{ old('email') }}" required autocomplete="email" autofocus>
+                            @if($setting) value=" {{ $setting->email_rrhh }} " @endif required autocomplete="email" autofocus>
 
                         @error('email')
                         <span class="invalid-feedback" role="alert">
@@ -166,7 +182,7 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <script>
         $('#summernote').summernote({
-            placeholder: 'Hello stand alone ui',
+            placeholder: 'Agrega aquí el contenido',
             tabsize: 2,
             height: 120,
             toolbar: [
@@ -174,7 +190,7 @@
                 ['font', ['bold', 'underline', 'clear']],
                 ['color', ['color']],
                 ['para', ['ul', 'ol', 'paragraph']],
-                ['view', ['fullscreen', 'codeview', 'help']]
+                ['insert', ['link', 'picture']],
             ]
         });
 

@@ -21,7 +21,8 @@ class CreatePodcastsTable extends Migration
             $table->string('featured_video')->nullable();
             $table->string('featured_document')->nullable();
             $table->string('featured_image')->nullable();
-            $table->string('featured_audio')->nullable(); 
+            $table->string('featured_audio')->nullable();
+            $table->string('featured_spotify')->nullable(); 
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')
                 ->references('id')->on('users');

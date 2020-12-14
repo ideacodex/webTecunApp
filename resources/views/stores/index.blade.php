@@ -56,7 +56,7 @@
                     <td><a href="{{$item->maps}}" target="blank"> <i class="fab fa-waze"></i>  Ir</a></td>
                     <td>
                         <div class="btn-group" role="group" aria-label="Basic example">
-                            <a class="btn btn-sm btn-secondary" href="{{url('storesAdmin/'. $item->id)}}"
+                            <a class="btn btn-sm btn-secondary" href="{{url('stores')}}"
                                 title="Ver Detalles">
                                 <span class=""><i class="fas fa-eye"></i></span>
                             </a>

@@ -56,10 +56,9 @@ class RegisterController extends Controller
         //dd($data);
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'lastname' => ['required', 'string', 'max:255'],
-            'dpi' => ['required', 'integer', 'unique:users'],
+            'lastname' => ['string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'phone' => ['required', 'integer', 'unique:users'],
+            'phone' => ['integer', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -100,18 +99,20 @@ class RegisterController extends Controller
             return response()->json($response, 500);
         }
         DB::commit(); //si llega a este punto **FINALILA LA TRANSACCION y guarda en base de datos
-        return User::create([
+        
+        $user= User::create([
             'name' => $data['name'],
             'lastname' => $data['lastname'],
-            'dpi' => $data['dpi'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'phone' => $data['phone'],
             'check_terms' => true,
             'url_image' => 'users/default_profile.png',
-            'role_id' => 3, //aca se asigana el id de la tabla roles numero "id=3 name=User"
+            'role_id' => 4, //aca se asigana el id de la tabla roles numero "id=3 name=User"
             'status_id' => 3,
             'score_id'=>$score->id,
         ]);
+
+        return $user;
     }
 }

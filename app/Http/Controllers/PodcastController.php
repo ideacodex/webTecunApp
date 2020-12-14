@@ -55,8 +55,7 @@ class PodcastController extends Controller
             '_token' => 'required',
             'title' => 'required',
             'editordata' => 'required',
-            'description' => 'required',
-            'video' => 'required'
+            'description' => 'required'
         ]);
 
         DB::beginTransaction();
@@ -73,10 +72,26 @@ class PodcastController extends Controller
             //Modificar la ruta del video YouTube
             $video = $request->video;
 
-            $routeVideo = str_replace("watch?v=","embed/",$video);
+            if($video && !is_null($video)){
+                $routeVideo = "https://www.youtube.com/embed/".$video;
 
-            $podcast->featured_video = $routeVideo;
-            //Modificar la ruta del video YouTube    
+                $podcast->featured_video = $routeVideo;
+            }else{
+                $podcast->featured_video = null;
+            }
+            //Modificar la ruta del video YouTube   
+            
+            //Modificar la ruta del Spotify 
+            $spotify = $request->spotify;
+
+            if($spotify && !is_null($spotify)){
+                $routeSpotify = "https://open.spotify.com/embed-podcast/episode/".$spotify;
+
+                $podcast->featured_spotify = $routeSpotify;
+            }else{
+                $podcast->featured_spotify = null;
+            }
+            //Modificar la ruta del Spotify  
 
             $podcast->save();
 
@@ -89,9 +104,8 @@ class PodcastController extends Controller
 
             //******carga de imagen**********//
             if ($request->hasFile('image')) {
-                $filename = $request->_token;
                 $extension = $request->file('image')->getClientOriginalExtension();
-                $imageNameToStore = $request->_token . '.' . $extension;
+                $imageNameToStore = $podcast->id . '.' . $extension;
                 // Upload Image //********nombre de carpeta para almacenar*****
                 $path = $request->file('image')->storeAs('public/podcast', $imageNameToStore);
                 //dd($path);
@@ -106,9 +120,8 @@ class PodcastController extends Controller
 
             //******carga de audio**********//
             if ($request->hasFile('audio')) {
-                $filename = $request->_token;
                 $extension = $request->file('audio')->getClientOriginalExtension();
-                $audioNameToStore = $request->_token . '.' . $extension;
+                $audioNameToStore = $podcast->id . '.' . $extension;
                 // Upload Image //********nombre de carpeta para almacenar*****
                 $path = $request->file('audio')->storeAs('public/podcast', $audioNameToStore);
                 //dd($path);
@@ -123,9 +136,8 @@ class PodcastController extends Controller
 
             //******carga de file**********//
             if ($request->hasFile('pdf')) {
-                $filename = $request->_token;
                 $extension = $request->file('pdf')->getClientOriginalExtension();
-                $pdfNameToStore = $request->_token . '.' . $extension;
+                $pdfNameToStore = $podcast->id . '.' . $extension;
                 // Upload Image //********nombre de carpeta para almacenar*****
                 $path = $request->file('pdf')->storeAs('public/podcast', $pdfNameToStore);
                 //dd($path);
@@ -189,6 +201,26 @@ class PodcastController extends Controller
         $status = Status::all();
         $categories = Category::all();
 
+        //Remplazamos la Url de Youtube y dejamos solo el codigo
+        $stringUrlYoutube = $podcast->featured_video;
+
+        if($stringUrlYoutube && !is_null($stringUrlYoutube)){
+            $codeYoutube = str_replace("https://www.youtube.com/embed/", "", $stringUrlYoutube);
+        }else{
+            $codeYoutube = null;
+        }
+        //Remplazamos la Url de Youtube y dejamos solo el codigo
+
+        //Remplazamos la Url de Spotify y dejamos solo el codigo
+        $stringUrlSpotify = $podcast->featured_spotify;
+
+        if($stringUrlSpotify && !is_null($stringUrlSpotify)){
+            $codeSpotify = str_replace("https://open.spotify.com/embed-podcast/episode/", "", $stringUrlSpotify);
+        }else{
+            $codeSpotify = null;
+        }
+        //Remplazamos la Url de Spotify y dejamos solo el codigo
+
         //Traemos el array con toda la informacion combianda de la BD  
         $categoryName = $podcast->category;
 
@@ -196,7 +228,9 @@ class PodcastController extends Controller
             "status" => $status, 
             "categories" => $categories, 
             "podcast" => $podcast,
-            "categoryName" => $categoryName
+            "categoryName" => $categoryName,
+            'codeYoutube' => $codeYoutube,
+            'codeSpotify' => $codeSpotify
         ]);
     }
 
@@ -214,8 +248,7 @@ class PodcastController extends Controller
             '_token' => 'required',
             'title' => 'required',
             'editordata' => 'required',
-            'description' => 'required',
-            'video' => 'required'
+            'description' => 'required'
         ]);
 
         DB::beginTransaction();
@@ -226,16 +259,32 @@ class PodcastController extends Controller
             $podcast->title = $request->title;
             $podcast->description = $request->description;
             $podcast->content = $request->editordata;
-            $podcast->user_id = auth()->user()->id;
-            $podcast->status_id = $request->status_id;
-
             //Modificar la ruta del video YouTube
             $video = $request->video;
 
-            $routeVideo = str_replace("watch?v=","embed/",$video);
+            if($video && !is_null($video)){
+                $routeVideo = "https://www.youtube.com/embed/".$video;
 
-            $podcast->featured_video = $routeVideo;
-            //Modificar la ruta del video YouTube    
+                $podcast->featured_video = $routeVideo;
+            }else{
+                $podcast->featured_video = null;
+            }
+            //Modificar la ruta del video YouTube  ast->user_id = auth()->user()->id;
+            $podcast->status_id = $request->status_id;
+
+             
+            
+            //Modificar la ruta del Spotify 
+            $spotify = $request->spotify;
+
+            if($spotify && !is_null($spotify)){
+                $routeSpotify = "https://open.spotify.com/embed-podcast/episode/".$spotify;
+
+                $podcast->featured_spotify = $routeSpotify;
+            }else{
+                $podcast->featured_spotify = null;
+            }
+            //Modificar la ruta del Spotify    
 
             $podcast->save();
 
@@ -248,7 +297,7 @@ class PodcastController extends Controller
             //Buscamos los items de category_post relacionados con un solo post
             $podcastDB = DB::table('category_podcast')->where('podcast_id', $podcast->id)->get();
             
-            if(sizeof($request->category_id) > sizeof($podcastDB)){
+            if(sizeof($request->category_id) >= sizeof($podcastDB)){
                 DB::table('category_podcast')->where('podcast_id', $podcast->id)->delete();
 
 
@@ -271,9 +320,8 @@ class PodcastController extends Controller
 
             //******carga de imagen**********//
             if ($request->hasFile('image')) {
-                $filename = $request->_token;
                 $extension = $request->file('image')->getClientOriginalExtension();
-                $imageNameToStore = $request->_token . '.' . $extension;
+                $imageNameToStore = $podcast->id . '.' . $extension;
                 // Upload Image //********nombre de carpeta para almacenar*****
                 $path = $request->file('image')->storeAs('public/podcast', $imageNameToStore);
                 //dd($path);
@@ -305,9 +353,8 @@ class PodcastController extends Controller
 
             //******carga de file**********//
             if ($request->hasFile('pdf')) {
-                $filename = $request->_token;
                 $extension = $request->file('pdf')->getClientOriginalExtension();
-                $pdfNameToStore = $request->_token . '.' . $extension;
+                $pdfNameToStore = $podcast->id . '.' . $extension;
                 // Upload Image //********nombre de carpeta para almacenar*****
                 $path = $request->file('pdf')->storeAs('public/podcast', $pdfNameToStore);
                 //dd($path);
@@ -431,14 +478,16 @@ class PodcastController extends Controller
             abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
             return response()->json($response, 500);
             return \Redirect::back()->with([
-                'message' => 'No haz publicado tu comentario, vuelve a intentar'
+                'message' => 'No haz publicado tu comentario, vuelve a intentar',
+                'alert' => 'danger'
             ]);
         }
 
         DB::commit();
 
         return \Redirect::back()->with([
-            'message' => 'Haz publicado tu comentario correctamente'
+            'message' => 'Haz publicado tu comentario correctamente',
+            'alert' => 'success'
         ]);
     }
 
@@ -469,12 +518,18 @@ class PodcastController extends Controller
         //Recogemos los datos del usuario
         $user = auth()->user()->id;
 
+        //Buscamos el ID de la Categoria si existe
+        $categoryID = $request->categoryId;
+
         //Recogemos el reactionActive
         $reactionActive = $request->reactionActive;
         $podcastID = $request->podcastID;
 
         //Verificar que existe el like del usuario
-        $issetReactionUser = DB::table('reactionpodcast')->where('user_id', $user)->where('podcast_id', $podcastID)->count();
+        $issetReactionUser = DB::table('reactionpodcast')
+                ->where('user_id', $user)
+                ->where('podcast_id', $podcastID)
+                ->count();
 
         DB::beginTransaction();
 

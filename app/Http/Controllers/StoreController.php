@@ -56,6 +56,7 @@ class StoreController extends Controller
             $store->name = $request->name;
             $store->address = $request->address;
             $store->schedule = $request->schedule;
+            $store->number = $request->number;
             $store->maps = $request->maps;
             $store->save();
         } catch (\Illuminate\Database\QueryException $e) {
@@ -117,6 +118,7 @@ class StoreController extends Controller
             $store->name = $request->name;
             $store->address = $request->address;
             $store->schedule = $request->schedule;
+            $store->number = $request->number;
             $store->maps = $request->maps;
             $store->save();
         } catch (\Illuminate\Database\QueryException $e) {
@@ -138,16 +140,23 @@ class StoreController extends Controller
      * @param  \App\Store  $store
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Store $store)
+    public function destroy($id)
     {
         //
+        $store = Store::find($id);
+        $store->delete();
+
+        return redirect()->action('StoreController@index')
+            ->with(['message' => 'Agencia eliminada correctamente', 'alert' => 'danger']);
     }
 
     public function stores(Request $request)
     {
         //
         $name = $request->get('search');
-        $stores = Store::where('name', 'like', "%$name%")->paginate(20);
+        $stores = Store::where('name', 'like', "%$name%")
+        ->orWhere('address', 'like', "%$name%")
+        ->get();
 
         return view("stores.home", ["stores" => $stores]);
     }

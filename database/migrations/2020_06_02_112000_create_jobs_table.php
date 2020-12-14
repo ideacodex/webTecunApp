@@ -18,7 +18,7 @@ class CreateJobsTable extends Migration
             $table->string('title');
             $table->longText('description');
             $table->longText('skils')->nullable();
-            $table->float('salary')->nullable();
+            $table->text('public_link')->nullable();
             $table->string('company')->nullable();
             $table->string('email')->nullable();
             $table->timestamp('expiration_date')->nullable();

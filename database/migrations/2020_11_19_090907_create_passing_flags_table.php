@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateContactsTable extends Migration
+class CreatePassingFlagsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,21 +13,18 @@ class CreateContactsTable extends Migration
      */
     public function up()
     {
-        Schema::create('contacts', function (Blueprint $table) {
+        Schema::create('passing_flags', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('phone1');
-            $table->integer('phone2')->nullable();
-            $table->string('ext')->nullable();
-            $table->string('support')->nullable();
-            $table->string('support_ext')->nullable();
-            $table->string('email')->nullable();
-            $table->string('departament')->nullable();
-            $table->string('job')->nullable();
+            $table->string('status')->nullable();
+            $table->integer('passed')->default(0);
+            $table->integer('questionTrue')->default(0);
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')
                 ->references('id')->on('users');
+            $table->unsignedBigInteger('question_id');
+            $table->foreign('question_id')
+                ->references('id')->on('questions');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -38,6 +35,6 @@ class CreateContactsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contacts');
+        Schema::dropIfExists('passing_flags');
     }
 }

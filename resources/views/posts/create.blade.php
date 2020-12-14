@@ -117,6 +117,30 @@
                         @enderror
                     </div>
 
+                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                <i class="text-primary fab fa-youtube"></i>
+                            </span>
+                        </div>
+                        <input id="video" placeholder="Codigo Youtube" type="text" size="250" title="Ejemplo: VYOjWnS4cMY"
+                            maxlength="250" class="text-primary form-control @error('video') is-invalid @enderror"
+                            name="video" value="{{ old('video') }}" autocomplete="video"
+                            autofocus>
+
+                        @error('video')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+
+                        @error('video')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+
                     <div class="col-12 input-group input-group-lg mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text transparent" id="inputGroup-sizing-sm">
@@ -135,26 +159,6 @@
                                 </span>
                             @endif
                             <label class="custom-file-label" for="inputGroupFile04">Elegir imagen de portada</label>
-                        </div>
-                    </div>
-                    <div class="col-12 input-group input-group-lg mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                <i class="text-primary fas fa-file-video"></i>
-                            </span>
-                        </div>
-                        <div class="custom-file">
-                            <input title="Selecionar" type="file" accept="video/*" name="video" id="inputGroupFile04"
-                                aria-describedby="inputGroupFileAddon04"
-                                class="custom-file-input form-control{{ $errors->has('video') ? ' is-invalid' : '' }}"
-                                value="{{ old('video') }}">
-                            @if ($errors->has('video'))
-                                <span class="invalid-feedback" role="alert">
-                                    <strong><i
-                                            class="fas fa-exclamation-triangle"></i>{{ $errors->first('video') }}</strong>
-                                </span>
-                            @endif
-                            <label class="custom-file-label" for="inputGroupFile04">Elegir video</label>
                         </div>
                     </div>
                     <div class="col-12 input-group input-group-lg mb-3">
@@ -218,7 +222,7 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <script>
         $('#summernote').summernote({
-            placeholder: 'Hello stand alone ui',
+            placeholder: 'Agrega aquí el contenido',
             tabsize: 2,
             height: 120,
             toolbar: [
@@ -226,9 +230,7 @@
                 ['font', ['bold', 'underline', 'clear']],
                 ['color', ['color']],
                 ['para', ['ul', 'ol', 'paragraph']],
-                ['table', ['table']],
-                ['insert', ['link', 'picture', 'video']],
-                ['view', ['fullscreen', 'codeview', 'help']]
+                ['insert', ['link', 'picture']],
             ]
         });
 

@@ -32,7 +32,7 @@
     }
 
     .transparent {
-        background-color: transparent;
+        background-color: transparent !important;
         border-right-style: none;
     }
 
@@ -41,12 +41,12 @@
     }
 
     .form-control {
-        background-color: transparent;
+        background-color: transparent !important;
         border-left-style: none;
     }
 
     .form-control::-webkit-input-placeholder {
-        background-color: transparent;
+        background-color: transparent !important;
         color: white;
     }
 

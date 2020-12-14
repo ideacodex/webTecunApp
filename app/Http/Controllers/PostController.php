@@ -25,7 +25,8 @@ class PostController extends Controller
     public function index()
     {
         //
-        $posts = Post::all();
+        
+        $posts = Post::orderBy('created_at', 'desc')->get();
         return view("posts.index", ["posts" => $posts]);
     }
 
@@ -75,6 +76,19 @@ class PostController extends Controller
             //$post->save();
             $post->user_id = auth()->user()->id;
             $post->status_id = $request->status_id;
+
+            //Modificar la ruta del video YouTube
+            $video = $request->video;
+
+            if($video && !is_null($video)){
+                $routeVideo = "https://www.youtube.com/embed/".$video;
+
+                $post->featured_video = $routeVideo;
+            }else{
+                $post->featured_video = null;
+            }
+            //Modificar la ruta del video YouTube 
+
             $post->save();
 
             for ($i=0; $i < sizeof($request->category_id); $i++) { 
@@ -86,9 +100,9 @@ class PostController extends Controller
 
             //******carga de imagen**********//
             if ($request->hasFile('image')) {
-                $filename = $request->_token;
+                $filename = $post->id;
                 $extension = $request->file('image')->getClientOriginalExtension();
-                $imageNameToStore = $request->_token . '.' . $extension;
+                $imageNameToStore = $post->id . '.' . $extension;
                 // Upload Image //********nombre de carpeta para almacenar*****
                 $path = $request->file('image')->storeAs('public/posts', $imageNameToStore);
                 //dd($path);
@@ -103,9 +117,8 @@ class PostController extends Controller
 
             //******carga de video**********//
             if ($request->hasFile('video')) {
-                $filename = $request->_token;
                 $extension = $request->file('video')->getClientOriginalExtension();
-                $videoNameToStore = $request->_token . '.' . $extension;
+                $videoNameToStore = $post->id . '.' . $extension;
                 // Upload Image //********nombre de carpeta para almacenar*****
                 $path = $request->file('video')->storeAs('public/posts', $videoNameToStore);
                 //dd($path);
@@ -120,9 +133,8 @@ class PostController extends Controller
 
             //******carga de file**********//
             if ($request->hasFile('pdf')) {
-                $filename = $request->_token;
                 $extension = $request->file('pdf')->getClientOriginalExtension();
-                $pdfNameToStore = $request->_token . '.' . $extension;
+                $pdfNameToStore = $post->id . '.' . $extension;
                 // Upload Image //********nombre de carpeta para almacenar*****
                 $path = $request->file('pdf')->storeAs('public/posts', $pdfNameToStore);
                 //dd($path);
@@ -215,7 +227,7 @@ class PostController extends Controller
                 'editordata' => 'required',
                 'description' => 'required'
             ]);
-
+             
             //dd($request);
             DB::beginTransaction();
             try {
@@ -229,6 +241,19 @@ class PostController extends Controller
                 //$post->save();
                 $post->user_id = auth()->user()->id;
                 $post->status_id = $request->status_id;
+
+                //Modificar la ruta del video YouTube
+                $video = $request->video;
+
+                if($video && !is_null($video)){
+                    $routeVideo = "https://www.youtube.com/embed/".$video;
+
+                    $post->featured_video = $routeVideo;
+                }else{
+                    $post->featured_video = null;
+                }
+                //Modificar la ruta del video YouTube  
+
                 $post->save();
 
                 //Todos los registros de categoria id son llamados
@@ -240,7 +265,7 @@ class PostController extends Controller
                 //Buscamos los items de category_post relacionados con un solo post
                 $postDB = DB::table('category_post')->where('post_id', $post->id)->get();
                 
-                if(sizeof($request->category_id) > sizeof($postDB)){
+                if(sizeof($request->category_id) >= sizeof($postDB)){
                     DB::table('category_post')->where('post_id', $post->id)->delete();
 
 
@@ -263,9 +288,8 @@ class PostController extends Controller
 
                     //******carga de imagen**********//
                 if ($request->hasFile('image')) {
-                    $filename = $request->_token;
                     $extension = $request->file('image')->getClientOriginalExtension();
-                    $imageNameToStore = $request->_token . '.' . $extension;
+                    $imageNameToStore = $post->$id . '.' . $extension;
                     // Upload Image //********nombre de carpeta para almacenar*****
                     $path = $request->file('image')->storeAs('public/posts', $imageNameToStore);
                     //dd($path);
@@ -278,24 +302,22 @@ class PostController extends Controller
                 }
                 //******carga de imagen**********//
         
-                    //******carga de audio**********//
-                    if ($request->hasFile('audio')) {
-                        $filename = $request->_token;
-                        $extension = $request->file('audio')->getClientOriginalExtension();
-                        $audioNameToStore = $request->_token . '.' . $extension;
-                        // Upload Image //********nombre de carpeta para almacenar*****
-                        $path = $request->file('audio')->storeAs('public/posts', $audioNameToStore);
-                        //dd($path);
-                    } else {
-                        $audioNameToStore = 'no_audio.jpg';
-                    }
-                    //******carga de audio**********//
+                //******carga de audio**********//
+                if ($request->hasFile('audio')) {
+                    $extension = $request->file('audio')->getClientOriginalExtension();
+                    $audioNameToStore = $post->id . '.' . $extension;
+                    // Upload Image //********nombre de carpeta para almacenar*****
+                    $path = $request->file('audio')->storeAs('public/posts', $audioNameToStore);
+                    //dd($path);
+                } else {
+                    $audioNameToStore = 'no_audio.jpg';
+                }
+                //******carga de audio**********//
         
                     //******carga de video**********//
                 if ($request->hasFile('video')) {
-                    $filename = $request->_token;
                     $extension = $request->file('video')->getClientOriginalExtension();
-                    $videoNameToStore = $request->_token . '.' . $extension;
+                    $videoNameToStore = $post->id . '.' . $extension;
                     // Upload Image //********nombre de carpeta para almacenar*****
                     $path = $request->file('video')->storeAs('public/posts', $videoNameToStore);
                     //dd($path);
@@ -310,9 +332,8 @@ class PostController extends Controller
         
                     //******carga de file**********//
                 if ($request->hasFile('pdf')) {
-                    $filename = $request->_token;
                     $extension = $request->file('pdf')->getClientOriginalExtension();
-                    $pdfNameToStore = $request->_token . '.' . $extension;
+                    $pdfNameToStore = $post->id . '.' . $extension;
                     // Upload Image //********nombre de carpeta para almacenar*****
                     $path = $request->file('pdf')->storeAs('public/posts', $pdfNameToStore);
                     //dd($path);
@@ -379,8 +400,15 @@ class PostController extends Controller
 
     public function news()
     {
+        //si es la pantalla inicial asigna rol al usuario
+        $user = Auth::user();
+        if (!$user->hasAnyRole(Role::all())) {
+            auth()->user()->syncRoles('User');
+        }
         //Mostramos todos los POSTS creados y junto a ello los likes de cada uno
-        $posts = Post::with('likes')->get();//El estado es activo
+        $posts = Post::with('likes')
+        ->orderBy('created_at', 'desc')
+        ->get();//El estado es activo
         
         //De la tabla pivote, sacamos solo los category_id
         $category_id = DB::table('category_post')->get('category_id');
@@ -437,14 +465,16 @@ class PostController extends Controller
             abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
             return response()->json($response, 500);
             return \Redirect::back()->with([
-                'message' => 'No haz publicado tu comentario, vuelve a intentar'
+                'message' => 'No haz publicado tu comentario, vuelve a intentar',
+                'alert' => 'danger'
             ]);
         }
 
         DB::commit();
 
         return \Redirect::back()->with([
-            'message' => 'Haz publicado tu comentario correctamente'
+            'message' => 'Haz publicado tu comentario correctamente',
+            'alert' => 'success'
         ]);
     }
 
@@ -562,8 +592,7 @@ class PostController extends Controller
         return view("posts.postOfCategory", [
             "posts" => $posts,
             'categories' => $categories,
-            'categoryPodcastName' => $categoryPostName
+            'categoryPostName' => $categoryPostName
         ]);
     }
 }
-

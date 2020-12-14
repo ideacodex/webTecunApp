@@ -12,9 +12,10 @@ class APIAwardController extends Controller
 {
     public function index()
     {
-        $award = Award::all();
+        $awards = Award::with('user')->get();
+        $pathImage = '/storage/awards/';
 
-        if(empty($award)){
+        if(empty($awards)){
             $data = [
                 'code' => 404,
                 'status' => 'error',
@@ -24,7 +25,8 @@ class APIAwardController extends Controller
             $data = [
                 'code' => 200,
                 'status' => 'success',
-                'award' => $award
+                'award' => $awards,
+                'pathImage' => $pathImage
             ];
         }
 

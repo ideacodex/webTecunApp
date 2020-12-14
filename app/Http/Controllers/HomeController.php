@@ -10,9 +10,9 @@ use App\Post;
 use App\Reaction;
 use App\Question;
 use App\Category;
-
-
-
+use App\Award;
+use App\User;
+use App\Score;
 
 class HomeController extends Controller
 {
@@ -55,7 +55,8 @@ class HomeController extends Controller
 
     public function team()
     {
-        return view('users.team');
+        $awards = Award::with('user')->where('active',1)->get();
+        return view('users.team', ["awards" => $awards]);
     }
 
     public function specialTeam()
@@ -65,14 +66,15 @@ class HomeController extends Controller
 
     public function games()
     {
-        return view('games.home');
-    }
 
-    /*public function question()
-    {
-        $question = Question::all();
-        return view('games.question', ['question' => $question]);
-    }*/
+        $score = Score::with('user')->orderBy('points', 'DESC')->limit(5)->get();
+
+        $i = array(1, 2, 3, 4, 5);
+
+        return view('games.home', [
+            'score' => $score,
+        ]);
+    }
 
     public function podcast()
     {
@@ -87,10 +89,5 @@ class HomeController extends Controller
     public function jobs()
     {
         return view('jobs.home');
-    }
-
-    public function denounce()
-    {
-        return view('denounce.index');
     }
 }

@@ -3,60 +3,95 @@ $namesUser = explode(" ", Auth::user()->name);
 @endphp
 @extends('layouts.user')
 @section('content')
-<div class="container-fluid">
-    <div class="mb-3 justify-content-center row ">
-        <div class="col col-12 col-md-6 mt-1" style="padding-right:2px; padding-left:2px;">
-            <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
-                <ol class="carousel-indicators">
-                    @foreach ($awards->where('type_id', 0) as $item)
-                    <li data-target="#carouselExampleCaptions" data-slide-to="{{$item->type_id}}"
-                        class="@if($item->id == $awards->where('type_id', 0)->first()->id && $item->type_id == 0) active @endif"></li>
-                    @endforeach
-                </ol>
-                <div class="carousel-inner">
-                    @foreach ($awards->where('type_id', 0) as $item)
-                    <div class="carousel-item @if($item->id == $awards->where('type_id', 0)->first()->id && $item->type_id == 0) active @endif">
-                        <img class="mx-auto d-block" src="{{asset('/storage/awards/' . $item->url_image)}}"
-                        alt="imagen de perfil" width="100%" style="max-height: 300px; min-height: 300px" />
-                    </div>
-                    @endforeach
-                </div>
-                <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
+    <div class="container-fluid">
+        <div class="mb-3 justify-content-center row ">
+            <div class="bg-theme-1 col-12 mt-1">
+
+                <ul class="nav nav-pills nav-fill nav-justified">
+                    <li class="nav-item animate__animated animate__pulse">
+                        <a class="nav-link" href="{{ url('news') }}"><span
+                                class="text-light font-weight-bold ">Noticias</span></a>
+                    </li>
+                    <li class="nav-item animate__animated animate__pulse">
+                        <a class="nav-link" href="{{ url('podcasts') }}"><span
+                                class="text-light font-weight-bold">Podcast</span></a>
+                    </li>
+                    <li class="nav-item animate__animated animate__pulse">
+                        <a class="nav-link" href="{{ url('/artes') }}"><span
+                                class="text-light font-weight-bold">Artes</span></a>
+                    </li>
+                </ul>
             </div>
-        </div>
-        <div class="col col-12 col-md-6 mt-1" style="padding-right:2px; padding-left:2px;">
-            <div id="carousel2" class="carousel slide" data-ride="carousel">
-                <ol class="carousel-indicators">
-                    @foreach ($awards->where('type_id', 1) as $item)
-                    <li data-target="#carousel2" data-slide-to="{{$item->type_id}}"
-                        class="@if($item->id == $awards->first()->id) active @endif"></li>
-                    @endforeach
-                </ol>
-                <div class="carousel-inner">
-                    @foreach ($awards->where('type_id', 1) as $item)
-                    <div class="carousel-item @if($item->id == $awards->where('type_id', 1)->first()->id) active @endif">
-                        <img class="mx-auto d-block" src="{{asset('/storage/awards/' . $item->url_image)}}"
-                        alt="imagen de perfil" width="100%" style="max-height: 300px; min-height: 300px" />
+            @if (sizeof($pictures) >= 1)
+                @if ($pictures->count() <= 3)
+                    <div class="card-deck">
+                        @foreach ($pictures as $item)
+                            <div class="card">
+                                <img src="{{ asset('/storage/pictures/' . $item->featured_image) }}" width="100%"
+                                    style="max-height: 200px">
+                                <div class="card-body">
+                                    <h5 class="card-title" style="color:orange">{{ $item->title }}</h5>
+                                    <p class="card-text">
+                                        {{ $item->description }}
+                                    </p>
+                                </div>
+                                <div class="card-footer justify-content-around d-flex">
+                                    <span> {{ $item->created_at->format('d-m-Y') }} </span>
+                                    <span class="text-muted">
+                                    </span>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
-                    @endforeach
+                @else
+                    @php
+                    $countItems=3;
+                    $j=0;
+                    @endphp
+                    @while (sizeof($pictures) - $countItems >= 0)
+                        <div class="card-deck mt-3">
+                            @for ($i = 3; $i > 0; $i--)
+                                <div class="card">
+                                    <img src="{{ asset('/storage/pictures/' . $pictures[$countItems - $i]->featured_image) }}"
+                                        width="100%" style="max-height: 200px">
+                                    <div class="card-body">
+                                        <h5 class="card-title" style="color:orange">{{ $pictures[$countItems - $i]->title }}
+                                        </h5>
+                                        <p class="card-text">
+                                        </p>
+                                    </div>
+                                    <div class="card-footer justify-content-around d-flex">
+                                        <span> {{ $pictures[$countItems - $i]->created_at->format('d-m-Y') }} </span>
+                                        <span class="text-muted">
+                                        </span>
+                                    </div>
+                                </div>
+                            @endfor
+                            @php
+                            $countItems=$countItems+3;
+                            @endphp
+                        </div>
+                    @endwhile
+                @endif
+
+
+            @else
+                <div class="container">
+                    <div class="row justify-content-around mt-5" style="margin-top:15em">
+                        <img src="{{ asset('img/not-found.png') }}" class="img-fluid" style="max-height: 300px;">
+                    </div>
+
+                    <div class="row justify-content-around mt-5">
+                        <p class="h1 text-primary">Vaya</p>
+                    </div>
+                    <div class="row justify-content-around mt-1">
+                        <p class="h5 text-primary">Aun no hay publicaciones</p>
+                    </div>
+                    <div class="row justify-content-center mt-1">
+                        <span class="text-primary"> ...</span>
+                    </div>
                 </div>
-                <a class="carousel-control-prev" href="#carousel2" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#carousel2" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </div>
+            @endif
         </div>
     </div>
-</div>
 @endsection

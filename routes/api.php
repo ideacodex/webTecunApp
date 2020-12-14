@@ -28,19 +28,15 @@ Route::get('award', 'APIAwardController@index');
 Route::get('award/image/{url_image}', 'APIAwardController@getImage');
 Route::get('award/carousel', 'APIAwardController@carousel');
 
-Route::get('store', 'APIStoreController@index');
-Route::get('store/{id}', 'APIStoreController@show');
+Route::get('stores', 'APIStoreController@index');
 
-Route::get('jobs', 'APIJobController@index');
+Route::get('jobs', 'APIJobController@jobs');
 Route::get('job/{id}', 'APIJobController@show');
 Route::post('job/apply/upload/{email}', 'APIJobController@applyUploadDocument');
 Route::post('job/apply/mail/{pdfNameToStore}', 'APIJobController@apply');
 
-Route::get('posts', 'APIPostController@index');
-Route::get('post/{id}', 'APIPostController@show');
-Route::get('post/{featured_image}', 'APIPostController@getImage');
-Route::get('post/{featured_document}', 'APIPostController@getDocument');
-Route::get('post/{featured_video}', 'APIPostController@getVideo');
+Route::get('news/{featured_image}', 'APIPostController@getImage');
+Route::get('news/{featured_document}', 'APIPostController@getDocument');
 Route::get('news', 'APIPostController@news');
 Route::get('news/{id}', 'APIPostController@newsRead');
 Route::post('commentpost', 'APIPostController@commentPost');
@@ -48,5 +44,11 @@ Route::get('commentpost/{id}', 'APIPostController@delete');
 Route::post('likeordislikenews', 'APIPostController@likeOrDislikeNews');
 Route::get('categorypost/{id}', 'APIPostController@categoryPost');
 
-
-
+Route::get('podcast/{featured_image}', 'APIPodcastController@getImage');
+Route::get('podcast/{featured_document}', 'APIPodcastController@getDocument');
+Route::get('podcasts', 'APIPodcastController@podcasts');
+Route::get('podcast/{id}', 'APIPodcastController@podcastRead');
+Route::post('commentpodcast', 'APIPodcastController@commentPodcast');
+Route::get('commentpodcast/{id}', 'APIPodcastController@delete');
+Route::post('likeordislikenews', 'APIPodcastController@likeOrDislikePodcast');
+Route::get('categoryPodcast/{id}', 'APIPodcastController@categoryPodcast');

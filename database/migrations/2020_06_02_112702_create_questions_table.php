@@ -17,14 +17,16 @@ class CreateQuestionsTable extends Migration
             $table->bigIncrements('id');
             $table->string('description', 250);
             $table->string('url_image')->nullable();
-            $table->string('questionTrue', 250)->nullable();
-            $table->string('questionFalse1', 250)->nullable();
-            $table->string('questionFalse2', 250)->nullable();
-            $table->string('questionFalse3', 250)->nullable();
-            $table->bigInteger('answer_id')->nullable();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')
-                ->references('id')->on('users');
+            $table->timestamps();
+        });
+
+        Schema::create('answers', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('reply', 250);
+            $table->boolean('flag')->default(0);
+            $table->unsignedBigInteger('question_id');
+            $table->foreign('question_id')
+                ->references('id')->on('questions');
             $table->timestamps();
         });
 
@@ -37,6 +39,7 @@ class CreateQuestionsTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('answers');
         Schema::dropIfExists('questions');
     }
 }

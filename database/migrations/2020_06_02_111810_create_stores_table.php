@@ -18,6 +18,7 @@ class CreateStoresTable extends Migration
             $table->string('name');
             $table->string('address');
             $table->string('schedule');
+            $table->string('number');
             $table->string('maps')->nullable();
             $table->softDeletes();
             $table->timestamps();

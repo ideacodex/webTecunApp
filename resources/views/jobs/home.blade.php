@@ -4,25 +4,25 @@ $namesUser = explode(" ", Auth::user()->name);
 @extends('layouts.user')
 @section('content')
     <div class="container-fluid mr-6">
-        <div class="mb-3 justify-content-center row ">
-            <div class="col-6 col-md-6 mt-3">
-                <div class="d-flex justify-content-around mt-2">
-                    <h1 class="text-info">{{ 'Encontrar Empleos' }}</h1>
+        <div class="mb-3 justify-content-center col-12 col-md-6  col-lg-6 offset-md-3 offset-lg-3 mb-4">
+            <div class="mt-3">
+                <div class=" mt-2">
+                    <h1 class="text-info text-center">{{ 'Empleos' }}
+                    </h1>
                 </div>
-                <form class="d-flex justify-content-around  my-lg-0">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                            <i class="fas fa-briefcase text-primary"></i>
-                        </span>
+
+                <form class="  my-lg-0">
+                    <div class="input-group mb-3">
+                        <input name="search" type="search" class="form-control" placeholder="Dirección o Nombre de agencia"
+                            aria-label="Titulo o descipción" aria-describedby="button-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Buscar</button>
+                        </div>
                     </div>
-                    <input name="search" class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search" >
-                    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">
-                        Buscar
-                    </button>
-                </form> 
+                </form>
             </div>
         </div>
-        <div class="mt-3 col-12 col-md-6 offset-md-3 ml-0 mr-0">
+        <div class="mt-3 col-12 col-md-6 offset-md-3">
             <ul class="list-unstyled">
                 @foreach ($jobs as $items)
                     <li class="media">

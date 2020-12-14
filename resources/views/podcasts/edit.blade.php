@@ -133,9 +133,10 @@
                                 <i class="text-primary fab fa-youtube"></i>
                             </span>
                         </div>
-                        <input id="video" placeholder="URL de YouTube" type="text" size="250"
+                        <input id="video" placeholder="Codigo Youtube" type="text" size="250" 
+                            title="Ejemplo: VYOjWnS4cMY"
                             maxlength="250" class="text-primary form-control @error('video') is-invalid @enderror"
-                            name="video" value="{{ $podcast->featured_video }}" autocomplete="video"
+                            name="video" value="{{ $codeYoutube }}" autocomplete="video"
                             autofocus>
 
                         @error('video')
@@ -150,6 +151,30 @@
                         </span>
                         @enderror
                     </div>
+
+                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                <i class="text-primary fab fa-spotify"></i>
+                            </span>
+                        </div>
+                        <input id="spotify" placeholder="Codigo Spotify" type="text" size="250" title="Ejemplo: VYOjWnS4cMY"
+                            title="Ejemplo: 2KEjuwECqFvmneRncRwrO6" maxlength="250" class="text-primary form-control @error('spotify') is-invalid @enderror"
+                            name="spotify" value="{{ $codeSpotify }}" autocomplete="spotify"
+                            autofocus>
+
+                        @error('spotify')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+
+                        @error('spotify')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>  
                     <div class="col-12 input-group input-group-lg mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text transparent" id="inputGroup-sizing-sm">
@@ -160,7 +185,7 @@
                             <input title="Selecionar" type="file" accept="file_extension/*" name="pdf" id="inputGroupFile04"
                                 aria-describedby="inputGroupFileAddon04"
                                 class="custom-file-input form-control{{ $errors->has('pdf') ? ' is-invalid' : '' }}"
-                                value="{{ old('pdf') }}">
+                                value="{{ $podcast->featured_document }}">
                             @if ($errors->has('pdf'))
                                 <span class="invalid-feedback" role="alert">
                                     <strong><i class="fas fa-exclamation-triangle"></i>{{ $errors->first('pdf') }}</strong>
@@ -180,7 +205,7 @@
                             <input title="Selecionar" type="file" accept="image/*" name="image" id="inputGroupFile04"
                                 aria-describedby="inputGroupFileAddon04"
                                 class="custom-file-input form-control{{ $errors->has('image') ? ' is-invalid' : '' }}"
-                                value="{{ old('image') }}" required>
+                                value="{{ $podcast->featured_image }}" >
                             @if ($errors->has('image'))
                                 <span class="invalid-feedback" role="alert">
                                     <strong><i
@@ -201,7 +226,7 @@
                             <input title="Selecionar" type="file" accept="audio/*" name="audio" id="inputGroupFile04"
                                 aria-describedby="inputGroupFileAddon04"
                                 class="custom-file-input form-control{{ $errors->has('audio') ? ' is-invalid' : '' }}"
-                                value="{{ old('audio') }}">
+                                value="{{ $podcast->featured_audio }}">
                             @if ($errors->has('audio'))
                                 <span class="invalid-feedback" role="alert">
                                     <strong><i class="fas fa-exclamation-triangle"></i>{{ $errors->first('audio') }}</strong>
@@ -252,7 +277,7 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <script>
         $('#summernote').summernote({
-            placeholder: 'Hello stand alone ui',
+            placeholder: 'Agrega aquí el contenido',
             tabsize: 2,
             height: 120,
             toolbar: [
@@ -260,9 +285,7 @@
                 ['font', ['bold', 'underline', 'clear']],
                 ['color', ['color']],
                 ['para', ['ul', 'ol', 'paragraph']],
-                ['table', ['table']],
-                ['insert', ['link', 'picture', 'video']],
-                ['view', ['fullscreen', 'codeview', 'help']]
+                ['insert', ['link', 'picture']],
             ]
         });
 

@@ -42,16 +42,18 @@
                     <th scope="col">imagen</th>
                     <th scope="col">Descipcion</th>
                     <th scope="col">R// Correcta</th>
-                    <th scope="col">Opciones</th>
+                    <th scope="col">Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($question as $item)
                 <tr>
                     <th scope="row">{{$item->id}}</th>
-                    <td><img src="{{asset('/storage/questions/' . $item->url_image)}}" height="30px"></td>
+                    <td><img src="{{asset('/storage/questions/'. $item->url_image)}}" height="30px"></td>
                     <td>{{$item->description}}</td>
-                    <td>{{$item->questionTrue}}</td>
+                    @if(isset($item->answer->where('flag', 1)->first()->reply))
+                        <td>{{ $item->answer->where('flag', 1)->first()->reply }}</td>
+                    @endif
                     <td>
                         <div class="btn-group" role="group" aria-label="Basic example">
                             <a class="btn btn-sm btn-secondary" href="{{url('question/')}}"
@@ -67,7 +69,7 @@
                                                      document.getElementById('formDel{{$item->id}}').submit();">
                                 <span class="text-light"><i class="fas fa-trash"></i></span>
                             </a>
-                            <form id="formDel{{$item->id}}" action="{{ url('awardsAdmin/'. $item->id) }}" method="POST"
+                            <form id="formDel{{$item->id}}" action="{{ url('gamesAdmin/'. $item->id) }}" method="POST"
                                 style="display: none;">
                                 @csrf
                                 @method('DELETE')
