@@ -26,7 +26,7 @@ class PostController extends Controller
     {
         //
         
-        $posts = Post::all();
+        $posts = Post::orderBy('created_at', 'desc')->get();
         return view("posts.index", ["posts" => $posts]);
     }
 
@@ -406,7 +406,9 @@ class PostController extends Controller
             auth()->user()->syncRoles('User');
         }
         //Mostramos todos los POSTS creados y junto a ello los likes de cada uno
-        $posts = Post::with('likes')->get();//El estado es activo
+        $posts = Post::with('likes')
+        ->orderBy('created_at', 'desc')
+        ->get();//El estado es activo
         
         //De la tabla pivote, sacamos solo los category_id
         $category_id = DB::table('category_post')->get('category_id');
@@ -594,4 +596,3 @@ class PostController extends Controller
         ]);
     }
 }
-

@@ -10,28 +10,12 @@
     </div>
     @endif
     <div class="d-flex bd-highlight mb-3">
-        <div class="p-2 bd-highlight d-none">Usuarios</div>
+        <div class="p-2 bd-highlight ">Empleos</div>
         <div class="p-2 bd-highlight">
             <a href=" {{url('jobsAdmin/create')}}" class="btn btn-success btn-sm" style="border-radius: 95px">
                 <i class="fas fa-plus-circle"></i>
                 Agregar
             </a>
-        </div>
-        <div class="ml-auto p-2 bd-highlight">
-            <div class="btn-group ml-3" role="group" aria-label="Basic example">
-                <a href="#" class="d-none btn bg-theme-1 text-light btn-sm"
-                    onClick="$('#tableID').tableExport({type:'json',escape:'false'});">
-                    <span class=""><i class="fas fa-ellipsis-v"></i></span> JSON</a>
-                <a href="#" class="btn bg-theme-1 text-light btn-sm"
-                    onClick="$('#tableID').tableExport({type:'excel',escape:'false'});">
-                    <span class=""><i class="fas fa-file-excel"></i></span> XLS</a>
-                <a href="#" class="btn bg-theme-1 text-light btn-sm"
-                    onClick="$('#tableID').tableExport({type:'csv',escape:'false'});">
-                    <span class=""><i class="fas fa-file-csv"></i></span> CSV</a>
-                <a href="#" class="btn bg-theme-1 text-light btn-sm"
-                    onClick="$('#tableID').tableExport({type:'pdf',escape:'false', htmlContent:'true'});"> <span
-                        class=""><i class="fas fa-file-pdf"></i></span> PDF</a>
-            </div>
         </div>
     </div>
     <div class="table-responsive">

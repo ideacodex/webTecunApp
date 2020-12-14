@@ -19,7 +19,7 @@
                             <img src="{{ asset('/storage/posts/' . $post->featured_image) }}" style="max-height: 300px">
                             <br>
                             @if (isset($post->featured_video))
-                                <iframe width="882" height="496" src="{{ $podcast->featured_video }}" frameborder="0"
+                                <iframe width="882" height="496" src="{{ $post->featured_video }}" frameborder="0"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                     allowfullscreen>
                                 </iframe>
@@ -38,12 +38,6 @@
                                 @php echo($post->content) @endphp
                             </div>
                             <br>
-
-                            @if (isset($post->featured_video))
-                                <video width="100%" style="max-height: 300px" autoplay controls loop>
-                                    <source src="{{ asset('/storage/posts/' . $post->featured_video) }}" type="video/mp4">
-                                </video>
-                            @endif
 
                             @if (isset($post->featured_document))
                                 <p><a href="{{ asset('/storage/posts/' . $post->featured_document) }}" download>

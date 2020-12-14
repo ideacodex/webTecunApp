@@ -267,7 +267,7 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <script>
         $('#summernote').summernote({
-            placeholder: 'Hello stand alone ui',
+            placeholder: 'Agrega aquí el contenido',
             tabsize: 2,
             height: 120,
             toolbar: [
@@ -275,9 +275,7 @@
                 ['font', ['bold', 'underline', 'clear']],
                 ['color', ['color']],
                 ['para', ['ul', 'ol', 'paragraph']],
-                ['table', ['table']],
-                ['insert', ['link', 'picture', 'video']],
-                ['view', ['fullscreen', 'codeview', 'help']]
+                ['insert', ['link', 'picture']],
             ]
         });
 
