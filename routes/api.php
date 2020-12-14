@@ -35,8 +35,6 @@ Route::get('job/{id}', 'APIJobController@show');''
 Route::post('job/apply/upload/{email}', 'APIJobController@applyUploadDocument');
 Route::post('job/apply/mail/{pdfNameToStore}', 'APIJobController@apply');
 
-Route::get('news/{featured_image}', 'APIPostController@getImage');
-Route::get('news/{featured_document}', 'APIPostController@getDocument');
 Route::get('news', 'APIPostController@news');
 Route::get('news/{id}', 'APIPostController@newsRead');
 Route::post('commentpost', 'APIPostController@commentPost');
