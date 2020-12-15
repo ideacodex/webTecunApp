@@ -30,15 +30,13 @@ Route::get('award/carousel', 'APIAwardController@carousel');
 
 Route::get('stores', 'APIStoreController@index');
 
-Route::get('jobs', 'APIJobController@jobs');
-Route::get('job/{id}', 'APIJobController@show');
+Route::post('jobs', 'APIJobController@jobs');
+Route::post('job/{id}', 'APIJobController@show');
 Route::post('job/apply/upload/{email}', 'APIJobController@applyUploadDocument');
 Route::post('job/apply/mail/{pdfNameToStore}', 'APIJobController@apply');
 
-Route::get('news/{featured_image}', 'APIPostController@getImage');
-Route::get('news/{featured_document}', 'APIPostController@getDocument');
 Route::get('news', 'APIPostController@news');
-Route::get('news/{id}', 'APIPostController@newsRead');
+Route::get('post/{id}', 'APIPostController@newsRead');
 Route::post('commentpost', 'APIPostController@commentPost');
 Route::get('commentpost/{id}', 'APIPostController@delete');
 Route::post('likeordislikenews', 'APIPostController@likeOrDislikeNews');
