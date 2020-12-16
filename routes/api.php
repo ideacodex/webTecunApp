@@ -42,8 +42,6 @@ Route::get('commentpost/{id}', 'APIPostController@delete');
 Route::post('likeordislikenews', 'APIPostController@likeOrDislikeNews');
 Route::get('categorypost/{id}', 'APIPostController@categoryPost');
 
-Route::get('podcast/{featured_image}', 'APIPodcastController@getImage');
-Route::get('podcast/{featured_document}', 'APIPodcastController@getDocument');
 Route::get('podcasts', 'APIPodcastController@podcasts');
 Route::get('podcast/{id}', 'APIPodcastController@podcastRead');
 Route::post('commentpodcast', 'APIPodcastController@commentPodcast');

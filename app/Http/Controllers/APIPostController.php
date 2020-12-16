@@ -292,7 +292,11 @@ class APIPostController extends Controller
         $postDecode = json_decode($postID, true);
 
         //Al obtener el valor decodificado lo mandamos a llamar con un find para sacar el/los objecto completo
-        $posts = Post::with('likes')->whereIn('id', $postDecode)->get();
+        $postsArray = Post::with('likes')->whereIn('id', $postDecode)->get();
+
+        $comments= CommentPost::where('post_id', $postDecode)->with('user')->get();
+
+        $posts = json_decode($postsArray);
 
         /******************************************************************************************************** */
 
@@ -311,6 +315,7 @@ class APIPostController extends Controller
                 'status' => 'success',
                 'posts' => $posts,
                 'categories' => $categories,
+                'comments' => $comments,
                 'categoryPodcastName' => $categoryPostName
             ];
         }else{
