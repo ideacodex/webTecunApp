@@ -19,20 +19,22 @@ class LdapController extends Controller
     public function test(Request $request)
     {
         
-        $ldap_dn = "TECUNND\\readadgt";
+        $ldap_dn = "CN=readadgt,OU=ElSalvador,OU=Guatemala,OU=Honduras,OU=Panama,OU=MS365,CN=Users,DC=tc,DC=tecun,DC=net,DC=gt";
         $ldap_password = "D3sar0ll07ecun";
         //"D3sar0ll07ecun";
         
         $ldap_con = ldap_connect("181.174.78.23");
+        //$ldapTree = "CN=Users,OU=ElSalvador,OU=Guatemala,OU=Honduras,OU=Panama,OU=MS365,DC=tc,DC=tecun,DC=net,DC=gt";
         $ldapTree = "CN=Users,DC=tc,DC=tecun,DC=net,DC=gt";
-        $filter = "(cn=readadgt)";
+        $filter = "(cn=*)";
         
         ldap_set_option($ldap_con, LDAP_OPT_PROTOCOL_VERSION, 3);
         
         if(@ldap_bind($ldap_con, $ldap_dn, $ldap_password)) {
             $result = ldap_search($ldap_con,$ldapTree,$filter) or exit("Unable to search");
             $records = ldap_get_entries($ldap_con, $result);
-            dd ($records[0], $records[0]["displayname"][0], $records[0]["userprincipalname"]);
+            //dd ($records[0], $records[0]["displayname"][0], $records[0]["userprincipalname"]);
+            dd($records);
         } else {
             dd("Error al conectar");
             return redirect('ingresar');
