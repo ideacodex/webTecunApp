@@ -69,7 +69,6 @@ class LoginController extends Controller
         return $this->username;
     }
 
-
     //el ldap ahora se valida en un controlador
     /*protected function credentials(Request $request) {
         $aproved=0;

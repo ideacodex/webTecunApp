@@ -14,5 +14,10 @@ class CommentPost extends Model
         return $this->hasOne("App\User", 'id', 'user_id');
     }
 
+    public function post()
+    {
+        return $this->belongsTo("App\Post", 'post_id');
+    }
+
 }
 
