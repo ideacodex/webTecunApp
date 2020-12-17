@@ -1,5 +1,13 @@
 @extends('layouts.single')
 @section('content')
+@if (session('message'))
+    <div class="sufee-alert alert with-close alert-{{ session('alert') }} alert-dismissible fade show">
+        <span class="badge badge-pill badge-{{ session('alert') }}">{{ session('message') }}</span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    @endif
 <div class="container ">
     <div class="row justify-content-around" style="margin-top: 2em;">
         <img src="{{asset('img/user.png')}}" class="img-fluid" style="max-height: 150px;">
