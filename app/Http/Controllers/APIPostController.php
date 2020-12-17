@@ -91,7 +91,7 @@ class APIPostController extends Controller
     public function newsRead($id)
     {
         //
-        $post = Post::with('user')->findOrFail($id);
+        $post = Post::with('comments.user')->findOrFail($id);
         $comments= CommentPost::where('post_id', $post->id)->with('user')->get();
 
         //Traemos el array con toda la informacion combianda de la BD  
@@ -158,6 +158,12 @@ class APIPostController extends Controller
                 }
 
                 DB::commit();
+
+                $data = [
+                    'code' => '200',
+                    'status' => 'success',
+                    'comment' => $comment
+                ];
             }
         }else{
             $data = [
@@ -284,6 +290,7 @@ class APIPostController extends Controller
 
         //Sacamos solo el nombre de la categoria para mostrarla en un alert
         $categoryPostName = $categoryPost->name;
+        $idCategory = $id;
 
         //En la tabla pivote, obtenemos el/los ID de los post que hace referencia a la categoria
         $postID = DB::table('category_post')->where('category_id', $id)->get('post_id');
@@ -293,11 +300,7 @@ class APIPostController extends Controller
         $postObject = json_decode($postID, true);
 
         //Al obtener el valor decodificado lo mandamos a llamar con un find para sacar el/los objecto completo
-        $postsArray = Post::with('likes')->whereIn('id', $postDecode)->get();
-
-        $commentsArray= CommentPost::whereIn('post_id', $postDecode)->with('user')->with('comments')->get();
-
-        $comments = json_decode($commentsArray);
+        $postsArray = Post::with('likes')->with('comments.user')->whereIn('id', $postDecode)->get();
         $posts = json_decode($postsArray);
 
         /******************************************************************************************************** */
@@ -317,8 +320,8 @@ class APIPostController extends Controller
                 'status' => 'success',
                 'posts' => $posts,
                 'categories' => $categories,
-                'comments' => $comments,
-                'categoryPodcastName' => $categoryPostName
+                'categoryPodcastName' => $categoryPostName,
+                'idCategory' => $idCategory
             ];
         }else{
             $data = [

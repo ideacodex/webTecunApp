@@ -71,7 +71,7 @@ class LoginController extends Controller
 
 
     //validar ldap
-    protected function credentials(Request $request) {
+   /* protected function credentials(Request $request) {
         $aproved=0;
         $email = $request->input('email');
         $password = $request->input('password');
@@ -114,5 +114,5 @@ class LoginController extends Controller
         }
         //termina ldap
         return ['email' => $email.'@tecun.com', 'password' => $password, 'ldap' => 1];
-    }
+    }*/
 }
