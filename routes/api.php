@@ -38,7 +38,7 @@ Route::post('job/apply/mail/{pdfNameToStore}', 'APIJobController@apply');
 Route::get('news', 'APIPostController@news');
 Route::get('post/{id}', 'APIPostController@newsRead');
 Route::post('commentpost', 'APIPostController@commentPost')->middleware('auth:api');
-Route::get('commentpost/{id}', 'APIPostController@delete');
+Route::post('commentpost/{id}', 'APIPostController@delete')->middleware('auth:api');
 Route::post('likeordislikenews', 'APIPostController@likeOrDislikeNews');
 Route::get('categorypost/{id}', 'APIPostController@categoryPost');
 

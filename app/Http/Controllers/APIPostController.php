@@ -176,13 +176,18 @@ class APIPostController extends Controller
         return response()->json($data, $data['code']);
     }
 
-    public function delete($id)
+    public function delete(Request $request)
     {
+        //Recoger los datos por post
+        $json = $request->input('json', null);
+        $params = json_decode($json);
+        $params_array = json_decode($json, true);
+
         //Conseguimos el ID del usuario
         $user = auth()->user()->id;
 
         //Conseguimos el objeto del comentario
-        $comment = CommentPost::find($id);
+        $comment = CommentPost::find($params->id);
 
         //Comprobar si ID del usuario es el mismo que el user_id de Comments_post
         if(isset($user) && ($comment->user_id == $user)){
