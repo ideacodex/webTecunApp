@@ -59,7 +59,7 @@ class APIPodcastController extends Controller
     public function podcasts()
     {
         //Mostramos todos los POSTS creados y junto a ello los likes de cada uno
-        $podcasts = Podcast::with('likes')->get();//El estado es activo
+        $podcasts = Podcast::with('likes')->with('comments.user')->get();//El estado es activo
         
         //De la tabla pivote, sacamos solo los category_id
         $category_id = DB::table('category_podcast')->get('category_id');
@@ -91,7 +91,7 @@ class APIPodcastController extends Controller
     public function podcastRead($id)
     {
         //
-        $podcast = Podcast::with('user')->findOrFail($id);
+        $podcast = Podcast::with('comments.user')->findOrFail($id);
         $comments= CommentPodcast::where('podcast_id', $podcast->id)->with('user')->get();
 
         //Traemos el array con toda la informacion combianda de la BD  
@@ -103,7 +103,7 @@ class APIPodcastController extends Controller
                 'status' => 'success',
                 'podcast' => $podcast,
                 'comments' => $comments,
-                'categoryName' => $categoryName
+                //'categoryName' => $categoryName
             ];
         }else{
             $data = [
@@ -123,7 +123,7 @@ class APIPodcastController extends Controller
         $params = json_decode($json);
         $params_array = json_decode($json, true);
 
-        if(!empty($params_array) || !empty($params)){
+        if(!empty($params_array)){
             //Conseguir el ID del usuario identificado
             $userId = auth()->user()->id;
 
@@ -158,6 +158,12 @@ class APIPodcastController extends Controller
                 }
 
                 DB::commit();
+
+                $data = [
+                    'code' => '200',
+                    'status' => 'success',
+                    'comment' => $comment
+                ];
             }
         }else{
             $data = [
@@ -170,13 +176,18 @@ class APIPodcastController extends Controller
         return response()->json($data, $data['code']);
     }
 
-    public function delete($id)
+    public function delete(Request $request)
     {
+        //Recoger los datos por post
+        $json = $request->input('json', null);
+        $params = json_decode($json);
+        $params_array = json_decode($json, true);
+
         //Conseguimos el ID del usuario
         $user = auth()->user()->id;
 
         //Conseguimos el objeto del comentario
-        $comment = CommentPodcast::find($id);
+        $comment = CommentPodcast::find($params->id);
 
         //Comprobar si ID del usuario es el mismo que el user_id de Comments_post
         if(isset($user) && ($comment->user_id == $user)){
@@ -205,7 +216,7 @@ class APIPodcastController extends Controller
         $params = json_decode($json);
         $params_array = json_decode($json, true);
 
-        if(!empty($params_array) || !empty($params)){
+        if(!empty($params_array)){
             //Recogemos los datos del usuario
             $user = auth()->user()->id;
 
@@ -286,15 +297,18 @@ class APIPodcastController extends Controller
 
         //Sacamos solo el nombre de la categoria para mostrarla en un alert
         $categoryPostName = $categoryPodcast->name;
+        $idCategory = $id;
 
         //En la tabla pivote, obtenemos el/los ID de los post que hace referencia a la categoria
-        $postID = DB::table('category_podcast')->where('category_id', $id)->get('podcast_id');
+        $podcastID = DB::table('category_podcast')->where('category_id', $id)->get('podcast_id');
 
         //Decodificamos los datos anteriores para tener una mejor manipulacion y obtener el/los ID del podcast
-        $podcastDecode = json_decode($postID, true);
+        $podcastDecode = json_decode($podcastID, true);
+        $podcastObject = json_decode($podcastID, true);
 
         //Al obtener el valor decodificado lo mandamos a llamar con un find para sacar el/los objecto completo
-        $podcast = Podcast::with('likes')->where(id, $podcastDecode)->get();
+        $podcastArray = Podcast::with('likes')->with('comments.user')->where('id', $podcastDecode)->get();
+        $podcast = json_decode($podcastArray);
 
         /******************************************************************************************************** */
 
@@ -313,7 +327,7 @@ class APIPodcastController extends Controller
                 'status' => 'success',
                 'podcast' => $podcast,
                 'categories' => $categories,
-                'categoryPodcastName' => $categoryPostName
+                //'categoryPodcastName' => $categoryPostName
             ];
         }else{
             $data = [

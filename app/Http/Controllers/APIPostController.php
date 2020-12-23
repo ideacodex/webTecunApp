@@ -225,7 +225,9 @@ class APIPostController extends Controller
             $postID = $params->postID;
 
             //Verificar que existe el like del usuario
-            $issetReactionUser = DB::table('reactionposts')->where('user_id', $user)->where('post_id', $postID)->count();
+            $issetReactionUser = DB::table('reactionposts')->where('user_id', $user)
+                                ->where('post_id', $postID)
+                                ->count();
 
             DB::beginTransaction();
 
