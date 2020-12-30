@@ -48,3 +48,7 @@ Route::post('commentpodcast', 'APIPodcastController@commentPodcast')->middleware
 Route::post('commentpodcast/{id}', 'APIPodcastController@delete')->middleware('auth:api');
 Route::post('likeordislikepodcast', 'APIPodcastController@likeOrDislikePodcast')->middleware('auth:api');
 Route::get('categoryPodcast/{id}', 'APIPodcastController@categoryPodcast')->middleware('auth:api');
+
+Route::get('question', 'APIGamesController@question')->middleware('auth:api');
+Route::get('score', 'APIGamesController@score')->middleware('auth:api');
+Route::post('scoreuser', 'APIGamesController@scoreUser')->middleware('auth:api');

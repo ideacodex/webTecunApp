@@ -239,12 +239,16 @@ class APIPodcastController extends Controller
                         'active' => 1
                     ]);
 
+                    //Prueba del api, a ver que pasa
+                    $object = DB::table('reactionpodcast')->where('user_id', $user)->where('podcast_id', $podcastID)->get();
+
                     DB::commit();
 
                     $data = [
                         'code' => 200,
                         'status' => 'success',
-                        'message' => 'Haz publicado tu reaccion correctamente'
+                        'message' => 'Haz publicado tu reaccion correctamente',
+                        'object' => $object
                     ];
         
                 }else{
@@ -252,23 +256,31 @@ class APIPodcastController extends Controller
                         DB::table('reactionpodcast')->where('user_id', $user)
                             ->where('podcast_id', $podcastID)->update(['active' => 1]);
 
+                        //Prueba del api, a ver que pasa
+                        $object = DB::table('reactionpodcast')->where('user_id', $user)->where('podcast_id', $podcastID)->get();
+
                         DB::commit();
 
                         $data = [
                             'code' => 200,
                             'status' => 'success',
-                            'message' => 'Haz publicado tu reaccion correctamente'
+                            'message' => 'Haz publicado tu reaccion correctamente',
+                            'object' => $object
                         ];
                     }else{
                         DB::table('reactionpodcast')->where('user_id', $user)
                             ->where('podcast_id', $podcastID)->update(['active' => 0]);
+
+                        //Prueba del api, a ver que pasa
+                        $object = DB::table('reactionpodcast')->where('user_id', $user)->where('podcast_id', $podcastID)->get();
 
                         DB::commit();
                         
                         $data = [
                             'code' => 200,
                             'status' => 'success',
-                            'message' => 'Haz quitado tu reaccion correctamente'
+                            'message' => 'Haz quitado tu reaccion correctamente',
+                            'object' => $object
                         ];
                     }
                 }
