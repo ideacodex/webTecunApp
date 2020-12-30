@@ -28,7 +28,7 @@ Route::get('award', 'APIAwardController@index');
 Route::get('award/image/{url_image}', 'APIAwardController@getImage');
 Route::get('award/carousel', 'APIAwardController@carousel');
 
-Route::get('stores', 'APIStoreController@index');
+Route::post('stores', 'APIStoreController@index');
 
 Route::post('jobs', 'APIJobController@jobs');
 Route::post('job/{id}', 'APIJobController@show');
@@ -48,3 +48,5 @@ Route::post('commentpodcast', 'APIPodcastController@commentPodcast');
 Route::get('commentpodcast/{id}', 'APIPodcastController@delete');
 Route::post('likeordislikenews', 'APIPodcastController@likeOrDislikePodcast');
 Route::get('categoryPodcast/{id}', 'APIPodcastController@categoryPodcast');
+
+Route::resource('contacts', 'ApiContactController')->middleware('auth:api');
