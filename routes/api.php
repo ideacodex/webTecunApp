@@ -28,7 +28,7 @@ Route::get('award', 'APIAwardController@index');
 Route::get('award/image/{url_image}', 'APIAwardController@getImage');
 Route::get('award/carousel', 'APIAwardController@carousel');
 
-Route::get('stores', 'APIStoreController@index');
+Route::post('stores', 'APIStoreController@index')->middleware('auth:api');
 
 Route::post('jobs', 'APIJobController@jobs');
 Route::post('job/{id}', 'APIJobController@show');
@@ -52,3 +52,5 @@ Route::get('categoryPodcast/{id}', 'APIPodcastController@categoryPodcast')->midd
 Route::get('question', 'APIGamesController@question')->middleware('auth:api');
 Route::get('score', 'APIGamesController@score')->middleware('auth:api');
 Route::post('scoreuser', 'APIGamesController@scoreUser')->middleware('auth:api');
+
+Route::resource('contacts', 'ApiContactController')->middleware('auth:api');
