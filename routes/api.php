@@ -54,3 +54,4 @@ Route::get('score', 'APIGamesController@score')->middleware('auth:api');
 Route::post('scoreuser', 'APIGamesController@scoreUser')->middleware('auth:api');
 
 Route::resource('contacts', 'ApiContactController')->middleware('auth:api');
+Route::resource('pictures', 'ApiPictureController');

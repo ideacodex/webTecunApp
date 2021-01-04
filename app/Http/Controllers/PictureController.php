@@ -20,14 +20,14 @@ class PictureController extends Controller
     public function index()
     {
         //
-        $pictures = Picture::all();
+        $pictures = Picture::orderBy('created_at', 'desc')->get();
         return view("pictures.index", ["pictures" => $pictures]);
     }
 
     public function home()
     {
         //
-        $pictures = Picture::all();
+        $pictures = Picture::orderBy('created_at', 'desc')->get();
         return view("pictures.home", ["pictures" => $pictures]);
     }
 

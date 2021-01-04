@@ -72,96 +72,18 @@
                 </div>
             @endif
             @if (sizeof($posts) >= 1)
-                @if ($posts->count() <= 3)
-                    <div class="card-deck">
+                <div class="container-fluid">
+                    <div class="row mt-2">
                         @foreach ($posts as $item)
-                            <div class="card">
-                                <img src="{{ asset('/storage/posts/' . $item->featured_image) }}" width="100%"
-                                    style="max-height: 400px">
-                                <div class="card-body">
-                                    <h5 class="card-title" style="color:orange">{{ $item->title }}</h5>
-                                    <p class="card-text">
-                                        {{ $item->description }}
-                                        <a href="{{ url('newsRead/' . $item->id) }}" class="">
-                                            <span class="text-primary">
-                                                Leer más
-                                                <i class="fas fa-book-reader"></i>
-                                            </span>
-                                        </a>
-                                    </p>
-                                </div>
-                                <div class="card-footer justify-content-around d-flex">
-                                    <input type="hidden" name="active"
-                                        value="{{ $reactionActive = $item->likes->where('user_id', auth()->user()->id)->first() }} ">
-                                    @if ($item->userLikesNew->count() == 0)
-                                        <form method="POST" action="{{ url('likeordislike') }}"
-                                            onsubmit="return checkSubmit();">
-                                            @csrf
-                                            <input type="hidden" name="postID" value="{{ $item->id }}">
-                                            <input type="hidden" name="reactionActive" id="reactionActive" value="0">
-                                            <button type="submit" class="btn btn-lg">
-                                                <h4><i
-                                                        class="far fa-thumbs-up"></i>({{ $item->likes->where('active', 1)->count() }})
-                                                </h4>
-                                            </button>
-                                        </form>
-                                    @else
-                                        @if ($reactionActive->active == 1)
-                                            <form method="POST" action="{{ url('likeordislike') }}"
-                                                onsubmit="return checkSubmit();">
-                                                @csrf
-                                                <input type="hidden" name="postID" value="{{ $item->id }}">
-                                                <input type="hidden" name="reactionActive" id="reactionActive" value="1">
-                                                <button type="submit" class="btn btn-lg btn-primary ">
-                                                    <h4>
-                                                        <i
-                                                            class="far fa-thumbs-up"></i>({{ $item->likes->where('active', 1)->count() }})
-                                                    </h4>
-                                                </button>
-                                            </form>
-                                        @else
-                                            <form method="POST" action="{{ url('likeordislike') }}"
-                                                onsubmit="return checkSubmit();">
-                                                @csrf
-                                                <input type="hidden" name="postID" id="postID" value="{{ $item->id }}">
-                                                <input type="hidden" name="reactionActive" id="reactionActive" value="0">
-                                                <button type="submit" class="btn btn-lg">
-                                                    <h4>
-                                                        <i
-                                                            class="far fa-thumbs-up"></i>({{ $item->likes->where('active', 1)->count() }})
-                                                    </h4>
-                                                </button>
-                                            </form>
-                                        @endif
-                                    @endif
-                                    <span> {{ $item->created_at->format('d-m-Y') }} </span>
-                                    <span class="text-muted">
-                                    </span>
-                                    <span class="text-primary">
-                                        <i class="fas fa-comment"></i>
-                                        <a href="{{ url('newsRead/' . $item->id) }}">Comentarios</a>
-                                    </span>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                @else
-                    @php
-                    $countItems=3;
-                    $j=0;
-                    @endphp
-                    @while (sizeof($posts) - $countItems >= 0)
-                        <div class="card-deck mt-3">
-                            @for ($i = 3; $i > 0; $i--)
+                            <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 mt-2">
                                 <div class="card">
-                                    <img src="{{ asset('/storage/posts/' . $posts[$countItems - $i]->featured_image) }}"
-                                        width="100%" style="max-height: 400px">
+                                    <img src="{{ asset('/storage/posts/' . $item->featured_image) }}" width="100%"
+                                        style="max-height: 400px">
                                     <div class="card-body">
-                                        <h5 class="card-title" style="color:orange">{{ $posts[$countItems - $i]->title }}
-                                        </h5>
+                                        <h5 class="card-title" style="color:orange">{{ $item->title }}</h5>
                                         <p class="card-text">
-                                            {{ $posts[$countItems - $i]->description }}
-                                            <a href="{{ url('newsRead/' . $posts[$countItems - $i]->id) }}" class="">
+                                            {{ $item->description }}
+                                            <a href="{{ url('newsRead/' . $item->id) }}" class="">
                                                 <span class="text-primary">
                                                     Leer más
                                                     <i class="fas fa-book-reader"></i>
@@ -171,17 +93,16 @@
                                     </div>
                                     <div class="card-footer justify-content-around d-flex">
                                         <input type="hidden" name="active"
-                                            value="{{ $reactionActive = $posts[$countItems - $i]->likes->where('user_id', auth()->user()->id)->first() }} ">
-                                        @if ($posts[$countItems - $i]->userLikesNew->count() == 0)
+                                            value="{{ $reactionActive = $item->likes->where('user_id', auth()->user()->id)->first() }} ">
+                                        @if ($item->userLikesNew->count() == 0)
                                             <form method="POST" action="{{ url('likeordislike') }}"
                                                 onsubmit="return checkSubmit();">
                                                 @csrf
-                                                <input type="hidden" name="postID"
-                                                    value="{{ $posts[$countItems - $i]->id }}">
+                                                <input type="hidden" name="postID" value="{{ $item->id }}">
                                                 <input type="hidden" name="reactionActive" id="reactionActive" value="0">
                                                 <button type="submit" class="btn btn-lg">
                                                     <h4><i
-                                                            class="far fa-thumbs-up"></i>({{ $posts[$countItems - $i]->likes->where('active', 1)->count() }})
+                                                            class="far fa-thumbs-up"></i>({{ $item->likes->where('active', 1)->count() }})
                                                     </h4>
                                                 </button>
                                             </form>
@@ -190,14 +111,13 @@
                                                 <form method="POST" action="{{ url('likeordislike') }}"
                                                     onsubmit="return checkSubmit();">
                                                     @csrf
-                                                    <input type="hidden" name="postID"
-                                                        value="{{ $posts[$countItems - $i]->id }}">
+                                                    <input type="hidden" name="postID" value="{{ $item->id }}">
                                                     <input type="hidden" name="reactionActive" id="reactionActive"
                                                         value="1">
                                                     <button type="submit" class="btn btn-lg btn-primary ">
                                                         <h4>
                                                             <i
-                                                                class="far fa-thumbs-up"></i>({{ $posts[$countItems - $i]->likes->where('active', 1)->count() }})
+                                                                class="far fa-thumbs-up"></i>({{ $item->likes->where('active', 1)->count() }})
                                                         </h4>
                                                     </button>
                                                 </form>
@@ -205,35 +125,31 @@
                                                 <form method="POST" action="{{ url('likeordislike') }}"
                                                     onsubmit="return checkSubmit();">
                                                     @csrf
-                                                    <input type="hidden" name="postID" id="postID"
-                                                        value="{{ $posts[$countItems - $i]->id }}">
+                                                    <input type="hidden" name="postID" id="postID" value="{{ $item->id }}">
                                                     <input type="hidden" name="reactionActive" id="reactionActive"
                                                         value="0">
                                                     <button type="submit" class="btn btn-lg">
                                                         <h4>
                                                             <i
-                                                                class="far fa-thumbs-up"></i>({{ $posts[$countItems - $i]->likes->where('active', 1)->count() }})
+                                                                class="far fa-thumbs-up"></i>({{ $item->likes->where('active', 1)->count() }})
                                                         </h4>
                                                     </button>
                                                 </form>
                                             @endif
                                         @endif
-                                        <span> {{ $posts[$countItems - $i]->created_at->format('d-m-Y') }} </span>
+                                        <span> {{ $item->created_at->format('d-m-Y') }} </span>
                                         <span class="text-muted">
                                         </span>
                                         <span class="text-primary">
                                             <i class="fas fa-comment"></i>
-                                            <a href="{{ url('newsRead/' . $posts[$countItems - $i]->id) }}">Comentarios</a>
+                                            <a href="{{ url('newsRead/' . $item->id) }}">Comentarios</a>
                                         </span>
                                     </div>
                                 </div>
-                            @endfor
-                            @php
-                            $countItems=$countItems+3;
-                            @endphp
-                        </div>
-                    @endwhile
-                @endif
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
             @else
                 <div class="container">
                     <div class="row justify-content-around mt-5" style="margin-top:15em">
