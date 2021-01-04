@@ -30,10 +30,10 @@ Route::get('award/carousel', 'APIAwardController@carousel');
 
 Route::post('stores', 'APIStoreController@index')->middleware('auth:api');
 
-Route::post('jobs', 'APIJobController@jobs');
-Route::post('job/{id}', 'APIJobController@show');
-Route::post('job/apply/upload/{email}', 'APIJobController@applyUploadDocument');
-Route::post('job/apply/mail/{pdfNameToStore}', 'APIJobController@apply');
+Route::post('jobs', 'APIJobController@jobs')->middleware('auth:api');;
+Route::post('job/{id}', 'APIJobController@show')->middleware('auth:api');;
+Route::post('job/apply/upload/{email}', 'APIJobController@applyUploadDocument')->middleware('auth:api');;
+Route::post('job/apply/mail/{pdfNameToStore}', 'APIJobController@apply')->middleware('auth:api');;
 
 Route::get('news', 'APIPostController@news')->middleware('auth:api');
 Route::get('post/{id}', 'APIPostController@newsRead')->middleware('auth:api');
