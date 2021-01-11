@@ -22,6 +22,7 @@ class APIStoreController extends Controller
             //Utilizamos la variable para buscarla en el metodo
             $store = Store::where('name', 'like', "%$name%")
                         ->orWhere('address', 'like', "%$name%")
+                        ->orderBy('created_at', 'desc')
                         ->get();
 
             //Pasamos los datos en un array con status success
@@ -33,7 +34,7 @@ class APIStoreController extends Controller
         }else{
 
             //Si no tenemos nada en la variable search sacamos todos los elementos
-            $store = Store::all();
+            $store = Store::orderBy('created_at', 'desc')->get();
 
             //Pasamos los datos en un array con status success
             $data = [

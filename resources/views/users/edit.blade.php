@@ -101,7 +101,7 @@
                     </div>
                     <input id="dpi" placeholder="DPI" type="text"
                         class="text-primary form-control @error('dpi') is-invalid @enderror" name="dpi"
-                        value="{{ $user->dpi }}" required autofocus>
+                        value="{{ $user->dpi }}"  autofocus>
 
                     @error('dpi')
                     <span class="invalid-feedback" role="alert">
@@ -172,7 +172,7 @@
                         </span>
                     </div>
                     <input id="password" placeholder="Contraseña" type="password"
-                        class="form-control @error('password') is-invalid @enderror" name="password" required
+                        class="form-control @error('password') is-invalid @enderror" name="password"
                         autocomplete="new-password">
 
                     @error('password')
@@ -188,7 +188,7 @@
                         </span>
                     </div>
                     <input id="password-confirm" placeholder="Confirmar contraseña" type="password" class="form-control"
-                        name="password_confirmation" required autocomplete="new-password">
+                        name="password_confirmation"  autocomplete="new-password">
                 </div>
                 <div class="container">
                     <div class="row">

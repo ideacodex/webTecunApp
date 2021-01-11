@@ -59,7 +59,7 @@ class APIPostController extends Controller
     public function news()
     {
         //Mostramos todos los POSTS creados y junto a ello los likes de cada uno
-        $posts = Post::with('likes')->with('comments.user')->get();//El estado es activo
+        $posts = Post::with('likes')->with('comments.user')->orderBy('created_at', 'desc')->get();//El estado es activo
         
         //De la tabla pivote, sacamos solo los category_id
         $category_id = DB::table('category_post')->get('category_id');

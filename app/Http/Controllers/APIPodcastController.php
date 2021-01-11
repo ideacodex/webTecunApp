@@ -59,7 +59,7 @@ class APIPodcastController extends Controller
     public function podcasts()
     {
         //Mostramos todos los POSTS creados y junto a ello los likes de cada uno
-        $podcasts = Podcast::with('likes')->with('comments.user')->get();//El estado es activo
+        $podcasts = Podcast::with('likes')->with('comments.user')->orderBy('created_at', 'desc')->get();//El estado es activo
         
         //De la tabla pivote, sacamos solo los category_id
         $category_id = DB::table('category_podcast')->get('category_id');

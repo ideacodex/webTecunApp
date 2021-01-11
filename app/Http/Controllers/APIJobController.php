@@ -28,6 +28,7 @@ class APIJobController extends Controller
             $jobs = Job::where('title', 'like', "%$title%")
                 ->orWhere('description', 'like', "%$description%")
                 ->orWhere('skils', 'like', "%$skils%")
+                ->orderBy('created_at', 'desc')
                 ->get();
 
             $data = [
@@ -36,7 +37,7 @@ class APIJobController extends Controller
                 'jobs' => $jobs
             ];
         }else{
-            $jobs = Job::all();
+            $jobs = Job::orderBy('created_at', 'desc')->get();
 
             $data = [
                 'code' => 200,

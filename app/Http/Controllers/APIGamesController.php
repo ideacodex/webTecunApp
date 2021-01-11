@@ -230,7 +230,7 @@ class APIGamesController extends Controller
                         $uniquedObject->questionTrue = $trueQuestion + $item;
                     }else{
                         //De lo contrario, no se actualizara
-                        unset($uniquedObject->questionTrue);
+                        //unset($uniquedObject->questionTrue);
                     }
 
                     if($uniquedObject->status == 'I'){
@@ -249,7 +249,7 @@ class APIGamesController extends Controller
                     unset($uniquedObject->id);
                     unset($uniquedObject->user_id);
 
-                    $uniquedObject->update();
+                    $uniquedObject->save();
 
                     DB::commit();
 
