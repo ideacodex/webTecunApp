@@ -48,10 +48,6 @@ class HomeController extends Controller
         ]);
     }
 
-    public function news()
-    {
-        return view('news.index');
-    }
 
     public function team()
     {
@@ -59,10 +55,6 @@ class HomeController extends Controller
         return view('users.team', ["awards" => $awards]);
     }
 
-    public function specialTeam()
-    {
-        return view('users.specialteam');
-    }
 
     public function games()
     {
@@ -81,13 +73,4 @@ class HomeController extends Controller
         return view('podcasts.home');
     }
 
-    public function stores()
-    {
-        return view('stores.home');
-    }
-
-    public function jobs()
-    {
-        return view('jobs.home');
-    }
 }

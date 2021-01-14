@@ -210,18 +210,18 @@
                     </a>
                     <a href="{{ url('contactAdmin') }}"
                         class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
-                        class="fas fa-id-card"></i></span> LLama Ahora
+                        class="fas fa-id-card"></i></span> LLama Directo
                     </a>
                     <a href="{{ url('awardsAdmin') }}"
                         class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
                         class="fas fa-medal"></i></span> Reconocimientos
                     </a>
-                    <a href="{{ url('users') }}" class="list-group-item list-group-item-action bg-theme-1 text-light">
-                        <span class=""><i class="fas fa-user"></i></span> Usuarios
+                    <a href="{{ url('empresas') }}" class="list-group-item list-group-item-action bg-theme-1 text-light">
+                        <span class=""><i class="fas fa-envelope-open-text"></i></span> Vacaciones
                     </a>
                     <a href="{{ url('gamesAdmin') }}"
                         class="list-group-item list-group-item-action bg-theme-1 text-light">
-                        <span class=""><i class="fas fa-gamepad"></i></span> Juego
+                        <span class=""><i class="fas fa-gamepad"></i></span> Trivias
                     </a>
                     <a href="{{ url('adminSetting') }}" class="list-group-item list-group-item-action bg-theme-1 text-light">
                         <span class=""><i class="fas fa-cog"></i></span> Ajustes
@@ -256,8 +256,6 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ url('adminPost') }}"> <span><i
                                                 class="fas fa-newspaper"></i></span> Publicaciones</a>
-                                    <a class="dropdown-item" href="{{ url('users') }}"> <span><i
-                                                class="fas fa-users"></i></span> Usuarios</a>
                                     <a class="dropdown-item" href="{{ url('home') }}"> <span><i
                                                 class="fas fa-newspaper"></i></span> Vista Usuario</a>
                                     <div class="dropdown-divider"></div>

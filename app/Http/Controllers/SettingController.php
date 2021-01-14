@@ -152,4 +152,17 @@ class SettingController extends Controller
     {
         //
     }
+
+
+    public function panelNotifications()
+    {
+        //
+        return view('settings.notificationsForm');
+    }
+
+    public function sendNotifications(Request $request)
+    {
+        //
+        dd("procesar un post a expo", $request);
+    }
 }

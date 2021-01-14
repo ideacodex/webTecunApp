@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    <meta charset="utf-8">
+    <meta charset="utf8mb4">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSRF Token -->
@@ -86,7 +86,7 @@
     }
 
     .bg-theme-2 {
-        background-color: #519e93;
+        background-color: #263a37;
     }
 
     .bg-theme-3 {
@@ -298,8 +298,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ url('adminPost') }}"> <span><i
                                                 class="fas fa-newspaper"></i></span> Publicaciones</a>
-                                    <a class="dropdown-item" href="{{ url('users') }}"> <span><i
-                                                class="fas fa-users"></i></span> Usuarios</a>
+                                    
                                     <a class="dropdown-item" href="{{ url('home') }}"> <span><i
                                                 class="fas fa-newspaper"></i></span> Vista usuario</a>
                                     <div class="dropdown-divider"></div>

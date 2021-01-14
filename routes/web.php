@@ -47,8 +47,8 @@ Route::post('/apply/mail', 'JobController@apply');
 //*******Jobs Routes****** */
 
 //*******Denunce Routes****** */
-Route::get('/denounce', 'DenounceController@denounce')->middleware('auth')  ;
-Route::post('send/denounce', 'DenounceController@sendMailDenounce')->middleware('auth');
+//Route::get('/denounce', 'DenounceController@denounce')->middleware('auth')  ;
+//Route::post('send/denounce', 'DenounceController@sendMailDenounce')->middleware('auth');
 //*******Denunce Routes****** */
 
 //*******Post Routes****** */
@@ -71,11 +71,13 @@ Route::get('/category/podcast/{id}', 'PodcastController@categoryPodcast')->name(
 //*******Podcast Routes****** */
 
 //*******Settings Routes****** */
-Route::get('/adminSetting', 'SettingController@index')->name('setting')->middleware('auth');
-Route::get('/adminSetting/crear', 'SettingController@create')->middleware('auth');
-Route::post('adminSetting', 'SettingController@store')->name('adminSetting.store')->middleware('auth');
-Route::get('/adminSetting/{id}/edit', 'SettingController@edit')->middleware('auth');
-Route::put('adminSetting/{id}', 'SettingController@update')->name('adminSetting.update')->middleware('auth');
+Route::get('/adminSetting', 'SettingController@index')->name('setting')->middleware('role:root|Super|Admin');
+Route::get('/adminSetting/crear', 'SettingController@create')->middleware('role:root|Super|Admin');
+Route::post('adminSetting', 'SettingController@store')->name('adminSetting.store')->middleware('role:root|Super|Admin');
+Route::get('/adminSetting/{id}/edit', 'SettingController@edit')->middleware('role:root|Super|Admin');
+Route::put('adminSetting/{id}', 'SettingController@update')->name('adminSetting.update')->middleware('role:root|Super|Admin');
+
+Route::get('notificaciones', 'SettingController@panelNotifications')->middleware('role:root|Super|Admin');
 //*******Settings Routes****** */
 
 //*******Pictures Routes****** */
@@ -85,6 +87,8 @@ Route::get('/artes', 'PictureController@home')->middleware('auth');
 //*******Store Routes****** */
 Route::get('/stores', 'StoreController@stores')->middleware('auth')  ;
 //*******Store Routes****** */
+
+
 
 //*******Contact Routes****** */
 Route::post('contact/home', 'ContactController@contactsUser')->middleware('auth');
@@ -106,16 +110,19 @@ Route::post('mailRRHHConstancy', 'ProccessController@mailRRHHConstancy')->middle
 //*******ProccessRRHH Routes****** */
 
 //*******admin routes****** */
-Route::resource('adminPost', 'PostController')->middleware('auth');
-Route::resource('adminPodcast', 'PodcastController')->middleware('auth');
-Route::resource('adminPicture', 'PictureController')->middleware('auth');
+Route::resource('adminPost', 'PostController')->middleware('role:root|Super|Admin');
+Route::resource('adminPodcast', 'PodcastController')->middleware('role:root|Super|Admin');
+Route::resource('adminPicture', 'PictureController')->middleware('role:root|Super|Admin');
 Route::resource('gamesAdmin', 'QuestionController')->middleware('role:root|Super|Admin');
 Route::resource('users', 'UserController')->middleware('role:root|Super|Admin');
 Route::resource('categories', 'CategoryController')->middleware('role:root|Super|Admin');
 Route::resource('jobsAdmin', 'JobController')->middleware('role:root|Super|Admin');
 Route::resource('storesAdmin', 'StoreController')->middleware('role:root|Super|Admin');
 Route::resource('awardsAdmin', 'AwardController')->middleware('role:root|Super|Admin');
-Route::resource('contactAdmin', 'ContactController')->middleware('auth');
+Route::resource('contactAdmin', 'ContactController')->middleware('role:root|Super|Admin');
+//*******Store Routes****** */
+Route::resource('empresas', 'CompanyController')->middleware('role:root|Super|Admin')  ;
+//*******Store Routes****** */
 //*******admin routes****** */
 
 
