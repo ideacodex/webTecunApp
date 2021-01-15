@@ -5,6 +5,24 @@ $namesUser = explode(" ", Auth::user()->name);
 @section('content')
     <div>
         <div class="d-flex justify-content-around mt-2">
+            <h1 class="text-info">{{ 'Numeros favoritos' }}</h1>
+        </div>
+        <div class="row mt-3">
+            <div class="mt-3 col-12 col-md-2 col-lg-2 offset-md-4 offset-lg-4">
+                <a class="" href="{{ url('/favoritos/pbx') }}">
+                    <img src="{{ asset('img/telephone.png') }}"
+                        class="mx-auto d-block img-fluid" width="20%">
+                </a>
+            </div>
+            <div class="mt-3 col-12 col-md-2 col-lg-2">
+                <a class="" href="{{ url('/favoritos/whatsapp') }}">
+                    <img src="{{ asset('img/whatsapp.png') }}"
+                        class="mx-auto d-block img-fluid" width="20%">
+                </a>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-around mt-5">
             <h1 class="text-info">{{ 'Buscar contacto' }}</h1>
         </div>
         <div class="row justify-content-around mt-5">

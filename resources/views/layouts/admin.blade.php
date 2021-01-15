@@ -212,6 +212,10 @@
                         class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
                         class="fas fa-id-card"></i></span> LLama Directo
                     </a>
+                    <a href="{{ url('favoriteAdmin') }}"
+                        class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
+                        class="fas fa-star"></i></span> Numeros Favoritos
+                    </a>
                     <a href="{{ url('awardsAdmin') }}"
                         class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
                         class="fas fa-medal"></i></span> Reconocimientos
