@@ -121,10 +121,16 @@ Route::resource('jobsAdmin', 'JobController')->middleware('role:root|Super|Admin
 Route::resource('storesAdmin', 'StoreController')->middleware('role:root|Super|Admin');
 Route::resource('awardsAdmin', 'AwardController')->middleware('role:root|Super|Admin');
 Route::resource('contactAdmin', 'ContactController')->middleware('role:root|Super|Admin');
+Route::resource('favoriteAdmin', 'FavoriteController')->middleware('role:root|Super|Admin');
 //*******Store Routes****** */
 Route::resource('empresas', 'CompanyController')->middleware('role:root|Super|Admin')  ;
 //*******Store Routes****** */
 //*******admin routes****** */
+
+//*******Favorites Routes****** */
+Route::get('/favoritos/pbx', 'FavoriteController@favoritePbx')->middleware('auth');
+Route::get('/favoritos/whatsapp', 'FavoriteController@favoriteWhatsApp')->middleware('auth');
+//*******Favorites Routes****** */
 
 
 
