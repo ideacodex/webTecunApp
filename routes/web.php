@@ -105,6 +105,7 @@ Route::post('storeUser', 'QuestionController@storeUser')->middleware('auth');
 
 //*******ProccessRRHH Routes****** */
 Route::get('/procesos', 'ProccessController@proccess')->middleware('auth');
+Route::get('/procesos/constancia', 'ProccessController@proccessCertification')->middleware('auth');
 Route::get('/procesos/vacaciones', 'ProccessController@proccessRRHH')->name('proccessRRHH')->middleware('auth');
 Route::post('mailRRHHVacation', 'ProccessController@mailRRHHVacation')->middleware('auth');
 Route::post('mailRRHHConstancy', 'ProccessController@mailRRHHConstancy')->middleware('auth');

@@ -22,6 +22,11 @@ class ProccessController extends Controller
         return view('users.proccess');
     }
 
+    public function proccessCertification()
+    {
+        return view('users.proccessCertification');
+    }
+
     public function proccessRRHH()
     {   
         $companies=Company::distinct()->get('name');
@@ -88,15 +93,6 @@ class ProccessController extends Controller
     {
         //
         $user = auth()->user();
-
-        $settingAll = Setting::all();
-        if ($settingAll) {
-            $SettingMail = $settingAll->first();
-        }
-
-        //Luego de las pruebas poner la variable email en el correo RRHH
-        $mailRRHH = $SettingMail->email_rrhh;
-        //Luego de las pruebas poner la variable email en el correo RRHH
         
         if(isset($user)){
             try{
@@ -106,8 +102,18 @@ class ProccessController extends Controller
                 /***************Correo para Solicitante***********************/
 
                 /****************Correo para RRHH***********************/
-                Mail::to(['norellana@pctecbus.co'])
+                if ($request->country=="gtm") {
+                    Mail::to(['Xacasuy@grupotecun.com', 'gsalazar@pctecbus.co'])
                     ->send(new QueryConstancyRRHH($request)); //envia la variables $request a la clase de MAIL
+                }
+                if ($request->country=="sv") {
+                    Mail::to(['Xrbeltran@grupotecun.com', 'norellana@pctecbus.co'])
+                    ->send(new QueryConstancyRRHH($request)); //envia la variables $request a la clase de MAIL
+                }
+                if ($request->country=="hnd") {
+                    Mail::to(['Xmrivera@grupotecun.com', 'gsalazar@pctecbus.co'])
+                    ->send(new QueryConstancyRRHH($request)); //envia la variables $request a la clase de MAIL
+                }
                 /****************Correo para RRHH***********************/
 
                 return redirect()->action('ProccessController@proccess')
