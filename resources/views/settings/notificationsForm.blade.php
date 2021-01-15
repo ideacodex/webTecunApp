@@ -4,10 +4,10 @@
 
 <div class="container-fluid">
     <div class="row justify-content-center mt-2">
-        <p class="text-primary h2">Enviar de Notificaciones</p>
+        <p class="text-primary h2">Enviar Notificaciones</p>
     </div>
     <div class="mt-4">
-        <form method="POST" action="{{ url('adminSetting') }}" onsubmit="return checkSubmit();">
+        <form method="POST" action="{{ url('notificaciones') }}" onsubmit="return checkSubmit();">
             @csrf
             <div class="form-row">
                 <div class="col-12 input-group input-group-lg mb-3">
@@ -59,8 +59,8 @@
                     <div class="row">
                         <div class="col text-center">
                             <button type="submit" class="btn btn-lg btn-primary">
-                                <i class="fas fa-save"></i>
-                                {{ __('Guardar') }}
+                                <i class="fas fa-bell"></i>
+                                {{ __('Enviar notificación') }}
                             </button> 
                         </div>
                     </div>

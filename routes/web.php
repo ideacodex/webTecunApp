@@ -78,6 +78,7 @@ Route::get('/adminSetting/{id}/edit', 'SettingController@edit')->middleware('rol
 Route::put('adminSetting/{id}', 'SettingController@update')->name('adminSetting.update')->middleware('role:root|Super|Admin');
 
 Route::get('notificaciones', 'SettingController@panelNotifications')->middleware('role:root|Super|Admin');
+Route::post('notificaciones', 'SettingController@sendNotifications')->middleware('role:root|Super|Admin');
 //*******Settings Routes****** */
 
 //*******Pictures Routes****** */
@@ -104,7 +105,7 @@ Route::post('storeUser', 'QuestionController@storeUser')->middleware('auth');
 
 //*******ProccessRRHH Routes****** */
 Route::get('/procesos', 'ProccessController@proccess')->middleware('auth');
-Route::get('/procesos/rrhh', 'ProccessController@proccessRRHH')->name('proccessRRHH')->middleware('auth');
+Route::get('/procesos/vacaciones', 'ProccessController@proccessRRHH')->name('proccessRRHH')->middleware('auth');
 Route::post('mailRRHHVacation', 'ProccessController@mailRRHHVacation')->middleware('auth');
 Route::post('mailRRHHConstancy', 'ProccessController@mailRRHHConstancy')->middleware('auth');
 //*******ProccessRRHH Routes****** */
