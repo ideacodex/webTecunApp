@@ -372,7 +372,7 @@
     </nav>
     <!--buttons-->
     <div class="btn-float">
-        <a href="{{ url('denounce') }}" class="btn btn-light btn-circle btn-sm bg-danger btn-lg text-light"><i
+        <a href="{{ url('http://www.denunciagrupotecun.com/') }}"  target="_blank" class="btn btn-light btn-circle btn-sm bg-danger btn-lg text-light"><i
                 class="fas fa-bell"></i></a>
     </div>
     <!--fin buttons -->

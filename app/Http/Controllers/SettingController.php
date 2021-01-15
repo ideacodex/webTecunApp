@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Setting;
+use App\UsersDevice;
 use DB;
 
 use Illuminate\Http\Request;
@@ -163,6 +164,25 @@ class SettingController extends Controller
     public function sendNotifications(Request $request)
     {
         //
-        dd("procesar un post a expo", $request);
+        $devices=UsersDevice::get('token');
+        dd("procesar un post a expo", $request, $devices);
+    }
+
+    public function saveNotificationToken(Request $request)
+    {
+        //
+        $device=UsersDevice::find($id);
+        if($device){
+            $device->token=$request->token;
+            $device->user_id=$request->user_id;
+            $device->save();
+        }else{
+            $device= new UsersDevice();
+            $device->token=$request->token;
+            $device->user_id=$request->user_id;
+            $device->save();
+        }
+        
+        dd("guardó o actualizó un token de user");
     }
 }

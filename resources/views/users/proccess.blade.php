@@ -34,7 +34,7 @@ $namesUser = explode(" ", Auth::user()->name);
             <div class="card text-center">
                 <img class="img-fluid mx-auto d-block" src="https://www.flaticon.com/svg/static/icons/svg/3208/3208164.svg" width="100 px">
                 <div class="card-body">
-                    <h5 class="card-title">Constacia Laboral</h5>
+                    <h5 class="card-title">Consulta Vacaciones</h5>
                 </div>
                 <div class="card-footer">
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenterOthers">
@@ -46,7 +46,7 @@ $namesUser = explode(" ", Auth::user()->name);
             <div class="card text-center">
                 <img class="img-fluid mx-auto d-block" src="{{ asset('img/entrevista.png') }}" width="100 px">
                 <div class="card-body">
-                    <h5 class="card-title">Procesos RRHH</h5>
+                    <h5 class="card-title">Constacia Laboral</h5>
                 </div>
                 <div class="card-footer">
                     <a href="{{ route('proccessRRHH') }}" class="btn btn-primary btn-lg"> Ingresar</a>

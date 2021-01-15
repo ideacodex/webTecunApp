@@ -23,7 +23,11 @@ class ProccessController extends Controller
     }
 
     public function proccessRRHH()
-    {
+    {   
+        $companies=Company::distinct()->get('name');
+        $records=Company::get();
+        return view('users.proccessVacation', ['companies' => $companies, 'records' => $records]);
+        dd($name);
         $tecunComercial = DB::table('companies')->where('id', 1)->get();
         $tecunAutomotores = DB::table('companies')->where('id', 10)->get();
         $otros = DB::table('companies')->where('id', 15)->get();
@@ -47,9 +51,9 @@ class ProccessController extends Controller
         //
         $user = auth()->user();
 
-        //Luego de las pruebas poner la variable mailGroup en el correo rrhhNominal
-        $mailGroup = $request->mailGroup;
-        //Luego de las pruebas poner la variable mailGroup en el correo rrhhNominal
+        //Luego de las pruebas poner la variable email en el correo rrhhNominal
+        $email = $request->email;
+        //Luego de las pruebas poner la variable email en el correo rrhhNominal
         
         if(isset($user)){
             try{
@@ -59,7 +63,7 @@ class ProccessController extends Controller
                 /***************Correo para Solicitante***********************/
 
                 /****************Correo para rrhhNominal***********************/
-                Mail::to(['norellana@pctecbus.co'])
+                Mail::to([$email])
                     ->send(new QueryVacationRRHH($request)); //envia la variables $request a la clase de MAIL
                 /****************Correo para rrhhNominal***********************/
 
@@ -90,9 +94,9 @@ class ProccessController extends Controller
             $SettingMail = $settingAll->first();
         }
 
-        //Luego de las pruebas poner la variable mailGroup en el correo RRHH
+        //Luego de las pruebas poner la variable email en el correo RRHH
         $mailRRHH = $SettingMail->email_rrhh;
-        //Luego de las pruebas poner la variable mailGroup en el correo RRHH
+        //Luego de las pruebas poner la variable email en el correo RRHH
         
         if(isset($user)){
             try{
