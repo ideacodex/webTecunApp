@@ -56,3 +56,5 @@ Route::post('scoreuser', 'APIGamesController@scoreUser')->middleware('auth:api')
 Route::resource('contacts', 'ApiContactController')->middleware('auth:api');
 Route::resource('pictures', 'ApiPictureController');
 Route::post('ldap', 'LdapController@ldapApi');
+
+Route::resource('favorite', 'APIFavoriteController')->middleware('auth:api');
