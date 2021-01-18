@@ -58,3 +58,5 @@ Route::resource('pictures', 'ApiPictureController');
 Route::post('ldap', 'LdapController@ldapApi');
 Route::post('device/token', 'SettingController@saveNotificationToken')->middleware('auth:api');
 
+
+Route::resource('favorite', 'APIFavoriteController')->middleware('auth:api');
