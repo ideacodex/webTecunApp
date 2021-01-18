@@ -26,7 +26,7 @@
                         <i class="text-light fas fa-at"></i>
                     </span>
                 </div>
-                <input placeholder="Correo o Número de móvil" type="text" aria-label=" Sizing example input"
+                <input placeholder="Correo electronico" type="text" aria-label=" Sizing example input"
                     aria-describedby="inputGroup-sizing-sm"
                     class=" form-control text-light @error('email') is-invalid @enderror" name="email"
                     value="{{ old('email') }}" required>
@@ -78,15 +78,5 @@
         </form>
     </div>
 
-    <div class="row justify-content-center">
-        @if (Route::has('password.request'))
-        <a class="m-t-1 btn btn-link text-light" href="{{ route('password.request') }}">
-            {{ __('¿Olvidé la contraseña?') }}
-        </a>
-        <a class="d-none btn btn-link text-light" href="{{ route('register') }}">
-            {{ __('Crear cuenta') }}
-        </a>
-        @endif
-    </div>
 </div>
 @endsection

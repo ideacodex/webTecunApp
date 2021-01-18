@@ -124,16 +124,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="row mt-5 justify-content-center">
-                    @if (Route::has('password.request'))
-                        <a class="m-t-5 btn btn-link text-light" href="{{ route('password.request') }}">
-                            {{ __('¿Olvidé la contraseña?') }}
-                        </a>
-                        <a class="btn btn-link text-light" href="{{ route('register') }}">
-                            {{ __('Crear cuenta') }}
-                        </a>
-                    @endif
-                </div>
             @else
                 <div class="container">
                     <div class="row">
