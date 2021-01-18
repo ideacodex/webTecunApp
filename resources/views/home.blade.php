@@ -29,7 +29,7 @@
                         <a class="nav-link" href="{{ url('podcasts') }}"><span class="text-light font-weight-bold">Podcast</span></a>
                     </li>
                     <li class="nav-item animate__animated animate__pulse">
-                        <a class="nav-link" href="{{ url('/artes') }}"><span class="text-light font-weight-bold">Artes</span></a>
+                        <a class="nav-link" href="{{ url('/TECUento') }}"><span class="text-light font-weight-bold">TECUento</span></a>
                     </li>
                 </ul>
             </div>

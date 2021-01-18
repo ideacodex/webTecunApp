@@ -190,44 +190,49 @@
                                         <span class=""><i class="ml-3 fas fa-podcast"></i></span> Podcast</a>
                                     <a href="{{ url('adminPicture') }}"
                                         class="pl-4 list-group-item list-group-item-action bg-theme-1 text-light">
-                                        <span class=""><i class="ml-3 far fa-images"></i></span> Artes</a>
+                                        <span class=""><i class="ml-3 far fa-images"></i></span> TECUento</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-
+                    <a href="{{ url('notificaciones') }}"
+                        class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
+                                class="fab fa-android"></i></span> Notificaciones
+                    </a>
                     <a href="{{ url('categories') }}"
                         class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
-                        class="fas fa-tags"></i></span> Categorías
+                                class="fas fa-tags"></i></span> Categorías
+                    </a>
+                    <a href="{{ url('storesAdmin') }}"
+                        class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
+                                class="fas fa-building"></i></span> Agencias
+                    </a>
+                    <a href="{{ url('contactAdmin') }}"
+                        class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
+                                class="fas fa-id-card"></i></span> LLama Directo
+                    </a>
+                    <a href="{{ url('favoriteAdmin') }}"
+                        class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
+                                class="fas fa-star"></i></span> Numeros Favoritos
                     </a>
                     <a href="{{ url('jobsAdmin') }}"
                         class="list-group-item list-group-item-action bg-theme-1 text-light">
                         <span class=""><i class="fas fa-hard-hat"></i></span> Empleos
                     </a>
-                    <a href="{{ url('storesAdmin') }}"
-                        class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
-                        class="fas fa-building"></i></span> Agencias
-                    </a>
-                    <a href="{{ url('contactAdmin') }}"
-                        class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
-                        class="fas fa-id-card"></i></span> LLama Directo
-                    </a>
-                    <a href="{{ url('favoriteAdmin') }}"
-                        class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
-                        class="fas fa-star"></i></span> Numeros Favoritos
-                    </a>
                     <a href="{{ url('awardsAdmin') }}"
                         class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
-                        class="fas fa-medal"></i></span> Reconocimientos
+                                class="fas fa-medal"></i></span> Reconocimientos
                     </a>
-                    <a href="{{ url('empresas') }}" class="list-group-item list-group-item-action bg-theme-1 text-light">
+                    <a href="{{ url('empresas') }}"
+                        class="list-group-item list-group-item-action bg-theme-1 text-light">
                         <span class=""><i class="fas fa-envelope-open-text"></i></span> Vacaciones
                     </a>
                     <a href="{{ url('gamesAdmin') }}"
                         class="list-group-item list-group-item-action bg-theme-1 text-light">
                         <span class=""><i class="fas fa-gamepad"></i></span> Trivias
                     </a>
-                    <a href="{{ url('adminSetting') }}" class="list-group-item list-group-item-action bg-theme-1 text-light">
+                    <a href="{{ url('adminSetting') }}"
+                        class="list-group-item list-group-item-action bg-theme-1 text-light">
                         <span class=""><i class="fas fa-cog"></i></span> Ajustes
                     </a>
                 </div>

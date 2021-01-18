@@ -82,7 +82,7 @@ Route::post('notificaciones', 'SettingController@sendNotifications')->middleware
 //*******Settings Routes****** */
 
 //*******Pictures Routes****** */
-Route::get('/artes', 'PictureController@home')->middleware('auth');
+Route::get('/TECUento', 'PictureController@home')->middleware('auth');
 //*******Pictures Routes****** */
 
 //*******Store Routes****** */
