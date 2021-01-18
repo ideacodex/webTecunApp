@@ -198,8 +198,8 @@ class LdapController extends Controller
                                 $user->name = $givenname; 
                                 $user->lastname =$sn; 
                                 $user->email = $request->email;
-                                //str_shuffle("@ppT3cun$2020");
-                                $user->password = bcrypt($request->password);
+                                //str_shuffle("@ppT3cun$3cre7");
+                                $user->password = bcrypt("@ppT3cun$3cre7");
                                 $user->role_id = 4;
                                 $user->status_id = 1;
                                 $user->score_id = $score->id;
