@@ -7,7 +7,8 @@
         <p class="text-primary h2">Actualizar encargado de Vacaciones</p>
     </div>
     <div class="mt-4">
-        <form method="POST" action="{{ url('empresas') }}" onsubmit="return checkSubmit();">
+        <form method="POST" action="{{ url('empresas/'.$empresas->id) }}" onsubmit="return checkSubmit();">
+            @method('PUT')
             @csrf
             <div class="form-row">
                 <div class="col-12 input-group input-group-lg mb-3">

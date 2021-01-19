@@ -132,4 +132,139 @@ class ProccessController extends Controller
                     ->with(['message' => 'No existe el usuario', 'alert' => 'warning']);
         }
     }
+
+    public function allCompany()
+    {
+        $oneRecord = array(); //guarda solo un registro
+        $allRecords = array(); //guardara un array por cada nombre y muchos array que coinciden con el nombre
+        $companiesName = Company::distinct()->get('name');
+        $records = Company::get();
+
+        foreach ($companiesName as $item) {
+            $records=Company::where('name',$item->name)->get();
+            $temporalRecords = array(); //inicializamos el array por cada iteracion o nombre
+            foreach ($records as $record) {
+                $oneRecord = array(
+                    'name' => $record->name,
+                    'departament' => $record->departament,
+                    'email' => $record->email,
+                );
+                array_push($temporalRecords, $oneRecord);
+            }
+            array_push($allRecords, $temporalRecords);
+        }
+        $data = [
+            'code' => 200,
+            'status' => 'success',
+            'companies' => $allRecords
+        ];
+
+        return response()->json($data, $data['code']);
+    }
+
+    public function mailVacation(Request $request)
+    {
+
+        $user = auth()->user();
+        $request->name = $user->name;
+        $request->lastname = $user->lastname;
+        $request->emailUser = $user->email;
+
+        //Luego de las pruebas poner la variable email en el correo rrhhNominal
+        //Luego de las pruebas poner la variable email en el correo rrhhNominal
+        
+        if(isset($user)){
+            try{
+                /***************Correo para Solicitante***********************/
+                Mail::to([$request->emailUser])
+                    ->send(new QueryVacationUSER($request)); //envia la variables $request a la clase de MAIL
+                /***************Correo para Solicitante***********************/
+
+                /****************Correo para rrhhNominal***********************/
+                Mail::to([$request->email])
+                    ->send(new QueryVacationRRHH($request)); //envia la variables $request a la clase de MAIL
+                /****************Correo para rrhhNominal***********************/
+
+                $data = [
+                    'code' => 200,
+                    'status' => 'success',
+                    'message' => 'Solicitud enviada correctamente'
+                ];
+
+            }catch (\Illuminate\Database\QueryException $e) {
+                abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
+
+                $data = [
+                    'code' => 500,
+                    'status' => 'error',
+                    'message' => 'Error al enviar el correo'
+                ];
+            }
+        }else{
+
+            $data = [
+                'code' => 404,
+                'status' => 'error',
+                'message' => 'Usuario no autenticado'
+            ];
+        }
+
+        return response()->json($data, $data['code']);
+    } 
+
+    public function mailConstancy(Request $request)
+    {
+        //
+        $user = auth()->user();
+        $request->name = $user->name;
+        $request->lastname = $user->lastname;
+        $request->emailUser = $user->email;
+        
+        if(isset($user)){
+            try{
+                /***************Correo para Solicitante***********************/
+                Mail::to([$request->emailUser])
+                    ->send(new QueryConstancyUSER($request)); //envia la variables $request a la clase de MAIL
+                /***************Correo para Solicitante***********************/
+
+                /****************Correo para RRHH***********************/
+                if ($request->country=="gtm") {
+                    Mail::to([/* 'Xacasuy@grupotecun.com', */'norellana@pctecbus.co', 'gsalazar@pctecbus.co'])
+                    ->send(new QueryConstancyRRHH($request)); //envia la variables $request a la clase de MAIL
+                }
+                if ($request->country=="sv") {
+                    Mail::to([/* 'Xrbeltran@grupotecun.com', */ 'norellana@pctecbus.co', 'gsalazar@pctecbus.co'])
+                    ->send(new QueryConstancyRRHH($request)); //envia la variables $request a la clase de MAIL
+                }
+                if ($request->country=="hnd") {
+                    Mail::to([/* 'Xmrivera@grupotecun.com', */ 'norellana@pctecbus.co', 'gsalazar@pctecbus.co'])
+                    ->send(new QueryConstancyRRHH($request)); //envia la variables $request a la clase de MAIL
+                }
+                /****************Correo para RRHH***********************/
+
+                $data = [
+                    'code' => 200,
+                    'status' => 'success',
+                    'message' => 'Solicitud enviada correctamente'
+                ];
+
+            }catch (\Illuminate\Database\QueryException $e) {
+                abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
+
+                $data = [
+                    'code' => 500,
+                    'status' => 'error',
+                    'message' => 'Error al enviar el correo'
+                ];
+            }
+        }else{
+            $data = [
+                'code' => 404,
+                'status' => 'error',
+                'message' => 'Usuario no autenticado'
+            ];
+        }
+
+        return response()->json($data, $data['code']);
+    }
 }

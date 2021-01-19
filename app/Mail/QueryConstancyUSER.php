@@ -37,7 +37,7 @@ class QueryConstancyUSER extends Mailable
      */
     public function build()
     {
-        return $this->subject('Confirmacion solucitud de constancia laboral '.$this->request->emailUser)
+        return $this->subject('Confirmacion solucitud de constancia laboral ')
             ->view('emails.userConstancy');
     }
 }
