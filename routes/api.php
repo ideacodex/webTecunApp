@@ -35,19 +35,23 @@ Route::post('job/{id}', 'APIJobController@show')->middleware('auth:api');;
 Route::post('job/apply/upload/{email}', 'APIJobController@applyUploadDocument')->middleware('auth:api');;
 Route::post('job/apply/mail/{pdfNameToStore}', 'APIJobController@apply')->middleware('auth:api');;
 
+/* ********************Post************************************ */
 Route::get('news', 'APIPostController@news')->middleware('auth:api');
 Route::get('post/{id}', 'APIPostController@newsRead')->middleware('auth:api');
 Route::post('commentpost', 'APIPostController@commentPost')->middleware('auth:api');
 Route::post('commentpost/{id}', 'APIPostController@delete')->middleware('auth:api');
 Route::post('likeordislikenews', 'APIPostController@likeOrDislikeNews')->middleware('auth:api');
 Route::get('categorypost/{id}', 'APIPostController@categoryPost');
+/* ********************Post************************************ */
 
+/* ********************Podcast************************************ */
 Route::get('podcasts', 'APIPodcastController@podcasts')->middleware('auth:api');
 Route::get('podcast/{id}', 'APIPodcastController@podcastRead')->middleware('auth:api');
 Route::post('commentpodcast', 'APIPodcastController@commentPodcast')->middleware('auth:api');
 Route::post('commentpodcast/{id}', 'APIPodcastController@delete')->middleware('auth:api');
 Route::post('likeordislikepodcast', 'APIPodcastController@likeOrDislikePodcast')->middleware('auth:api');
 Route::get('categoryPodcast/{id}', 'APIPodcastController@categoryPodcast')->middleware('auth:api');
+/* ********************Podcast************************************ */
 
 Route::get('question', 'APIGamesController@question')->middleware('auth:api');
 Route::get('score', 'APIGamesController@score')->middleware('auth:api');

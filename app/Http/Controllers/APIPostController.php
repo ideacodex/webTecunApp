@@ -59,7 +59,7 @@ class APIPostController extends Controller
     public function news()
     {
         //Mostramos todos los POSTS creados y junto a ello los likes de cada uno
-        $posts = Post::with('likes')->with('comments.user')->orderBy('created_at', 'desc')->get();//El estado es activo
+        $posts = Post::with('likes')->with('userLikesNew')->with('comments.user')->orderBy('created_at', 'desc')->get();//El estado es activo
         
         //De la tabla pivote, sacamos solo los category_id
         $category_id = DB::table('category_post')->get('category_id');
@@ -121,14 +121,14 @@ class APIPostController extends Controller
         //Recoger los datos por post
         $json = $request->input('json', null);
         $params = json_decode($json);
-        $params_array = json_decode($json, true);
+        $request = json_decode($json, true);
 
-        if(!empty($params_array)){
+        if(!empty($request)){
             //Conseguir el ID del usuario identificado
             $userId = auth()->user()->id;
 
             //Verificar los datos recibidos
-            $validate = \Validator::make($params_array, [
+            $validate = \Validator::make($request, [
                 'message' => 'required'
             ]);
 
@@ -145,7 +145,7 @@ class APIPostController extends Controller
                 try{
                     $comment = DB::table('commentposts')->insert([
                         'user_id' => $userId,
-                        'post_id' => $params_array['post_id'],
+                        'post_id' => $request['post_id'],
                         'message' => $params->message
                     ]);
 
@@ -181,7 +181,7 @@ class APIPostController extends Controller
         //Recoger los datos por post
         $json = $request->input('json', null);
         $params = json_decode($json);
-        $params_array = json_decode($json, true);
+        $request = json_decode($json, true);
 
         //Conseguimos el ID del usuario
         $user = auth()->user()->id;
@@ -211,23 +211,22 @@ class APIPostController extends Controller
 
     public function likeOrDislikeNews(Request $request)
     {
-        //Recoger los datos por post
-        $json = $request->input('json', null);
-        $params = json_decode($json);
-        $params_array = json_decode($json, true);
-
-        if(!empty($params_array)){
+        if(!empty($request)){
             //Recogemos los datos del usuario
             $user = auth()->user()->id;
 
-            //Recogemos el reactionActive
-            $reactionActive = $params->reactionActive;
-            $postID = $params->postID;
+            //Recogemos el postID
+            $postID = $request->postID;
 
             //Verificar que existe el like del usuario
             $issetReactionUser = DB::table('reactionposts')->where('user_id', $user)
                                 ->where('post_id', $postID)
                                 ->count();
+
+            $reactionActiveArray = DB::table('reactionposts')->where('user_id', $user)
+                                ->where('post_id', $postID)->get('active');
+
+            $reaction = json_decode($reactionActiveArray, true);
 
             DB::beginTransaction();
 
@@ -248,18 +247,7 @@ class APIPostController extends Controller
                     ];
         
                 }else{
-                    if($reactionActive == 0){
-                        DB::table('reactionposts')->where('user_id', $user)
-                            ->where('post_id', $postID)->update(['active' => 1]);
-
-                        DB::commit();
-
-                        $data = [
-                            'code' => 200,
-                            'status' => 'success',
-                            'message' => 'Haz publicado tu reaccion correctamente'
-                        ];
-                    }else{
+                    if($reaction[0]['active'] === 1){
                         DB::table('reactionposts')->where('user_id', $user)
                             ->where('post_id', $postID)->update(['active' => 0]);
 
@@ -269,6 +257,19 @@ class APIPostController extends Controller
                             'code' => 200,
                             'status' => 'success',
                             'message' => 'Haz quitado tu reaccion correctamente'
+                        ];
+                    }
+
+                    if($reaction[0]['active'] === 0){
+                        DB::table('reactionposts')->where('user_id', $user)
+                            ->where('post_id', $postID)->update(['active' => 1]);
+
+                        DB::commit();
+
+                        $data = [
+                            'code' => 200,
+                            'status' => 'success',
+                            'message' => 'Haz publicado tu reaccion correctamente'
                         ];
                     }
                 }

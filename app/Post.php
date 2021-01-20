@@ -41,12 +41,12 @@ class Post extends Model
 
     public function likes()
     {
-        return $this->hasMany('App\ReactionsPost', 'post_id');
+        return $this->hasMany('App\ReactionsPost', 'post_id')->where('active', 1);
     }
 
     public function userLikesNew()
     {
-        return $this->hasMany('App\ReactionsPost', 'post_id')->where('user_id', auth()->user()->id);
+        return $this->hasOne('App\ReactionsPost', 'post_id')->where('active', 1)->where('user_id', auth()->user()->id);
     }
 
     function type()
