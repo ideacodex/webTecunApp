@@ -135,7 +135,7 @@
                         </div>
                         <input id="video" placeholder="Codigo Youtube" type="text" size="250" title="Ejemplo: VYOjWnS4cMY"
                             maxlength="250" class="text-primary form-control @error('video') is-invalid @enderror"
-                            name="video" value="{{ old('video') }}" autocomplete="video"
+                            name="video" value="{{ $record->featured_video }}" autocomplete="video"
                             autofocus>
 
                         @error('video')

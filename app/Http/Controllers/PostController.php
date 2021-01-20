@@ -249,8 +249,8 @@ class PostController extends Controller
                     $routeVideo = "https://www.youtube.com/embed/".$video;
 
                     $post->featured_video = $routeVideo;
-                }else{
-                    unset($post->featured_video);
+                }else {
+                    $post->featured_video = null;
                 }
                 //Modificar la ruta del video YouTube  
 

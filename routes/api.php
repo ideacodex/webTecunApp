@@ -41,7 +41,7 @@ Route::get('post/{id}', 'APIPostController@newsRead')->middleware('auth:api');
 Route::post('commentpost', 'APIPostController@commentPost')->middleware('auth:api');
 Route::post('commentpost/{id}', 'APIPostController@delete')->middleware('auth:api');
 Route::post('likeordislikenews', 'APIPostController@likeOrDislikeNews')->middleware('auth:api');
-Route::get('categorypost/{id}', 'APIPostController@categoryPost');
+Route::get('categorypost/{id}', 'APIPostController@categoryPost')->middleware('auth:api');
 /* ********************Post************************************ */
 
 /* ********************Podcast************************************ */

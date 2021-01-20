@@ -308,8 +308,7 @@ class APIPostController extends Controller
         $postObject = json_decode($postID, true);
 
         //Al obtener el valor decodificado lo mandamos a llamar con un find para sacar el/los objecto completo
-        $postsArray = Post::with('likes')->with('comments.user')->whereIn('id', $postDecode)->get();
-        $posts = json_decode($postsArray);
+        $posts = Post::where('id', $postDecode)->with('likes')->with('userLikesNew')->with('comments.user')->get();//El estado es activo
 
         /******************************************************************************************************** */
 
