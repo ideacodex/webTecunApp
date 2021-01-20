@@ -250,7 +250,7 @@ class PostController extends Controller
 
                     $post->featured_video = $routeVideo;
                 }else{
-                    $post->featured_video = null;
+                    unset($post->featured_video);
                 }
                 //Modificar la ruta del video YouTube  
 
