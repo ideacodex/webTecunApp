@@ -59,7 +59,7 @@ class APIPodcastController extends Controller
     public function podcasts()
     {
         //Mostramos todos los POSTS creados y junto a ello los likes de cada uno
-        $podcasts = Podcast::with('likes')->with('comments.user')->orderBy('created_at', 'desc')->get();//El estado es activo
+        $podcasts = Podcast::with('likes')->with('userLikesNew')->with('comments.user')->orderBy('created_at', 'desc')->get();//El estado es activo
         
         //De la tabla pivote, sacamos solo los category_id
         $category_id = DB::table('category_podcast')->get('category_id');
@@ -211,23 +211,22 @@ class APIPodcastController extends Controller
 
     public function likeOrDislikePodcast(Request $request)
     {
-        //Recoger los datos por post
-        $json = $request->input('json', null);
-        $params = json_decode($json);
-        $params_array = json_decode($json, true);
-
-        if(!empty($params_array)){
+        if(!empty($request)){
             //Recogemos los datos del usuario
             $user = auth()->user()->id;
 
             //Recogemos el reactionActive
-            $reactionActive = $params->reactionActive;
-            $podcastID = $params->podcastID;
+            $podcastID = $request->podcastID;
 
             //Verificar que existe el like del usuario
             $issetReactionUser = DB::table('reactionpodcast')->where('user_id', $user)
                                 ->where('podcast_id', $podcastID)
                                 ->count();
+
+            $reactionActiveArray = DB::table('reactionpodcast')->where('user_id', $user)
+                                ->where('podcast_id', $podcastID)->get('active');
+
+            $reaction = json_decode($reactionActiveArray, true);
 
             DB::beginTransaction();
 
@@ -239,48 +238,39 @@ class APIPodcastController extends Controller
                         'active' => 1
                     ]);
 
-                    //Prueba del api, a ver que pasa
-                    $object = DB::table('reactionpodcast')->where('user_id', $user)->where('podcast_id', $podcastID)->get();
-
                     DB::commit();
 
                     $data = [
                         'code' => 200,
                         'status' => 'success',
-                        'message' => 'Haz publicado tu reaccion correctamente',
-                        'object' => $object
+                        'message' => 'Haz publicado tu reaccion correctamente'
                     ];
         
                 }else{
-                    if($reactionActive == 0){
+                    if($reaction[0]['active'] === 1){
                         DB::table('reactionpodcast')->where('user_id', $user)
-                            ->where('podcast_id', $podcastID)->update(['active' => 1]);
-
-                        //Prueba del api, a ver que pasa
-                        $object = DB::table('reactionpodcast')->where('user_id', $user)->where('podcast_id', $podcastID)->get();
+                            ->where('podcast_id', $podcastID)->update(['active' => 0]);
 
                         DB::commit();
 
                         $data = [
                             'code' => 200,
                             'status' => 'success',
-                            'message' => 'Haz publicado tu reaccion correctamente',
-                            'object' => $object
+                            'message' => 'Haz publicado tu reaccion correctamente'
                         ];
-                    }else{
-                        DB::table('reactionpodcast')->where('user_id', $user)
-                            ->where('podcast_id', $podcastID)->update(['active' => 0]);
 
-                        //Prueba del api, a ver que pasa
-                        $object = DB::table('reactionpodcast')->where('user_id', $user)->where('podcast_id', $podcastID)->get();
+                    }
+                    
+                    if($reaction[0]['active'] === 0){
+                        DB::table('reactionpodcast')->where('user_id', $user)
+                            ->where('podcast_id', $podcastID)->update(['active' => 1]);
 
                         DB::commit();
                         
                         $data = [
                             'code' => 200,
                             'status' => 'success',
-                            'message' => 'Haz quitado tu reaccion correctamente',
-                            'object' => $object
+                            'message' => 'Haz quitado tu reaccion correctamente'
                         ];
                     }
                 }
@@ -295,7 +285,7 @@ class APIPodcastController extends Controller
             $data = [
                 'code' => 400,
                 'status' => 'error',
-                'message' => 'Error al reacccionar a la noticia'
+                'message' => 'Error al reacccionar al podcast'
             ];
         }
 
@@ -319,8 +309,7 @@ class APIPodcastController extends Controller
         $podcastObject = json_decode($podcastID, true);
 
         //Al obtener el valor decodificado lo mandamos a llamar con un find para sacar el/los objecto completo
-        $podcastArray = Podcast::with('likes')->with('comments.user')->where('id', $podcastDecode)->get();
-        $podcast = json_decode($podcastArray);
+        $podcasts = Podcast::where('id', $podcastDecode)->with('likes')->with('userLikesNew')->with('comments.user')->orderBy('created_at', 'desc')->get();
 
         /******************************************************************************************************** */
 

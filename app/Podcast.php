@@ -34,12 +34,12 @@ class Podcast extends Model
 
     public function likes()
     {
-        return $this->hasMany('App\ReactionPodcast', 'podcast_id');
+        return $this->hasMany('App\ReactionPodcast', 'podcast_id')->where('active', 1);
     }
 
     public function userLikesNew()
     {
-        return $this->hasMany('App\ReactionPodcast', 'podcast_id')->where('user_id', auth()->user()->id);
+        return $this->hasOne('App\ReactionPodcast', 'podcast_id')->where('active', 1)->where('user_id', auth()->user()->id);
     }
 
     function type()
