@@ -322,11 +322,11 @@ class APIPodcastController extends Controller
         //La variable anterior la utilizamos para sacar solo las categorias con esos ID's
         $categories = Category::find($categoryID);
 
-        if(!empty($categoryPodcast) && !empty($podcast) && !empty($categories)){
+        if(!empty($categoryPodcast) && !empty($podcasts) && !empty($categories)){
             $data = [
                 'code' => 200,
                 'status' => 'success',
-                'podcast' => $podcast,
+                'podcasts' => $podcasts,
                 'categories' => $categories,
                 //'categoryPodcastName' => $categoryPostName
             ];
