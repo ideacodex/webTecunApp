@@ -63,7 +63,7 @@ Route::post('ldap', 'LdapController@ldapApi');
 Route::post('device/token', 'SettingController@saveNotificationToken')->middleware('auth:api');
 
 
-Route::resource('favorite', 'APIFavoriteController')->middleware('auth:api');
+Route::get('favorites', 'ApiContactController@favorites')->middleware('auth:api');
 Route::get('allCompany', 'ProccessController@allCompany')->middleware('auth:api');
 Route::post('mailVacation', 'ProccessController@mailVacation')->middleware('auth:api');
 Route::post('mailConstancy', 'ProccessController@mailConstancy')->middleware('auth:api');

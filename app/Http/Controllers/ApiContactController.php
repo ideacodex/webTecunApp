@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Contact;    
+use App\Contact;
+use App\Favorite;    
 use DB;
 
 
@@ -105,5 +106,23 @@ class ApiContactController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function favorites()
+    {
+        //
+        $text = 'null';
+
+        $pbx = Favorite::where("mobile_one", $text)->where("mobile_two", $text)->get();
+        $whatsapp = Favorite::where("phone_one", $text)->where("phone_two", $text)->get();
+
+        $data = [
+            'code' => 200,
+            'satus' => 'success',
+            'pbx' => $pbx,
+            'whatsapp' => $whatsapp
+        ];
+
+        return response()->json($data, $data['code']);
     }
 }
