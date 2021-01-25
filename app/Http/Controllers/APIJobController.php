@@ -82,11 +82,13 @@ class APIJobController extends Controller
         ]);
 
         //Guardamos el documento en disk
-        if(empty($document) && $validate->fails()){
+        if(!$document){
             $data = [
                 'code' => 404,
                 'status' => 'error',
-                'message' => 'Error al subir el documento'
+                'message' => 'Error al subir el documento',
+                'document' => $document,
+                'request' => $request
             ];
         }else{
             $filename = $email;
@@ -100,12 +102,13 @@ class APIJobController extends Controller
             $data = [
                 'code' => 200,
                 'status' => 'success',
+                'message' => 'Documento subido exitosamente',
                 'document' => $pdfNameToStore
             ];
         }
 
         return response()->json($data, $data['code']);
-    }
+    } 
 
     public function apply(Request $request, $pdfNameToStore)
     {
@@ -113,88 +116,64 @@ class APIJobController extends Controller
         $email = null;
         $emailCompany = null;
 
-        //Recoger los datos por post
-        $json = $request->input('json', null);
-        $params = json_decode($json);
-        $params_array = json_decode($json, true);
-
-        $request = new Request($params_array);
-
         //Validamos si el usuario esta autenticado
         $user = auth()->user();
 
         //Verificar que los datos llegan completos
-        if(!empty($params_array) && isset($user)){
+        if(!empty($request) && isset($user)){
+            try{
+                //test para asignar valor a las variables
+                $email = $request->email;
+                $emailCompany = $request->emailCompany;
 
-            //Validamos los datos traidos desde POST
-            $validate = \Validator::make($params_array, [
-                'name' => 'required',
-                'lastname' => 'required',
-                'email' => 'required',
-                'phone' => 'required'
-            ]);
+                /********Ruta completa de Path Para enviar archivos adjuntos*********/
+                //Traemos todo el path (app/storage/app/public/(disk))
+                $view = Storage::disk('jobs')->getAdapter()->getPathPrefix();
 
-            if($validate->fails()){
+                //En el pdfNameToStore, esta el nombre del archivo concatenado con .pdf
+                //Para unirlo utilizamos todo el path seguido de un "." y el nombre con extencion
+                $pathFull = $view.$pdfNameToStore;
+
+                //Mandamos la info por request al modelo del Mail
+                $request->pathFull = $pathFull;
+                /********Ruta completa de Path Para enviar archivos adjuntos*********/
+
+                /***************Correo para Postulado***********************/
+                Mail::to([$email])
+                    ->send(new JobDataUser($request)); //envia la variables $request a la clase de MAIL
+                /***************Correo para Postulado***********************/
+
+                /****************Correo para RRHHAdmin***********************/
+                Mail::to([$emailCompany])
+                    ->send(new JobDataAdmin($request)); //envia la variables $request a la clase de MAIL
+                /****************Correo para RRHHAdmin***********************/
+
+                Storage::disk('jobs')->delete($pdfNameToStore);
+
                 $data = [
+                    'code' => 200,
+                    'status' => 'success',
+                    'message' => 'Correo enviado exitosamente, en tu correo electronico, llegara un mensaje de verificacion'
+                ];
+
+                return response()->json($data, $data['code']);
+    
+            }catch (\Illuminate\Database\QueryException $e) {
+                $abort = abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
+
+                return response()->json($response, 500);
+                return $data = [
                     'code' => 404,
                     'status' => 'error',
-                    'message' => 'Faltan datos'
+                    'message' => 'Mensajes no enviados',
+                    'abort' => $abort
                 ];
-            }else{
-                try{
-                    //test para asignar valor a las variables
-                    $email = $params->email;
-                    $emailCompany = $params->emailCompany;
-
-                    /********Ruta completa de Path Para enviar archivos adjuntos*********/
-                    //Traemos todo el path (app/storage/app/public/(disk))
-                    $view = Storage::disk('jobs')->getAdapter()->getPathPrefix();
-    
-                    //En el pdfNameToStore, esta el nombre del archivo concatenado con .pdf
-                    //Para unirlo utilizamos todo el path seguido de un "." y el nombre con extencion
-                    $pathFull = $view.$pdfNameToStore;
-    
-                    //Mandamos la info por request al modelo del Mail
-                    $request->pathFull = $pathFull;
-                    /********Ruta completa de Path Para enviar archivos adjuntos*********/
-    
-                    /***************Correo para Postulado***********************/
-                    Mail::to([$email])
-                        ->send(new JobDataUser($request)); //envia la variables $request a la clase de MAIL
-                    /***************Correo para Postulado***********************/
-    
-                    /****************Correo para RRHHAdmin***********************/
-                    Mail::to([$emailCompany])
-                        ->send(new JobDataAdmin($request)); //envia la variables $request a la clase de MAIL
-                    /****************Correo para RRHHAdmin***********************/
-    
-                    Storage::disk('jobs')->delete($pdfNameToStore);
-    
-                    $data = [
-                        'code' => 200,
-                        'status' => 'success',
-                        'message' => 'Correo enviado exitosamente, en tu correo electronico, llegara un mensaje de verificacion'
-                    ];
-
-                    return response()->json($data, $data['code']);
-        
-                }catch (\Illuminate\Database\QueryException $e) {
-                    $abort = abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
-    
-                    return response()->json($response, 500);
-                    return $data = [
-                        'code' => 404,
-                        'status' => 'error',
-                        'message' => 'Mensajes no enviados',
-                        'abort' => $abort
-                    ];
-                }
             }
         }else{
             
             //Verificar que los datos llegan completos
-            if(!empty($params_array) || !empty($params)){
-                $validate = \Validator::make($params_array, [
+            if(!empty($request) || !empty($params)){
+                $validate = \Validator::make($request, [
                     'name' => 'required',
                     'lastname' => 'required',
                     'email' => 'required',
@@ -210,9 +189,9 @@ class APIJobController extends Controller
                 }else{
                     try{
                         //test para asignar valor a las variables
-                        $email = $params->email;
+                        $email = $request->email;
 
-                        $emailCompany = $params->emailCompany;
+                        $emailCompany = $request->emailCompany;
 
                         /********Ruta completa de Path Para enviar arviso adjuntos*********/
                         //Traemos todo el path (app/storage/app/public/(disk))
@@ -222,7 +201,7 @@ class APIJobController extends Controller
                         //Para unirlo utilizamos todo el path seguido de un "." y el nombre con extencion
                         $pathFull = $view.$pdfNameToStore;
         
-                        //Mandamos la info por params al modelo del Mail
+                        //Mandamos la info por request al modelo del Mail
                         $request->pathFull = $pathFull;
                         /********Ruta completa de Path Para enviar arviso adjuntos*********/
         
