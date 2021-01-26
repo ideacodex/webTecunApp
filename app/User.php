@@ -47,6 +47,11 @@ class User extends Authenticatable
         return $this->belongsTo("App\Status", 'status_id');
     }
 
+    public function device()
+    {
+        return $this->hasOne("App\UsersDevice", 'id', 'user_id');
+    }
+
     public function findForPassport($username)
     {
         return User::orWhere('email', $username)->orWhere('phone', $username)->first();

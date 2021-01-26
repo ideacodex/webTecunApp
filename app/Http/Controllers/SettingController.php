@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Setting;
+use App\UsersDevice;
 use DB;
 
 use Illuminate\Http\Request;
@@ -151,5 +152,85 @@ class SettingController extends Controller
     public function destroy(Setting $setting)
     {
         //
+    }
+
+
+    public function panelNotifications()
+    {
+        //formulario web para envio de notificaciones
+        return view('settings.notificationsForm');
+    }
+
+    public function sendNotifications(Request $request)
+    {
+        //recibe formulariode la web, consulta en base de datos loas token de push notifications, y envia la peticion post con el json a el api de expo push notificatiosn
+        $body=array();
+        $devices=UsersDevice::get('token');
+        foreach ($devices as $record) {
+            // Setup request to send json via POST
+            $data = array(
+                'to' => $record->token,
+                'title' => $request->title,
+                'body' => $request->message,
+            );
+            array_push($body, $data);
+        }
+        // API URL
+        $url = 'https://exp.host/--/api/v2/push/send';
+
+        // Create a new cURL resource
+        $ch = curl_init($url);
+
+        
+        $payload = json_encode($body);
+
+        // Attach encoded JSON string to the POST fields
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+
+        // Set the content type to application/json
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+
+        // Return response instead of outputting
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        // Execute the POST request
+        $result = curl_exec($ch);
+
+        // Close cURL resource
+        curl_close($ch);
+        //************************** */
+        return \Redirect::back()->with([
+            'message' => 'se enviarion las notificaciones',
+            'alert' => 'success'
+        ]);
+        dd("envia notificaciones", $request, $devices, $result);
+    }
+
+    public function saveNotificationToken(Request $request)
+    {
+        $response = [
+            'data' => null,
+            'success' => false,
+            'error' => null,
+            'message' => null
+          ];
+        //Guardar los token de push notifications
+        $data=UsersDevice::where('token', $request->token)->first();
+        if($data){
+            $data->token=$request->token;
+            $data->user_id=$request->user_id;
+            $data->save();
+            $response['message']= "se actualizó el token";
+        }else{
+            $data= new UsersDevice();
+            $data->token=$request->token;
+            $data->user_id=$request->user_id;
+            $data->save();
+            $response['message']= "se guardó el token";
+        }
+        $response['success']= true;
+        $response['data']= true;
+        
+        return response()->json($response, 200);
     }
 }

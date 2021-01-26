@@ -1,5 +1,13 @@
 @extends('layouts.single')
 @section('content')
+@if (session('message'))
+    <div class="sufee-alert alert with-close alert-{{ session('alert') }} alert-dismissible fade show">
+        <span class="badge badge-pill badge-{{ session('alert') }}">{{ session('message') }}</span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    @endif
 <div class="container ">
     <div class="row justify-content-around" style="margin-top: 2em;">
         <img src="{{asset('img/user.png')}}" class="img-fluid" style="max-height: 150px;">
@@ -18,7 +26,7 @@
                         <i class="text-light fas fa-at"></i>
                     </span>
                 </div>
-                <input placeholder="Correo o Número de móvil" type="text" aria-label=" Sizing example input"
+                <input placeholder="Correo electronico" type="text" aria-label=" Sizing example input"
                     aria-describedby="inputGroup-sizing-sm"
                     class=" form-control text-light @error('email') is-invalid @enderror" name="email"
                     value="{{ old('email') }}" required>
@@ -70,15 +78,5 @@
         </form>
     </div>
 
-    <div class="row justify-content-center">
-        @if (Route::has('password.request'))
-        <a class="m-t-1 btn btn-link text-light" href="{{ route('password.request') }}">
-            {{ __('¿Olvidé la contraseña?') }}
-        </a>
-        <a class="d-none btn btn-link text-light" href="{{ route('register') }}">
-            {{ __('Crear cuenta') }}
-        </a>
-        @endif
-    </div>
 </div>
 @endsection

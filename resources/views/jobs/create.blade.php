@@ -162,16 +162,6 @@
                 </div>
             </form>
         </div>
-        <div class="row mt-5 justify-content-center">
-            @if (Route::has('password.request'))
-                <a class="m-t-5 btn btn-link text-light" href="{{ route('password.request') }}">
-                    {{ __('¿Olvidé la contraseña?') }}
-                </a>
-                <a class="btn btn-link text-light" href="{{ route('register') }}">
-                    {{ __('Crear cuenta') }}
-                </a>
-            @endif
-        </div>
     </div>
 @endsection
 @section('js')
@@ -182,7 +172,7 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <script>
         $('#summernote').summernote({
-            placeholder: 'Hello stand alone ui',
+            placeholder: 'Agrega aquí el contenido',
             tabsize: 2,
             height: 120,
             toolbar: [
@@ -190,7 +180,7 @@
                 ['font', ['bold', 'underline', 'clear']],
                 ['color', ['color']],
                 ['para', ['ul', 'ol', 'paragraph']],
-                ['view', ['fullscreen', 'codeview', 'help']]
+                ['insert', ['link', 'picture']],
             ]
         });
 

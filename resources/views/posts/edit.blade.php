@@ -127,6 +127,30 @@
                         <input type="hidden" name="NamePostCategory[]" multiple="multiple" value="{{ $items->name }}" >
                     @endforeach
 
+                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                <i class="text-primary fab fa-youtube"></i>
+                            </span>
+                        </div>
+                        <input id="video" placeholder="Codigo Youtube" type="text" size="250" title="Ejemplo: VYOjWnS4cMY"
+                            maxlength="250" class="text-primary form-control @error('video') is-invalid @enderror"
+                            name="video" value="{{ $record->featured_video }}" autocomplete="video"
+                            autofocus>
+
+                        @error('video')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+
+                        @error('video')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+
                     <div class="col-12 input-group input-group-lg mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text transparent" id="inputGroup-sizing-sm">
@@ -182,16 +206,6 @@
                 </div>
             </form>
         </div>
-        <div class="row mt-5 justify-content-center">
-            @if (Route::has('password.request'))
-                <a class="m-t-5 btn btn-link text-light" href="{{ route('password.request') }}">
-                    {{ __('¿Olvidé la contraseña?') }}
-                </a>
-                <a class="btn btn-link text-light" href="{{ route('register') }}">
-                    {{ __('Crear cuenta') }}
-                </a>
-            @endif
-        </div>
     </div>
 @endsection
 @section('js')
@@ -206,7 +220,7 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <script>
         $('#summernote').summernote({
-            placeholder: 'Hello stand alone ui',
+            placeholder: 'Agrega aquí el contenido',
             tabsize: 2,
             height: 120,
             toolbar: [
@@ -214,9 +228,7 @@
                 ['font', ['bold', 'underline', 'clear']],
                 ['color', ['color']],
                 ['para', ['ul', 'ol', 'paragraph']],
-                ['table', ['table']],
-                ['insert', ['link', 'picture', 'video']],
-                ['view', ['fullscreen', 'codeview', 'help']]
+                ['insert', ['link', 'picture']],
             ]
         });
 

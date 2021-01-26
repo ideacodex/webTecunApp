@@ -128,7 +128,6 @@ class UserController extends Controller
     {
         //
         request()->validate([
-            'dpi' => 'required',
             'name' => 'required',
             'lastname' => 'required',
             'email' => 'required',

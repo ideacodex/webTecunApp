@@ -48,21 +48,13 @@ class HomeController extends Controller
         ]);
     }
 
-    public function news()
-    {
-        return view('news.index');
-    }
 
     public function team()
     {
-        $awards = Award::with('user')->with('category')->get();
+        $awards = Award::with('user')->where('active',1)->get();
         return view('users.team', ["awards" => $awards]);
     }
 
-    public function specialTeam()
-    {
-        return view('users.specialteam');
-    }
 
     public function games()
     {
@@ -81,13 +73,4 @@ class HomeController extends Controller
         return view('podcasts.home');
     }
 
-    public function stores()
-    {
-        return view('stores.home');
-    }
-
-    public function jobs()
-    {
-        return view('jobs.home');
-    }
 }

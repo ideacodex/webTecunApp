@@ -37,7 +37,7 @@ class QueryVacationRRHH extends Mailable
      */
     public function build()
     {
-        return $this->subject('Solicitud dias de vacaciones '.$this->request->groupCompanies)
+        return $this->subject('Solicitud dias de vacaciones '.$this->request->departament)
             ->view('emails.nominalVacation');
     }
 }

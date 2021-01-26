@@ -13,7 +13,7 @@ $namesUser = explode(" ", Auth::user()->name);
 
                 <form class="  my-lg-0">
                     <div class="input-group mb-3">
-                        <input name="search" type="search" class="form-control" placeholder="Dirección o Nombre de agencia"
+                        <input name="search" type="search" class="form-control" placeholder="Titulo o descipción"
                             aria-label="Titulo o descipción" aria-describedby="button-addon2">
                         <div class="input-group-append">
                             <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Buscar</button>

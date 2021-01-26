@@ -18,54 +18,6 @@ use Illuminate\Support\Facades\Storage;
 
 class APIPostController extends Controller
 {
-    //
-    public function index()
-    {
-        $posts = Post::all();
-
-        if(!empty($posts)){
-            $data = [
-                'code' => 200,
-                'status' => 'success',
-                'posts' => $posts
-            ];
-        }else{
-            $data = [
-                'code' => 404,
-                'status' => 'error',
-                'message' => 'No hay noticias para mostrar'
-            ];
-        }
-
-        return response()->json($data, $data['code']);
-    }
-
-    public function show($id)
-    {
-        $post = Post::with('user')->findOrFail($id);
-        $comments= CommentPost::where('post_id', $post->id)->with('user')->get();
-
-        //Traemos el array con toda la informacion combianda de la BD  
-        $categoryName = $post->category;
-
-        if(is_object($post)){
-            $data = [
-                'code' => 200,
-                'status' => 'success',
-                'post' => $post,
-                'comments' => $comments
-            ];
-        }else{
-            $data = [
-                'code' => 404,
-                'status' => 'error',
-                'message' => 'No existe la noticia'
-            ];
-        }
-
-        return response()->json($data, $data['code']);
-    }
-
     public function getImage($featured_image)
     {
         $isset = \Storage::disk('posts')->exists($featured_image);
@@ -104,29 +56,10 @@ class APIPostController extends Controller
         return response()->json($data, $data['code']);
     }
 
-    public function getVideo($featured_video)
-    {
-        $isset = \Storage::disk('posts')->exists($featured_video);
-
-        if($isset){
-            $file = \Storage::disk('posts')->get($featured_video);
-
-            return new response($file, 200);
-        }else{
-            $data = [
-                'code' => 404,
-                'status' => 'error',
-                'message' => 'No existe el video'
-            ];
-        }
-
-        return response()->json($data, $data['code']);
-    }
-
     public function news()
     {
         //Mostramos todos los POSTS creados y junto a ello los likes de cada uno
-        $posts = Post::with('likes')->get();//El estado es activo
+        $posts = Post::with('likes')->with('userLikesNew')->with('comments.user')->orderBy('created_at', 'desc')->get();//El estado es activo
         
         //De la tabla pivote, sacamos solo los category_id
         $category_id = DB::table('category_post')->get('category_id');
@@ -137,7 +70,7 @@ class APIPostController extends Controller
         //La variable anterior la utilizamos para sacar solo las categorias con esos ID's
         $categories = Category::find($categoryID);
 
-        if(isset($categories) && $isset($posts)){
+        if(isset($categories) && isset($posts)){
             $data = [
                 'code' => 200,
                 'status' => 'success',
@@ -158,7 +91,7 @@ class APIPostController extends Controller
     public function newsRead($id)
     {
         //
-        $post = Post::with('user')->findOrFail($id);
+        $post = Post::with('comments.user')->findOrFail($id);
         $comments= CommentPost::where('post_id', $post->id)->with('user')->get();
 
         //Traemos el array con toda la informacion combianda de la BD  
@@ -170,7 +103,7 @@ class APIPostController extends Controller
                 'status' => 'success',
                 'post' => $post,
                 'comments' => $comments,
-                'categoryName' => $categoryName
+                //'categoryName' => $categoryName
             ];
         }else{
             $data = [
@@ -188,14 +121,14 @@ class APIPostController extends Controller
         //Recoger los datos por post
         $json = $request->input('json', null);
         $params = json_decode($json);
-        $params_array = json_decode($json, true);
+        $request = json_decode($json, true);
 
-        if(!empty($params_array)){
+        if(!empty($request)){
             //Conseguir el ID del usuario identificado
             $userId = auth()->user()->id;
 
             //Verificar los datos recibidos
-            $validate = \Validator::make($params_array, [
+            $validate = \Validator::make($request, [
                 'message' => 'required'
             ]);
 
@@ -212,7 +145,7 @@ class APIPostController extends Controller
                 try{
                     $comment = DB::table('commentposts')->insert([
                         'user_id' => $userId,
-                        'post_id' => $params_array['post_id'],
+                        'post_id' => $request['post_id'],
                         'message' => $params->message
                     ]);
 
@@ -225,6 +158,12 @@ class APIPostController extends Controller
                 }
 
                 DB::commit();
+
+                $data = [
+                    'code' => '200',
+                    'status' => 'success',
+                    'comment' => $comment
+                ];
             }
         }else{
             $data = [
@@ -237,13 +176,18 @@ class APIPostController extends Controller
         return response()->json($data, $data['code']);
     }
 
-    public function delete($id)
+    public function delete(Request $request)
     {
+        //Recoger los datos por post
+        $json = $request->input('json', null);
+        $params = json_decode($json);
+        $request = json_decode($json, true);
+
         //Conseguimos el ID del usuario
         $user = auth()->user()->id;
 
         //Conseguimos el objeto del comentario
-        $comment = CommentPost::find($id);
+        $comment = CommentPost::find($params->id);
 
         //Comprobar si ID del usuario es el mismo que el user_id de Comments_post
         if(isset($user) && ($comment->user_id == $user)){
@@ -252,8 +196,7 @@ class APIPostController extends Controller
             $data = [
                 'code' => 200,
                 'status' => 'success',
-                'message' => 'Commentario eliminado',
-                'comment' => $comment
+                'message' => 'Commentario eliminado'
             ];
         }else{
             $data = [
@@ -268,21 +211,22 @@ class APIPostController extends Controller
 
     public function likeOrDislikeNews(Request $request)
     {
-        //Recoger los datos por post
-        $json = $request->input('json', null);
-        $params = json_decode($json);
-        $params_array = json_decode($json, true);
-
-        if(!empty($params_array)){
+        if(!empty($request)){
             //Recogemos los datos del usuario
             $user = auth()->user()->id;
 
-            //Recogemos el reactionActive
-            $reactionActive = $params->reactionActive;
-            $postID = $params->postID;
+            //Recogemos el postID
+            $postID = $request->postID;
 
             //Verificar que existe el like del usuario
-            $issetReactionUser = DB::table('reactionposts')->where('user_id', $user)->where('post_id', $postID)->count();
+            $issetReactionUser = DB::table('reactionposts')->where('user_id', $user)
+                                ->where('post_id', $postID)
+                                ->count();
+
+            $reactionActiveArray = DB::table('reactionposts')->where('user_id', $user)
+                                ->where('post_id', $postID)->get('active');
+
+            $reaction = json_decode($reactionActiveArray, true);
 
             DB::beginTransaction();
 
@@ -303,18 +247,7 @@ class APIPostController extends Controller
                     ];
         
                 }else{
-                    if($reactionActive == 0){
-                        DB::table('reactionposts')->where('user_id', $user)
-                            ->where('post_id', $postID)->update(['active' => 1]);
-
-                        DB::commit();
-
-                        $data = [
-                            'code' => 200,
-                            'status' => 'success',
-                            'message' => 'Haz publicado tu reaccion correctamente'
-                        ];
-                    }else{
+                    if($reaction[0]['active'] === 1){
                         DB::table('reactionposts')->where('user_id', $user)
                             ->where('post_id', $postID)->update(['active' => 0]);
 
@@ -324,6 +257,19 @@ class APIPostController extends Controller
                             'code' => 200,
                             'status' => 'success',
                             'message' => 'Haz quitado tu reaccion correctamente'
+                        ];
+                    }
+
+                    if($reaction[0]['active'] === 0){
+                        DB::table('reactionposts')->where('user_id', $user)
+                            ->where('post_id', $postID)->update(['active' => 1]);
+
+                        DB::commit();
+
+                        $data = [
+                            'code' => 200,
+                            'status' => 'success',
+                            'message' => 'Haz publicado tu reaccion correctamente'
                         ];
                     }
                 }
@@ -352,15 +298,17 @@ class APIPostController extends Controller
 
         //Sacamos solo el nombre de la categoria para mostrarla en un alert
         $categoryPostName = $categoryPost->name;
+        $idCategory = $id;
 
         //En la tabla pivote, obtenemos el/los ID de los post que hace referencia a la categoria
         $postID = DB::table('category_post')->where('category_id', $id)->get('post_id');
 
         //Decodificamos los datos anteriores para tener una mejor manipulacion y obtener el/los ID del podcast
         $postDecode = json_decode($postID, true);
+        $postObject = json_decode($postID, true);
 
         //Al obtener el valor decodificado lo mandamos a llamar con un find para sacar el/los objecto completo
-        $posts = Post::find($postDecode);
+        $posts = Post::where('id', $postDecode)->with('likes')->with('userLikesNew')->with('comments.user')->orderBy('created_at', 'desc')->get();//El estado es activo
 
         /******************************************************************************************************** */
 
@@ -379,7 +327,8 @@ class APIPostController extends Controller
                 'status' => 'success',
                 'posts' => $posts,
                 'categories' => $categories,
-                'categoryPodcastName' => $categoryPostName
+                //'categoryPodcastName' => $categoryPostName,
+                'idCategory' => $idCategory
             ];
         }else{
             $data = [

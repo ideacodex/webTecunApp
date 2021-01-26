@@ -37,7 +37,7 @@ class QueryConstancyRRHH extends Mailable
      */
     public function build()
     {
-        return $this->subject('Solicitud de constancia laboral '.$this->request->mailGroup)
+        return $this->subject('Solicitud de constancia laboral '.$this->request->pais)
             ->view('emails.rrhhConstancy');
     }
 }

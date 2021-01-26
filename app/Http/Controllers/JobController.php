@@ -41,7 +41,7 @@ class JobController extends Controller
     public function index()
     {
         //
-        $jobs = Job::all();
+        $jobs = Job::orderBy('created_at', 'desc')->get();
         return view("jobs.index", ["jobs" => $jobs]);
     }
 
@@ -197,6 +197,7 @@ class JobController extends Controller
         $jobs = Job::where('title', 'like', "%$title%")
                 ->orWhere('description', 'like', "%$description%")
                 ->orWhere('skils', 'like', "%$skils%")
+                ->orderBy('created_at', 'desc')
                 ->get();
 
         return view("jobs.home", ["jobs" => $jobs]);

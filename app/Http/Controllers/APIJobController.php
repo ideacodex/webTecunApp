@@ -15,48 +15,34 @@ use App\Job;
 
 class APIJobController extends Controller
 {
-    public function index()
-    {
-        $jobs = Job::all();
-
-        if(!empty($jobs)){
-            $data = [
-                'code' => 200,
-                'status' => 'success',
-                'jobs' => $jobs
-            ];
-        }else{
-            $data = [
-                'code' => 404,
-                'status' => 'error',
-                'message' => 'Sin trabajos por mostrar'
-            ];
-        }
-
-        return response()->json($data, $data['code']);
-    }
-
     public function jobs(Request $request)
     {
-        $title = $request->get('search');
-        $description = $request->get('search');
-        $skils = $request->get('search');
-        $jobs = Job::where('title', 'like', "%$title%")
+        //Recoger los datos por get
+        $search = $request->input('search');
+
+        //Verificamos que la variable exista y que llego con algun dato
+        if(isset($search) && !is_null($search)){
+            $title = $search;
+            $description = $search;
+            $skils = $search;
+            $jobs = Job::where('title', 'like', "%$title%")
                 ->orWhere('description', 'like', "%$description%")
                 ->orWhere('skils', 'like', "%$skils%")
+                ->orderBy('created_at', 'desc')
                 ->get();
 
-        if(!empty($jobs)){
             $data = [
                 'code' => 200,
                 'status' => 'success',
                 'jobs' => $jobs
             ];
         }else{
+            $jobs = Job::orderBy('created_at', 'desc')->get();
+
             $data = [
-                'code' => 404,
-                'status' => 'error',
-                'message' => 'No hay trabajos para mostrar'
+                'code' => 200,
+                'status' => 'success',
+                'jobs' => $jobs
             ];
         }       
 
@@ -96,7 +82,7 @@ class APIJobController extends Controller
         ]);
 
         //Guardamos el documento en disk
-        if(empty($docuemnt) && $validate->fails()){
+        if(empty($document) && $validate->fails()){
             $data = [
                 'code' => 404,
                 'status' => 'error',
@@ -105,7 +91,7 @@ class APIJobController extends Controller
         }else{
             $filename = $email;
             $extension = $request->file('document')->getClientOriginalExtension();
-            $pdfNameToStore = $request->email . '.' . $extension;
+            $pdfNameToStore = $filename . '.' . $extension;
             $request->pdfNameToStore = $pdfNameToStore;
 
             // Upload Image //********nombre de carpeta para almacenar*****
@@ -150,7 +136,7 @@ class APIJobController extends Controller
 
             if($validate->fails()){
                 $data = [
-                    'code' => 400,
+                    'code' => 404,
                     'status' => 'error',
                     'message' => 'Faltan datos'
                 ];
@@ -187,7 +173,7 @@ class APIJobController extends Controller
                     $data = [
                         'code' => 200,
                         'status' => 'success',
-                        'message' => 'Correo enviado exitosamente'
+                        'message' => 'Correo enviado exitosamente, en tu correo electronico, llegara un mensaje de verificacion'
                     ];
 
                     return response()->json($data, $data['code']);

@@ -28,25 +28,42 @@ Route::get('award', 'APIAwardController@index');
 Route::get('award/image/{url_image}', 'APIAwardController@getImage');
 Route::get('award/carousel', 'APIAwardController@carousel');
 
-Route::get('store', 'APIStoreController@index')->middleware('auth:api');
-Route::get('store/{id}', 'APIStoreController@show')->middleware('auth:api');
+Route::post('stores', 'APIStoreController@index')->middleware('auth:api');
 
-Route::get('jobs', 'APIJobController@index');
-Route::get('job/{id}', 'APIJobController@show');
-Route::post('job/apply/upload/{email}', 'APIJobController@applyUploadDocument');
-Route::post('job/apply/mail/{pdfNameToStore}', 'APIJobController@apply');
+Route::post('jobs', 'APIJobController@jobs')->middleware('auth:api');;
+Route::post('job/{id}', 'APIJobController@show')->middleware('auth:api');;
+Route::post('job/apply/upload/{email}', 'APIJobController@applyUploadDocument')->middleware('auth:api');;
+Route::post('job/apply/mail/{pdfNameToStore}', 'APIJobController@apply')->middleware('auth:api');;
 
-Route::get('posts', 'APIPostController@index');
-Route::get('post/{id}', 'APIPostController@show');
-Route::get('post/{featured_image}', 'APIPostController@getImage');
-Route::get('post/{featured_document}', 'APIPostController@getDocument');
-Route::get('post/{featured_video}', 'APIPostController@getVideo');
-Route::get('news', 'APIPostController@news');
-Route::get('news/{id}', 'APIPostController@newsRead');
-Route::post('commentpost', 'APIPostController@commentPost');
-Route::get('commentpost/{id}', 'APIPostController@delete');
-Route::post('likeordislikenews', 'APIPostController@likeOrDislikeNews');
-Route::get('categorypost/{id}', 'APIPostController@categoryPost');
+/* ********************Post************************************ */
+Route::get('news', 'APIPostController@news')->middleware('auth:api');
+Route::get('post/{id}', 'APIPostController@newsRead')->middleware('auth:api');
+Route::post('commentpost', 'APIPostController@commentPost')->middleware('auth:api');
+Route::post('commentpost/{id}', 'APIPostController@delete')->middleware('auth:api');
+Route::post('likeordislikenews', 'APIPostController@likeOrDislikeNews')->middleware('auth:api');
+Route::get('categorypost/{id}', 'APIPostController@categoryPost')->middleware('auth:api');
+/* ********************Post************************************ */
+
+/* ********************Podcast************************************ */
+Route::get('podcasts', 'APIPodcastController@podcasts')->middleware('auth:api');
+Route::get('podcast/{id}', 'APIPodcastController@podcastRead')->middleware('auth:api');
+Route::post('commentpodcast', 'APIPodcastController@commentPodcast')->middleware('auth:api');
+Route::post('commentpodcast/{id}', 'APIPodcastController@delete')->middleware('auth:api');
+Route::post('likeordislikepodcast', 'APIPodcastController@likeOrDislikePodcast')->middleware('auth:api');
+Route::get('categoryPodcast/{id}', 'APIPodcastController@categoryPodcast')->middleware('auth:api');
+/* ********************Podcast************************************ */
+
+Route::get('question', 'APIGamesController@question')->middleware('auth:api');
+Route::get('score', 'APIGamesController@score')->middleware('auth:api');
+Route::post('scoreuser', 'APIGamesController@scoreUser')->middleware('auth:api');
+
+Route::resource('contacts', 'ApiContactController')->middleware('auth:api');
+Route::resource('pictures', 'ApiPictureController');
+Route::post('ldap', 'LdapController@ldapApi');
+Route::post('device/token', 'SettingController@saveNotificationToken')->middleware('auth:api');
 
 
-
+Route::get('favorites', 'ApiContactController@favorites')->middleware('auth:api');
+Route::get('allCompany', 'ProccessController@allCompany')->middleware('auth:api');
+Route::post('mailVacation', 'ProccessController@mailVacation')->middleware('auth:api');
+Route::post('mailConstancy', 'ProccessController@mailConstancy')->middleware('auth:api');

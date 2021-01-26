@@ -67,7 +67,7 @@
                         <li class="nav-item"><a class="nav-link waves-effect waves-light text-light"
                                 href="#download"><strong>Descargar</strong></a></li>
                         <li class="nav-item"><a class="h4 nav-link waves-effect waves-light text-light"
-                                href="{{url('login')}}"><strong>Ingresar</strong></a></li>
+                                href="{{url('ingresar')}}"><strong>Ingresar</strong></a></li>
                     </ul>
                 </div>
             </nav>

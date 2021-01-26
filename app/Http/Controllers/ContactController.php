@@ -208,7 +208,7 @@ class ContactController extends Controller
 
     public function ContactUser($id)
     {
-        $contact = Contact::findOrFails($id);
+        $contact = Contact::findOrFail($id);
         return view('contacts.show', ['contact' => $contact]);
     }
 }

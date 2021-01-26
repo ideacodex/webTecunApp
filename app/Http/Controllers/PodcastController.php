@@ -24,7 +24,7 @@ class PodcastController extends Controller
      */
     public function index()
     {
-        $podcast = Podcast::all();
+        $podcast = Podcast::orderBy('created_at', 'desc')->get();
         return view("podcasts.index", ["podcast" => $podcast]);
     }
 
@@ -259,7 +259,7 @@ class PodcastController extends Controller
             $podcast->title = $request->title;
             $podcast->description = $request->description;
             $podcast->content = $request->editordata;
-            $podc//Modificar la ruta del video YouTube
+            //Modificar la ruta del video YouTube
             $video = $request->video;
 
             if($video && !is_null($video)){
@@ -422,7 +422,7 @@ class PodcastController extends Controller
     public function podcasts()
     {
         //Mostramos todos los POSTS creados y junto a ello los likes de cada uno
-        $podcasts = Podcast::with('likes')->get();//El estado es activo
+        $podcasts = Podcast::with('likes')->orderBy('created_at', 'desc')->get();//El estado es activo
         
         //De la tabla pivote, sacamos solo los category_id
         $category_id = DB::table('category_podcast')->get('category_id');

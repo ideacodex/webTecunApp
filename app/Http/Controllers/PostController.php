@@ -26,7 +26,7 @@ class PostController extends Controller
     {
         //
         
-        $posts = Post::all();
+        $posts = Post::orderBy('created_at', 'desc')->get();
         return view("posts.index", ["posts" => $posts]);
     }
 
@@ -83,9 +83,9 @@ class PostController extends Controller
             if($video && !is_null($video)){
                 $routeVideo = "https://www.youtube.com/embed/".$video;
 
-                $podcast->featured_video = $routeVideo;
+                $post->featured_video = $routeVideo;
             }else{
-                $podcast->featured_video = null;
+                $post->featured_video = null;
             }
             //Modificar la ruta del video YouTube 
 
@@ -227,17 +227,7 @@ class PostController extends Controller
                 'editordata' => 'required',
                 'description' => 'required'
             ]);
-//Modificar la ruta del video YouTube
-$video = $request->video;
-
-if($video && !is_null($video)){
-    $routeVideo = "https://www.youtube.com/embed/".$video;
-
-    $podcast->featured_video = $routeVideo;
-}else{
-    $podcast->featured_video = null;
-}
-//Modificar la ruta del video YouTube  
+             
             //dd($request);
             DB::beginTransaction();
             try {
@@ -259,7 +249,7 @@ if($video && !is_null($video)){
                     $routeVideo = "https://www.youtube.com/embed/".$video;
 
                     $post->featured_video = $routeVideo;
-                }else{
+                }else {
                     $post->featured_video = null;
                 }
                 //Modificar la ruta del video YouTube  
@@ -416,7 +406,9 @@ if($video && !is_null($video)){
             auth()->user()->syncRoles('User');
         }
         //Mostramos todos los POSTS creados y junto a ello los likes de cada uno
-        $posts = Post::with('likes')->get();//El estado es activo
+        $posts = Post::with('likes')
+        ->orderBy('created_at', 'desc')
+        ->get();//El estado es activo
         
         //De la tabla pivote, sacamos solo los category_id
         $category_id = DB::table('category_post')->get('category_id');
@@ -604,4 +596,3 @@ if($video && !is_null($video)){
         ]);
     }
 }
-

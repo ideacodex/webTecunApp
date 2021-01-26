@@ -30,25 +30,4 @@ class APICategoryController extends Controller
         return response()->json($data, $data['code']);
 
     }
-
-    public function show($id)
-    {
-        $category = Category::find($id);
-
-        if(is_object($category)){
-            $data = [
-                'code' => 200,
-                'status' => 'success',
-                'category' => $category
-            ];
-        }else{
-            $data = [
-                'code' => 404,
-                'status' => 'error',
-                'message' => 'La categoria no existe'
-            ];
-        }
-
-        return response()->json($data, $data['code']);
-    }
 }
