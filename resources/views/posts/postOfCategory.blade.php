@@ -56,7 +56,7 @@
                                             {{ $item->name }}
                                         </a>
                                         <form id="formDel{{ $item->id }}"
-                                            action="{{ url('category/post/' . $item->id) }}" method="POST"
+                                            action="{{ url('category/post/' . $item->id) }}" method="GET"
                                             style="display: none;">
                                             @csrf
                                         </form>
@@ -88,7 +88,7 @@
                             <div class="card-footer justify-content-around d-flex">
                                 <input type="hidden" name="active"
                                     value="{{ $reactionActive = $item->likes->where('user_id', auth()->user()->id)->first() }} ">
-                                @if ($item->userLikesNew->count() == 0 )
+                                @if (!$item->userLikesNew )
                                     <form method="POST" action="{{ url('likeordislike') }}"
                                         onsubmit="return checkSubmit();">
                                         @csrf

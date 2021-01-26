@@ -5,9 +5,14 @@ $namesUser = explode(" ", Auth::user()->name);
 @section('content')
     <div class="col-12 col-md-8 col-lg-8 offset-md-2 offset-lg-2">
         <div class="accordion" id="accordionExample">
+            <div class=" mt-5">
+                <h1 class="text-info text-center">Elige la empresa a la que perteneces para solicitar cuantos días de
+                    vacaciones tienes a favor
+                </h1>
+            </div>
             @if ($companies)
                 @foreach ($companies as $item)
-                    <div class="card d-flex justify-content-around ">
+                    <div class="card d-flex justify-content-around mt-3">
                         <div class="card-header" id="headingTwo">
                             <h2 class="mb-0">
                                 <button class="btn btn-link btn-block text-left collapsed" type="button"
@@ -42,12 +47,8 @@ $namesUser = explode(" ", Auth::user()->name);
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    Al elegir la empresa,se envía un correo electronico al encargado de nomina.
-
-                                                    Para continuar con la solicitud sobre cuantos dias de vacaciones
-                                                    tienes
-                                                    por favor presione Aceptar. Se eviará un correo con
-                                                    tu información y se contactaran contigo lo mas pronto posible.
+                                                    Al dar aceptar, el encargado recibirá tu información y se pondrán en
+                                                    contacto contigo, lo antes posible.
                                                 </div>
                                                 <div class="modal-footer">
                                                     <form method="POST" action="{{ url('mailRRHHVacation') }}"
