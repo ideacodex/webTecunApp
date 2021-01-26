@@ -139,11 +139,8 @@ class AwardController extends Controller
                 unset($award->user_id);
             }
 
-            if($request->type_id){
-                $award->type_id = $request->type_id;
-            }else{
-                unset($award->type_id);
-            }
+            $award->type_id = $request->type_id;
+
 
             if($request->active == 1 || $request->active == 'Si'){
                 $award->active = 1;
