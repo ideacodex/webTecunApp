@@ -165,7 +165,7 @@
                                     <div class="card-footer justify-content-around d-flex">
                                         <input type="hidden" name="active"
                                             value="{{ $reactionActive = $podcasts[$countItems - $i]->likes->where('user_id', auth()->user()->id)->first() }} ">
-                                        @if ($podcasts[$countItems - $i]->userLikesNew->count() == 0)
+                                        @if (!$podcasts[$countItems - $i]->userLikesNew)
                                             <form method="POST" action="{{ url('likeordislikepodcast') }}"
                                                 onsubmit="return checkSubmit();">
                                                 @csrf

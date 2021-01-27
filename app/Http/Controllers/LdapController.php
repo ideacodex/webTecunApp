@@ -258,6 +258,14 @@ class LdapController extends Controller
             'error' => null,
             'message' => null
           ];
+        //validamos que venga usuario y contraseña
+        if (!$request->password  || !$request->email) {
+            $response['success']= false;
+            $response['data']= false;
+            $response['message']= "Ingrese correo y contraseña";
+            return response()->json($response, 500); 
+        }
+
         $ldap_dn = $request->email;
         $ldap_password = $request->password;
         $ldap_con = ldap_connect("181.174.78.23");

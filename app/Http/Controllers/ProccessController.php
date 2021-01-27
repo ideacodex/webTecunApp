@@ -103,15 +103,15 @@ class ProccessController extends Controller
 
                 /****************Correo para RRHH***********************/
                 if ($request->country=="gtm") {
-                    Mail::to(['Xacasuy@grupotecun.com', 'gsalazar@pctecbus.co'])
+                    Mail::to(['acasuy@grupotecun.com')
                     ->send(new QueryConstancyRRHH($request)); //envia la variables $request a la clase de MAIL
                 }
                 if ($request->country=="sv") {
-                    Mail::to(['Xrbeltran@grupotecun.com', 'norellana@pctecbus.co'])
+                    Mail::to(['rbeltran@grupotecun.com')
                     ->send(new QueryConstancyRRHH($request)); //envia la variables $request a la clase de MAIL
                 }
                 if ($request->country=="hnd") {
-                    Mail::to(['Xmrivera@grupotecun.com', 'gsalazar@pctecbus.co'])
+                    Mail::to(['mrivera@grupotecun.com')
                     ->send(new QueryConstancyRRHH($request)); //envia la variables $request a la clase de MAIL
                 }
                 /****************Correo para RRHH***********************/
@@ -229,15 +229,15 @@ class ProccessController extends Controller
 
                 /****************Correo para RRHH***********************/
                 if ($request->country=="gtm") {
-                    Mail::to([/* 'Xacasuy@grupotecun.com', */'norellana@pctecbus.co', 'gsalazar@pctecbus.co'])
+                    Mail::to([ 'acasuy@grupotecun.com'])
                     ->send(new QueryConstancyRRHH($request)); //envia la variables $request a la clase de MAIL
                 }
                 if ($request->country=="sv") {
-                    Mail::to([/* 'Xrbeltran@grupotecun.com', */ 'norellana@pctecbus.co', 'gsalazar@pctecbus.co'])
+                    Mail::to(['rbeltran@grupotecun.com'])
                     ->send(new QueryConstancyRRHH($request)); //envia la variables $request a la clase de MAIL
                 }
                 if ($request->country=="hnd") {
-                    Mail::to([/* 'Xmrivera@grupotecun.com', */ 'norellana@pctecbus.co', 'gsalazar@pctecbus.co'])
+                    Mail::to([ 'Xmrivera@grupotecun.com'])
                     ->send(new QueryConstancyRRHH($request)); //envia la variables $request a la clase de MAIL
                 }
                 /****************Correo para RRHH***********************/

@@ -54,7 +54,6 @@ class PodcastController extends Controller
         request()->validate([
             '_token' => 'required',
             'title' => 'required',
-            'editordata' => 'required',
             'description' => 'required'
         ]);
 
@@ -247,7 +246,6 @@ class PodcastController extends Controller
         request()->validate([
             '_token' => 'required',
             'title' => 'required',
-            'editordata' => 'required',
             'description' => 'required'
         ]);
 

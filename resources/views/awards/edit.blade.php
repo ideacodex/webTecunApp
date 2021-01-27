@@ -13,7 +13,7 @@
     @endif
     <div class="container-fluid">
         <div class="row justify-content-center mt-2">
-            <p class="text-primary h2">Nueva publicación <i class="fas fa-newspaper"> </i></p>
+            <p class="text-primary h2">Editar reconocimiento <i class="fas fa-newspaper"> </i></p>
         </div>
         <div class="mt-4">
             <form method="POST" action="{{ url('awardsAdmin/'.$award->id) }}" enctype="multipart/form-data"
@@ -27,41 +27,22 @@
                                 <i class="text-primary fas fa-question-circle"></i>
                             </span>
                         </div>
-                        @if($award->type_id == 0)
-                            <select name="type_id" id="type_id" class="form-control @error('type_id') is-invalid @enderror">
-                                <option selected disabled value="{{ $award->type_id }}">Empleado Nuevo</option>
-                                <option value="0">Empleado Nuevo</option>
-                                <option value="1">Nuevo Puesto</option>
-                            </select>
-                            @error('type_id')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
+                        <select name="type_id" id="type_id" class="form-control @error('type_id') is-invalid @enderror">
+                            <option selected value="{{ $award->type_id }}">Tipo</option>
+                            <option value="0">Empleado Nuevo</option>
+                            <option value="1">Puesto Nuevo</option>
+                        </select>
+                        @error('type_id')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
 
-                            @error('type_id')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        @else
-                            <select name="type_id" id="type_id" class="form-control @error('type_id') is-invalid @enderror">
-                                <option selected disabled value="{{ $award->type_id }}">Nuevo puesto</option>
-                                <option value="0">Empleado Nuevo</option>
-                                <option value="1">Nuevo Puesto</option>
-                            </select>
-                            @error('type_id')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-
-                            @error('type_id')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        @endif
+                        @error('type_id')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                     </div>
                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                         <div class="input-group-prepend">
@@ -113,8 +94,8 @@
                         </div>
                         <select name="user_id" id="user_id"
                             class="select2 form-control @error('user_id') is-invalid @enderror">
+                            <option selected  value="{{ $award->user_id }}">{{ $award->user->name }} , {{ $award->user->lastname }}</option>
                             @foreach ($users as $item)
-                                <option selected disabled value="{{ $award->user_id }}">{{ $item->name }} , {{ $item->lastname }}</option>
                                 <option value="{{ $item->id }}">{{ $item->name }} , {{ $item->lastname }}</option>
                             @endforeach
 

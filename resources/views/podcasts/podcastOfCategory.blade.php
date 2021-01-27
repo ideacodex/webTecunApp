@@ -98,8 +98,8 @@
                             <div class="card-footer justify-content-around d-flex">
                                 <input type="hidden" name="active"
                                     value="{{ $reactionActive = $item->likes->where('user_id', auth()->user()->id)->first() }} ">
-                                @if ($item->userLikesNew->count() == 0)
-                                    <form method="POST" action="{{ url('likeordislikepodcast') }}"
+                                @if (!$item->userLikesNew)
+                                    <form method="GET" action="{{ url('likeordislikepodcast') }}"
                                         onsubmit="return checkSubmit();">
                                         @csrf
                                         @foreach ($categories as $itemID)
