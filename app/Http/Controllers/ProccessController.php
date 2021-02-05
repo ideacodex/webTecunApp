@@ -103,15 +103,15 @@ class ProccessController extends Controller
 
                 /****************Correo para RRHH***********************/
                 if ($request->country=="gtm") {
-                    Mail::to(['acasuy@grupotecun.com')
+                    Mail::to(['acasuy@grupotecun.com'])
                     ->send(new QueryConstancyRRHH($request)); //envia la variables $request a la clase de MAIL
                 }
                 if ($request->country=="sv") {
-                    Mail::to(['rbeltran@grupotecun.com')
+                    Mail::to(['rbeltran@grupotecun.com'])
                     ->send(new QueryConstancyRRHH($request)); //envia la variables $request a la clase de MAIL
                 }
                 if ($request->country=="hnd") {
-                    Mail::to(['mrivera@grupotecun.com')
+                    Mail::to(['mrivera@grupotecun.com'])
                     ->send(new QueryConstancyRRHH($request)); //envia la variables $request a la clase de MAIL
                 }
                 /****************Correo para RRHH***********************/
