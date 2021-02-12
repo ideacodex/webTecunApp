@@ -21,7 +21,7 @@ $namesUser = explode(" ", Auth::user()->name);
                     <a class="text-light">
                         <button type="button" class="btn btn-lg btn-primary" data-toggle="modal"
                             data-target="#requestConstanciaGtm">
-                            <i class="fas fa-at"> Enviar solicitud</i>
+                            <i class="fas fa-at"> Solicitar constancia</i>
                         </button>
                     </a>
                 </div>
@@ -70,7 +70,7 @@ $namesUser = explode(" ", Auth::user()->name);
                     <a class="text-light">
                         <button type="button" class="btn btn-lg btn-primary" data-toggle="modal"
                             data-target="#requestConstanciaSv">
-                            <i class="fas fa-at"> Enviar solicitud</i>
+                            <i class="fas fa-at"> Solicitar constancia</i>
                         </button>
                     </a>
                 </div>
@@ -119,7 +119,7 @@ $namesUser = explode(" ", Auth::user()->name);
                     <a class="text-light">
                         <button type="button" class="btn btn-lg btn-primary" data-toggle="modal"
                             data-target="#requestConstanciaHnd">
-                            <i class="fas fa-at"> Enviar solicitud</i>
+                            <i class="fas fa-at"> Solicitar constancia</i>
                         </button>
                     </a>
                 </div>

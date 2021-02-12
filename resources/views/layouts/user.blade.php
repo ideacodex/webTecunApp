@@ -362,7 +362,7 @@
                     </a>
                 </li>
                 <li class="align-self-end nav-item text-center">
-                    <a class="nav-link" href="{{ url('/trivia') }}">
+                    <a class="nav-link" href="{{ url('entretenimiento') }}">
                         <span class="nav-app-icon text-light"><i class="fas fa-gamepad"></i></span>
                         <p class="text-light" style="margin-top: -5px;"> Juegos</p>
                     </a>

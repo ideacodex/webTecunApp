@@ -18,6 +18,8 @@ use Spatie\Permission\Models\Role;
 
 class QuestionController extends Controller
 {
+    /**************La vista question es importante ya que envia peticiones y tiene algo de logica********************* */
+    
     /**
      * Display a listing of the resource.
      *
@@ -239,6 +241,88 @@ class QuestionController extends Controller
     {
         //Recogemos los datos del usuario
         $user = auth()->user();
+        //Sacamos Todas las preguntas
+        $question = Question::with('answer')->get();
+
+        //Conseguimos una respuesta aleatoria
+        $questionRandom = $question->random(1);
+
+        //Encontramos las respuestas asignadas a la pregunta por medio del ID
+        $answers = $questionRandom[0]->answer;
+
+        //Sacamos solo 2 respuestas random del total que son 4
+        $ansRand = $answers->random(2);
+
+        //Sacamos las otras 2 respuestas que no son iguales a las anteriores y que tambien pueden ser random
+        $ansOthers = $answers->whereNotIn('id', [$ansRand[0]->id, $ansRand[1]->id]);
+
+        //Mandamos a la vista las respuestas individualmente
+        $ansRand1 = $ansRand[0];
+        $ansRand2 = $ansRand[1];
+        //Mandamos a la vista las respuestas individualmente
+        return view('games.question', [
+            'questionRandom' => $questionRandom,
+            'ansRand1' => $ansRand1,
+            'ansRand2' => $ansRand2,
+            'ansOthers' => $ansOthers,
+            'correcId' => $questionRandom[0]->answer->where('flag', 1)->first(),
+        ]);
+
+
+    }
+
+    public function storeUser(Request $request)
+    {
+        $response = [
+            'data' => null,
+            'success' => false,
+            'error' => null,
+            'message' => null
+          ];
+          //dd($request);
+        //devuelve los datos en json porque se hace el POST desde la vista de blade
+        //Recogemos los datos del usuario
+        $user = auth()->user();
+
+        //Recogemos la respuesta correcta si es 1 o 0
+        $flagTrue = $request->flag;
+
+        //guardamos o aumetamos los puntos
+        //Se hara la logica para aumentarle los puntos o disminuirlos
+        $score = Score::find($user->score_id);
+        $tempScore = $score;
+
+        DB::beginTransaction();
+
+        try{
+            //Aumentar las respuestas correctas
+            if($request->flag){
+                //Aumentar las respuestas incorrectas
+                $score->correct = $tempScore->correct + 1;
+                $score->points = $tempScore->points + 10;
+            }else{
+                $score->wrong = $tempScore->wrong + 1;
+            }
+            $score->update();
+        }catch (\Illuminate\Database\QueryException $e) {
+            DB::rollback(); //si hay un error previo, desahe los cambios en DB y redirecciona a pagina de error
+                //$response['message'] = $e->errorInfo;
+                //dd($e->errorInfo[2]);
+                abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
+                return response()->json($e->errorInfo[2], 500);
+        }
+        DB::commit();
+        //Retornaremos una vista que sea mas o menos una despedida
+        $response['success']= true;
+        $response['data']= $score;
+        return response()->json($response, 200);
+    }
+
+
+    public function BKquestion()
+    {
+        //Recogemos los datos del usuario
+        $user = auth()->user();
         $user_id = $user->id;
 
         //Validamos si el usuario ya existe en la base de datos de Flag
@@ -345,7 +429,7 @@ class QuestionController extends Controller
 
     }
 
-    public function storeUser(Request $request)
+    public function BKstoreUser(Request $request)
     {
         //Inicializamos la variables a utilizar
         $Z = 'Z';

@@ -6,8 +6,8 @@ $namesUser = explode(" ", Auth::user()->name);
     <div class="col-12 col-md-8 col-lg-8 offset-md-2 offset-lg-2">
         <div class="accordion" id="accordionExample">
             <div class=" mt-5">
-                <h1 class="text-info text-center">Elige la empresa a la que perteneces para solicitar cuantos días de
-                    vacaciones tienes a favor
+                <h1 class="text-info text-center">Elige la empresa a la que perteneces para consultar cuantos días de
+                    vacaciones tienes disponibles
                 </h1>
             </div>
             @if ($companies)
