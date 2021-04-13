@@ -91,7 +91,7 @@ class APIPodcastController extends Controller
     public function podcastRead($id)
     {
         //
-        $podcast = Podcast::with('comments.user')->findOrFail($id);
+        $podcast = Podcast::with('comments.user')->with('likes')->with('userLikesNew')->findOrFail($id);
         $comments= CommentPodcast::where('podcast_id', $podcast->id)->with('user')->get();
 
         //Traemos el array con toda la informacion combianda de la BD  

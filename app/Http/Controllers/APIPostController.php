@@ -91,7 +91,7 @@ class APIPostController extends Controller
     public function newsRead($id)
     {
         //
-        $post = Post::with('comments.user')->findOrFail($id);
+        $post = Post::with('comments.user')->with('likes')->with('likes')->with('userLikesNew')->findOrFail($id);
         $comments= CommentPost::where('post_id', $post->id)->with('user')->get();
 
         //Traemos el array con toda la informacion combianda de la BD  
