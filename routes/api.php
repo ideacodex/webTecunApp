@@ -55,6 +55,7 @@ Route::get('categoryPodcast/{id}', 'APIPodcastController@categoryPodcast')->midd
 
 Route::get('question', 'APIGamesController@question')->middleware('auth:api');
 Route::get('score', 'APIGamesController@score')->middleware('auth:api');
+Route::get('allScore', 'APIGamesController@allScore')->middleware('auth:api');
 Route::post('scoreuser', 'APIGamesController@scoreUser')->middleware('auth:api');
 
 Route::resource('contacts', 'ApiContactController')->middleware('auth:api');

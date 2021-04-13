@@ -51,6 +51,7 @@ class ApiContactController extends Controller
         $pais = $request->get('searchPais');
         $puesto = $request->get('searchPuesto');
         $data = Contact::where('nombre', 'LIKE', "%$nombre%")
+                    ->where('nombre', 'LIKE', "%$request->searchApellido%")
                     ->where('departamento', 'LIKE', "%$departamento%")
                     ->where('pais', 'LIKE', "%$pais%")
                     ->where('puesto', 'LIKE', "%$puesto%")

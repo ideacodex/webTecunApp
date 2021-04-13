@@ -45,7 +45,7 @@
         </div>
 
         <div class="row justify-content-around">
-            <a href="{{ url('question') }}" class="text-white">
+            <a href="{{ url('trivia') }}" class="text-white">
                 <button class="btn btn-lg btn-primary">
                     <i class="fas fa-gamepad"> Jugar</i>
                 </button>

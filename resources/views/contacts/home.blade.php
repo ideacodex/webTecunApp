@@ -5,7 +5,7 @@ $namesUser = explode(" ", Auth::user()->name);
 @section('content')
     <div>
         <div class="d-flex justify-content-around mt-2">
-            <h1 class="text-info">{{ 'Numeros favoritos' }}</h1>
+            <h1 class="text-info">Numeros Frecuentes</h1>
         </div>
         <div class="row mt-3">
             <div class="mt-3 col-12 col-md-2 col-lg-2 offset-md-4 offset-lg-4">
@@ -28,6 +28,41 @@ $namesUser = explode(" ", Auth::user()->name);
         <div class="row justify-content-around mt-5">
             <form method="POST" action="{{ url('contact/home') }}">
                 @csrf
+                
+                <div class="input-group input-group-lg mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                            <i class="text-light fas fa-user"></i>
+                        </span>
+                    </div>
+                    <input placeholder="Nombres" type="text" aria-label=" Sizing example input"
+                        aria-describedby="inputGroup-sizing-sm"
+                        class=" form-control text-primary @error('searchNombre') is-invalid @enderror" name="searchNombre"
+                        value="{{ old('searchNombre') }}">
+
+                    @error('searchNombre')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+                <div class="input-group input-group-lg mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                            <i class="text-light fas fa-user"></i>
+                        </span>
+                    </div>
+                    <input placeholder="Apellidos" type="text" aria-label=" Sizing example input"
+                        aria-describedby="inputGroup-sizing-sm"
+                        class=" form-control text-primary @error('searchApellido') is-invalid @enderror" name="searchApellido"
+                        value="{{ old('searchApellido') }}">
+
+                    @error('searchApellido')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
                 <div class="input-group input-group-lg mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text transparent" id="inputGroup-sizing-sm">
@@ -40,23 +75,6 @@ $namesUser = explode(" ", Auth::user()->name);
                         name="searchDepartamento" value="{{ old('searchDepartamento') }}">
 
                     @error('searchDepartamento')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-                <div class="input-group input-group-lg mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                            <i class="text-light fas fa-user"></i>
-                        </span>
-                    </div>
-                    <input placeholder="Apellidos, Nombres" type="text" aria-label=" Sizing example input"
-                        aria-describedby="inputGroup-sizing-sm"
-                        class=" form-control text-primary @error('searchNombre') is-invalid @enderror" name="searchNombre"
-                        value="{{ old('searchNombre') }}">
-
-                    @error('searchNombre')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>

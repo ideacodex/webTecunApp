@@ -195,6 +195,7 @@ class ContactController extends Controller
         $pais = $request->get('searchPais');
         $puesto = $request->get('searchPuesto');
         $contacts = Contact::where('nombre', 'LIKE', "%$nombre%")
+                    ->where('nombre', 'LIKE', "%$request->searchApellido%")
                     ->where('departamento', 'LIKE', "%$departamento%")
                     ->where('pais', 'LIKE', "%$pais%")
                     ->where('puesto', 'LIKE', "%$puesto%")
