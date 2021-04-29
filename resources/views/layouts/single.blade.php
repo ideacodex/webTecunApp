@@ -14,7 +14,7 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/png" href="{{asset('img/tecun/logo.png')}}">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('img/tecun/logo.png') }}">
 
 
     <!-- Fonts -->
@@ -26,9 +26,42 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <style>
+    /*campos de tipo numerico sin flechas*/
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+
+</style>
+<style>
     body {
-        background: #f7921c;
-        background: linear-gradient(to right, #f0602a, #de9432);
+        /* background: {{ config('app.bg-theme-1') }} ;
+        background: linear-gradient(to right, {{ config('app.bg-theme-1') }}, {{ config('app.bg-theme-2') }}); */
+    }
+
+    nav {
+        list-style: none;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    li {
+        list-style: none;
+    }
+
+    select option {
+        background: rgb(0, 0, 0);
+        color: #fff;
+        text-shadow: 0 1px 0 rgb(0, 0, 0);
     }
 
     .transparent {
@@ -37,7 +70,7 @@
     }
 
     .form-control::placeholder {
-        color: white;
+        color: rgb(58, 54, 54);
     }
 
     .form-control {
@@ -47,30 +80,65 @@
 
     .form-control::-webkit-input-placeholder {
         background-color: transparent !important;
-        color: white;
+        color: rgb(51, 47, 47);
     }
 
     /*vuelve tranparente el color de fondo del input en bootstrap 4*/
     .form-control:valid {
         background-color: transparent !important;
     }
+
+    .bg-login {
+        height: 17em;
+        background: {{ config('app.bg-theme-1') }};
+        background: linear-gradient(to right, {{ config('app.bg-theme-1') }}, {{ config('app.bg-theme-2') }});
+    }
+
+    .bg-botones {
+        background: {{ config('app.bg-theme-1') }};
+        background: linear-gradient(0deg, {{ config('app.bg-theme-1') }} 0%, {{ config('app.bg-theme-2') }} 100%, {{ config('app.bg-theme-1') }});
+
+    }
+
 </style>
 
 <body>
-    <div>@yield('content')</div>
+
+    <div class="bg-login" style="border-bottom-left-radius: 50px; border-bottom-right-radius: 50px ;">
+        <div class="row justify-content-center">
+            <a href="{{ url('/') }}">
+                <table>
+                    <tr>
+                        <td>
+                            <img src="{{ asset('img/user.png') }}" class="img-fluid"
+                                style="max-height: 150px; margin-top: 3%;  margin-left: 5%">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="{{ asset('img/tecun/logoBlanco.png') }}" class="img-fluid"
+                                style="max-height: 75px; margin-left: -10%">
+                        </td>
+                    </tr>
+                </table>
+            </a>
+        </div>
+    </div>
+    @yield('content')
     <script>
         //Bloquear doble envio de formulario******
         enviando = false; //Obligaremos a entrar el if en el primer submit
         function checkSubmit() {
-          if (!enviando) {
-            enviando= true;
-            return true;
-          } else {
-            //Si llega hasta aca significa que pulsaron 2 veces el boton submit
-            alert("El formulario ya se esta enviando");
-            return false;
-          }
+            if (!enviando) {
+                enviando = true;
+                return true;
+            } else {
+                //Si llega hasta aca significa que pulsaron 2 veces el boton submit
+                alert("El formulario ya se esta enviando");
+                return false;
+            }
         }
+
     </script>
 </body>
 
