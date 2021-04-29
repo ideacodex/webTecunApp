@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }} | {{ substr(request()->getRequestUri(),1 )}}</title>
+    <title>{{ config('app.name', 'Laravel') }} | {{ substr(request()->getRequestUri(), 1) }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/png" href="{{asset('img/tecun/logo.png')}}">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('img/tecun/logo.png') }}">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -38,36 +38,52 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/slick-theme.min.css') }}" />
 
 </head>
+<style>
+    .bg-theme-1 {
+        background-color: {{ config('app.bg-theme-1') }};
+    }
+
+    .bg-opacity {
+        background-color: {{ config('app.bg-theme-1') }};
+    }
+
+    .bg-orange {
+        background-color: #fa5e0a;
+    }
+
+</style>
 
 <body>
     <div id="app" class="container-fluid pl-0 pr-0 ml-0 mr-0">
-        <section class="fixed-top bg-opacity">
+        <section class="fixed-top bg-theme-1 bg-opacity">
             <!--Navbar -->
-            <nav id="navigation" class="bg-opacity pt-3 pb-2 navbar  navbar-expand-lg fixed-top">
-                <a class="ml-5 navbar-brand" href="{{url('/')}}"><img src="{{asset('img/tecun/logoBlanco.png')}}"
-                        class="d-inline-block align-top ml-1" height="35px"></a>
+            <nav id="navigation" class="bg-theme-1 pt-3 pb-2 navbar navbar-expand-lg fixed-top">
+                <a class="ml-5 navbar-brand" href="{{ url('/') }}"><img
+                        src="{{ asset('img/tecun/logoBlanco.png') }}" class="d-inline-block align-top ml-1"
+                        height="35px"></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent-333" aria-controls="navbarSupportedContent-333"
                     aria-expanded="false" aria-label="Toggle navigation">
                     <i class="text-light fas fa-bars"></i>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+                <div class="bg-theme-1 collapse navbar-collapse" id="navbarSupportedContent-333">
                     <ul class="navbar-nav mr-auto">
 
                     </ul>
-                    <ul class="navbar-nav ml-auto nav-flex-icons mr-5">
+                    <ul class="bg-theme-1 navbar-nav ml-auto nav-flex-icons mr-5">
                         <li class="nav-item"><a class="nav-link waves-effect waves-light text-light"
-                                href="#home"><strong>Inicio</strong></a></li>
+                                href="#home"><strong>INICIO</strong></a></li>
                         <li class="nav-item"><a class="nav-link waves-effect waves-light text-light"
-                                href="#screenshot"><strong>Galería</strong></a></li>
+                                href="#screenshot"><strong>GALERÍA</strong></a></li>
                         <li class="nav-item"><a class="nav-link waves-effect waves-light text-light"
-                                href="#features"><strong>Novedades</strong></a></li>
+                                href="#features"><strong>NOVEDADES</strong></a></li>
                         <li class="nav-item"><a class="nav-link waves-effect waves-light text-light"
-                                href="#pricing"><strong>Reconocimiento</strong></a></li>
+                                href="#pricing"><strong>RECONOCIMIENTOS</strong></a></li>
                         <li class="nav-item"><a class="nav-link waves-effect waves-light text-light"
-                                href="#download"><strong>Descargar</strong></a></li>
-                        <li class="nav-item"><a class="h4 nav-link waves-effect waves-light text-light"
-                                href="{{url('ingresar')}}"><strong>Ingresar</strong></a></li>
+                                href="#download"><strong>DESCARGAR</strong></a></li>
+                        <li class="nav-item"><a style="border-radius: 20px"
+                                class="h4 btn bg-orange nav-link waves-effect waves-light text-light"
+                                href="{{ url('ingresar') }}">INICIAR SESIÓN</a></li>
                     </ul>
                 </div>
             </nav>
@@ -86,32 +102,41 @@
                         </ol>
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                                <img src="{{asset('img/bg/bg-1.jpg')}}" style="max-height: 700px" class="d-block w-100">
+                                <img src="{{ asset('img/bg/bg-1.jpg') }}" style="max-height: 700px"
+                                    class="d-block w-100">
                                 <div class="carousel-caption mb-2 mb-md-5">
                                     <p class="h1 mb-2 mb-md-5">Vehículo de concepto autónomo</p>
-                                    <p class="h5 mt-2 mt-md-5 d-none d-md-block">El Vehículo Conceptual Autónomo Case IH tiene
+                                    <p class="h5 mt-2 mt-md-5 d-none d-md-block">El Vehículo Conceptual Autónomo Case IH
+                                        tiene
                                         el potencial de revolucionar la agricultura</p>
-                                    <a href="{{url('home')}}" class="btn btn-lg bg-theme-1 mb-2 mb-md-5 mt-2 mt-md-5 text-light ">
+                                    <a href="{{ url('home') }}"
+                                        class="btn btn-lg bg-theme-1 mb-2 mb-md-5 mt-2 mt-md-5 text-light ">
                                         Ir <i class="fas fa-arrow-right"></i> </a>
                                 </div>
                             </div>
                             <div class="carousel-item">
-                                <img src="{{asset('img/bg/bg-2.jpg')}}" style="max-height: 700px" class="d-block w-100">
+                                <img src="{{ asset('img/bg/bg-2.jpg') }}" style="max-height: 700px"
+                                    class="d-block w-100">
                                 <div class="carousel-caption mb-2 mb-md-5">
                                     <p class="h1 mb-2 mb-md-5">50 años investigando accidentes</p>
-                                    <p class="h5 mt-2 mt-md-5 d-none d-md-block">El Vehículo Conceptual Autónomo Case IH tiene
+                                    <p class="h5 mt-2 mt-md-5 d-none d-md-block">El Vehículo Conceptual Autónomo Case IH
+                                        tiene
                                         el potencial de revolucionar la agricultura</p>
-                                    <a href="{{url('home')}}" class="btn btn-lg bg-theme-1 mb-2 mb-md-5 mt-2 mt-md-5 text-light ">
+                                    <a href="{{ url('home') }}"
+                                        class="btn btn-lg bg-theme-1 mb-2 mb-md-5 mt-2 mt-md-5 text-light ">
                                         Ir <i class="fas fa-arrow-right"></i> </a>
                                 </div>
                             </div>
                             <div class="carousel-item">
-                                <img src="{{asset('img/bg/bg-3.jpg')}}" style="max-height: 700px" class="d-block w-100">
+                                <img src="{{ asset('img/bg/bg-3.jpg') }}" style="max-height: 700px"
+                                    class="d-block w-100">
                                 <div class="carousel-caption mb-2 mb-md-5">
                                     <p class="h1 mb-2 mb-md-5">Manipulación de materiales para puertos</p>
-                                    <p class="h5 mt-2 mt-md-5 d-none d-md-block">El Vehículo Conceptual Autónomo Case IH tiene
+                                    <p class="h5 mt-2 mt-md-5 d-none d-md-block">El Vehículo Conceptual Autónomo Case IH
+                                        tiene
                                         el potencial de revolucionar la agricultura</p>
-                                    <a href="{{url('home')}}" class="btn btn-lg bg-theme-1 mb-2 mb-md-5 mt-2 mt-md-5 text-light ">
+                                    <a href="{{ url('home') }}"
+                                        class="btn btn-lg bg-theme-1 mb-2 mb-md-5 mt-2 mt-md-5 text-light ">
                                         Ir <i class="fas fa-arrow-right"></i> </a>
                                 </div>
                             </div>
@@ -138,29 +163,37 @@
                 </div>
                 <div class="responsive">
                     <div class="justify-content-center ml-1 mr-1">
-                        <img src="{{asset('appson/assets/img/mobile/screen-slider/screen1.jpg')}}"
+                        <img style="border-radius: 20px"
+                            src="{{ asset('appson/assets/img/mobile/screen-slider/wp.jpeg') }}"
                             class="img-fluid mx-auto d-block" width="75%" style="max-height: 600px">
                     </div>
                     <div class="justify-content-center ml-1 mr-1">
-                        <img src="{{asset('appson/assets/img/mobile/screen-slider/screen2.jpg')}}"
+                        <img style="border-radius: 20px"
+                            src="{{ asset('appson/assets/img/mobile/screen-slider/empresas.jpeg') }}"
                             class="img-fluid mx-auto d-block" width="75%" style="max-height: 600px">
                     </div>
                     <div class="justify-content-center ml-1 mr-1">
-                        <img src="{{asset('appson/assets/img/mobile/screen-slider/screen3.jpg')}}"
+                        <img style="border-radius: 20px"
+                            src="{{ asset('appson/assets/img/mobile/screen-slider/rh.jpeg') }}"
                             class="img-fluid mx-auto d-block" width="75%" style="max-height: 600px">
                     </div>
                     <div class="justify-content-center ml-1 mr-1">
-                        <img src="{{asset('appson/assets/img/mobile/screen-slider/screen4.jpg')}}"
+                        <img style="border-radius: 20px"
+                            src="{{ asset('appson/assets/img/mobile/screen-slider/llamad.jpeg') }}"
+                            class="img-fluid mx-auto d-block" width="75%" style="max-height: 600px">
+                    </div>
+                    {{-- <div class="justify-content-center ml-1 mr-1">
+                        <img src="{{ asset('appson/assets/img/mobile/screen-slider/juegos.jpg') }}"
                             class="img-fluid mx-auto d-block" width="75%" style="max-height: 600px">
                     </div>
                     <div class="justify-content-center ml-1 mr-1">
-                        <img src="{{asset('appson/assets/img/mobile/screen-slider/screen1.jpg')}}"
+                        <img src="{{ asset('appson/assets/img/mobile/screen-slider/screen1.jpg') }}"
                             class="img-fluid mx-auto d-block" width="75%" style="max-height: 600px">
                     </div>
                     <div class="justify-content-center ml-1 mr-1">
-                        <img src="{{asset('appson/assets/img/mobile/screen-slider/screen2.jpg')}}"
+                        <img src="{{ asset('appson/assets/img/mobile/screen-slider/screen2.jpg') }}"
                             class="img-fluid mx-auto d-block" width="75%" style="max-height: 600px">
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </section>
@@ -168,14 +201,13 @@
             <div class="container">
                 <div class="justify-content-center text-center ">
                     <h2>Novedades</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do </p>
                 </div>
                 <div class="row pl-0 pr-0">
                     <div class="row pl-0 pr-0">
                         <div class="col-12 col-md-6 col-lg-4">
                             <div class="d-flex flex-column text-center text-sm-center text-md-center text-lg-right">
                                 <div class="align-items-start mt-5 mb-5">
-                                    <div><i class="icon fa fa-podcast"></i></div>
+                                    <div><img src="{{ asset('appson/assets/img/mobile/podcast.png') }}" alt=""></div>
                                     <h4>TECUN Podcast.</h4>
                                     <p>Escúchalos desde cualquier lugar. Incluso en dispositivos móviles.</p>
                                 </div>
@@ -197,7 +229,7 @@
                             <div class="feature-mscreen">
                                 <div class="smartphone">
                                     <div class="content">
-                                        <img src="{{asset('appson/assets/img/mobile/screen1.png')}}"
+                                        <img src="{{ asset('appson/assets/img/mobile/ubi.png') }}"
                                             style="width:100%;border:none;height:100%">
                                     </div>
                                 </div>
@@ -206,7 +238,7 @@
                         <div class="col-md-4 col-sm-6 col-xs-12">
                             <div class="d-flex flex-column text-center text-sm-center text-md-center text-lg-left">
                                 <div class="align-items-start mt-5 mb-5">
-                                    <div><i class="icon fa fa-user"></i></div>
+                                    <div><img src="{{ asset('appson/assets/img/mobile/user.png') }}" alt=""></div>
                                     <h4>Perfil Personal.</h4>
                                     <p>Gestiona tu perfil y mantente en contacto con todos.</p>
                                 </div>
@@ -240,7 +272,7 @@
                         <div class="row">
                             <div class="col-12 col-md-3">
                                 <div class="team-item">
-                                    <img src="{{asset('img/tecun/preview1.png')}}" alt="team image">
+                                    <img src="{{ asset('img/tecun/preview1.png') }}" alt="team image">
                                     <div class="tmember-info">
                                         <h4>John Deo</h4>
                                         <span>front-end developer</span>
@@ -258,7 +290,7 @@
                             </div>
                             <div class="col-12 col-md-3">
                                 <div class="team-item">
-                                    <img src="{{asset('img/tecun/preview1.png')}}" alt="team image">
+                                    <img src="{{ asset('img/tecun/preview1.png') }}" alt="team image">
                                     <div class="tmember-info">
                                         <h4>John Deo</h4>
                                         <span>front-end developer</span>
@@ -276,7 +308,7 @@
                             </div>
                             <div class="col-12 col-md-3">
                                 <div class="team-item">
-                                    <img src="{{asset('img/tecun/preview1.png')}}" alt="team image">
+                                    <img src="{{ asset('img/tecun/preview1.png') }}" alt="team image">
                                     <div class="tmember-info">
                                         <h4>John Deo</h4>
                                         <span>front-end developer</span>
@@ -294,7 +326,7 @@
                             </div>
                             <div class="col-12 col-md-3">
                                 <div class="team-item">
-                                    <img src="{{asset('img/tecun/preview1.png')}}" alt="team image">
+                                    <img src="{{ asset('img/tecun/preview1.png') }}" alt="team image">
                                     <div class="tmember-info">
                                         <h4>John Deo</h4>
                                         <span>front-end developer</span>
@@ -323,7 +355,6 @@
                 <div class="container">
                     <div class="section-title">
                         <h2>Descarga {{ config('app.name', 'Tecun App') }}</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do</p>
                     </div>
                     <div class="d-flex justify-content-center text-center pt-3 pb-3">
                         <a href="#" class="ml-3 mr-3 btn btn-outline-light"> <i class="fab fa-android"></i> android
@@ -387,6 +418,7 @@
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     Copyright &copy;<script>
                         document.write(new Date().getFullYear());
+
                     </script> All rights reserved | Made with <i class="fa fa-heart" aria-hidden="true"></i> by <a
                         href="http://norellanac.website/" class="text-light" target="_blank">Norellanac</a>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
@@ -401,6 +433,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script>
         $('.select2').select2();
+
     </script>
 
 
@@ -425,72 +458,75 @@
     <script type="text/javascript" src="{{ asset('js/slick.min.js') }}"></script>
 
     <script>
-        $(function () {
-  $(document).scroll(function () {
-	  var $nav = $(".fixed-top");
-	  $nav.toggleClass('scrolled', $(this).scrollTop() > $nav.height());
-	});
-});
+        $(function() {
+            $(document).scroll(function() {
+                var $nav = $(".fixed-top");
+                $nav.toggleClass('scrolled', $(this).scrollTop() > $nav.height());
+            });
+        });
+
     </script>
     <script>
         $('.responsive').slick({
-      dots: true,
-      infinite: false,
-      speed: 300,
-      slidesToShow: 4,
-      slidesToScroll: 4,
-      responsive: [
-        {
-          breakpoint: 1024,
-          settings: {
-            slidesToShow: 3,
-            slidesToScroll: 3,
-            infinite: true,
-            dots: true
-          }
-        },
-        {
-          breakpoint: 600,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 2
-          }
-        },
-        {
-          breakpoint: 480,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1
-          }
-        }
-        // You can unslick at a given breakpoint now by adding:
-        // settings: "unslick"
-        // instead of a settings object
-      ]
-    });
+            dots: true,
+            infinite: false,
+            speed: 300,
+            slidesToShow: 4,
+            slidesToScroll: 4,
+            responsive: [{
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 3,
+                        infinite: true,
+                        dots: true
+                    }
+                },
+                {
+                    breakpoint: 600,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 2
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                    }
+                }
+                // You can unslick at a given breakpoint now by adding:
+                // settings: "unslick"
+                // instead of a settings object
+            ]
+        });
+
     </script>
 
     <!-- Menu Toggle Script -->
     <script>
         $("#menu-toggle").click(function(e) {
-      e.preventDefault();
-      $("#wrapper").toggleClass("toggled");
-      
-    });
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+
+        });
+
     </script>
     <script>
         //Bloquear doble envio de formulario******
         enviando = false; //Obligaremos a entrar el if en el primer submit
         function checkSubmit() {
-          if (!enviando) {
-            enviando= true;
-            return true;
-          } else {
-            //Si llega hasta aca significa que pulsaron 2 veces el boton submit
-            alert("El formulario ya se esta enviando");
-            return false;
-          }
+            if (!enviando) {
+                enviando = true;
+                return true;
+            } else {
+                //Si llega hasta aca significa que pulsaron 2 veces el boton submit
+                alert("El formulario ya se esta enviando");
+                return false;
+            }
         }
+
     </script>
     @yield('js')
 </body>

@@ -2,6 +2,9 @@
 
 return [
 
+    'bg-theme-1' => env('COLOR_1', '#ffffff'),
+    'bg-theme-2' => env('COLOR_2', '#ffffff'),
+    'bg-theme-3' => env('COLOR_3', '#ffffff'),
     /*
     |--------------------------------------------------------------------------
     | Application Name
