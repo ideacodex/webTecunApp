@@ -82,7 +82,7 @@
     }
 
     .bg-theme-1 {
-        background-color: #f7921c;
+        background-color: {{ config('app.bg-theme-1') }};
     }
 
     .bg-theme-2 {
@@ -127,15 +127,67 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse" id="collapsingNavbar">
-                    <ul class="navbar-nav">
+                <div class="navbar-collapse collapse " id="collapsingNavbar">
+                    <ul class="navbar-nav ">
                         <li class="nav-item">
                             <a href="{{ url('/') }}" class="nav-link">
-                                <span class="nav-app-icon text-light">
-                                    <i class="fas fa-home"> </i>
+                                <span class="nav-app-icon text-light"  >
+                                    <img src="{{ asset('img/tecun/logoColor.png') }}" style="height:80px ;width: 200px; margin-right:3em"
+                                        title="Noticias">
                                 </span>
                             </a>
                         </li>
+                        {{-- pantalla movil --}}
+                        <div class=" d-sm-none d-block">
+                            <li class="nav-item animate__animated animate__pulse">
+                                <a class="nav-link" href="{{ url('news') }}">
+                                    <img src="{{ asset('img/newspaper.png') }}" style="width: 35px" title="Noticias">
+                                    <span class="text-light font-weight-bold ">Noticias</span>
+                                </a>
+                            </li>
+                            <li class="nav-item animate__animated animate__pulse">
+                                <a class="nav-link" href="{{ url('podcasts') }}">
+                                    <img src="{{ asset('img/music.png') }}" style="width: 35px" title="Noticias">
+                                    <span class="text-light font-weight-bold">Podcast</span>
+                                </a>
+                            </li>
+                            <li class="nav-item animate__animated animate__pulse">
+                                <a class="nav-link" href="{{ url('/TECUento') }}">
+                                    <img src="{{ asset('img/tecuento.png') }}" style="width: 35px" title="Noticias">
+                                    <span class="text-light font-weight-bold">TECUento</span>
+                                </a>
+                            </li>
+
+                        </div>
+                        {{-- pantalla grande --}}
+
+                        <li class="nav-item animate__animated animate__pulse">
+                            <div class=" d-none d-sm-block  ">
+                                <a class="nav-link" href="{{ url('news') }}">
+                                    <img src="{{ asset('img/newspaper.png') }}" style="width: 65px" title="Noticias">
+                                    <span class="text-light font-weight-bold ">Noticias</span>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="nav-item animate__animated animate__pulse">
+                            <div class=" d-none d-sm-block  ">
+                                <a class="nav-link" href="{{ url('podcasts') }}">
+                                    <img src="{{ asset('img/music.png') }}" style="width: 65px" title="Noticias">
+                                    <span class="text-light font-weight-bold">Podcast</span>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="nav-item animate__animated animate__pulse">
+                            <div class=" d-none d-sm-block  ">
+                                <a class="nav-link" href="{{ url('/TECUento') }}">
+                                    <img src="{{ asset('img/tecuento.png') }}" style="width: 65px" title="Noticias">
+                                    <span class="text-light font-weight-bold">TECUento</span>
+                                </a>
+                            </div>
+                        </li>
+
+
+
                     </ul>
                     @guest
                         <ul class="navbar-nav ml-auto">
@@ -155,10 +207,11 @@
                     @else
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item">
-                                <button type="button" class="btn btn-lg" style="background:#f7921c" data-toggle="modal" data-target="#exampleModalCenter">
+                                <button type="button" class="btn btn-lg"  data-toggle="modal"
+                                    data-target="#exampleModalCenter">
                                     <span class="nav-app-icon text-light"><i class="fas fa-user"></i></span>
-                                    <span class="text-light" style="margin-top: -5px;"> 
-                                        {{ Auth::user()->name }} {{ Auth::user()->lastname }} 
+                                    <span class="text-light" style="margin-top: -5px; font-size:20px">
+                                         {{ Auth::user()->name }} {{ Auth::user()->lastname }} 
                                     </span>
                                 </button>
                             </li>
@@ -166,42 +219,46 @@
                             <!-- Modal -->
                             <form method="POST" action="{{ url('updateUser') }}" onsubmit="return checkSubmit();">
                                 @csrf
-                                <input type="hidden" name="userID" value="{{ Auth::user()->id }}" >
-                                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <input type="hidden" name="userID" value="{{ Auth::user()->id }}">
+                                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLongTitle">
-                                                <span class="text-black" style="margin-top: -5px;"> 
-                                                    {{ Auth::user()->name }} {{ Auth::user()->lastname }} 
-                                                </span>
-                                            </h5>
-                                            <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
+                                                <h5 class="modal-title" id="exampleModalLongTitle">
+                                                    <span class="text-black" style="margin-top: -5px;">
+                                                        {{ Auth::user()->name }} {{ Auth::user()->lastname }}
+                                                    </span>
+                                                </h5>
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
                                             </div>
                                             <div class="modal-body">
                                                 <div class="container ">
                                                     <div class="row justify-content-around" style="margin-top: 1em;">
-                                                        <img src="https://image.flaticon.com/icons/svg/2633/2633848.svg" class="img-fluid" width="20%"
-                                                            alt="Responsive image">
+                                                        <img src="https://image.flaticon.com/icons/svg/2633/2633848.svg"
+                                                            class="img-fluid" width="20%" alt="Responsive image">
                                                     </div>
                                                     <div class="input-group input-group-lg mb-3">
                                                         <div class="input-group-prepend">
-                                                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                                            <span class="input-group-text transparent"
+                                                                id="inputGroup-sizing-sm">
                                                                 <i class="text-primary fas fa-user-edit"></i>
                                                             </span>
                                                         </div>
                                                         <input id="name" placeholder="Nombres" type="text"
-                                                            class="text-primary form-control @error('name') is-invalid @enderror" name="name"
-                                                            value="{{ Auth::user()->name }}" required autofocus>
-                                    
+                                                            class="text-primary form-control @error('name') is-invalid @enderror"
+                                                            name="name" value="{{ Auth::user()->name }}" required
+                                                            autofocus>
+
                                                         @error('name')
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
                                                             </span>
                                                         @enderror
-                                    
+
                                                         @error('name')
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
@@ -210,20 +267,22 @@
                                                     </div>
                                                     <div class="input-group input-group-lg mb-3">
                                                         <div class="input-group-prepend">
-                                                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                                            <span class="input-group-text transparent"
+                                                                id="inputGroup-sizing-sm">
                                                                 <i class="text-primary fas fa-user-edit"></i>
                                                             </span>
                                                         </div>
                                                         <input id="lastname" placeholder="Apellidos" type="text"
-                                                            class="text-primary form-control @error('lastname') is-invalid @enderror" name="lastname"
-                                                            value="{{ Auth::user()->lastname }}" required autofocus>
-                                    
+                                                            class="text-primary form-control @error('lastname') is-invalid @enderror"
+                                                            name="lastname" value="{{ Auth::user()->lastname }}" required
+                                                            autofocus>
+
                                                         @error('lastname')
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
                                                             </span>
                                                         @enderror
-                                    
+
                                                         @error('lastname')
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
@@ -233,37 +292,41 @@
 
                                                     <div class="input-group input-group-lg mb-3">
                                                         <div class="input-group-prepend">
-                                                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                                            <span class="input-group-text transparent"
+                                                                id="inputGroup-sizing-sm">
                                                                 <i class="text-primary fas fa-at"></i>
                                                             </span>
                                                         </div>
                                                         <input id="email" placeholder="Correo " type="text"
-                                                            class="text-primary form-control @error('email') is-invalid @enderror" name="email"
-                                                            value="{{ Auth::user()->email }}" required autocomplete="email" autofocus>
-                                    
+                                                            class="text-primary form-control @error('email') is-invalid @enderror"
+                                                            name="email" value="{{ Auth::user()->email }}" required
+                                                            autocomplete="email" autofocus>
+
                                                         @error('email')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
                                                         @enderror
-                                    
+
                                                         @error('email')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
                                                         @enderror
                                                     </div>
 
                                                     <div class="input-group input-group-lg mb-3">
                                                         <div class="input-group-prepend">
-                                                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                                            <span class="input-group-text transparent"
+                                                                id="inputGroup-sizing-sm">
                                                                 <i class="text-primary fas fa-mobile"></i>
                                                             </span>
                                                         </div>
                                                         <input id="phone" type="text" placeholder="Número de móvil"
-                                                            class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ Auth::user()->phone }}"
-                                                            required autofocus>
-                                    
+                                                            class="form-control @error('phone') is-invalid @enderror"
+                                                            name="phone" value="{{ Auth::user()->phone }}" required
+                                                            autofocus>
+
                                                         @error('phone')
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
@@ -273,8 +336,10 @@
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                                <input type="submit" class="btn btn-success" data-toggle="modal" value="Actualizar">
+                                                <button type="button" class="btn btn-danger"
+                                                    data-dismiss="modal">Close</button>
+                                                <input type="submit" class="btn btn-success" data-toggle="modal"
+                                                    value="Actualizar">
                                             </div>
                                         </div>
                                     </div>
@@ -298,7 +363,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ url('adminPost') }}"> <span><i
                                                 class="fas fa-newspaper"></i></span> Publicaciones</a>
-                                    
+
                                     <a class="dropdown-item" href="{{ url('home') }}"> <span><i
                                                 class="fas fa-newspaper"></i></span> Vista usuario</a>
                                     <div class="dropdown-divider"></div>
@@ -324,7 +389,7 @@
         <span class="mb-5"> .</span>
 
     </div>
-    
+
     <nav class="fixed-bottom bg-theme-1 mt-5" style="padding-bottom: 0;">
         @guest
             <ul class="nav justify-content-around" style="margin-bottom: -1em;">
@@ -372,8 +437,8 @@
     </nav>
     <!--buttons-->
     <div class="btn-float">
-        <a href="{{ url('http://www.denunciagrupotecun.com/') }}"  target="_blank" class="btn btn-light btn-circle btn-sm bg-danger btn-lg text-light"><i
-                class="fas fa-bell"></i></a>
+        <a href="{{ url('http://www.denunciagrupotecun.com/') }}" target="_blank"
+            class="btn btn-light btn-circle btn-sm bg-danger btn-lg text-light"><i class="fas fa-bell"></i></a>
     </div>
     <!--fin buttons -->
     <script>
