@@ -2,25 +2,18 @@
 @section('content')
 
     <div class="container ">
-        <div class="row justify-content-around" style="margin-top: 4em;">
-            <img src="https://image.flaticon.com/icons/svg/2633/2633848.svg" class="img-fluid" width="20%"
-                alt="Responsive image">
-        </div>
-
-        <div class="row justify-content-around">
-            <h1 class="text-light">Crear cuenta</h1>
-        </div>
+       <br>
         <div class="row justify-content-around mt-4">
             <form method="POST" action="{{ route('register') }}" onsubmit="return checkSubmit();">
                 @csrf
                 <div class="input-group input-group-lg mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                            <i class="text-light fas fa-user-edit"></i>
+                            <i class="icono-color fas fa-user-edit"></i>
                         </span>
                     </div>
                     <input id="name" placeholder="Nombres" type="text"
-                        class="text-light form-control @error('name') is-invalid @enderror" name="name"
+                        class="tesxt-dark form-control @error('name') is-invalid @enderror" name="name"
                         value="{{ old('name') }}" required autocomplete="name" autofocus>
 
                     @error('name')
@@ -38,11 +31,11 @@
                 <div class="input-group input-group-lg mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                            <i class="text-light fas fa-user-edit"></i>
+                            <i class="icono-color fas fa-user-edit"></i>
                         </span>
                     </div>
                     <input id="lastname" placeholder="Apellidos" type="text"
-                        class="text-light form-control @error('lastname') is-invalid @enderror" name="lastname"
+                        class="tesxt-dark form-control @error('lastname') is-invalid @enderror" name="lastname"
                         value="{{ old('lastname') }}" required autocomplete="lastname" autofocus>
 
                     @error('lastname')
@@ -60,11 +53,11 @@
                 <div class="input-group input-group-lg mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                            <i class="text-light fas fa-at"></i>
+                            <i class="icono-color fas fa-at"></i>
                         </span>
                     </div>
                     <input id="email" placeholder="Correo " type="text"
-                        class="text-light form-control @error('email') is-invalid @enderror" name="email"
+                        class="tesxt-dark form-control @error('email') is-invalid @enderror" name="email"
                         value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                     @error('email')
@@ -82,7 +75,7 @@
                 <div class="input-group input-group-lg mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                            <i class="text-light fas fa-mobile"></i>
+                            <i class="icono-color fas fa-mobile"></i>
                         </span>
                     </div>
                     <input id="phone" type="text" placeholder="Número de móvil"
@@ -98,7 +91,7 @@
                 <div class="input-group input-group-lg mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                            <i class="text-light fas fa-unlock-alt"></i>
+                            <i class="icono-color fas fa-unlock-alt"></i>
                         </span>
                     </div>
                     <input id="password" placeholder="Contraseña" type="password"
@@ -114,7 +107,7 @@
                 <div class="input-group input-group-lg mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                            <i class="text-light fas fa-unlock-alt"></i>
+                            <i class="icono-color fas fa-unlock-alt"></i>
                         </span>
                     </div>
                     <input id="password-confirm" placeholder="Confirmar contraseña" type="password" class="form-control"
@@ -127,7 +120,7 @@
                             <input class="form-check-input" type="checkbox" name="remember" id="remember"
                                 {{ old('remember') ? 'checked' : '' }}>
 
-                            <label class="form-check-label text-light" for="remember">
+                            <label class="form-check-label text-dark" for="remember">
                                 {{ __('Términos y condiciones') }}
                             </label>
                         </div>
@@ -135,20 +128,18 @@
                 </div>
 
                 <div class="form-group row mt-3 justify-content-around ">
-                    <div class="">
-                        <button type="submit" class="btn btn-lg btn-block btn-dark">
+                        <button type="submit" style="border-radius: 10px" class="bg-botones btn btn-lg btn-block btn-dark">
                             {{ __('Registrarse') }}
                         </button>
-                    </div>
                 </div>
             </form>
         </div>
         <div class="d-none row mt-5 justify-content-center">
             @if (Route::has('password.request'))
-                <a class="m-t-5 btn btn-link text-light" href="{{ route('password.request') }}">
+                <a class="m-t-5 btn btn-link text-dark" href="{{ route('password.request') }}">
                     {{ __('¿Olvidé la contraseña?') }}
                 </a>
-                <a class="btn btn-link text-light" href="{{ route('login') }}">
+                <a class="btn btn-link text-dark" href="{{ route('login') }}">
                     {{ __('Ya tengo una cuenta') }}
                 </a>
             @endif
