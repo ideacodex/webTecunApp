@@ -21,23 +21,7 @@
     </style>
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="bg-theme-1 col-12 mt-1">
-
-                <ul class="nav nav-pills nav-fill nav-justified">
-                    <li class="nav-item animate__animated animate__pulse">
-                        <a class="nav-link" href="{{ url('news') }}"><span
-                                class="text-light font-weight-bold ">Noticias</span></a>
-                    </li>
-                    <li class="nav-item animate__animated animate__pulse">
-                        <a class="nav-link" href="{{ url('podcasts') }}"><span
-                                class="text-light font-weight-bold">Podcast</span></a>
-                    </li>
-                    <li class="nav-item animate__animated animate__pulse">
-                        <a class="nav-link" href="{{ url('/TECUento') }}"><span
-                                class="text-light font-weight-bold">TECUento</span></a>
-                    </li>
-                </ul>
-            </div>
+           
             @if ($categories->first())
                 <div class="col-12 mt-1">
                     <div class="form-group row">
