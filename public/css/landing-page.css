@@ -8,7 +8,7 @@
     width: 360px;
     height: 680px;
     margin: auto;
-    border: 16px #F1DDC8 solid;
+    border: 16px #ffffff solid;
     border-top-width: 60px;
     border-bottom-width: 60px;
     border-radius: 36px;
@@ -30,6 +30,9 @@
     border-radius: 10px;
 }
 
+.bg-orange {
+    background-color: #fa5e0a;
+}
 
 /* The circle on the bottom of the device */
 
@@ -112,15 +115,15 @@
 }
 
 .bg-theme-1 {
-    background-color: #f7921c;
+    background-color: {{ config('app.bg-theme-1') }};
 }
 
 .bg-opacity {
-    background-color: #f7921CB3;
+    background-color: {{ config('app.bg-theme-1') }};
 }
 
 .bg-theme-2 {
-    background-color: #519e93;
+    background-color: {{ config('app.bg-theme-2') }};
 }
 
 .bg-theme-3 {
@@ -279,7 +282,7 @@ END Team Area
 
 .fixed-top.scrolled {
     padding-top: 10px;
-    background-color: #f7921c !important;
+    background-color: {{ config('app.bg-theme-1') }};
 }
 
 .fixed-top.scrolled .nav-link {
