@@ -9,7 +9,7 @@
                 <div class="input-group input-group-lg mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                            <i class="text-dark fas fa-at"></i>
+                            <i class="icono-color fas fa-at"></i>
                         </span>
                     </div>
                     <input placeholder="Correo electronico" type="text" aria-label=" Sizing example input"
@@ -27,7 +27,7 @@
                 <div class="input-group input-group-lg mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                            <i class="text-dark fas fa-unlock-alt"></i>
+                            <i class="icono-color fas fa-unlock-alt"></i>
                         </span>
                     </div>
                     <input placeholder="Contraseña" id="password" type="password" aria-label=" Sizing example input"
@@ -55,13 +55,17 @@
                     </div>
                 </div>
                 {{-- button --}}
+                
+
+
                 <div class="form-group row mt-3 justify-content-around ">
-                    <div class="">
-                        <button type="submit" class="btn btn-lg btn-block btn-dark">
+                    <button type="submit" style="border-radius: 10px" class="bg-botones btn btn-lg btn-block btn-dark">
+                        <b>
                             {{ __('Ingresar') }}
-                        </button>
-                    </div>
+                        </b>
+                    </button>
                 </div>
+
             </form>
         </div>
 

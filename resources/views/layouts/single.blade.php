@@ -89,17 +89,19 @@
     }
 
     .bg-login {
-        height: 17em;
+        height: 15em;
         background: {{ config('app.bg-theme-1') }};
-        background: linear-gradient(to right, {{ config('app.bg-theme-1') }}, {{ config('app.bg-theme-2') }});
+
     }
 
     .bg-botones {
         background: {{ config('app.bg-theme-1') }};
-        background: linear-gradient(0deg, {{ config('app.bg-theme-1') }} 0%, {{ config('app.bg-theme-2') }} 100%, {{ config('app.bg-theme-1') }});
+        /* background: linear-gradient(0deg, rgba(91,238,251,1)  0%, {{ config('app.bg-theme-1') }}  90%, {{ config('app.bg-theme-1') }}); */
 
     }
-
+    .icono-color{
+        color: {{ config('app.bg-theme-2') }};
+    }
 </style>
 
 <body>
@@ -107,20 +109,8 @@
     <div class="bg-login" style="border-bottom-left-radius: 50px; border-bottom-right-radius: 50px ;">
         <div class="row justify-content-center">
             <a href="{{ url('/') }}">
-                <table>
-                    <tr>
-                        <td>
-                            <img src="{{ asset('img/user.png') }}" class="img-fluid"
-                                style="max-height: 150px; margin-top: 3%;  margin-left: 5%">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <img src="{{ asset('img/tecun/logoBlanco.png') }}" class="img-fluid"
-                                style="max-height: 75px; margin-left: -10%">
-                        </td>
-                    </tr>
-                </table>
+                <br><br>
+                <img src="{{ asset('img/tecun/logoBlanco.png') }}" class="img-fluid" style=" max-height: 100px; ">
             </a>
         </div>
     </div>
