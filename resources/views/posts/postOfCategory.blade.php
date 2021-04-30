@@ -1,73 +1,44 @@
 @extends('layouts.user')
 
 @section('content')
-<style>
-    .dropdown-toggle::after {}
+    <style>
+        .dropdown-toggle::after {}
 
-    .firefox.dropdown-toggle::after {
-        text-align: right;
-        float: right;
-        /*Firefox fix*/
-        margin-top: -12px;
-    }
+        .firefox.dropdown-toggle::after {
+            text-align: right;
+            float: right;
+            /*Firefox fix*/
+            margin-top: -12px;
+        }
 
-    .chrome.dropdown-toggle::after {
-        text-align: right;
-        float: right;
-        /*Chrome IE fix*/
-        margin-top: 8px;
-    }
+        .chrome.dropdown-toggle::after {
+            text-align: right;
+            float: right;
+            /*Chrome IE fix*/
+            margin-top: 8px;
+        }
 
-</style>
+    </style>
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="bg-theme-1 col-12 mt-1">
-
-                <ul class="nav nav-pills nav-fill nav-justified">
-                    <li class="nav-item animate__animated animate__pulse">
-                        <a class="nav-link" href="{{ url('news') }}"><span
-                                class="text-light font-weight-bold ">Noticias</span></a>
-                    </li>
-                    <li class="nav-item animate__animated animate__pulse">
-                        <a class="nav-link" href="{{ url('podcasts') }}"><span
-                                class="text-light font-weight-bold">Podcast</span></a>
-                    </li>
-                    <li class="nav-item animate__animated animate__pulse">
-                        <a class="nav-link" href="{{ url('/TECUento') }}"><span
-                                class="text-light font-weight-bold">TECUento</span></a>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-12 mt-1">
-                <div class="form-group row">
-                    <div class="col-12 pl-0 pr-0">
-                        <div class="">
-                            <div class="dropdown flatmenu bg-secondary">
-                                <div class="btn btn-dark btn-block btn-lg dropdown-toggle text-justify" type="button"
-                                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">
-                                    <span>Selecionar Categoría</span>
-                                </div>
-                                <div class="dropdown-menu w-100 bg-secondary" aria-labelledby="dropdownMenuButton">
-                                    @foreach ($categories as $item)
-                                        <a class="dropdown-item bg-secondary text-light" title="{{ $item->name }}"
-                                            onclick="event.preventDefault();
-                                                                    document.getElementById('formDel{{ $item->id }}').submit();">
-                                            {{ $item->name }}
-                                        </a>
-                                        <form id="formDel{{ $item->id }}"
-                                            action="{{ url('category/post/' . $item->id) }}" method="GET"
-                                            style="display: none;">
-                                            @csrf
-                                        </form>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            {{-- Select de categosias --}}
+            @if ($categories->first())
+                <div class="col-11 col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                    <form>
+                        <select name="area" onChange="location = form.area.options[form.area.selectedIndex].value;"
+                            class="selectCategoria">
+                            <option value="{{ url('home') }}">Seleccione una Categoría</option>
+                            @foreach ($categories as $item)
+                                <option value="{{ url('category/post/' . $item->id) }}" title="{{ $item->name }}">
+                                    ⚙️ {{ $item->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </form>
                 </div>
-            </div>
+            @endif
             @if (sizeof($posts) >= 1)
+            <div class="col-12 col-lg-7 col-md-7 col-sm-7 col-xs-7">
                 <div class="card-deck">
                     @foreach ($posts as $item)
                         <div class="card">
@@ -88,7 +59,7 @@
                             <div class="card-footer justify-content-around d-flex">
                                 <input type="hidden" name="active"
                                     value="{{ $reactionActive = $item->likes->where('user_id', auth()->user()->id)->first() }} ">
-                                @if (!$item->userLikesNew )
+                                @if (!$item->userLikesNew)
                                     <form method="POST" action="{{ url('likeordislike') }}"
                                         onsubmit="return checkSubmit();">
                                         @csrf
@@ -109,7 +80,8 @@
                                             <input type="hidden" name="reactionActive" id="reactionActive" value="1">
                                             <button type="submit" class="btn btn-lg btn-primary ">
                                                 <h4>
-                                                    <i class="far fa-thumbs-up"></i>({{ $item->likes->where('active', 1)->count() }})
+                                                    <i
+                                                        class="far fa-thumbs-up"></i>({{ $item->likes->where('active', 1)->count() }})
                                                 </h4>
                                             </button>
                                         </form>
@@ -121,7 +93,8 @@
                                             <input type="hidden" name="reactionActive" id="reactionActive" value="0">
                                             <button type="submit" class="btn btn-lg">
                                                 <h4>
-                                                    <i class="far fa-thumbs-up"></i>({{ $item->likes->where('active', 1)->count() }})
+                                                    <i
+                                                        class="far fa-thumbs-up"></i>({{ $item->likes->where('active', 1)->count() }})
                                                 </h4>
                                             </button>
                                         </form>
@@ -138,6 +111,7 @@
                         </div>
                     @endforeach
                 </div>
+            </div>
             @else
                 <div class="container">
                     <div class="row justify-content-around mt-5" style="margin-top:15em">
@@ -151,7 +125,7 @@
                         <p class="h5 text-primary">Aun no hay publicaciones</p>
                     </div>
                     <div class="row justify-content-center mt-1">
-                        <span class="text-primary">  ...</span>
+                        <span class="text-primary"> ...</span>
                     </div>
                 </div>
             @endif

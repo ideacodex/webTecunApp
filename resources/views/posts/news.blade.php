@@ -1,6 +1,15 @@
 @extends('layouts.user')
 
 @section('content')
+    @if (session('message'))
+        <div class="sufee-alert alert with-close alert-{{ session('alert') }} alert-dismissible fade show ">
+            <span
+                class="animate__heartBeat badge badge-pill badge-{{ session('alert') }}">{{ session('message') }}</span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
     <style>
         .dropdown-toggle::after {}
 
@@ -18,72 +27,83 @@
             margin-top: 8px;
         }
 
+        .letrasPublicaciones {
+            font-size: 18px;
+            font-family: Arial;
+            color: {{ config('app.bg-theme-1') }};
+        }
+
+        .imagenPublicaciones {
+            margin: auto;
+            width: 250px;
+            max-height: 250px;
+            border-radius: 25px;
+            border: 2px solid {{ config('app.bg-theme-1') }};
+        }
+
+        .btnLike {
+            background-color: none;
+            color: rgb(0, 89, 255);
+
+        }
+
+        /* si  no le doy like */
+        .btnLikeNone {
+            animation: beat 1s infinite alternate;
+        }
+        .btnLikeNone:hover {
+            font-size: 20px;
+            color: rgb(0, 89, 255);
+        }
+
+        /*  beat animacion */
+        @keyframes beat {
+            to {
+                transform: scale(1.2);
+            }
+        }
+
     </style>
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="bg-theme-1 col-12 mt-1">
 
-                <ul class="nav nav-pills nav-fill nav-justified">
-                    <li class="nav-item animate__animated animate__pulse">
-                        <a class="nav-link" href="{{ url('news') }}"><span
-                                class="text-light font-weight-bold ">Noticias</span></a>
-                    </li>
-                    <li class="nav-item animate__animated animate__pulse">
-                        <a class="nav-link" href="{{ url('podcasts') }}"><span
-                                class="text-light font-weight-bold">Podcast</span></a>
-                    </li>
-                    <li class="nav-item animate__animated animate__pulse">
-                        <a class="nav-link" href="{{ url('/TECUento') }}"><span
-                                class="text-light font-weight-bold">TECUento</span></a>
-                    </li>
-                </ul>
-            </div>
+            {{-- Select de categosias --}}
             @if ($categories->first())
-                <div class="col-12 mt-1">
-                    <div class="form-group row">
-                        <div class="col-12 pl-0 pr-0">
-                            <div class="">
-                                <div class="dropdown flatmenu bg-secondary">
-                                    <div class="btn btn-dark btn-block btn-lg dropdown-toggle text-justify" type="button"
-                                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false">
-                                        <span>Selecionar Categoría</span>
-                                    </div>
-                                    <div class="dropdown-menu w-100 bg-secondary" aria-labelledby="dropdownMenuButton">
-                                        @foreach ($categories as $item)
-                                            <a class="dropdown-item bg-secondary text-light" title="{{ $item->name }}"
-                                                href="{{ url('category/post/' . $item->id) }}">
-                                                {{ $item->name }}
-                                            </a>
-                                        @endforeach
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-12 col-lg-7 col-md-7 col-sm-7 col-xs-7">
+
+                    <form>
+                        <select name="area" onChange="location = form.area.options[form.area.selectedIndex].value;"
+                            class="selectCategoria">
+                            <option value="{{ url('home') }}">Seleccione una Categoría</option>
+                            @foreach ($categories as $item)
+                                <option value="{{ url('category/post/' . $item->id) }}" title="{{ $item->name }}">
+                                    ⚙️ {{ $item->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </form>
+
                 </div>
             @endif
-            @if (session('message'))
-                <div class="sufee-alert alert with-close alert-{{ session('alert') }} alert-dismissible fade show">
-                    <span class="badge badge-pill badge-{{ session('alert') }}">{{ session('message') }}</span>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            @endif
+            {{-- noticias --}}
             @if (sizeof($posts) >= 1)
                 <div class="container-fluid">
                     <div class="row mt-2">
                         @foreach ($posts as $item)
                             <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 mt-2">
                                 <div class="card">
-                                    <img src="{{ asset('/storage/posts/' . $item->featured_image) }}" width="100%"
-                                        style="max-height: 400px">
+                                    {{-- imagen --}}
+                                    <img src="{{ asset('/storage/posts/' . $item->featured_image) }}"
+                                        class="imagenPublicaciones">
                                     <div class="card-body">
-                                        <h5 class="card-title" style="color:orange">{{ $item->title }}</h5>
+                                        {{-- Titulo --}}
+                                        <h5 class="card-title letrasPublicaciones">
+                                            {{ $item->title }}
+                                        </h5>
+                                        {{-- description --}}
                                         <p class="card-text">
                                             {{ $item->description }}
-                                            <a href="{{ url('newsRead/' . $item->id) }}" class="">
+                                            <a href="{{ url('newsRead/' . $item->id) }}">
                                                 <span class="text-primary">
                                                     Leer más
                                                     <i class="fas fa-book-reader"></i>
@@ -92,54 +112,61 @@
                                         </p>
                                     </div>
                                     <div class="card-footer justify-content-around d-flex">
+                                        {{-- like --}}
                                         <input type="hidden" name="active"
                                             value="{{ $reactionActive = $item->likes->where('user_id', auth()->user()->id)->first() }} ">
                                         @if (!$item->userLikesNew)
+                                            {{-- si yo no le doy like --}}
                                             <form method="POST" action="{{ url('likeordislike') }}"
                                                 onsubmit="return checkSubmit();">
                                                 @csrf
                                                 <input type="hidden" name="postID" value="{{ $item->id }}">
                                                 <input type="hidden" name="reactionActive" id="reactionActive" value="0">
                                                 <button type="submit" class="btn btn-lg">
-                                                    <h4><i
-                                                            class="far fa-thumbs-up"></i>({{ $item->likes->where('active', 1)->count() }})
+                                                    <h4 class="animate__heartBeat">
+                                                        <i
+                                                            class="far fa-thumbs-up btnLikeNone"></i>({{ $item->likes->where('active', 1)->count() }})
                                                     </h4>
                                                 </button>
                                             </form>
                                         @else
+
                                             @if ($reactionActive->active == 1)
+                                                {{-- si yo le doy like --}}
                                                 <form method="POST" action="{{ url('likeordislike') }}"
                                                     onsubmit="return checkSubmit();">
                                                     @csrf
                                                     <input type="hidden" name="postID" value="{{ $item->id }}">
                                                     <input type="hidden" name="reactionActive" id="reactionActive"
                                                         value="1">
-                                                    <button type="submit" class="btn btn-lg btn-primary ">
-                                                        <h4>
+                                                    <button type="submit" class="btn btn-lg btnLike ">
+                                                        <h4 class="animate__heartBeat">
                                                             <i
-                                                                class="far fa-thumbs-up"></i>({{ $item->likes->where('active', 1)->count() }})
+                                                                class="far fa-thumbs-up "></i>({{ $item->likes->where('active', 1)->count() }})
                                                         </h4>
                                                     </button>
                                                 </form>
                                             @else
+                                                {{-- inectivo --}}
                                                 <form method="POST" action="{{ url('likeordislike') }}"
                                                     onsubmit="return checkSubmit();">
                                                     @csrf
-                                                    <input type="hidden" name="postID" id="postID" value="{{ $item->id }}">
+                                                    <input type="hidden" name="postID" id="postID"
+                                                        value="{{ $item->id }}">
                                                     <input type="hidden" name="reactionActive" id="reactionActive"
                                                         value="0">
                                                     <button type="submit" class="btn btn-lg">
-                                                        <h4>
+                                                        <h4 class="animate__heartBeat">
                                                             <i
-                                                                class="far fa-thumbs-up"></i>({{ $item->likes->where('active', 1)->count() }})
+                                                                class="far fa-thumbs-up "></i>({{ $item->likes->where('active', 1)->count() }})
                                                         </h4>
                                                     </button>
                                                 </form>
                                             @endif
                                         @endif
+                                        {{-- fecha --}}
                                         <span> {{ $item->created_at->format('d-m-Y') }} </span>
-                                        <span class="text-muted">
-                                        </span>
+                                        {{-- comentarios --}}
                                         <span class="text-primary">
                                             <i class="fas fa-comment"></i>
                                             <a href="{{ url('newsRead/' . $item->id) }}">Comentarios</a>

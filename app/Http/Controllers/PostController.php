@@ -289,7 +289,7 @@ class PostController extends Controller
                     //******carga de imagen**********//
                 if ($request->hasFile('image')) {
                     $extension = $request->file('image')->getClientOriginalExtension();
-                    $imageNameToStore = $post->$id . '.' . $extension;
+                    $imageNameToStore = $post->id . '.' . $extension;
                     // Upload Image //********nombre de carpeta para almacenar*****
                     $path = $request->file('image')->storeAs('public/posts', $imageNameToStore);
                     //dd($path);

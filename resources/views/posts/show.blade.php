@@ -1,10 +1,6 @@
 @extends('layouts.user')
 @section('content')
-    <!-- blog post area start -->
-    <div class="blog-details mt-2 ptb--320 pb-4">
-        <div class="container">
-
-            @if (session('message'))
+@if (session('message'))
                 <div class="sufee-alert alert with-close alert-{{ session('alert') }} alert-dismissible fade show">
                     <span class="badge badge-pill badge-{{ session('alert') }}">{{ session('message') }}</span>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -12,6 +8,11 @@
                     </button>
                 </div>
             @endif
+    <!-- blog post area start -->
+    <div class="blog-details mt-2 ptb--320 pb-4">
+        <div class="container">
+
+            
             <div class="row">
                 <div class="col-12 col-md-8 col-lg-8 ">
                     <div class="blog-info">
@@ -78,9 +79,11 @@
                                         @foreach ($comments as $item)
                                             <div class="alert alert-light" role="alert">
                                                 <h4 class="alert-heading"><strong><i class="fas fa-user"></i>
-                                                        {{ $item->user->name }} {{ $item->user->lastname }}</strong></h4>
+                                                        {{ $item->user->name }} {{ $item->user->lastname }}</strong>
+                                                </h4>
                                                 <hr>
-                                                <p class="mb-0">{{ $item->message }}
+                                                <p class="mb-0 animate__heartBeat">
+                                                    {{ $item->message }}
                                                     @if (auth()->check() && $item->user_id == auth()->user()->id)
                                                         <a href="{{ url('comment/' . $item->id) }}"
                                                             class="btn btn-sm btn-danger">
