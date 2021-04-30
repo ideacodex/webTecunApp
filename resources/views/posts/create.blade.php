@@ -11,8 +11,10 @@
         </div>
     @endif
     <div class="container-fluid">
-        <div class="row justify-content-center mt-2">
-            <p class="text-primary h2">Nueva publicación <i class="fas fa-newspaper"> </i></p>
+        <div class="card">
+            <div class="card-header bg-theme-1" style="border-radius: 15px; color: white">
+                <strong class="card-title">NUEVA PUBLICACIÓN</strong>
+            </div>
         </div>
         <div class="mt-4">
             <form method="POST" action="{{ url('adminPost') }}" enctype="multipart/form-data"
@@ -21,130 +23,58 @@
                 <div class="form-row">
                     <div class="col-12 input-group input-group-lg mb-3">
                         <div class="input-group-prepend">
-                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                <i class="text-primary fas fa-heading"></i>
+                            <span class="border-top-0 border-right-0 bg-input input-group-text transparent"
+                                id="inputGroup-sizing-sm">
+                                <i style="color: #fa5e0a" class="fas fa-heading"></i>
                             </span>
                         </div>
                         <input id="title" name="title" placeholder="Agregar titulo" type="text" size="100" maxlength="100"
-                            class="text-primary form-control @error('title') is-invalid @enderror" title="title"
-                            value="{{ old('title') }}" required autocomplete="title" autofocus>
+                            class="text-dark form-control border-top-0 border-right-0 border-left-0 bg-input @error('title') is-invalid @enderror"
+                            title="title" value="{{ old('title') }}" required autocomplete="title" autofocus>
 
                         @error('title')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                         @enderror
 
                         @error('title')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                         @enderror
                     </div>
                     <div class="col-12 input-group input-group-lg mb-3">
                         <div class="input-group-prepend">
-                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                <i class="text-primary fas fa-align-left"></i>
+                            <span class="border-top-0 border-right-0 bg-input input-group-text transparent"
+                                id="inputGroup-sizing-sm">
+                                <i style="color: #fa5e0a" class="fas fa-align-left"></i>
                             </span>
                         </div>
                         <input id="description" placeholder="Descripcion o texto corto" type="text" size="250"
-                            maxlength="250" class="text-primary form-control @error('description') is-invalid @enderror"
+                            maxlength="250"
+                            class="text-dark form-control border-top-0 border-right-0 border-left-0 bg-input @error('description') is-invalid @enderror"
                             name="description" value="{{ old('description') }}" required autocomplete="description"
                             autofocus>
 
                         @error('description')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                         @enderror
 
                         @error('description')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                <i class="text-primary fas fa-question-circle"></i>
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
                             </span>
-                        </div>
-                        <select name="status_id" id="status_id"
-                            class="form-control @error('status_id') is-invalid @enderror" required>
-                            <option value="0" selected>Estado</option>
-                            @foreach ($status as $item)
-                                <option value="{{ $item->id }}">{{ $item->name }}</option>
-                            @endforeach
-                        </select>
-                        @error('status_id')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-
-                        @error('status_id')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-
-                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text text-primary" id="inputGroup-sizing-sm">
-                                <i class="text-primary fas fa-newspaper"></i> / <i class="text-primary fas fa-podcast"></i>
-                            </span>
-                        </div>
-                        <select
-                            class="js-example-basic-multiple js-states form-control @error('category_id') is-invalid @enderror"
-                            name="category_id[]" id="category_id" multiple="multiple" required>
-                            <option disabled selected>Categorias</option>
-                            @foreach ($categories as $item)
-                                <option value="{{ $item->id }}">{{ $item->name }}</option>
-                            @endforeach
-                        </select>
-                        @error('category_id')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-
-                        @error('type_id')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-
-                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                <i class="text-primary fab fa-youtube"></i>
-                            </span>
-                        </div>
-                        <input id="video" placeholder="Codigo Youtube" type="text" size="250" title="Ejemplo: VYOjWnS4cMY"
-                            maxlength="250" class="text-primary form-control @error('video') is-invalid @enderror"
-                            name="video" value="{{ old('video') }}" autocomplete="video"
-                            autofocus>
-
-                        @error('video')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-
-                        @error('video')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
                         @enderror
                     </div>
 
                     <div class="col-12 input-group input-group-lg mb-3">
                         <div class="input-group-prepend">
-                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                <i class="text-primary fas fa-image"></i>
+                            <span class="border-top-0 border-right-0 bg-input input-group-text transparent"
+                                id="inputGroup-sizing-sm">
+                                <i style="color: #fa5e0a" class="fas fa-image"></i>
                             </span>
                         </div>
                         <div class="custom-file">
@@ -163,22 +93,99 @@
                     </div>
                     <div class="col-12 input-group input-group-lg mb-3">
                         <div class="input-group-prepend">
-                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                <i class="text-primary fas fa-file-pdf"></i>
+                            <span class="border-top-0 border-right-0 bg-input input-group-text transparent"
+                                id="inputGroup-sizing-sm">
+                                <i style="color: #fa5e0a" class="fas fa-file-pdf"></i>
                             </span>
                         </div>
                         <div class="custom-file">
                             <input title="Selecionar" type="file" accept="file_extension/*" name="pdf" id="inputGroupFile04"
                                 aria-describedby="inputGroupFileAddon04"
-                                class="custom-file-input form-control{{ $errors->has('pdf') ? ' is-invalid' : '' }}"
+                                class="custom-file-input border-top-0 form-control{{ $errors->has('pdf') ? ' is-invalid' : '' }}"
                                 value="{{ old('pdf') }}">
                             @if ($errors->has('pdf'))
                                 <span class="invalid-feedback" role="alert">
-                                    <strong><i class="fas fa-exclamation-triangle"></i>{{ $errors->first('pdf') }}</strong>
+                                    <strong><i
+                                            class="fas fa-exclamation-triangle"></i>{{ $errors->first('pdf') }}</strong>
                                 </span>
                             @endif
                             <label class="custom-file-label" for="inputGroupFile04">Elegir documento</label>
                         </div>
+                    </div>
+
+                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                        <div class="input-group-prepend">
+                            <span class="border-top-0 border-right-0 bg-input input-group-text transparent"
+                                id="inputGroup-sizing-sm">
+                                <i style="color: #fa5e0a" class="fas fa-question-circle"></i>
+                            </span>
+                        </div>
+                        <select name="status_id" id="status_id"
+                            class="form-control border-top-0 border-right-0 border-left-0 bg-input @error('status_id') is-invalid @enderror"
+                            required>
+                            <option value="0" selected>Estado</option>
+                            @foreach ($status as $item)
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('status_id')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+
+                        @error('status_id')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+
+                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                        <select
+                            class="js-example-basic-multiple js-states form-control @error('category_id') is-invalid @enderror"
+                            name="category_id[]" id="category_id" multiple="multiple" required>
+                            <option disabled selected>Categorias</option>
+                            @foreach ($categories as $item)
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('category_id')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+
+                        @error('type_id')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+
+                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                        <div class="input-group-prepend">
+                            <span class="border-top-0 border-right-0 bg-input input-group-text transparent"
+                                id="inputGroup-sizing-sm">
+                                <i style="color: #fa5e0a" class="fab fa-youtube"></i>
+                            </span>
+                        </div>
+                        <input id="video" placeholder="Código de Youtube" type="text" size="250"
+                            title="Ejemplo: VYOjWnS4cMY" maxlength="250"
+                            class="text-dark form-control border-top-0 border-right-0 border-left-0 bg-input @error('video') is-invalid @enderror"
+                            name="video" value="{{ old('video') }}" autocomplete="video" autofocus>
+
+                        @error('video')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+
+                        @error('video')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
 
                     <div class="col-12">
@@ -188,9 +195,9 @@
                     <div class="container">
                         <div class="row">
                             <div class="col text-center">
-                                <button type="submit" class="btn btn-lg btn-primary">
+                                <button type="submit" class="btn btn-lg bg-theme-1 text-light" style="border-radius: 10px">
                                     <i class="fas fa-save"></i>
-                                    {{ __('Guardar') }}
+                                    {{ __('GUARDAR NOTICIA') }}
                                 </button>
                             </div>
                         </div>

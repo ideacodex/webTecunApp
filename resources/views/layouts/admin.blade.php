@@ -41,6 +41,14 @@
 
 </head>
 <style>
+    .bg-orange {
+        background-color: {{ config('app.bg-theme-2') }};
+    }
+
+    .bg-input{
+        background-color: {{ config('app.bg-theme-3') }};
+    }
+
     .btn-circle {
         width: 30px;
         height: 30px;
@@ -88,7 +96,7 @@
     }
 
     .bg-theme-1 {
-        background-color: #f7921c;
+        background-color: {{ config('app.bg-theme-1') }};
     }
 
     .bg-theme-2 {
@@ -96,7 +104,7 @@
     }
 
     .bg-theme-3 {
-        background-color: #015e88;
+        background-color: {{ config('app.bg-theme-3') }};
     }
 
     .bg-theme-4 {
@@ -175,65 +183,65 @@
                         <div class="">
                             <a class="list-group-item list-group-item-action bg-theme-1 text-light collapsed"
                                 data-toggle="collapse" data-target="#collapseOne" aria-expanded="false"
-                                aria-controls="collapseOne"> <span class="pr-3"><i class="fas fa-mail-bulk"></i>
-                                    Publicaciones</span>
+                                aria-controls="collapseOne"> <span class="pr-3"><i class="fas fa-check-double"></i>
+                                    PUBLICACIONES</span>
                                 <span class="pl-3"><i class="fas fa-caret-down"></i></span></a>
                             <div id="collapseOne" class="collapse accordionList" aria-labelledby="headingTwo"
                                 data-parent="#accordionExample">
                                 <div class="">
                                     <a href="{{ url('adminPost') }}"
                                         class="list-group-item list-group-item-action bg-theme-1 text-light">
-                                        <span class=""><i class="ml-3 fas fa-newspaper"></i></span> Noticias
+                                        <span class=""><i class="ml-3 fas fa-check"></i></span> NOTICIAS
                                     </a>
                                     <a href="{{ url('adminPodcast') }}"
                                         class="pl-4 list-group-item list-group-item-action bg-theme-1 text-light">
-                                        <span class=""><i class="ml-3 fas fa-podcast"></i></span> Podcast</a>
+                                        <span class=""><i class="ml-3 fas fa-check"></i></span> PODCAST</a>
                                     <a href="{{ url('adminPicture') }}"
                                         class="pl-4 list-group-item list-group-item-action bg-theme-1 text-light">
-                                        <span class=""><i class="ml-3 far fa-images"></i></span> TECUento</a>
+                                        <span class=""><i class="ml-3 fas fa-check"></i></span> TECUENTO</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <a href="{{ url('notificaciones') }}"
                         class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
-                                class="fab fa-android"></i></span> Notificaciones
+                                class="fas fa-check-double"></i></span> NOTIFICACIONES
                     </a>
                     <a href="{{ url('categories') }}"
                         class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
-                                class="fas fa-tags"></i></span> Categorías
+                                class="fas fa-check-double"></i></span> CATEGORÍAS
                     </a>
                     <a href="{{ url('storesAdmin') }}"
                         class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
-                                class="fas fa-building"></i></span> Agencias
+                                class="fas fa-check-double"></i></span> AGENCIAS
                     </a>
                     <a href="{{ url('contactAdmin') }}"
                         class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
-                                class="fas fa-id-card"></i></span> LLama Directo
+                                class="fas fa-check-double"></i></span> LLAMA DIRECTO
                     </a>
                     <a href="{{ url('favoriteAdmin') }}"
                         class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
-                                class="fas fa-star"></i></span> Numeros Favoritos
+                                class="fas fa-check-double"></i></span> NÚMEROS FAVORITOS
                     </a>
                     <a href="{{ url('jobsAdmin') }}"
                         class="list-group-item list-group-item-action bg-theme-1 text-light">
-                        <span class=""><i class="fas fa-hard-hat"></i></span> Empleos
+                        <span class=""><i class="fas fa-check-double"></i></span> EMPLEOS
                     </a>
                     <a href="{{ url('awardsAdmin') }}"
                         class="list-group-item list-group-item-action bg-theme-1 text-light"> <span class=""><i
-                                class="fas fa-medal"></i></span> Reconocimientos
+                                class="fas fa-check-double"></i></span> RECONOCIMIENTOS
                     </a>
                     <a href="{{ url('empresas') }}"
                         class="list-group-item list-group-item-action bg-theme-1 text-light">
-                        <span class=""><i class="fas fa-envelope-open-text"></i></span> Vacaciones
+                        <span class=""><i class="fas fa-check-double"></i></span> VACACIONES
                     </a>
                     <a href="{{ url('gamesAdmin') }}"
                         class="list-group-item list-group-item-action bg-theme-1 text-light">
-                        <span class=""><i class="fas fa-gamepad"></i></span> Trivias
+                        <span class=""><i class="fas fa-check-double"></i></span> TRIVIAS
                     </a>
                     <a href="{{ url('adminSetting') }}"
                         class="list-group-item list-group-item-action bg-theme-1 text-light">
-                        <span class=""><i class="fas fa-cog"></i></span> Ajustes
+                        <span class=""><i class="fas fa-check-double"></i></span> AJUSTES
                     </a>
                 </div>
             </div>
@@ -242,7 +250,8 @@
             <!-- Page Content -->
             <div id="page-content-wrapper">
 
-                <nav class="navbar navbar-expand-lg navbar-dark bg-theme-1 border-bottom">
+                <nav style="border-bottom-left-radius: 30px; border-bottom-right-radius: 30px"
+                    class="navbar navbar-expand-lg navbar-dark bg-orange border-bottom">
                     <button id="menu-toggle" class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#sidebar-wrapper" aria-controls="navbarSupportedContent" aria-expanded="false"
                         aria-label="Toggle navigation">
