@@ -144,6 +144,61 @@
 
     }
 
+    /* Inicio publicaciones en noticias estilo */
+
+    .letrasPublicaciones {
+        font-size: 18px;
+        font-family: Arial;
+        margin-bottom: -5px;
+        font-weight: bold;
+        color: {{ config('app.bg-theme-1') }};
+    }
+
+    .fechaPublicacion {
+        font-size: 12px;
+        margin-top: 2px;
+    }
+
+    .imagenPublicaciones {
+        margin: auto;
+        margin-top: 10px;
+        width: 90%;
+        max-height: 250px;
+        border-radius: 25px;
+        border: 2px solid {{ config('app.bg-theme-1') }};
+    }
+
+    .btnLike {
+        background-color: none;
+        color: rgb(0, 89, 255);
+
+    }
+
+    /* si  no le doy like */
+    .btnLikeNone {
+        animation: beat 1s infinite alternate;
+    }
+
+    .btnLikeNone:hover {
+        font-size: 20px;
+        color: rgb(0, 89, 255);
+    }
+
+    /*  beat animacion */
+    @keyframes beat {
+        to {
+            transform: scale(1.2);
+        }
+    }
+
+    /* contorno de publicaciones */
+    .contornoNew {
+        border-radius: 25px;
+        box-shadow: 2px 5px 5px 1px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Fin publicaciones en noticias estilo */
+
 </style>
 
 <body>
