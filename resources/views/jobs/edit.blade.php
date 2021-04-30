@@ -3,17 +3,19 @@
 @section('content')
     @if (!$categories->first())
         <div class="sufee-alert alert with-close alert-{{ session('alert') }} alert-dismissible fade show">
-            <span class="badge badge-pill badge-warning">No hay categorias aun, <a href="{{ url('categories/create') }}">
+            <span class="badge badge-pill badge-warning">No hay categorías aún, <a href="{{ url('categories/create') }}">
                     Agregar
-                    un nueva categoria</a> </span>
+                    una nueva categoría</a> </span>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
     @endif
     <div class="container-fluid">
-        <div class="row justify-content-center mt-2">
-            <p class="text-primary h2">Editar oferta de empleo <i class="fas fa-briefcase"> </i></p>
+        <div class="card">
+            <div class="card-header bg-theme-1" style="border-radius: 15px; color: white">
+                <strong class="card-title">EDITAR OFERTA DE EMPLEO</strong>
+            </div>
         </div>
         <div class="mt-4">
             <form method="POST" action="{{ url('jobsAdmin/' . $job->id) }}" enctype="multipart/form-data"
@@ -23,127 +25,135 @@
                 <div class="form-row">
                     <div class="col-12 input-group input-group-lg mb-3">
                         <div class="input-group-prepend">
-                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                <i class="text-primary fas fa-heading"></i>
+                            <span class="input-group-text bg-input border-top-0 border-right-0 transparent"
+                                id="inputGroup-sizing-sm">
+                                <i style="color: #fa5e0a" class="fas fa-heading"></i>
                             </span>
                         </div>
                         <input id="title" name="title" placeholder="Agregar titulo" type="text" size="100" maxlength="100"
-                            class="text-primary form-control @error('title') is-invalid @enderror" title="title"
-                            value="{{ $job->title }}" required autocomplete="title" autofocus>
+                            class="text-dark bg-input border-top-0 border-left-0 form-control @error('title') is-invalid @enderror"
+                            title="title" value="{{ $job->title }}" required autocomplete="title" autofocus>
 
                         @error('title')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                         @enderror
 
                         @error('title')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                         @enderror
                     </div>
                     <div class="col-12 input-group input-group-lg mb-3">
                         <div class="input-group-prepend">
-                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                <i class="text-primary fas fa-align-left"></i>
+                            <span class="input-group-text bg-input border-top-0 border-right-0 transparent"
+                                id="inputGroup-sizing-sm">
+                                <i style="color: #fa5e0a" class="fas fa-align-left"></i>
                             </span>
                         </div>
                         <input id="description" placeholder="Descripcion o texto corto" type="text"
-                            class="text-primary form-control @error('description') is-invalid @enderror" name="description"
-                            value="{{ $job->description }}" required autocomplete="description" autofocus>
+                            class="text-dark bg-input border-top-0 border-left-0 form-control @error('description') is-invalid @enderror"
+                            name="description" value="{{ $job->description }}" required autocomplete="description"
+                            autofocus>
 
                         @error('description')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                         @enderror
 
                         @error('description')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                         @enderror
                     </div>
                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                         <div class="input-group-prepend">
-                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                <i class="text-primary fas fa-money-bill-wave"></i>
+                            <span class="input-group-text bg-input border-top-0 border-right-0 transparent"
+                                id="inputGroup-sizing-sm">
+                                <i style="color: #fa5e0a" class="fas fa-money-bill-wave"></i>
                             </span>
                         </div>
                         <input id="public_link" name="public_link" placeholder="Url de plaza externa" type="text" size="100"
-                            maxlength="100" class="text-primary form-control @error('public_link') is-invalid @enderror"
+                            maxlength="100"
+                            class="text-dark bg-input border-top-0 border-left-0 form-control @error('public_link') is-invalid @enderror"
                             public_link="public_link" value="{{ $job->public_link }}" autofocus>
 
                         @error('public_link')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                         @enderror
 
                         @error('public_link')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                         @enderror
                     </div>
 
                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                         <div class="input-group-prepend">
-                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                <i class="text-primary far fa-building"></i>
+                            <span class="input-group-text bg-input border-top-0 border-right-0 transparent"
+                                id="inputGroup-sizing-sm">
+                                <i style="color: #fa5e0a" class="far fa-building"></i>
                             </span>
                         </div>
                         <input id="company" name="company" placeholder="Empresa" type="text" size="100" maxlength="100"
-                            class="text-primary form-control @error('company') is-invalid @enderror" company="company"
-                            value="{{ $job->company }}" required autocomplete="company" autofocus>
+                            class="text-dark bg-input border-top-0 border-left-0 form-control @error('company') is-invalid @enderror"
+                            company="company" value="{{ $job->company }}" required autocomplete="company" autofocus>
 
                         @error('company')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                         @enderror
 
                         @error('company')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                         @enderror
                     </div>
 
                     <div class="col-12 input-group input-group-lg mb-3">
                         <div class="input-group-prepend">
-                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                <i class="text-primary fas fa-at"></i>
+                            <span class="input-group-text bg-input border-top-0 border-right-0 transparent"
+                                id="inputGroup-sizing-sm">
+                                <i style="color: #fa5e0a" class="fas fa-at"></i>
                             </span>
                         </div>
                         <input id="email" name="email" placeholder="correo electronico del reclutador" type="text"
                             size="100" maxlength="100"
-                            class="text-primary form-control @error('email') is-invalid @enderror" email="email"
-                            value="{{ $job->email }}" required autocomplete="email" autofocus>
+                            class="text-dark bg-input border-top-0 border-left-0 form-control @error('email') is-invalid @enderror"
+                            email="email" value="{{ $job->email }}" required autocomplete="email" autofocus>
 
                         @error('email')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                         @enderror
 
                         @error('email')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                         @enderror
                     </div>
                     <div class="col-12">
-                    <textarea id="summernote" name="editordata">{{ $job->skils }}</textarea>
+                        <textarea id="summernote" name="editordata">{{ $job->skils }}</textarea>
                     </div>
                     <div class="container">
                         <div class="row">
                             <div class="col text-center">
-                                <button type="submit" class="btn btn-lg btn-primary">
+                                <button type="submit" class="btn btn-lg bg-theme-1 text-light" style="border-radius: 10px">
                                     <i class="fas fa-save"></i>
-                                    {{ __('Guardar') }}
-                                </button> </div>
+                                    {{ __('ACTUALIZAR EMPLEO') }}
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -170,8 +180,6 @@
                 ['insert', ['link', 'picture']],
             ]
         });
-
-        
 
     </script>
 @endsection

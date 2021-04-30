@@ -1,18 +1,24 @@
 @extends('layouts.user')
 @section('content')
-@if (session('message'))
-                <div class="sufee-alert alert with-close alert-{{ session('alert') }} alert-dismissible fade show">
-                    <span class="badge badge-pill badge-{{ session('alert') }}">{{ session('message') }}</span>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            @endif
+    <style>
+        .bg-theme-2 {
+            background-color: {{ config('app.bg-theme-2') }};
+        }
+
+    </style>
+    @if (session('message'))
+        <div class="sufee-alert alert with-close alert-{{ session('alert') }} alert-dismissible fade show">
+            <span class="badge badge-pill badge-{{ session('alert') }}">{{ session('message') }}</span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
     <!-- blog post area start -->
     <div class="blog-details mt-2 ptb--320 pb-4">
         <div class="container">
 
-            
+
             <div class="row">
                 <div class="col-12 col-md-8 col-lg-8 ">
                     <div class="blog-info">
@@ -26,10 +32,20 @@
                                 </iframe>
                             @endif
                         </div>
-                        <h1 class="blog-title text-center">{{ $post->title }}</h1>
+                        <div class="card">
+                            <div class="card-header text-center bg-theme-2" style="border-radius: 15px; color: white">
+                                <strong style="text-transform: uppercase;" class="card-title">{{ $post->title }}</strong>
+                            </div>
+                        </div>
                         <div class="blog-meta">
                             <ul>
-                                <li><i class="fa fa-calendar"></i>{{ $post->created_at }}</li>
+                                <li>
+                                    <div class="card">
+                                        <div class="card-header bg-theme-1" style="border-radius: 15px; color: white">
+                                            <strong class="card-title">{{ $post->created_at }}</strong>
+                                        </div>
+                                    </div>
+                                </li>
                             </ul>
                         </div>
                         <div class="blog-summery">
@@ -52,10 +68,15 @@
                     <!-- comment area start -->
 
                     <div class="mb-3 mt-5">
-                        <h2>Categorias</h2>
+                        <div class="card">
+                            <div class="card-header bg-theme-2" style="border-radius: 15px; color: white">
+                                <strong class="card-title">CATEGORÍAS</strong>
+                            </div>
+                        </div>
                         <div>
                             @foreach ($categoryName as $item)
-                                <span class="badge badge-info">{{ $item->name }}</span>
+                                <span class="border border-secondary"
+                                    style="border-radius: 10px;">{{ $item->name }}</span>
                             @endforeach
                         </div>
                     </div>
@@ -63,14 +84,12 @@
                     <div class="mb-3 mt-5">
                         <div class="accordion" id="accordionExample">
                             <div class="card">
-                                <div class="card-header" id="headingTwo">
-                                    <h2 class="mb-0">
-                                        <button class="btn btn-link btn-block text-left collapsed" type="button"
-                                            data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
-                                            aria-controls="collapseTwo">
-                                            Comentarios ({{ $comments->count() }})
-                                        </button>
-                                    </h2>
+                                <div class="card-header bg-theme-1" style="border-radius: 15px;" id="headingTwo">
+                                    <button class="btn text-light btn-link btn-block text-left collapsed" type="button"
+                                        data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
+                                        aria-controls="collapseTwo">
+                                        COMENTARIOS ({{ $comments->count() }})
+                                    </button>
                                 </div>
                                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
                                     data-parent="#accordionExample">
@@ -104,7 +123,8 @@
                                                     <div class="form-group mx-sm-3 mb-2">
                                                         <textarea name="message" id="message" rows="1"></textarea>
                                                     </div>
-                                                    <button type="submit" class="btn btn-primary mb-2 ml-2">Comentar</button>
+                                                    <button type="submit" class="btn bg-theme-1 text-light mb-2 ml-2"
+                                                        style="border-radius: 10px">COMENTAR</button>
                                                 </form>
                                             </div>
 

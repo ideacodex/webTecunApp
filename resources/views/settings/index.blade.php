@@ -3,8 +3,10 @@
 @section('content')
 
     <div class="container-fluid">
-        <div class="row justify-content-center mt-2">
-            <p class="text-primary h2">Ajustes</p>
+        <div class="card">
+            <div class="card-header bg-theme-1" style="border-radius: 15px; color: white">
+                <strong class="card-title">AJUSTES</strong>
+            </div>
         </div>
         <div class="mt-4">
             @if (sizeof($settingAll) >= 1)
@@ -14,13 +16,13 @@
                     <div class="form-row">
                         <div class="col-12 input-group input-group-lg mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                    <i class="text-primary fas fa-at" title="Correo de RRHH"></i>
+                                <span class="input-group-text border-0 transparent" id="inputGroup-sizing-sm">
+                                    <i style="color: #fa5e0a" class="fas fa-at" title="Correo de RRHH"></i>
                                 </span>
                             </div>
-                            <input id="emailRRHH" placeholder="Correo de RRHH" type="text" title="Corre de RRHH"
-                                class="text-primary form-control @error('emailRRHH') is-invalid @enderror" name="emailRRHH"
-                                value="{{ $setting->email_rrhh }}" disabled>
+                            <input id="emailRRHH" placeholder="Correo de RRHH" type="text" title="Correo de RRHH"
+                                class="text-dark border-0 form-control @error('emailRRHH') is-invalid @enderror"
+                                name="emailRRHH" value="{{ $setting->email_rrhh }}" disabled>
 
                             @error('emailRRHH')
                                 <span class="invalid-feedback" role="alert">
@@ -36,12 +38,12 @@
                         </div>
                         <div class="col-12 input-group input-group-lg mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                    <i class="text-primary fas fa-at" title="Correo para reportes"></i>
+                                <span class="input-group-text border-0 transparent" id="inputGroup-sizing-sm">
+                                    <i style="color: #fa5e0a" class="fas fa-at" title="Correo para reportes"></i>
                                 </span>
                             </div>
                             <input id="emailReports" placeholder="Correo para reportes" type="text"
-                                class="text-primary form-control @error('emailReports') is-invalid @enderror"
+                                class="text-dark border-0 form-control @error('emailReports') is-invalid @enderror"
                                 name="emailReports" value="{{ $setting->email_reports }}" disabled>
 
                             @error('emailReports')
@@ -58,12 +60,12 @@
                         </div>
                         <div class="col-12 input-group input-group-lg mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                    <i class="text-primary fas fa-at" title="Correo para advertencias"></i>
+                                <span class="input-group-text border-0 transparent" id="inputGroup-sizing-sm">
+                                    <i style="color: #fa5e0a" class="fas fa-at" title="Correo para advertencias"></i>
                                 </span>
                             </div>
                             <input id="emailWarnings" placeholder="Correo para advertencias" type="text"
-                                class="text-primary form-control @error('emailWarnings') is-invalid @enderror"
+                                class="text-dark border-0 form-control @error('emailWarnings') is-invalid @enderror"
                                 name="emailWarnings" value="{{ $setting->email_warnings }}" disabled>
 
                             @error('emailWarnings')
@@ -81,12 +83,12 @@
 
                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                    <i class="text-primary fas fa-mobile" title="Número de soporte"></i>
+                                <span class="input-group-text border-0 transparent" id="inputGroup-sizing-sm">
+                                    <i style="color: #fa5e0a" class="fas fa-mobile" title="Número de soporte"></i>
                                 </span>
                             </div>
                             <input id="phoneSupport" type="text" placeholder="Número de soporte"
-                                class="text-primary form-control @error('phoneSupport') is-invalid @enderror"
+                                class="text-dark border-0 form-control @error('phoneSupport') is-invalid @enderror"
                                 name="phoneSupport" value="{{ $setting->phone_support }}" disabled>
 
                             @error('phoneSupport')
@@ -97,13 +99,13 @@
                         </div>
                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                    <i class="text-primary fas fa-mobile" title="Número para informacion"></i>
+                                <span class="input-group-text border-0 transparent" id="inputGroup-sizing-sm">
+                                    <i style="color: #fa5e0a" class="fas fa-mobile" title="Número para informacion"></i>
                                 </span>
                             </div>
                             <input id="phoneInfo" type="text" placeholder="Número para informacion"
-                                class="text-primary form-control @error('phoneInfo') is-invalid @enderror" name="phoneInfo"
-                                value="{{ $setting->phone_info }}" disabled>
+                                class="text-dark border-0 form-control @error('phoneInfo') is-invalid @enderror"
+                                name="phoneInfo" value="{{ $setting->phone_info }}" disabled>
 
                             @error('phoneInfo')
                                 <span class="invalid-feedback" role="alert">
@@ -117,8 +119,8 @@
                     <div class="row">
                         <div class="col text-center">
                             <a href="{{ url('/adminSetting' . '/' . $setting->id . '/edit') }}" class="text-white">
-                                <button class="btn btn-lg btn-primary">
-                                    <i class="far fa-edit"> Actualizar</i>
+                                <button class="btn btn-lg bg-theme-1 text-light" style="border-radius: 10px">
+                                    <i class="far fa-edit"> ACTUALIZAR AJUSTES</i>
                                 </button>
                             </a>
                         </div>
@@ -129,8 +131,8 @@
                     <div class="row">
                         <div class="col text-center">
                             <a href="{{ url('/adminSetting/crear') }}" class="text-white">
-                                <button class="btn btn-lg btn-primary">
-                                    <i class="far fa-plus-square"> Empieza a gestionar tus ajustes</i>
+                                <button class="btn btn-lg bg-theme-1 text-light" style="border-radius: 10px">
+                                    <i class="far fa-plus-square"> EMPIEZA A GESTIONAR TUS AJUSTES</i>
                                 </button>
                             </a>
                         </div>

@@ -48,7 +48,7 @@
     }
 
     .bg-orange {
-        background-color: #fa5e0a;
+        background-color: {{ config('app.bg-theme-2') }};
     }
 
 </style>
@@ -156,6 +156,74 @@
             </div>
         </section>
 
+        <section id="features" class="bg-orange text-light justify-content-center pt-5 pb-5">
+            <div class="container">
+                <div class="justify-content-center text-center ">
+                    <h2>Novedades</h2>
+                </div>
+                <div class="row pl-0 pr-0">
+                    <div class="row pl-0 pr-0">
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="d-flex flex-column text-center text-sm-center text-md-center text-lg-right">
+                                <div class="align-items-start mt-5 mb-5">
+                                    <div><img src="{{ asset('appson/assets/img/mobile/podcast.png') }}" alt=""></div>
+                                    <h4>TECUN Podcast.</h4>
+                                    <p>Escúchalos desde cualquier lugar. Incluso en dispositivos móviles.</p>
+                                </div>
+                                <div class="align-items-center ">
+                                    <div class=""><img src="{{ asset('appson/assets/img/mobile/ubicacion.png') }}"
+                                            alt=""></div>
+                                    <h4>Ubicación de agencias</h4>
+                                    <p>Conoce nuestros horarios de atención y la ubicación de nuestros centros de
+                                        servicio
+                                    </p>
+                                </div>
+                                <div class="align-items-end ">
+                                    <div class="mt-5"><img src="{{ asset('appson/assets/img/mobile/new.png') }}"
+                                            alt=""></div>
+                                    <h4>Noticias TECUN </h4>
+                                    <p>Consulta las últimas noticias y novedades desde tu dispositivo móvil.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 d-none d-lg-block d-xl-block">
+                            <div class="feature-mscreen">
+                                <div class="smartphone">
+                                    <div class="content">
+                                        <img src="{{ asset('appson/assets/img/mobile/ubi.png') }}"
+                                            style="width:100%;border:none;height:100%">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="d-flex flex-column text-center text-sm-center text-md-center text-lg-left">
+                                <div class="align-items-start mt-5 mb-5">
+                                    <div><img src="{{ asset('appson/assets/img/mobile/user.png') }}" alt=""></div>
+                                    <h4>Perfil Personal.</h4>
+                                    <p>Gestiona tu perfil y mantente en contacto con todos.</p>
+                                </div>
+                                <div class="align-items-center ">
+                                    <div><img src="{{ asset('appson/assets/img/mobile/increase.png') }}" alt="">
+                                    </div>
+                                    <h4>Oportunidades de crecimiento.</h4>
+                                    <p>Consulta las mejores ofertas de empleo y oportunidades de crecimiento.</p>
+                                </div>
+                                <div class="align-items-end">
+                                    <div class="mt-5"><img
+                                            src="{{ asset('appson/assets/img/mobile/game-console.png') }}" alt="">
+                                    </div>
+                                    <h4>juegos TECUN.</h4>
+                                    <p>El increíble juego de preguntas y respuestas, que te permitirá poner a prueba tus
+                                        conocimientos.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section class="pb-5" id="screenshot">
             <div class="container ">
                 <div class="pt-5 pb-5 justify-content-center text-center">
@@ -197,71 +265,9 @@
                 </div>
             </div>
         </section>
-        <section id="features" class="bg-theme-1 text-light justify-content-center pt-5 pb-5">
-            <div class="container">
-                <div class="justify-content-center text-center ">
-                    <h2>Novedades</h2>
-                </div>
-                <div class="row pl-0 pr-0">
-                    <div class="row pl-0 pr-0">
-                        <div class="col-12 col-md-6 col-lg-4">
-                            <div class="d-flex flex-column text-center text-sm-center text-md-center text-lg-right">
-                                <div class="align-items-start mt-5 mb-5">
-                                    <div><img src="{{ asset('appson/assets/img/mobile/podcast.png') }}" alt=""></div>
-                                    <h4>TECUN Podcast.</h4>
-                                    <p>Escúchalos desde cualquier lugar. Incluso en dispositivos móviles.</p>
-                                </div>
-                                <div class="align-items-center ">
-                                    <div class=""><i class="icon fa fa-map"></i></div>
-                                    <h4>Ubicación de agencias</h4>
-                                    <p>Conoce nuestros horarios de atención y la ubicación de nuestros centros de
-                                        servicio
-                                    </p>
-                                </div>
-                                <div class="align-items-end ">
-                                    <div class="mt-5"><i class="icon fa fa-newspaper"></i></div>
-                                    <h4>Noticias TECUN </h4>
-                                    <p>Consulta las últimas noticias y novedades desde tu dispositivo móvil.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 d-none d-lg-block d-xl-block">
-                            <div class="feature-mscreen">
-                                <div class="smartphone">
-                                    <div class="content">
-                                        <img src="{{ asset('appson/assets/img/mobile/ubi.png') }}"
-                                            style="width:100%;border:none;height:100%">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6 col-xs-12">
-                            <div class="d-flex flex-column text-center text-sm-center text-md-center text-lg-left">
-                                <div class="align-items-start mt-5 mb-5">
-                                    <div><img src="{{ asset('appson/assets/img/mobile/user.png') }}" alt=""></div>
-                                    <h4>Perfil Personal.</h4>
-                                    <p>Gestiona tu perfil y mantente en contacto con todos.</p>
-                                </div>
-                                <div class="align-items-center ">
-                                    <div><i class="icon fa fa-rocket"></i></div>
-                                    <h4>Oportunidades de crecimiento.</h4>
-                                    <p>Consulta las mejores ofertas de empleo y oportunidades de crecimiento.</p>
-                                </div>
-                                <div class="align-items-end">
-                                    <div class="mt-5"><i class="icon fa fa-gamepad"></i></div>
-                                    <h4>juegos TECUN.</h4>
-                                    <p>El increíble juego de preguntas y respuestas, que te permitirá poner a prueba tus
-                                        conocimientos.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
         <!-- team area start -->
-        <section>
+        {{-- <section>
             <div class="" id="pricing">
                 <div class="container pt-5 pb-5">
                     <div class="text-dark text-center  pt-5 pb-3">
@@ -346,7 +352,7 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> --}}
         <!-- team area end -->
 
         <section class="bg-theme-1 text-light text-center pt-5 pb-2">
