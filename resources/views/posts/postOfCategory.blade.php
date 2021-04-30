@@ -42,7 +42,7 @@
                 <div class="container-fluid">
                     <div class="row mt-2 justify-content-center">
                         @foreach ($posts as $item)
-                            <div class="col-12 col-md-6 col-lg-6 col-sm-12 col-xs-12 mt-2">
+                            <div class="col-12 col-md-5 col-lg-5 col-sm-12 col-xs-12 mt-2">
                                 <br>
                                 <div class="card contornoNew">
                                     {{-- imagen --}}
