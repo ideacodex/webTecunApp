@@ -33,6 +33,8 @@
 
 
 
+
+
 </head>
 <style>
     .btn-circle {
@@ -117,6 +119,31 @@
         background-color: #bf2833;
     }
 
+    .imgnavBar-phone {
+        width: 18px
+    }
+
+    .imgnavBar-pc {
+        width: 50px
+    }
+
+    .selectCategoria {
+        /* estilo de contorno */
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+        /* estilo de letra */
+        color: white;
+        font-family: 'Century Gothic';
+        font-size: 20px;
+        /* espacios entre elementos */
+        margin-bottom: 5px;
+        margin-top: 15px;
+        /* color de fondo */
+        background: {{ config('app.bg-theme-1') }};
+
+    }
+
 </style>
 
 <body>
@@ -131,40 +158,52 @@
                     <ul class="navbar-nav ">
                         <li class="nav-item">
                             <a href="{{ url('/') }}" class="nav-link">
-                                <span class="nav-app-icon text-light"  >
-                                    <img src="{{ asset('img/tecun/logoColor.png') }}" style="height:80px ;width: 200px; margin-right:3em"
-                                        title="Noticias">
+                                <span class="nav-app-icon text-light">
+                                    <img src="{{ asset('img/tecun/logoColor.png') }}"
+                                        style="height:80px ;width: 200px; margin-right:3em" title="Noticias">
                                 </span>
                             </a>
                         </li>
                         {{-- pantalla movil --}}
                         <div class=" d-sm-none d-block">
+                            {{-- Nombre del usuario --}}
+                            <li class="nav-item">
+                                <button type="button" class="btn " data-toggle="modal" data-target="#exampleModalCenter"
+                                    style="margin-left: -8px;">
+                                    <span class="text-light" style="margin-top: -5px;font-size:20px;">
+                                        <i class="fas fa-user"></i> {{ Auth::user()->name }}
+                                        {{ Auth::user()->lastname }}
+                                    </span>
+                                </button>
+                            </li>
+                            {{-- opciones --}}
                             <li class="nav-item animate__animated animate__pulse">
                                 <a class="nav-link" href="{{ url('news') }}">
-                                    <img src="{{ asset('img/newspaper.png') }}" style="width: 35px" title="Noticias">
+                                    <img src="{{ asset('img/newspaper.png') }}" class="imgnavBar-phone"
+                                        title="Noticias">
                                     <span class="text-light font-weight-bold ">Noticias</span>
                                 </a>
                             </li>
                             <li class="nav-item animate__animated animate__pulse">
                                 <a class="nav-link" href="{{ url('podcasts') }}">
-                                    <img src="{{ asset('img/music.png') }}" style="width: 35px" title="Noticias">
+                                    <img src="{{ asset('img/music.png') }}" class="imgnavBar-phone" title="Podcast">
                                     <span class="text-light font-weight-bold">Podcast</span>
                                 </a>
                             </li>
                             <li class="nav-item animate__animated animate__pulse">
                                 <a class="nav-link" href="{{ url('/TECUento') }}">
-                                    <img src="{{ asset('img/tecuento.png') }}" style="width: 35px" title="Noticias">
+                                    <img src="{{ asset('img/tecuento.png') }}" class="imgnavBar-phone"
+                                        title="TECUento">
                                     <span class="text-light font-weight-bold">TECUento</span>
                                 </a>
                             </li>
-
                         </div>
                         {{-- pantalla grande --}}
-
                         <li class="nav-item animate__animated animate__pulse">
                             <div class=" d-none d-sm-block  ">
                                 <a class="nav-link" href="{{ url('news') }}">
-                                    <img src="{{ asset('img/newspaper.png') }}" style="width: 65px" title="Noticias">
+                                    <img src="{{ asset('img/newspaper.png') }}" class="imgnavBar-pc"
+                                        title="Noticias">
                                     <span class="text-light font-weight-bold ">Noticias</span>
                                 </a>
                             </div>
@@ -172,7 +211,7 @@
                         <li class="nav-item animate__animated animate__pulse">
                             <div class=" d-none d-sm-block  ">
                                 <a class="nav-link" href="{{ url('podcasts') }}">
-                                    <img src="{{ asset('img/music.png') }}" style="width: 65px" title="Noticias">
+                                    <img src="{{ asset('img/music.png') }}" class="imgnavBar-pc" title="Podcast">
                                     <span class="text-light font-weight-bold">Podcast</span>
                                 </a>
                             </div>
@@ -180,7 +219,7 @@
                         <li class="nav-item animate__animated animate__pulse">
                             <div class=" d-none d-sm-block  ">
                                 <a class="nav-link" href="{{ url('/TECUento') }}">
-                                    <img src="{{ asset('img/tecuento.png') }}" style="width: 65px" title="Noticias">
+                                    <img src="{{ asset('img/tecuento.png') }}" class="imgnavBar-pc" title="TECUento">
                                     <span class="text-light font-weight-bold">TECUento</span>
                                 </a>
                             </div>
@@ -206,16 +245,18 @@
                         </ul>
                     @else
                         <ul class="navbar-nav ml-auto">
+                            {{-- nombre del ususario --}}
                             <li class="nav-item">
-                                <button type="button" class="btn btn-lg"  data-toggle="modal"
-                                    data-target="#exampleModalCenter">
-                                    <span class="nav-app-icon text-light"><i class="fas fa-user"></i></span>
-                                    <span class="text-light" style="margin-top: -5px; font-size:20px">
-                                         {{ Auth::user()->name }} {{ Auth::user()->lastname }} 
-                                    </span>
-                                </button>
+                                <div class=" d-none d-sm-block  ">
+                                    <button type="button" class="btn " data-toggle="modal" data-target="#exampleModalCenter"
+                                        style="margin-left: -8px;">
+                                        <span class="text-light" style="margin-top: -5px;font-size:20px;">
+                                            <i class="fas fa-user"></i> {{ Auth::user()->name }}
+                                            {{ Auth::user()->lastname }}
+                                        </span>
+                                    </button>
+                                </div>
                             </li>
-
                             <!-- Modal -->
                             <form method="POST" action="{{ url('updateUser') }}" onsubmit="return checkSubmit();">
                                 @csrf
@@ -345,7 +386,6 @@
                                     </div>
                                 </div>
                             </form>
-
                             @role('User')
                             <li class="nav-item" style="margin-right: 1em;">
                                 <a class="nav-link"
