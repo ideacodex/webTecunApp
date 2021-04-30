@@ -21,49 +21,21 @@
     </style>
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="bg-theme-1 col-12 mt-1">
-
-                <ul class="nav nav-pills nav-fill nav-justified">
-                    <li class="nav-item animate__animated animate__pulse">
-                        <a class="nav-link" href="{{ url('news') }}"><span
-                                class="text-light font-weight-bold ">Noticias</span></a>
-                    </li>
-                    <li class="nav-item animate__animated animate__pulse">
-                        <a class="nav-link" href="{{ url('podcasts') }}"><span
-                                class="text-light font-weight-bold">Podcast</span></a>
-                    </li>
-                    <li class="nav-item animate__animated animate__pulse">
-                        <a class="nav-link" href="{{ url('/TECUento') }}"><span
-                                class="text-light font-weight-bold">TECUento</span></a>
-                    </li>
-                </ul>
-            </div>
             @if ($categories->first())
-                <div class="col-12 mt-1">
-                    <div class="form-group row">
-                        <div class="col-12 pl-0 pr-0">
-                            <div class="">
-                                <div class="dropdown flatmenu bg-secondary">
-                                    <div class="btn btn-dark btn-block btn-lg dropdown-toggle text-justify" type="button"
-                                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false">
-                                        <span>Selecionar Categoría</span>
-                                    </div>
-                                    <div class="dropdown-menu w-100 bg-secondary" aria-labelledby="dropdownMenuButton">
-                                        @foreach ($categories as $item)
-                                            <a class="dropdown-item bg-secondary text-light" title="{{ $item->name }}"
-                                                href="{{ url('category/podcast/' . $item->id) }}">
-                                                {{ $item->name }}
-                                            </a>
-                                        @endforeach
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-12 col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                    <form>
+                        <select name="area" onChange="location = form.area.options[form.area.selectedIndex].value;"
+                            class="selectCategoria">
+                            <option value="{{ url('home') }}">Seleccione una Categoría</option>
+                            @foreach ($categories as $item)
+                                <option value="{{ url('category/post/' . $item->id) }}" title="{{ $item->name }}">
+                                    ⚙️ {{ $item->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </form>
                 </div>
             @endif
-
             @if (sizeof($podcasts) >= 1)
                 @if ($podcasts->count() <= 3)
                     <div class="card-deck">
@@ -116,7 +88,8 @@
                                             <form method="POST" action="{{ url('likeordislikepodcast') }}"
                                                 onsubmit="return checkSubmit();">
                                                 @csrf
-                                                <input type="hidden" name="podcastID" id="podcastID" value="{{ $item->id }}">
+                                                <input type="hidden" name="podcastID" id="podcastID"
+                                                    value="{{ $item->id }}">
                                                 <input type="hidden" name="reactionActive" id="reactionActive" value="0">
                                                 <button type="submit" class="btn btn-lg">
                                                     <h4>
@@ -140,8 +113,8 @@
                     </div>
                 @else
                     @php
-                    $countItems=3;
-                    $j=0;
+                        $countItems = 3;
+                        $j = 0;
                     @endphp
                     @while (sizeof($podcasts) - $countItems >= 0)
                         <div class="card-deck mt-3">
@@ -150,11 +123,13 @@
                                     <img src="{{ asset('/storage/podcast/' . $podcasts[$countItems - $i]->featured_image) }}"
                                         width="100%" style="max-height: 200px">
                                     <div class="card-body">
-                                        <h5 class="card-title" style="color:orange">{{ $podcasts[$countItems - $i]->title }}
+                                        <h5 class="card-title" style="color:orange">
+                                            {{ $podcasts[$countItems - $i]->title }}
                                         </h5>
                                         <p class="card-text">
                                             {{ $podcasts[$countItems - $i]->description }}
-                                            <a href="{{ url('podcastRead/' . $podcasts[$countItems - $i]->id) }}" class="">
+                                            <a href="{{ url('podcastRead/' . $podcasts[$countItems - $i]->id) }}"
+                                                class="">
                                                 <span class="text-primary">
                                                     Leer más
                                                     <i class="fas fa-book-reader"></i>
@@ -223,7 +198,7 @@
                                 </div>
                             @endfor
                             @php
-                            $countItems=$countItems+3;
+                                $countItems = $countItems + 3;
                             @endphp
                         </div>
                     @endwhile
@@ -243,7 +218,7 @@
                         <p class="h5 text-primary">Aun no hay publicaciones</p>
                     </div>
                     <div class="row justify-content-center mt-1">
-                        <span class="text-primary">  ...</span>
+                        <span class="text-primary"> ...</span>
                     </div>
                 </div>
             @endif

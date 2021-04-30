@@ -174,7 +174,7 @@
             <!-- Sidebar -->
             <div class="bg-theme-1 text-light border-right" id="sidebar-wrapper">
                 <div class="sidebar-heading">
-                    <img class="d-inline-block align-top ml-1" src="{{ asset('img/tecun/logo.png') }}"
+                    <img class="d-inline-block align-top ml-1 rounded-circle" src="{{ asset('img/tecun/logo.png') }}"
                         alt="{{ config('app.name', 'Pakal') }}" style="max-width: 30px" />
                     <span class="h3 text-light"> {{ config('app.name', 'Pakal') }} </span>
                 </div>
