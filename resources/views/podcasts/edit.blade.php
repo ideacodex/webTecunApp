@@ -11,8 +11,10 @@
         </div>
     @endif
     <div class="container-fluid">
-        <div class="row justify-content-center mt-2">
-            <p class="text-primary h2">Actualizar podcast <i class="fas fa-newspaper"> </i></p>
+        <div class="card">
+            <div class="card-header bg-theme-1" style="border-radius: 15px; color: white">
+                <strong class="card-title">ACTUALIZAR PODCAST</strong>
+            </div>
         </div>
         <div class="mt-4">
             <form method="POST" action="{{ url('adminPodcast/' . $podcast->id) }}" enctype="multipart/form-data"
@@ -22,53 +24,172 @@
                 <div class="form-row">
                     <div class="col-12 input-group input-group-lg mb-3">
                         <div class="input-group-prepend">
-                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                <i class="text-primary fas fa-heading"></i>
+                            <span class="input-group-text transparent bg-input border-top-0 border-right-0"
+                                id="inputGroup-sizing-sm">
+                                <i style="color: #fa5e0a" class="fas fa-heading"></i>
                             </span>
                         </div>
                         <input id="title" name="title" placeholder="Agregar titulo" type="text" size="100" maxlength="100"
-                            class="text-primary form-control @error('title') is-invalid @enderror" title="title"
-                            value="{{ $podcast->title }}" required autocomplete="title" autofocus>
+                            class="text-dark border-top-0 border-left-0 bg-input form-control @error('title') is-invalid @enderror"
+                            title="title" value="{{ $podcast->title }}" required autocomplete="title" autofocus>
 
                         @error('title')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                         @enderror
 
                         @error('title')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                         @enderror
                     </div>
                     <div class="col-12 input-group input-group-lg mb-3">
                         <div class="input-group-prepend">
-                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                <i class="text-primary fas fa-align-left"></i>
+                            <span class="input-group-text transparent bg-input border-top-0 border-right-0"
+                                id="inputGroup-sizing-sm">
+                                <i style="color: #fa5e0a" class="fas fa-align-left"></i>
                             </span>
                         </div>
                         <input id="description" placeholder="Descripcion o texto corto" type="text" size="250"
-                            maxlength="250" class="text-primary form-control @error('description') is-invalid @enderror"
+                            maxlength="250"
+                            class="text-dark border-top-0 border-left-0 bg-input form-control @error('description') is-invalid @enderror"
                             name="description" value="{{ $podcast->description }}" required autocomplete="description"
                             autofocus>
 
                         @error('description')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                         @enderror
 
                         @error('description')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    @foreach ($categoryName as $items)
+                        <input type="hidden" name="NamePostCategory[]" multiple="multiple" value="{{ $items->name }}">
+                    @endforeach
+
+                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text transparent bg-input border-top-0 border-right-0"
+                                id="inputGroup-sizing-sm">
+                                <i style="color: #fa5e0a" class="fab fa-youtube"></i>
+                            </span>
+                        </div>
+                        <input id="video" placeholder="Codigo Youtube" type="text" size="250" title="Ejemplo: VYOjWnS4cMY"
+                            maxlength="250"
+                            class="text-dark border-top-0 border-left-0 bg-input form-control @error('video') is-invalid @enderror"
+                            name="video" value="{{ $codeYoutube }}" autocomplete="video" autofocus>
+
+                        @error('video')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+
+                        @error('video')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                         @enderror
                     </div>
                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                         <div class="input-group-prepend">
-                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                <i class="text-primary fas fa-question-circle"></i>
+                            <span class="input-group-text transparent bg-input border-top-0 border-right-0"
+                                id="inputGroup-sizing-sm">
+                                <i style="color: #fa5e0a" class="fab fa-spotify"></i>
+                            </span>
+                        </div>
+                        <input id="spotify" placeholder="Codigo Spotify" type="text" size="250" title="Ejemplo: VYOjWnS4cMY"
+                            title="Ejemplo: 2KEjuwECqFvmneRncRwrO6" maxlength="250"
+                            class="text-dark border-top-0 border-left-0 bg-input form-control @error('spotify') is-invalid @enderror"
+                            name="spotify" value="{{ $codeSpotify }}" autocomplete="spotify" autofocus>
+
+                        @error('spotify')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+
+                        @error('spotify')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="col-12 input-group input-group-lg mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text transparent bg-input border-top-0 border-right-0"
+                                id="inputGroup-sizing-sm">
+                                <i style="color: #fa5e0a" class="fas fa-file-pdf"></i>
+                            </span>
+                        </div>
+                        <div class="custom-file">
+                            <input title="Selecionar" type="file" accept="file_extension/*" name="pdf" id="inputGroupFile04"
+                                aria-describedby="inputGroupFileAddon04"
+                                class="custom-file-input form-control{{ $errors->has('pdf') ? ' is-invalid' : '' }}"
+                                value="{{ $podcast->featured_document }}">
+                            @if ($errors->has('pdf'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong><i
+                                            class="fas fa-exclamation-triangle"></i>{{ $errors->first('pdf') }}</strong>
+                                </span>
+                            @endif
+                            <label class="custom-file-label" for="inputGroupFile04">Elegir documento</label>
+                        </div>
+                    </div>
+                    <div class="col-12 input-group input-group-lg mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text transparent bg-input border-top-0 border-right-0"
+                                id="inputGroup-sizing-sm">
+                                <i style="color: #fa5e0a" class="fas fa-image"></i>
+                            </span>
+                        </div>
+                        <div class="custom-file">
+                            <input title="Selecionar" type="file" accept="image/*" name="image" id="inputGroupFile04"
+                                aria-describedby="inputGroupFileAddon04"
+                                class="custom-file-input form-control{{ $errors->has('image') ? ' is-invalid' : '' }}"
+                                value="{{ $podcast->featured_image }}">
+                            @if ($errors->has('image'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong><i
+                                            class="fas fa-exclamation-triangle"></i>{{ $errors->first('image') }}</strong>
+                                </span>
+                            @endif
+                            <label class="custom-file-label" for="inputGroupFile04">Elegir imagen</label>
+                        </div>
+                    </div>
+                    <div class="col-12 input-group input-group-lg mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text transparent bg-input border-top-0 border-right-0"
+                                id="inputGroup-sizing-sm">
+                                <i style="color: #fa5e0a" class="far fa-file-audio"></i>
+                            </span>
+                        </div>
+                        <div class="custom-file">
+                            <input title="Selecionar" type="file" accept="audio/*" name="audio" id="inputGroupFile04"
+                                aria-describedby="inputGroupFileAddon04"
+                                class="custom-file-input form-control{{ $errors->has('audio') ? ' is-invalid' : '' }}"
+                                value="{{ $podcast->featured_audio }}">
+                            @if ($errors->has('audio'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong><i
+                                            class="fas fa-exclamation-triangle"></i>{{ $errors->first('audio') }}</strong>
+                                </span>
+                            @endif
+                            <label class="custom-file-label" for="inputGroupFile04">Elegir audio</label>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text transparent bg-input border-top-0 border-right-0"
+                                id="inputGroup-sizing-sm">
+                                <i style="color: #fa5e0a" class="fas fa-question-circle"></i>
                             </span>
                         </div>
                         <select name="status_id" id="status_id"
@@ -79,30 +200,23 @@
                             @endforeach
                         </select>
                         @error('status_id')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                         @enderror
 
                         @error('status_id')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                         @enderror
                     </div>
-
                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text text-primary" id="inputGroup-sizing-sm">
-                                <i class="text-primary fas fa-newspaper"></i> / <i class="text-primary fas fa-podcast"></i>
-                            </span>
-                        </div>
-
                         <select
                             class="js-example-basic-multiple js-states form-control @error('category_id') is-invalid @enderror"
                             name="category_id[]" id="category_id" multiple="multiple">
                             @foreach ($categoryName as $items)
-                                <option selected value="{{ $items->id }}">{{ $items->name }}</option>    
+                                <option selected value="{{ $items->id }}">{{ $items->name }}</option>
                             @endforeach
 
                             @foreach ($categories as $item)
@@ -111,129 +225,16 @@
                         </select>
 
                         @error('category_id')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                         @enderror
 
                         @error('type_id')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-
-                    @foreach ($categoryName as $items)
-                        <input type="hidden" name="NamePostCategory[]" multiple="multiple" value="{{ $items->name }}" >
-                    @endforeach
-
-                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                <i class="text-primary fab fa-youtube"></i>
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
                             </span>
-                        </div>
-                        <input id="video" placeholder="Codigo Youtube" type="text" size="250" 
-                            title="Ejemplo: VYOjWnS4cMY"
-                            maxlength="250" class="text-primary form-control @error('video') is-invalid @enderror"
-                            name="video" value="{{ $codeYoutube }}" autocomplete="video"
-                            autofocus>
-
-                        @error('video')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
                         @enderror
-
-                        @error('video')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-
-                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                <i class="text-primary fab fa-spotify"></i>
-                            </span>
-                        </div>
-                        <input id="spotify" placeholder="Codigo Spotify" type="text" size="250" title="Ejemplo: VYOjWnS4cMY"
-                            title="Ejemplo: 2KEjuwECqFvmneRncRwrO6" maxlength="250" class="text-primary form-control @error('spotify') is-invalid @enderror"
-                            name="spotify" value="{{ $codeSpotify }}" autocomplete="spotify"
-                            autofocus>
-
-                        @error('spotify')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-
-                        @error('spotify')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>  
-                    <div class="col-12 input-group input-group-lg mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                <i class="text-primary fas fa-file-pdf"></i>
-                            </span>
-                        </div>
-                        <div class="custom-file">
-                            <input title="Selecionar" type="file" accept="file_extension/*" name="pdf" id="inputGroupFile04"
-                                aria-describedby="inputGroupFileAddon04"
-                                class="custom-file-input form-control{{ $errors->has('pdf') ? ' is-invalid' : '' }}"
-                                value="{{ $podcast->featured_document }}">
-                            @if ($errors->has('pdf'))
-                                <span class="invalid-feedback" role="alert">
-                                    <strong><i class="fas fa-exclamation-triangle"></i>{{ $errors->first('pdf') }}</strong>
-                                </span>
-                            @endif
-                            <label class="custom-file-label" for="inputGroupFile04">Elegir documento</label>
-                        </div>
-                    </div>
-
-                    <div class="col-12 input-group input-group-lg mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                <i class="text-primary fas fa-image"></i>
-                            </span>
-                        </div>
-                        <div class="custom-file">
-                            <input title="Selecionar" type="file" accept="image/*" name="image" id="inputGroupFile04"
-                                aria-describedby="inputGroupFileAddon04"
-                                class="custom-file-input form-control{{ $errors->has('image') ? ' is-invalid' : '' }}"
-                                value="{{ $podcast->featured_image }}" >
-                            @if ($errors->has('image'))
-                                <span class="invalid-feedback" role="alert">
-                                    <strong><i
-                                            class="fas fa-exclamation-triangle"></i>{{ $errors->first('image') }}</strong>
-                                </span>
-                            @endif
-                            <label class="custom-file-label" for="inputGroupFile04">Elegir imagen</label>
-                        </div>
-                    </div>
-
-                    <div class="col-12 input-group input-group-lg mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                <i class="text-primary far fa-file-audio"></i>
-                            </span>
-                        </div>
-                        <div class="custom-file">
-                            <input title="Selecionar" type="file" accept="audio/*" name="audio" id="inputGroupFile04"
-                                aria-describedby="inputGroupFileAddon04"
-                                class="custom-file-input form-control{{ $errors->has('audio') ? ' is-invalid' : '' }}"
-                                value="{{ $podcast->featured_audio }}">
-                            @if ($errors->has('audio'))
-                                <span class="invalid-feedback" role="alert">
-                                    <strong><i class="fas fa-exclamation-triangle"></i>{{ $errors->first('audio') }}</strong>
-                                </span>
-                            @endif
-                            <label class="custom-file-label" for="inputGroupFile04">Elegir audio</label>
-                        </div>
                     </div>
 
                     <div class="col-12">
@@ -243,9 +244,9 @@
                     <div class="container">
                         <div class="row">
                             <div class="col text-center">
-                                <button type="submit" class="btn btn-lg btn-primary">
+                                <button type="submit" class="btn btn-lg text-light bg-theme-1" style="border-radius: 10px">
                                     <i class="fas fa-save"></i>
-                                    {{ __('Actualizar') }}
+                                    {{ __('ACTUALIZAR') }}
                                 </button>
                             </div>
                         </div>
