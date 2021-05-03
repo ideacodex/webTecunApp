@@ -1,11 +1,6 @@
 @extends('layouts.user')
 @section('content')
-    <style>
-        .bg-theme-2 {
-            background-color: {{ config('app.bg-theme-2') }};
-        }
 
-    </style>
     @if (session('message'))
         <div class="sufee-alert alert with-close alert-{{ session('alert') }} alert-dismissible fade show">
             <span class="badge badge-pill badge-{{ session('alert') }}">{{ session('message') }}</span>
@@ -17,8 +12,6 @@
     <!-- blog post area start -->
     <div class="blog-details mt-2 ptb--320 pb-4">
         <div class="container">
-
-
             <div class="row">
                 <div class="col-12 col-md-8 col-lg-8 ">
                     <div class="blog-info">
@@ -41,7 +34,8 @@
                             <ul>
                                 <li>
                                     <div class="card">
-                                        <div class="card-header bg-theme-1" style="border-radius: 15px; color: white">
+                                        <div class="card-header sombra bg-theme-1"
+                                            style="border-radius: 15px; color: white">
                                             <strong class="card-title">{{ $post->created_at }}</strong>
                                         </div>
                                     </div>
@@ -75,8 +69,9 @@
                         </div>
                         <div>
                             @foreach ($categoryName as $item)
-                                <span class="border border-secondary"
-                                    style="border-radius: 10px;">{{ $item->name }}</span>
+                                <span style="color: #030d4f">
+                                    <b>{{ $item->name }}</b>
+                                </span>
                             @endforeach
                         </div>
                     </div>
@@ -97,20 +92,21 @@
 
                                         @foreach ($comments as $item)
                                             <div class="alert alert-light" role="alert">
-                                                <h4 class="alert-heading"><strong><i class="fas fa-user"></i>
+                                                <h4 class="alert-heading"><strong style="color: #030d4f"><i
+                                                            style="color: #fa5e0a" class="fas fa-user"></i>
                                                         {{ $item->user->name }} {{ $item->user->lastname }}</strong>
                                                 </h4>
                                                 <hr>
+                                                <img src="{{ asset('img/comments.png') }}" alt="">
                                                 <p class="mb-0 animate__heartBeat">
                                                     {{ $item->message }}
                                                     @if (auth()->check() && $item->user_id == auth()->user()->id)
                                                         <a href="{{ url('comment/' . $item->id) }}"
-                                                            class="btn btn-sm btn-danger">
+                                                            class="rounded-circle btn btn-sm btn-danger">
                                                             <i class="fas fa-trash-alt"></i>
                                                         </a>
                                                     @endif
                                                 </p>
-
                                             </div>
                                         @endforeach
 

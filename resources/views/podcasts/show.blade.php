@@ -33,14 +33,26 @@
 
                             @endif
                         </div>
-                        <h1 class="blog-title text-center">{{ $podcast->title }}</h1>
+                        <div class="card">
+                            <div class="card-header text-center bg-theme-2" style="border-radius: 15px; color: white">
+                                <strong style="text-transform: uppercase;"
+                                    class="card-title">{{ $podcast->title }}</strong>
+                            </div>
+                        </div>
                         <div class="blog-meta">
                             <ul>
-                                <li><i class="fa fa-calendar"></i>{{ $podcast->created_at }}</li>
+                                <li>
+                                    <div class="card">
+                                        <div class="card-header sombra bg-theme-1"
+                                            style="border-radius: 15px; color: white">
+                                            <strong class="card-title">{{ $podcast->created_at }}</strong>
+                                        </div>
+                                    </div>
+                                </li>
                             </ul>
                         </div>
                         <div class="blog-summery">
-                            <p>{{ $podcast->desciption }}</p>
+                            <p style="text-align: justify">{{ $podcast->desciption }}</p>
                             <br>
                             <p>@php echo($podcast->content) @endphp</p>
                             <br>
@@ -57,10 +69,16 @@
                     <!-- comment area start -->
 
                     <div class="mb-3 mt-5">
-                        <h2>Categorias</h2>
+                        <div class="card">
+                            <div class="card-header bg-theme-2" style="border-radius: 15px; color: white">
+                                <strong class="card-title">CATEGORÍAS</strong>
+                            </div>
+                        </div>
                         <div>
                             @foreach ($categoryName as $item)
-                                <span class="badge badge-info">{{ $item->name }}</span>
+                                <span style="color: #030d4f">
+                                    <b>{{ $item->name }}</b>
+                                </span>
                             @endforeach
                         </div>
                     </div>
@@ -68,12 +86,12 @@
                     <div class="mb-3 mt-5">
                         <div class="accordion" id="accordionExample">
                             <div class="card">
-                                <div class="card-header" id="headingTwo">
+                                <div class="card-header bg-theme-1" style="border-radius: 15px;" id="headingTwo">
                                     <h2 class="mb-0">
-                                        <button class="btn btn-link btn-block text-left collapsed" type="button"
+                                        <button class="text-light btn btn-link btn-block text-left collapsed" type="button"
                                             data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
                                             aria-controls="collapseTwo">
-                                            Comentarios ({{ $comments->count() }})
+                                            COMENTARIOS ({{ $comments->count() }})
                                         </button>
                                     </h2>
                                 </div>
@@ -83,13 +101,17 @@
 
                                         @foreach ($comments as $item)
                                             <div class="alert alert-light" role="alert">
-                                                <h4 class="alert-heading"><strong><i class="fas fa-user"></i>
-                                                        {{ $item->user->name }} {{ $item->user->lastname }}</strong></h4>
+                                                <h4 class="alert-heading"><strong style="color: #030d4f"><i
+                                                            style="color: #fa5e0a" class="fas fa-user"></i>
+                                                        <b>{{ $item->user->name }}
+                                                            {{ $item->user->lastname }}</b></strong>
+                                                </h4>
                                                 <hr>
+                                                <img src="{{ asset('img/comments.png') }}" alt="">
                                                 <p class="mb-0">{{ $item->message }}
                                                     @if (auth()->check() && $item->user_id == auth()->user()->id)
                                                         <a href="{{ url('commentpodcast/' . $item->id) }}"
-                                                            class="btn btn-sm btn-danger">
+                                                            class="rounded-circle btn btn-sm btn-danger">
                                                             <i class="fas fa-trash-alt"></i>
                                                         </a>
                                                     @endif
@@ -107,7 +129,8 @@
                                                     <div class="form-group mx-sm-3 mb-2">
                                                         <textarea name="message" id="message" rows="1"></textarea>
                                                     </div>
-                                                    <button type="submit" class="btn btn-primary mb-2 ml-2">Comentar</button>
+                                                    <button type="submit" style="border-radius: 10px"
+                                                        class="text-light btn bg-theme-1 mb-2 ml-2">COMENTAR</button>
                                                 </form>
                                             </div>
 

@@ -44,7 +44,7 @@ class ContactController extends Controller
 
         DB::beginTransaction();
 
-        try{
+        try {
             //Instanciamos el objecto
             $contact = new Contact;
             $contact->departamento = $request->departamento;
@@ -66,21 +66,20 @@ class ContactController extends Controller
             $apellido = $request->apellido;
 
             //Concatenamos las 2 variables para seguir el orden en la BD
-            $nombreDB = $apellido.", ".$nombre;
+            $nombreDB = $apellido . ", " . $nombre;
 
             //Guardamos el valor resultante de la contactenacion
             $contact->nombre = $nombreDB;
 
             $contact->save();
-        }catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Illuminate\Database\QueryException $e) {
             DB::rollback(); //si hay un error previo, desahe los cambios en DB y redirecciona a pagina de error
             //$response['message'] = $e->errorInfo;
             //dd($e->errorInfo[2]);
             abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
             return response()->json($response, 500);
             return redirect()->action('ContactController@create')
-                    ->with(['message' => 'Error al crear el contacto', 'alert' => 'warning']);
-
+                ->with(['message' => 'Error al crear el contacto', 'alert' => 'warning']);
         }
 
         DB::commit();
@@ -98,8 +97,8 @@ class ContactController extends Controller
     public function show($id)
     {
         //
-        $contact = Contact::findOrFails($id);
-        return view('contacts.show', ['contact' => $contact]);
+        $contact = Contact::findOrFail($id)->get();
+        return view('contacts.home', ['contact' => $contact]);
     }
 
     /**
@@ -127,7 +126,7 @@ class ContactController extends Controller
 
         DB::beginTransaction();
 
-        try{
+        try {
             //Instanciamos el objecto
             $contact = Contact::find($id);
             $contact->departamento = $request->departamento;
@@ -146,15 +145,14 @@ class ContactController extends Controller
             $contact->nombre = $request->nombre;
 
             $contact->save();
-        }catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Illuminate\Database\QueryException $e) {
             DB::rollback(); //si hay un error previo, desahe los cambios en DB y redirecciona a pagina de error
             //$response['message'] = $e->errorInfo;
             //dd($e->errorInfo[2]);
             abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
             return response()->json($response, 500);
             return redirect()->action('ContactController@create')
-                    ->with(['message' => 'Error al crear el contacto', 'alert' => 'warning']);
-
+                ->with(['message' => 'Error al crear el contacto', 'alert' => 'warning']);
         }
 
         DB::commit();
@@ -194,16 +192,16 @@ class ContactController extends Controller
         $departamento = $request->get('searchDepartamento');
         $pais = $request->get('searchPais');
         $puesto = $request->get('searchPuesto');
-        $contacts = Contact::where('nombre', 'LIKE', "%$nombre%")
-                    ->where('nombre', 'LIKE', "%$request->searchApellido%")
-                    ->where('departamento', 'LIKE', "%$departamento%")
-                    ->where('pais', 'LIKE', "%$pais%")
-                    ->where('puesto', 'LIKE', "%$puesto%")
-                    ->take(10)
-                    ->get();
+        $contact = Contact::where('nombre', 'LIKE', "%$nombre%")
+            ->where('nombre', 'LIKE', "%$request->searchApellido%")
+            ->where('departamento', 'LIKE', "%$departamento%")
+            ->where('pais', 'LIKE', "%$pais%")
+            ->where('puesto', 'LIKE', "%$puesto%")
+            ->take(10)
+            ->get();
 
         return view('contacts.home', [
-            'contacts' => $contacts
+            'contact' => $contact
         ]);
     }
 

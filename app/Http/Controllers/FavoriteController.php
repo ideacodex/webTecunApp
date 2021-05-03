@@ -80,7 +80,7 @@ class FavoriteController extends Controller
         //
         $favorite = Favorite::find($id);
         
-        return view('favorites.show', ['favorite' => $favorite]);
+        return view('favorites.calls', ['favorite' => $favorite]);
     }
 
     /**

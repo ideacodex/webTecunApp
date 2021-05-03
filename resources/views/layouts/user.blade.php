@@ -88,7 +88,11 @@
     }
 
     .bg-theme-2 {
-        background-color: #263a37;
+        background-color: {{ config('app.bg-theme-2') }};
+    }
+
+    .sombra {
+        box-shadow: 2px 5px #fb7100;
     }
 
     .bg-theme-3 {
