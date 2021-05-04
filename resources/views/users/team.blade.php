@@ -52,7 +52,7 @@ $namesUser = explode(' ', Auth::user()->name);
                                     <img src="{{ asset('img/app/grafica.png') }}" class="mx-auto" width="65%"
                                         style="border-radius: 10%" alt="...">
                                     <div class="card-body">
-                                        <h5 class="text-center"><b>OPORTUNIDAD</b></h5>
+                                        <h5 class="text-center"><b>EMPLEOS</b></h5>
                                     </div>
                                 </div>
                             </a>

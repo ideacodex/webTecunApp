@@ -41,6 +41,27 @@
         box-shadow: 5px 5px 5px rgb(223, 223, 223);
     }
 
+    .constancia {
+        box-shadow: 8px 5px 5px rgb(190, 190, 190);
+    }
+
+    .empresas {
+        color: #030d4f;
+        display: flex;
+        float: right;
+    }
+
+    .botonconstancia {
+        color: #030d4f;
+        display: flex;
+        float: left;
+    }
+
+    .modales {
+        font-family: Arial, Helvetica, sans-serif;
+        color: {{ config('app.bg-theme-1') }};
+    }
+
     .btn-circle {
         width: 30px;
         height: 30px;
