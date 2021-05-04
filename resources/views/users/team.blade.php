@@ -1,9 +1,16 @@
 @php
-$namesUser = explode(" ", Auth::user()->name);
+$namesUser = explode(' ', Auth::user()->name);
 @endphp
 @extends('layouts.user')
 @section('content')
     <div class="container-fluid">
+        <div class="bg-theme-1 d-lg-none d-sm-inline"
+            style="border-bottom-left-radius: 50px; border-bottom-right-radius: 50px">
+            <div class="bg-theme-1 row justify-content-around d-lg-none d-sm-inline">
+                <img src="{{ asset('img/app/puesto.png') }}" class="d-lg-none d-sm-inline img-fluid"
+                    style="max-height: 100%; margin-top: 3%">
+            </div>
+        </div>
         @if ($awards->first())
             <div class="mb-3 justify-content-center row ">
                 <div class="col col-12 col-md-6 mt-1" style="padding-right:2px; padding-left:2px;">
@@ -11,9 +18,7 @@ $namesUser = explode(" ", Auth::user()->name);
                         <ol class="carousel-indicators">
                             @foreach ($awards as $item)
                                 <li data-target="#carouselExampleCaptions" data-slide-to="{{ $item->type_id }}"
-                                    class="  @if ($item->id == $awards->first()->id)
-                                    active
-                                    @endif"></li>
+                                    class="  @if ($item->id == $awards->first()->id) active @endif"></li>
                             @endforeach
                         </ol>
                         <div class="carousel-inner">
@@ -39,37 +44,54 @@ $namesUser = explode(" ", Auth::user()->name);
 
         <div class="mb-3 justify-content-center row ">
             <div class="mt-3 col-12 col-md-6 col-lg-6 " role="group" aria-label="Basic example">
-                <a type="button" href="{{ url('jobs') }}" class="btn btn-lg btn-block btn-light d-flex">
-                    <span class="h3"><i class="fas fa-rocket mr-3  text-success justify-content-start"></i></span>
-                    <span class="ml-3 mr-3  justify-content-center h3">Oportunidades de crecimiento</span>
-                    <span class="d-none badge  badge-primary text-light  justify-content-end">{{ Auth::user()->id * 25 }}
-                    </span>
-                </a>
-                <a type="button" href="{{ url('stores') }}" class="btn btn-lg btn-block btn-light d-flex">
-                    <span class="h3"><i class="fas fa-map-marked-alt mr-3 text-dark justify-content-start"></i></span>
-                    <span class="ml-3 mr-3  justify-content-center h3">Ubicación de agencias</span>
-                    <span class="d-none badge  badge-secondary text-light  justify-content-end">{{ Auth::user()->id * 20 }}
-                    </span>
-                </a>
-                <a type="button" class="btn btn-lg btn-block btn-light d-flex" href="{{ url('specialTeam') }}">
-                    <span class="h3"><i class="fas fa-medal mr-3  justify-content-start text-danger"></i></span>
-                    <span class="ml-3 mr-3  justify-content-center h3">Colaboradores Destacados</span>
-                    <span class="d-none badge  badge-secondary text-light  justify-content-end">{{ Auth::user()->id }}
-                    </span>
-                </a>
-                <a type="button" class="btn btn-lg btn-block btn-light d-flex" href="{{ url('contact/home') }}">
-                    <span class="h3"><i class="fas fa-phone mr-3  justify-content-start text-info"></i></span>
-                    <span class="ml-3 mr-3  justify-content-center h3">LLama Directo</span>
-                    <span class="d-none badge  badge-secondary text-light  justify-content-end">{{ Auth::user()->id }}
-                    </span>
-                </a>
-
-                <a type="button" class="btn btn-lg btn-block btn-light d-flex" href="{{ url('procesos') }}">
-                    <span class="h3"><i class="fas fa-mail-bulk mr-3  justify-content-start text-dark"></i></span>
-                    <span class="ml-3 mr-3  justify-content-center h3">Gestiones RRHH</span>
-                    <span class="d-none badge  badge-secondary text-light  justify-content-end">{{ Auth::user()->id }}
-                    </span>
-                </a>
+                <div class="tr-gallery">
+                    <div class="row col-md-10 offset-md-1 ml-1 col-lg-10 offset-lg-1">
+                        <div class="col-sm-4 col-md-4 col-6 mb-1 mt-5" id="box-search">
+                            <a href="{{ url('jobs') }}">
+                                <div class="card border-top-0 teamsombra">
+                                    <img src="{{ asset('img/app/grafica.png') }}" class="mx-auto" width="65%"
+                                        style="border-radius: 10%" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="text-center"><b>OPORTUNIDAD</b></h5>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-sm-4 col-md-4 col-6 mb-1 mt-5" id="box-search">
+                            <a href="{{ url('stores') }}">
+                                <div class="card border-top-0 teamsombra">
+                                    <img src="{{ asset('img/app/ubicacion.png') }}" width="65%" style="border-radius: 10%"
+                                        class="mx-auto" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="text-center"><b>UBICACIONES</b></h5>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-sm-4 col-md-4 col-6 mb-1 mt-5" id="box-search">
+                            <a href="{{ url('contact/home') }}">
+                                <div class="card border-top-0 teamsombra">
+                                    <img src="{{ asset('img/app/tel.png') }}" width="65%" style="border-radius: 10%"
+                                        class="mx-auto" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="text-center"><b>DIRECTORIO</b></h5>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-sm-4 col-md-4 col-6 mb-1 mt-5" id="box-search">
+                            <a href="{{ url('procesos') }}">
+                                <div class="card border-top-0 teamsombra">
+                                    <img src="{{ asset('img/app/user.png') }}" width="65%" style="border-radius: 10%"
+                                        class="mx-auto" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="text-center"><b>SOLICITUDES</b></h5>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -37,6 +37,10 @@
 
 </head>
 <style>
+    .teamsombra {
+        box-shadow: 5px 5px 5px rgb(223, 223, 223);
+    }
+
     .btn-circle {
         width: 30px;
         height: 30px;

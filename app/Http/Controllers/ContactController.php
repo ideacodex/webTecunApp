@@ -182,7 +182,7 @@ class ContactController extends Controller
         //$contacts = Contact::take(10)->get();
 
         return view('contacts.home', [
-            'contacts' => null
+            'contact' => null
         ]);
     }
 

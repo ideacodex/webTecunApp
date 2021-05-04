@@ -31,10 +31,10 @@ $namesUser = explode(' ', Auth::user()->name);
                                 }
 
                             </style>
-                            <img src="{{ asset('img/app/agenda.png') }}" class="mx-auto d-block img-fluid ml-5">
-                            <h5 class="mt-2">NÚMEROS
-                                IMPORTANTES</h5>
-                        </a>{{-- <img src="{{ asset('img/app/agenda.png') }}" class="mx-auto d-block img-fluid ml-5"> --}}
+                            <h5 class="mt-2 text-dark"><i style="color: #030d4f"
+                                    class="fa-lg fas fa-address-book mr-2"></i>NÚMEROS
+                                IMPORTANTES <i class="text-dark fas fa-caret-down"></i></h5>
+                        </a>
                     </h4>
                 </div>
                 <div id="collapse1" class="panel-collapse collapse">
@@ -42,14 +42,14 @@ $namesUser = explode(' ', Auth::user()->name);
                         <div class="col-sm-4 col-8">
                             <div class="card border-0" style="border-radius: 50px">
                                 <div class="card-body border-0" style="border-radius: 50px">
-                                    <div style="width: 15em" class="border-0 btn-group btn-group-justified mt-2">
+                                    <div style="width: 15em" class="border-0 btn-group btn-group-justified mt-1">
                                         <a href="{{ url('/favoritos/pbx') }}"
-                                            style="border-top-left-radius: 20%; border-bottom-left-radius: 20%"
+                                            style="border-top-left-radius: 50px; border-bottom-left-radius: 50px"
                                             class="btn btn-lg bg-theme-1 mr-3">
                                             <img src="{{ asset('img/app/TELEFONO_ESTE_SI.gif') }}" alt="">
                                         </a>
-                                        <a class="bg-theme-1 btn btn-lg"
-                                            style="border-top-right-radius: 20%; border-bottom-right-radius: 20%;"
+                                        <a class="bg-theme-1 btn btn-lg mr-5"
+                                            style="border-top-right-radius: 50px; border-bottom-right-radius: 50px;"
                                             href="{{ url('/favoritos/whatsapp') }}">
                                             <img src="{{ asset('img/app/EsteSiFInal.gif') }}" alt="">
                                         </a>
@@ -164,7 +164,7 @@ $namesUser = explode(' ', Auth::user()->name);
                     <div class="">
                         <button type="submit" style="border-radius: 10px"
                             class="text-light btn btn-lg btn-block bg-theme-2">
-                            {{ __('BUSCAR') }}
+                            <b>BUSCAR</b>
                         </button>
                     </div>
                 </div>

@@ -1,5 +1,5 @@
 @php
-$namesUser = explode(" ", Auth::user()->name);
+$namesUser = explode(' ', Auth::user()->name);
 @endphp
 @extends('layouts.user')
 @section('content')
@@ -12,46 +12,67 @@ $namesUser = explode(" ", Auth::user()->name);
         </div>
     @endif
     <div class="container-fluid">
-        <div class="card-group mt-5 mb-5">
-            <div class="card text-center">
-                <img class="img-fluid mx-auto d-block" src="{{ asset('img/seguro.jpg') }}" width="60%">
-                <div class="card-body">
-                    <h5 class="card-title">Instructivo_seguro médico GyT</h5>
-                </div>
-                <div class="card-footer">
-                    <a href="{{ asset('files/InstructivoSeguromédicoGyT.pdf') }}" class="btn btn-primary btn-lg"> Descargar</a>
-                </div>
+        <div class="bg-theme-1 d-lg-none d-sm-inline"
+            style="border-bottom-left-radius: 50px; border-bottom-right-radius: 50px">
+            <div class="bg-theme-1 row justify-content-around d-lg-none d-sm-inline">
+                <img src="{{ asset('img/app/bsolicitudes.png') }}" class="d-lg-none d-sm-inline img-fluid"
+                    style="max-height: 100%; margin-top: 3%">
             </div>
-            <div class="card text-center">
-                <img class="img-fluid mx-auto d-block" src="https://irtraesfelicidad.files.wordpress.com/2019/08/logo-irtra.org_.png?w=200" width="100 px">
-                <div class="card-body">
-                    <h5 class="card-title">Formulario Irtra</h5>
-                </div>
-                <div class="card-footer">
-                    <a href="{{ asset('files/formularioIrtra.doc') }}" class="btn btn-primary btn-lg"> Descargar</a>
-                </div>
-            </div>
-            <div class="card text-center">
-                <img class="img-fluid mx-auto d-block" src="{{ asset('img/piscina.jpg') }}" width="60%">
-                <div class="card-body">
-                    <h5 class="card-title">Consulta Vacaciones</h5>
-                </div>
-                <div class="card-footer">
-                    <a href="{{ route('proccessRRHH') }}" class="btn btn-primary btn-lg"> Consultar</a>
-                </div>
-            </div>
-
-            <div class="card text-center">
-                <img class="img-fluid mx-auto d-block" src="{{ asset('img/certificado.jpg') }}" width="60%">
-                <div class="card-body">
-                    <h5 class="card-title">Constacia Laboral</h5>
-                </div>
-                <div class="card-footer">
-                    <a href="{{ url('procesos/constancia') }}" class="btn btn-primary btn-lg"> Solictar</a>
+        </div>
+        <div class="mb-3 justify-content-center row">
+            <div class="mt-3 col-12 col-md-6 col-lg-6 " role="group" aria-label="Basic example">
+                <div class="tr-gallery">
+                    <div class="row col-md-10 offset-md-1 ml-1 col-lg-10 offset-lg-1">
+                        <div class="col-sm-4 col-md-4 col-6 mb-1 mt-5" id="box-search">
+                            <a href="{{ route('proccessRRHH') }}">
+                                <div class="card border-top-0 teamsombra">
+                                    <img src="{{ asset('img/piscina2.png') }}" class="mx-auto" width="65%"
+                                        style="border-radius: 10%" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="text-center"><b>CONSULTAR VACACIONES</b></h5>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-sm-4 col-md-4 col-6 mb-1 mt-5" id="box-search">
+                            <a href="{{ url('procesos/constancia') }}">
+                                <div class="card border-top-0 teamsombra">
+                                    <img src="{{ asset('img/certificado.png') }}" class="mx-auto" width="65%"
+                                        style="border-radius: 10%" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="text-center"><b>CONSTANCIA LABORAL</b></h5>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-sm-4 col-md-4 col-6 mb-1 mt-5" id="box-search">
+                            <a href="{{ asset('files/formularioIrtra.doc') }}">
+                                <div class="card border-top-0 teamsombra">
+                                    <img src="{{ asset('img/logo-irtra.org_2.png') }}" class="mx-auto" width="65%"
+                                        style="border-radius: 10%" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="text-center"><b>DESCARGAR FORMULARIO</b></h5>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-sm-4 col-md-4 col-6 mb-1 mt-5" id="box-search">
+                            <a href="{{ url('procesos/constancia') }}">
+                                <div class="card border-top-0 teamsombra">
+                                    <img src="{{ asset('img/asotecsa.png') }}" class="mx-auto" width="65%"
+                                        style="border-radius: 10%" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="text-center"><b>ASOTECSA</b></h5>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+
     </div>
 
-    
+
 @endsection
