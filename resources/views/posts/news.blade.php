@@ -27,41 +27,7 @@
             margin-top: 8px;
         }
 
-        .letrasPublicaciones {
-            font-size: 18px;
-            font-family: Arial;
-            color: {{ config('app.bg-theme-1') }};
-        }
-
-        .imagenPublicaciones {
-            margin: auto;
-            width: 250px;
-            max-height: 250px;
-            border-radius: 25px;
-            border: 2px solid {{ config('app.bg-theme-1') }};
-        }
-
-        .btnLike {
-            background-color: none;
-            color: rgb(0, 89, 255);
-
-        }
-
-        /* si  no le doy like */
-        .btnLikeNone {
-            animation: beat 1s infinite alternate;
-        }
-        .btnLikeNone:hover {
-            font-size: 20px;
-            color: rgb(0, 89, 255);
-        }
-
-        /*  beat animacion */
-        @keyframes beat {
-            to {
-                transform: scale(1.2);
-            }
-        }
+       
 
     </style>
     <div class="container-fluid">
@@ -91,15 +57,30 @@
                     <div class="row mt-2">
                         @foreach ($posts as $item)
                             <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 mt-2">
-                                <div class="card">
+                                <div class="card contornoNew">
                                     {{-- imagen --}}
                                     <img src="{{ asset('/storage/posts/' . $item->featured_image) }}"
                                         class="imagenPublicaciones">
                                     <div class="card-body">
                                         {{-- Titulo --}}
-                                        <h5 class="card-title letrasPublicaciones">
-                                            {{ $item->title }}
-                                        </h5>
+                                        <div class="card-title">
+                                            <span class="letrasPublicaciones">
+                                                {{ $item->title }}
+                                            </span>
+                                            <br>
+                                            {{-- fecha --}}
+                                            <span class="fechaPublicacion">
+                                                {{ $item->created_at->format('d-m-Y') }}
+                                            </span>
+                                            <span style="font-size: 10px">
+                                                •
+                                            </span>
+
+                                            <span class="fechaPublicacion">
+                                                <i class="fas fa-globe-americas"></i>
+                                            </span>
+                                        </div>
+
                                         {{-- description --}}
                                         <p class="card-text">
                                             {{ $item->description }}
@@ -164,8 +145,7 @@
                                                 </form>
                                             @endif
                                         @endif
-                                        {{-- fecha --}}
-                                        <span> {{ $item->created_at->format('d-m-Y') }} </span>
+
                                         {{-- comentarios --}}
                                         <span class="text-primary">
                                             <i class="fas fa-comment"></i>
@@ -173,6 +153,7 @@
                                         </span>
                                     </div>
                                 </div>
+                                <br>
                             </div>
                         @endforeach
                     </div>

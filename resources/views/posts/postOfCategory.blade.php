@@ -38,78 +38,112 @@
                 </div>
             @endif
             @if (sizeof($posts) >= 1)
-            <div class="col-12 col-lg-7 col-md-7 col-sm-7 col-xs-7">
-                <div class="card-deck">
-                    @foreach ($posts as $item)
-                        <div class="card">
-                            <img src="{{ asset('/storage/posts/' . $item->featured_image) }}" width="100%"
-                                style="max-height: 600px">
-                            <div class="card-body">
-                                <h5 class="card-title" style="color:orange">{{ $item->title }}</h5>
-                                <p class="card-text">
-                                    {{ $item->description }}
-                                    <a href="{{ url('newsRead/' . $item->id) }}" class="">
+            <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="container-fluid">
+                    <div class="row mt-2 justify-content-center">
+                        @foreach ($posts as $item)
+                            <div class="col-12 col-md-5 col-lg-5 col-sm-12 col-xs-12 mt-2">
+                                <br>
+                                <div class="card contornoNew">
+                                    {{-- imagen --}}
+                                    <img src="{{ asset('/storage/posts/' . $item->featured_image) }}"
+                                        class="imagenPublicaciones">
+                                    <div class="card-body">
+                                        {{-- Titulo --}}
+                                        <div class="card-title">
+                                            <span class="letrasPublicaciones">
+                                                {{ $item->title }}
+                                            </span>
+                                            <br>
+                                            {{-- fecha --}}
+                                            <span class="fechaPublicacion">
+                                                {{ $item->created_at->format('d-m-Y') }}
+                                            </span>
+                                            <span style="font-size: 10px">
+                                                •
+                                            </span>
+
+                                            <span class="fechaPublicacion">
+                                                <i class="fas fa-globe-americas"></i>
+                                            </span>
+                                        </div>
+
+                                        {{-- description --}}
+                                        <p class="card-text">
+                                            {{ $item->description }}
+                                            <a href="{{ url('newsRead/' . $item->id) }}">
+                                                <span class="text-primary">
+                                                    Leer más
+                                                    <i class="fas fa-book-reader"></i>
+                                                </span>
+                                            </a>
+                                        </p>
+                                    </div>
+                                    <div class="card-footer justify-content-around d-flex">
+                                        {{-- like --}}
+                                        <input type="hidden" name="active"
+                                            value="{{ $reactionActive = $item->likes->where('user_id', auth()->user()->id)->first() }} ">
+                                        @if (!$item->userLikesNew)
+                                            {{-- si yo no le doy like --}}
+                                            <form method="POST" action="{{ url('likeordislike') }}"
+                                                onsubmit="return checkSubmit();">
+                                                @csrf
+                                                <input type="hidden" name="postID" value="{{ $item->id }}">
+                                                <input type="hidden" name="reactionActive" id="reactionActive" value="0">
+                                                <button type="submit" class="btn btn-lg">
+                                                    <h4 class="animate__heartBeat">
+                                                        <i
+                                                            class="far fa-thumbs-up btnLikeNone"></i>({{ $item->likes->where('active', 1)->count() }})
+                                                    </h4>
+                                                </button>
+                                            </form>
+                                        @else
+
+                                            @if ($reactionActive->active == 1)
+                                                {{-- si yo le doy like --}}
+                                                <form method="POST" action="{{ url('likeordislike') }}"
+                                                    onsubmit="return checkSubmit();">
+                                                    @csrf
+                                                    <input type="hidden" name="postID" value="{{ $item->id }}">
+                                                    <input type="hidden" name="reactionActive" id="reactionActive"
+                                                        value="1">
+                                                    <button type="submit" class="btn btn-lg btnLike ">
+                                                        <h4 class="animate__heartBeat">
+                                                            <i
+                                                                class="far fa-thumbs-up "></i>({{ $item->likes->where('active', 1)->count() }})
+                                                        </h4>
+                                                    </button>
+                                                </form>
+                                            @else
+                                                {{-- inectivo --}}
+                                                <form method="POST" action="{{ url('likeordislike') }}"
+                                                    onsubmit="return checkSubmit();">
+                                                    @csrf
+                                                    <input type="hidden" name="postID" id="postID"
+                                                        value="{{ $item->id }}">
+                                                    <input type="hidden" name="reactionActive" id="reactionActive"
+                                                        value="0">
+                                                    <button type="submit" class="btn btn-lg">
+                                                        <h4 class="animate__heartBeat">
+                                                            <i
+                                                                class="far fa-thumbs-up "></i>({{ $item->likes->where('active', 1)->count() }})
+                                                        </h4>
+                                                    </button>
+                                                </form>
+                                            @endif
+                                        @endif
+
+                                        {{-- comentarios --}}
                                         <span class="text-primary">
-                                            Leer más
-                                            <i class="fas fa-book-reader"></i>
+                                            <i class="fas fa-comment"></i>
+                                            <a href="{{ url('newsRead/' . $item->id) }}">Comentarios</a>
                                         </span>
-                                    </a>
-                                </p>
+                                    </div>
+                                </div>
+                                <br>
                             </div>
-                            <div class="card-footer justify-content-around d-flex">
-                                <input type="hidden" name="active"
-                                    value="{{ $reactionActive = $item->likes->where('user_id', auth()->user()->id)->first() }} ">
-                                @if (!$item->userLikesNew)
-                                    <form method="POST" action="{{ url('likeordislike') }}"
-                                        onsubmit="return checkSubmit();">
-                                        @csrf
-                                        <input type="hidden" name="postID" value="{{ $item->id }}">
-                                        <input type="hidden" name="reactionActive" id="reactionActive" value="0">
-                                        <button type="submit" class="btn btn-lg">
-                                            <h4><i
-                                                    class="far fa-thumbs-up"></i>({{ $item->likes->where('active', 1)->count() }})
-                                            </h4>
-                                        </button>
-                                    </form>
-                                @else
-                                    @if ($reactionActive->active == 1)
-                                        <form method="POST" action="{{ url('likeordislike') }}"
-                                            onsubmit="return checkSubmit();">
-                                            @csrf
-                                            <input type="hidden" name="postID" value="{{ $item->id }}">
-                                            <input type="hidden" name="reactionActive" id="reactionActive" value="1">
-                                            <button type="submit" class="btn btn-lg btn-primary ">
-                                                <h4>
-                                                    <i
-                                                        class="far fa-thumbs-up"></i>({{ $item->likes->where('active', 1)->count() }})
-                                                </h4>
-                                            </button>
-                                        </form>
-                                    @else
-                                        <form method="POST" action="{{ url('likeordislike') }}"
-                                            onsubmit="return checkSubmit();">
-                                            @csrf
-                                            <input type="hidden" name="postID" id="postID" value="{{ $item->id }}">
-                                            <input type="hidden" name="reactionActive" id="reactionActive" value="0">
-                                            <button type="submit" class="btn btn-lg">
-                                                <h4>
-                                                    <i
-                                                        class="far fa-thumbs-up"></i>({{ $item->likes->where('active', 1)->count() }})
-                                                </h4>
-                                            </button>
-                                        </form>
-                                    @endif
-                                @endif
-                                <span> {{ $item->created_at }} </span>
-                                <span class="text-muted">
-                                </span>
-                                <span class="text-primary">
-                                    <i class="fas fa-comment"></i>
-                                    <a href="{{ url('newsRead/' . $item->id) }}">Comentarios</a>
-                                </span>
-                            </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    </div>
                 </div>
             </div>
             @else
