@@ -66,13 +66,14 @@ $namesUser = explode(' ', Auth::user()->name);
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 mt-2 constancia" style="border-radius: 20px">
+            <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 constancia" style="border-radius: 20px">
                 <div class="row justify-content-around" style="margin-top: 4em;">
                     <img src="{{ asset('img/el-salvador.png') }}" class="img-fluid" style="max-height: 150px;">
                 </div>
                 <div class="row justify-content-around">
                     <a class="text-light">
-                        <button type="button" class="mt-3 border border-primary modales btn btn-lg" data-toggle="modal"
+                        <button type="button" style="border-radius: 7px"
+                            class="mt-3 border border-primary modales btn btn-lg" data-toggle="modal"
                             data-target="#requestConstanciaSv">
                             <img width="40px" class="botonconstancia ml-auto mr-2"
                                 src="{{ asset('img/vacaciones.png') }}" alt="">
@@ -116,13 +117,14 @@ $namesUser = explode(' ', Auth::user()->name);
                 </div>
             </div>
 
-            <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 mt-2 constancia" style="border-radius: 20px">
+            <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 constancia" style="border-radius: 20px">
                 <div class="row justify-content-around" style="margin-top: 4em;">
                     <img src="{{ asset('img/honduras.png') }}" class="img-fluid" style="max-height: 150px;">
                 </div>
                 <div class="row justify-content-around">
                     <a class="text-light">
-                        <button type="button" class="mt-3 border border-primary modales btn btn-lg" data-toggle="modal"
+                        <button type="button" style="border-radius: 7px"
+                            class="mt-3 border border-primary modales btn btn-lg" data-toggle="modal"
                             data-target="#requestConstanciaHnd">
                             <img width="40px" class="botonconstancia ml-auto mr-2"
                                 src="{{ asset('img/vacaciones.png') }}" alt="">

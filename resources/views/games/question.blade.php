@@ -3,11 +3,18 @@
 @section('content')
     <div id="alerta" class="text-center"></div>
     <div class="">
+        <div class="bg-theme-1 d-lg-none d-sm-inline"
+            style="border-bottom-left-radius: 50px; border-bottom-right-radius: 50px">
+            <div class="bg-theme-1 row justify-content-around d-lg-none d-sm-inline">
+                <img src="{{ asset('img/app/bsolicitudes.png') }}" class="d-lg-none d-sm-inline img-fluid"
+                    style="max-height: 100%; margin-top: 3%">
+            </div>
+        </div>
         <div class="mt-1 mb-3 justify-content-center">
             @foreach ($questionRandom as $item)
                 <div class="no-gutters">
                     <div class="col-12 col-md-6 offset-md-3 pl-0 pr-0 mt-4">
-                        <div class="card bg-theme-1 justify-content-center">
+                        <div class="card bg-theme-2 justify-content-center">
                             <div class="card-body ">
                                 <span class="text-center text-light">{{ $item->description }}</span>
                                 <div class=" text-center">
@@ -98,7 +105,8 @@
                         <div class="col-12 col-md-6 offset-md-3 pl-0 pr-0 mt-4" role="group" aria-label="Basic example">
                             <input type="hidden" name="answerID" value="{{ $ansOthers[3]->id }}">
                             <input type="hidden" name="flag" value="{{ $ansOthers[3]->flag }}">
-                            <input type="button" onclick="return sendRequestShowAlert('{{ $ansOthers[3]->id }}','{{ $ansOthers[3]->flag }}','{{ $ansOthers[3]->reply }}');"
+                            <input type="button"
+                                onclick="return sendRequestShowAlert('{{ $ansOthers[3]->id }}','{{ $ansOthers[3]->flag }}','{{ $ansOthers[3]->reply }}');"
                                 class="btn btn-lg btn-block btn-outline-primary  justify-content-center d0-flex mb-3"
                                 name="question" value="{{ $ansOthers[3]->reply }}">
                         </div>
@@ -109,10 +117,9 @@
     @endsection
     @section('js')
         <script type="text/javascript">
-
             async function sendRequestShowAlert(answId, flag, reply) {
-                let colorAlert='';
-                let textShow='';
+                let colorAlert = '';
+                let textShow = '';
                 try {
                     let dataForm = '_method=' + encodeURIComponent('POST');
                     dataForm = '_token=' + encodeURIComponent('{{ csrf_token() }}');
@@ -134,20 +141,19 @@
                 } catch (error) {
                     console.log('error: ', error);
                 }
-                if(answId == '{{ $correcId->id }}'){
-                    colorAlert='success';
-                    textShow='¡Respuesta correcta! '
-                }
-                else{
-                    colorAlert='danger'
-                    textShow='Error, la respesta es: '
+                if (answId == '{{ $correcId->id }}') {
+                    colorAlert = 'success';
+                    textShow = '¡Respuesta correcta! '
+                } else {
+                    colorAlert = 'danger'
+                    textShow = 'Error, la respesta es: '
                 }
                 document.getElementById("alerta").innerHTML = `<div class="alert alert-${colorAlert} alert-dismissible fade show" role="alert">
-                  <strong>${textShow}</strong> {{ $correcId->reply }}
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>`;
+                          <strong>${textShow}</strong> {{ $correcId->reply }}
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>`;
                 setTimeout(function() {
                     location.reload();
                 }, 2500);
