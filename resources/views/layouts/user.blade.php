@@ -30,13 +30,58 @@
 
     <link href="{{ asset('appson/assets/css/responsive.css') }}" rel="stylesheet">
 
-
-
-
-
-
 </head>
 <style>
+    .caja {
+        position: relative;
+        display: inline-block;
+    }
+
+    .texto1 {
+        position: absolute;
+        top: 65%;
+        left: 8%;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-size: 65%;
+    }
+
+    .texto2 {
+        position: absolute;
+        top: 85%;
+        left: 15%;
+        font-size: 65%;
+    }
+
+    .texto3 {
+        position: absolute;
+        top: 65%;
+        left: 38%;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-size: 65%;
+    }
+
+    .texto4 {
+        position: absolute;
+        top: 85%;
+        left: 45%;
+        font-size: 65%;
+    }
+
+    .texto5 {
+        position: absolute;
+        top: 65%;
+        left: 72%;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-size: 65%;
+    }
+
+    .texto6 {
+        position: absolute;
+        top: 85%;
+        left: 80%;
+        font-size: 65%;
+    }
+
     .teamsombra {
         box-shadow: 5px 5px 5px rgb(223, 223, 223);
     }
@@ -55,6 +100,10 @@
         color: #030d4f;
         display: flex;
         float: left;
+    }
+
+    .triviaquestion {
+        background-color: {{ config('app.bg-theme-3') }};
     }
 
     .modales {
