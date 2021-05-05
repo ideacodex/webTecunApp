@@ -59,10 +59,8 @@ class HomeController extends Controller
     public function games()
     {
 
-        $score = Score::with('user')->orderBy('points', 'DESC')->limit(5)->get();
-
-        $i = array(1, 2, 3, 4, 5);
-
+        $score = Score::with('user')->orderBy('points', 'DESC')->limit(3)->get();
+        $i = array(1, 2, 3);
         return view('games.home', [
             'score' => $score,
         ]);
