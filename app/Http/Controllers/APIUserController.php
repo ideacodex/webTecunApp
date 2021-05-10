@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
+use DB;
 
 class APIUserController extends Controller
 {
@@ -13,6 +14,7 @@ class APIUserController extends Controller
   *
   * @return \Illuminate\Http\Response
   */
+
   public function index()
   {
     //
@@ -33,6 +35,68 @@ class APIUserController extends Controller
       return response()->json($response, 403);
     }
 
+  }
+
+  public function selectAvatar(Request $request) 
+  {
+    $json = $request->input('json', null);
+    $params = json_decode($json);
+    $params_array = json_decode($json, true);
+    $request = json_decode($json, true);
+    
+    DB::beginTransaction();
+    try {
+      if (!empty($request)) {
+        //Buscaremos al ususario autenticado por medio del ID
+        $idUser = auth()->user()->id;
+
+        //Validamos que el ojecto pasado desde la APP, llegue hasta aqui
+        $validate = \Validator::make($request, [
+          'url_image' => 'required'
+        ]);
+
+        if($validate->fails()){
+          $data = [
+            'code' => 404,
+            'status' => 'error',
+            'message' => 'No son correctos los datos enviados, intente de nuevo'
+          ];
+        } else {
+
+          $userAuth = User::find($idUser);
+          $userAuth->url_image = $params_array['url_image'];
+          $userAuth->save();
+        }
+      } else {
+        DB::rollback();
+        $data = [
+          'code' => 400,
+          'status' => 'error',
+          'message' => 'Error al mandar datos vacios, intente de nuevo'
+        ];
+        return response()->json($data, $data['code']);
+      }
+      
+    } catch (\Illuminate\DataBase\QueryException $e) {
+      DB::rollback();
+      $data = [
+        'code' => 500,
+        'status' => 'error',
+        'message' => 'Error en la transaccion para seleccionar el avatar',
+        'objectError' => $e
+      ];
+
+      return response()->json($data, $data['code']);
+    }
+    DB::commit();
+    $data = [
+      'code' => 200,
+      'status' => 'success',
+      'message' => 'Avatar seleccionado correctamente',
+      'url_image' => auth()->user()->url_image
+    ];
+
+    return response()->json($data, $data['code']);
   }
 
   /**

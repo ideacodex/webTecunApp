@@ -18,7 +18,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::resource('users', 'APIUserController')->except(['destroy'])->middleware('auth:api');
+Route::resource('users', 'APIUserController')->except(['destroy'])->middleware('auth:api'); 
+Route::post('avataruser', 'APIUserController@selectAvatar')->middleware('auth:api');
 Route::post('users', 'APIUserController@store');
 
 Route::get('categories', 'APICategoryController@index');
