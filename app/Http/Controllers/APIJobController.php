@@ -9,9 +9,13 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\JobDataUser;
 use App\Mail\JobDataAdmin;
 
+use App\MAil\QueryAsotecsaRRHH;
+use App\Mail\QueryAsotecsaUser;
+
 use Illuminate\Support\Facades\Storage;
 
 use App\Job;
+use App\Setting;
 
 class APIJobController extends Controller
 {
@@ -247,5 +251,63 @@ class APIJobController extends Controller
                 return response()->json($data, $data['code']);
             }
         }
+    }
+
+    public function asotecsa(Request $request)
+    {
+        $json = $request->input('json', null);
+        $params = json_decode($json);
+        $request = json_decode($json);
+
+        //Validamos si el usuario esta autenticado
+        $user = auth()->user();
+
+        //Sacamos el correo de asotecsa de los ajustes
+        $emailAsoct = Setting::first();
+
+        //Verificar que los datos llegan completos
+        if(!empty($request) && isset($user)){
+            try{
+                //test para asignar valor a las variables
+                $email = $user->email;
+                $emailCompany = $emailAsoct->email_warnings;
+
+                /***************Correo para Postulado***********************/
+                Mail::to([$email])
+                    ->send(new QueryAsotecsaUser($request)); //envia la variables $request a la clase de MAIL
+                /***************Correo para Postulado***********************/
+
+                /****************Correo para RRHHAdmin***********************/
+                Mail::to([$emailCompany])
+                    ->send(new QueryAsotecsaRRHH($request)); //envia la variables $request a la clase de MAIL
+                /****************Correo para RRHHAdmin***********************/
+
+                $user->is_asotecsa = 1;
+                $user->save();
+
+                $data = [
+                    'code' => 200,
+                    'status' => 'success',
+                    'message' => 'Correo enviado exitosamente, en tu correo electronico, llegara un mensaje de verificacion'
+                ];
+            }catch (\Illuminate\Database\QueryException $e) {
+                $abort = $e->errorInfo[2];
+
+                $data = [
+                    'code' => 404,
+                    'status' => 'error',
+                    'message' => 'Mensajes no enviados',
+                    'abort' => $abort
+                ];
+            }
+        }else{
+            $data = [
+                'code' => 400,
+                'status' => 'error',
+                'message' => 'Datos invalidos, intente de nuev'
+            ];
+        }
+
+        return response()->json($data, $data['code']);
     }
 }
