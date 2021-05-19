@@ -59,14 +59,14 @@
                             </span>
                         @enderror
                     </div>
-                    <div class="col-12 input-group input-group-lg mb-3">
+                    <div class="col-12 input-group input-group-lg mb-3" title="Correo de ASOTECSA">
                         <div class="input-group-prepend">
                             <span class="input-group-text border-top-0 border-right-0 bg-input transparent"
                                 id="inputGroup-sizing-sm">
                                 <i style="color: #fa5e0a" class="fas fa-at"></i>
                             </span>
                         </div>
-                        <input id="emailWarnings" placeholder="Correo para advertencias" type="text"
+                        <input id="emailWarnings" placeholder="Correo de ASOTECSA" type="text"
                             class="text-dark border-top-0 border-left-0 bg-input form-control @error('emailWarnings') is-invalid @enderror"
                             name="emailWarnings" value="{{ old('emailWarnings') }}" required autocomplete="emailWarnings"
                             autofocus>

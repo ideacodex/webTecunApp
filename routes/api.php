@@ -25,6 +25,10 @@ Route::post('users', 'APIUserController@store');
 Route::get('categories', 'APICategoryController@index');
 Route::get('category/{id}', 'APICategoryController@show');
 
+/* Asotecsa */
+Route::post('asotecsa', 'APIJobController@asotecsa')->middleware('auth:api');
+/* Asotecsa */
+
 Route::get('award', 'APIAwardController@index');
 Route::get('award/image/{url_image}', 'APIAwardController@getImage');
 Route::get('award/carousel', 'APIAwardController@carousel');
