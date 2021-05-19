@@ -58,6 +58,7 @@ class StoreController extends Controller
             $store->schedule = $request->schedule;
             $store->number = $request->number;
             $store->maps = $request->maps;
+            $store->waze = $request->waze;
             $store->save();
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollback(); //si hay un error previo, desahe los cambios en DB y redirecciona a pagina de error
@@ -120,6 +121,7 @@ class StoreController extends Controller
             $store->schedule = $request->schedule;
             $store->number = $request->number;
             $store->maps = $request->maps;
+            $store->waze = $request->waze;
             $store->save();
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollback(); //si hay un error previo, desahe los cambios en DB y redirecciona a pagina de error

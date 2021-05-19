@@ -110,10 +110,10 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text bg-input border-top-0 border-right-0 transparent"
                                 id="inputGroup-sizing-sm">
-                                <i style="color: #fa5e0a" class="fab fa-waze"></i>
+                                <i style="color: #fa5e0a" class="fas fa-map-marker-alt"></i>
                             </span>
                         </div>
-                        <input id="maps" name="maps" placeholder="Link o enlace de waze" type="text" size="100"
+                        <input id="maps" name="maps" placeholder="Link o enlace de google maps" type="text" size="100"
                             maxlength="100"
                             class="text-dark border-top-0 border-left-0 bg-input form-control @error('maps') is-invalid @enderror"
                             maps="maps" value="{{ old('maps') }}" required autocomplete="maps" autofocus>
@@ -125,6 +125,31 @@
                         @enderror
 
                         @error('maps')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+
+                    <div class="col-12 input-group input-group-lg mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-input border-top-0 border-right-0 transparent"
+                                id="inputGroup-sizing-sm">
+                                <i style="color: #fa5e0a" class="fab fa-waze"></i>
+                            </span>
+                        </div>
+                        <input id="waze" name="waze" placeholder="Link o enlace de waze" type="text" size="100"
+                            maxlength="100"
+                            class="text-dark border-top-0 border-left-0 bg-input form-control @error('waze') is-invalid @enderror"
+                            waze="waze" value="{{ old('waze') }}" required autocomplete="waze" autofocus>
+
+                        @error('waze')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+
+                        @error('waze')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
