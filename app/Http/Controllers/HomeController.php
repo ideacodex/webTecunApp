@@ -55,6 +55,12 @@ class HomeController extends Controller
         return view('users.team', ["awards" => $awards]);
     }
 
+    public function profile()
+    {
+        $userAuth = auth()->user();
+        return view('users.perfil', ['userAuth' => $userAuth]);
+    }
+
 
     public function games()
     {
