@@ -36,7 +36,7 @@ class QueryAsotecsaRRHH extends Mailable
      */
     public function build()
     {
-        return $this->subject('Informacion del colaborador')
+        return $this->subject('Informacion enviada del colaborador')
             ->view('emails.rrhhAsotecsa');
     }
 }
