@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\JobDataUser;
 use App\Mail\JobDataAdmin;
 
-use App\MAil\QueryAsotecsaRRHH;
+use App\Mail\QueryAsotecsaRRHH;
 use App\Mail\QueryAsotecsaUser;
 
 use Illuminate\Support\Facades\Storage;
@@ -255,9 +255,9 @@ class APIJobController extends Controller
 
     public function asotecsa(Request $request)
     {
-        $json = $request->input('json', null);
+        /* $json = $request->input('json', null);
         $params = json_decode($json);
-        $request = json_decode($json);
+        $request = json_decode($json); */
 
         //Validamos si el usuario esta autenticado
         $user = auth()->user();

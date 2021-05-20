@@ -131,6 +131,32 @@
                             </span>
                         @enderror
                     </div>
+
+                    <div class="col-12 input-group input-group-lg mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text border-top-0 border-right-0 bg-input transparent"
+                                id="inputGroup-sizing-sm">
+                                <i style="color: #fa5e0a" class="fas fa-map-marker-alt"></i>
+                                
+                            </span>
+                        </div>
+                        <input id="waze" name="waze" placeholder="Link o enlace de google maps" type="text" size="100"
+                            maxlength="100"
+                            class="text-dark bg-input border-top-0 border-left-0 form-control @error('waze') is-invalid @enderror"
+                            waze="waze" value="{{ $store->waze }}" required autocomplete="waze" autofocus>
+
+                        @error('waze')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+
+                        @error('waze')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
                     <div class="container">
                         <div class="row">
                             <div class="col text-center">
