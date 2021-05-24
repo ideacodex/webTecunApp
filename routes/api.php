@@ -29,6 +29,10 @@ Route::get('category/{id}', 'APICategoryController@show');
 Route::post('asotecsa', 'APIJobController@asotecsa')->middleware('auth:api');
 /* Asotecsa */
 
+/* Numeros de emergencia */
+Route::get('numeros', 'APIUserController@emergencyNumer')->middleware('auth:api');
+/* Numeros de emergencia */
+
 Route::get('award', 'APIAwardController@index');
 Route::get('award/image/{url_image}', 'APIAwardController@getImage');
 Route::get('award/carousel', 'APIAwardController@carousel');

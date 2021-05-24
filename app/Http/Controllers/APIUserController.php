@@ -15,6 +15,64 @@ class APIUserController extends Controller
   * @return \Illuminate\Http\Response
   */
 
+  public function emergencyNumer()
+  {
+    $authUser = auth()->user();
+
+    if (!$authUser) {
+      $data = [
+        'code' => 400,
+        'status' => 'error',
+        'message' => 'Usuario no autenticado'
+      ];
+    } else {
+      $arrayNumer = array(
+        [
+          'title' => 'Seguros La Visión',
+          'body' => 
+            array(
+              [
+                'description' => 'Cabina de Emergencia',
+                'number' => '23288870'
+              ],
+              [
+                'description' => 'Accidente de carro',
+                'number' => '57840189'
+              ],
+            ),
+        ],
+        [
+          'title' => 'Seguridad Industrial TECUN',
+          'body' => 
+            array(
+              [
+                'description' => 'Héctor Lucas',
+                'number' => '4029-0008'
+              ]
+            ),
+        ],
+        [
+          'title' => 'Seguro Médico',
+          'body' => 
+            array(
+              [
+                'description' => 'Seguro Medigo Test',
+                'number' => '00000000'
+              ]
+            ),
+        ]
+      );
+  
+      $data = [
+        'code' => 200,
+        'status' => 'success',
+        'arrayNumer' => $arrayNumer
+      ];
+    }
+    
+    return response()->json($data, $data['code']);
+  }
+
   public function index()
   {
     //
