@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
+use App\NotificationSuggestion;
 use DB;
 
 class APIUserController extends Controller
@@ -14,6 +15,64 @@ class APIUserController extends Controller
   *
   * @return \Illuminate\Http\Response
   */
+
+  public function emergencyNumer()
+  {
+    $authUser = auth()->user();
+
+    if (!$authUser) {
+      $data = [
+        'code' => 400,
+        'status' => 'error',
+        'message' => 'Usuario no autenticado'
+      ];
+    } else {
+      $arrayNumer = array(
+        [
+          'title' => 'Seguros La Visión',
+          'body' => 
+            array(
+              [
+                'description' => 'Cabina de Emergencia',
+                'number' => '23288870'
+              ],
+              [
+                'description' => 'Accidente de carro',
+                'number' => '57840189'
+              ],
+            ),
+        ],
+        [
+          'title' => 'Seguridad Industrial TECUN',
+          'body' => 
+            array(
+              [
+                'description' => 'Héctor Lucas',
+                'number' => '4029-0008'
+              ]
+            ),
+        ],
+        [
+          'title' => 'Seguro Médico',
+          'body' => 
+            array(
+              [
+                'description' => 'Seguro Medigo Test',
+                'number' => '00000000'
+              ]
+            ),
+        ]
+      );
+  
+      $data = [
+        'code' => 200,
+        'status' => 'success',
+        'arrayNumer' => $arrayNumer
+      ];
+    }
+    
+    return response()->json($data, $data['code']);
+  }
 
   public function index()
   {
@@ -96,6 +155,58 @@ class APIUserController extends Controller
       'url_image' => auth()->user()->url_image
     ];
 
+    return response()->json($data, $data['code']);
+  }
+
+  public function suggestions(Request $request)
+  {
+    DB::beginTransaction();
+    try {
+      //Recoger los datos por post
+      //$json = $request->input('json', null);
+      //$params = json_decode($json);
+      //$request = json_decode($json, true);
+
+      $user = auth()->user();
+
+      if (($request->title != null) || ($request->description != null)) {
+        if ($user) {
+          $suggestions = new NotificationSuggestion;
+          $suggestions->title = $request->title;
+          $suggestions->description = $request->description;
+          $suggestions->is_save = 1;
+          $suggestions->is_suggestions = 1;
+          $suggestions->is_notification = 0;
+          $suggestions->user_id = $user->id;
+          $suggestions->save();
+  
+          DB::commit();
+  
+          $data = [
+            'code' => 200,
+            'status' => 'success',
+            'message' => 'Gracias por contribuir y ayudarnos a mejorar la experiencia tecun App. Información enviada. '
+//            'message' => 'Tu duda o sugerencia fue enviada exitosamente, nuestro equipo lo tomara en cuenta para mejorar tu experiencia'
+          ];
+        } else {
+          $data = [
+            'code' => 400,
+            'status' => 'error',
+            'message' => 'Sin autenticacion'
+          ];
+        }
+      } else {
+        $data = [
+          'code' => 404,
+          'status' => 'error',
+          'message' => 'El titulo y la descripcion son requeridos, intente de nuevo'
+        ];
+      }
+      
+    }catch (\Illuminate\Database\QueryException $e) {
+      DB::rollback();
+      return response()->json($e, 500);
+    }
     return response()->json($data, $data['code']);
   }
 
