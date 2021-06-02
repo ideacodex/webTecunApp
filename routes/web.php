@@ -38,6 +38,9 @@ Route::get('login/facebook/callback', 'SocialServicesController@handleProviderCa
 Route::get('/team', 'HomeController@team')->middleware('auth')  ;
 Route::get('/specialTeam', 'AwardController@specialTeam')->middleware('auth')    ;
 Route::get('/podcast', 'HomeController@podcast')->middleware('auth')    ;
+
+Route::get('perfil', 'HomeController@profile')->middleware('auth');
+
 //*******Home Routes****** */
 
 //*******Jobs Routes****** */

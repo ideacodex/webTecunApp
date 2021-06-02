@@ -18,11 +18,24 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::resource('users', 'APIUserController')->except(['destroy'])->middleware('auth:api');
+Route::resource('users', 'APIUserController')->except(['destroy'])->middleware('auth:api'); 
+Route::post('avataruser', 'APIUserController@selectAvatar')->middleware('auth:api');
 Route::post('users', 'APIUserController@store');
 
 Route::get('categories', 'APICategoryController@index');
 Route::get('category/{id}', 'APICategoryController@show');
+
+/* Asotecsa */
+Route::post('asotecsa', 'APIJobController@asotecsa')->middleware('auth:api');
+/* Asotecsa */
+
+/* Numeros de emergencia */
+Route::get('numeros', 'APIUserController@emergencyNumer')->middleware('auth:api');
+/* Numeros de emergencia */
+
+/* Dudas y sugerencias, ademas, notificaciones */
+Route::post('sugerenca', 'APIUserController@suggestions')->middleware('auth:api');
+/* Dudas y sugerencias, ademas, notificaciones */
 
 Route::get('award', 'APIAwardController@index');
 Route::get('award/image/{url_image}', 'APIAwardController@getImage');

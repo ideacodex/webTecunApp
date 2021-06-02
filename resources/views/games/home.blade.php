@@ -20,7 +20,8 @@
 
         <div class="row justify-content-around mt-1">
             <div class="row justify-content-around">
-                <div class="card">
+                <div class="card border-0">
+                    <img src="{{ asset('img/app/juegos-1.png') }}" width="100em" alt="">
                     <div class="card-header bg-theme-2">
                         <a href="{{ url('trivia') }}" class="text-white">
                             <button class="btn text-light btn-lg bg-theme-2">TRIVIA
@@ -51,19 +52,19 @@
                 <ul class="list-group caja">
                     <img src="{{ asset('img/app/juegos-3.png') }}" width="450em" alt="">
 
-                    {{-- Posición 2 --}}
+                    {{-- Jugador 2 --}}
                     <h6 class="text-light texto1">{{ $score[1]->user->name }}
                         <br> {{ $score[1]->user->lastname }}
                     </h6>
                     <h6 class="text-light texto2"><b>{{ $score[1]->points }}</b></h6>
 
-                    {{-- Posición 1 --}}
+                    {{-- Jugador 1 --}}
                     <h6 class="text-light texto3">{{ $score[0]->user->name }}
                         <br> {{ $score[0]->user->lastname }}
                     </h6>
                     <h6 class="text-primary texto4"><b>{{ $score[0]->points }}</b></h6>
 
-                    {{-- Posición 3 --}}
+                    {{-- Jugador 3 --}}
                     <h6 class="text-light texto5">{{ $score[2]->user->name }}
                         <br> {{ $score[2]->user->lastname }}
                     </h6>
@@ -74,22 +75,3 @@
         </div>
     </div>
 @endsection
-
-{{-- <div class="row justify-content-center">
-    <div class="collapse" id="collapseExample">
-        <ul class="list-group">
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                <span class="">#</span>
-                <i class="ml-2 fas fa-user"> </i>
-                <span class="">Puntos</span>
-            </li>
-            @foreach ($score as $item)
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <span class="badge badge-primary badge-pill">{{ $loop->index + 1 }}</span>
-                    <i class="ml-3 fas fa-user"> {{ $item->user->name }} {{ $item->user->lastname }}</i>
-                    <span class="ml-3 badge badge-success badge-pill">{{ $item->points }}</span>
-                </li>
-            @endforeach
-        </ul>
-    </div>
-</div> --}}

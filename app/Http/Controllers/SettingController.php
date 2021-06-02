@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Setting;
 use App\UsersDevice;
+USE App\NotificationSuggestion;
 use DB;
 
 use Illuminate\Http\Request;
@@ -163,6 +164,27 @@ class SettingController extends Controller
 
     public function sendNotifications(Request $request)
     {
+        /* Mi codigo: Guardar en base de datos */
+        DB::beginTransaction();
+        try {
+            $notification = new NotificationSuggestion;
+            $notification->title = $request->title;
+            $notification->description = $request->message;
+            $notification->is_suggestions = 0;
+            $notification->is_notification = 1;
+            if (isset($request->isSave) && $request->isSave) {
+                $notification->is_save = 1;
+            } else {
+                $notification->is_save = 0;
+            }
+            $notification->save();
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollback();
+            abort(500, $e->errorInfo[2]);
+        }
+        DB::commit();
+
+        /* Mi codigo: Guardar en base de datos */
         //recibe formulariode la web, consulta en base de datos loas token de push notifications, y envia la peticion post con el json a el api de expo push notificatiosn
         $body=array();
         $devices=UsersDevice::get('token');

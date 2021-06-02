@@ -69,6 +69,16 @@
                     <div class="container">
                         <div class="row">
                             <div class="col text-center">
+                                <div class="d-none input-group-prepend">
+                                    <span class="input-group-text bg-input border-top-0 border-right-0 transparent"
+                                        id="inputGroup-sizing-sm">
+                                        <i style="color: #fa5e0a" class="fas fa-save"></i>
+                                    </span>
+                                    <label style="height: 100%;" class="labelWithInput border-top-0 border-left-0 bg-input text-dark form-control @error('message') is-invalid @enderror">
+                                        <input type="checkbox" name="isSave" id="isSave" value="1"> 
+                                        Guardar esta notificacion
+                                    </label>
+                                </div>
                                 <button type="submit" class="btn btn-lg bg-theme-1 text-light" style="border-radius: 10px">
                                     <i class="fas fa-bell"></i>
                                     {{ __('ENVIAR NOTIFICACIÓN') }}
