@@ -30,6 +30,7 @@
             background: {{ config('app.bg-theme-2') }};
 
         }
+
         .downloadDocPost:hover {
             font-size: 18px;
             background: white;
@@ -39,6 +40,7 @@
         .text-theme-1 {
             color: {{ config('app.bg-theme-1') }};
         }
+
         .text-theme-1:hover {
             color: {{ config('app.bg-theme-2') }};
         }
@@ -49,16 +51,20 @@
             background: {{ config('app.bg-theme-2') }};
 
         }
-        .Archivo-Audio-mp3{
+
+        .Archivo-Audio-mp3 {
             background: rgb(0, 0, 224);
             width: 100%;
         }
+
         .fechaPodcastEstyle {
             color: {{ config('app.bg-theme-1') }};
         }
+
         .fechaPodcastEstyle-icon {
             color: {{ config('app.bg-theme-2') }};
         }
+
     </style>
 
     <!-- blog post area start -->
@@ -89,15 +95,31 @@
                                 </audio>
 
                             @endif
+                            {{-- iframe extra --}}
+                            @if (isset($podcast->iframe))
+                                <div class="col-12 col-md-12 input-group input-group-lg mb-3">
+                                    @php echo($podcast->iframe) @endphp
+                                </div>
+
+                            @endif
+                            {{-- <script>
+                                var miCadena = "Hola Mundo. Cómo estás hoy? width ='100' height=== ";
+                                var divisiones = miCadena.split("width='""' ", 3);
+
+                                print(divisiones);
+                                console.log(divisiones)
+
+                            </script> --}}
+
                         </div>
                         <h1 class="blog-title text-center tituloPodcast card-header ">{{ $podcast->title }}</h1>
                         <div class="blog-meta">
                             <ul>
                                 <li><i class="fa fa-calendar fechaPodcastEstyle-icon"></i>
-                                 <span class="fechaPodcastEstyle">
-                                    {{ $podcast->created_at }}
-                                 </span>
-                                  
+                                    <span class="fechaPodcastEstyle">
+                                        {{ $podcast->created_at }}
+                                    </span>
+
                                 </li>
                             </ul>
                         </div>

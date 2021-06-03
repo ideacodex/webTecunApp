@@ -29,7 +29,6 @@
                         <th scope="col">TITULO</th>
                         <th scope="col">AUTOR</th>
                         <th scope="col">DESCRIPCIÓN</th>
-                        <th scope="col">ESTADO</th>
                         <th scope="col">OPCIONES</th>
                     </tr>
                 </thead>
@@ -40,9 +39,7 @@
                             <td>{{ $item->title }}</td>
                             <td>{{ $item->user->name }}</td>
                             <td>@php echo($item->description) @endphp</td>
-                            <td><span class="badge badge-{{ $item->status->color }}"> <i
-                                        class="{{ $item->status->icon }}"></i>
-                                    {{ $item->status->name }}</span></td>
+                            
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <a class="btn btn-sm btn-primary rounded-circle"

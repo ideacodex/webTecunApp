@@ -66,7 +66,8 @@ class PodcastController extends Controller
             $podcast->description = $request->description;
             $podcast->content = $request->editordata;
             $podcast->user_id = auth()->user()->id;
-            $podcast->status_id = $request->status_id;
+            $podcast->status_id = 1;
+            $podcast->iframe = $request->iframe;
 
             //Modificar la ruta del video YouTube
             $video = $request->video;
@@ -257,6 +258,7 @@ class PodcastController extends Controller
             $podcast->title = $request->title;
             $podcast->description = $request->description;
             $podcast->content = $request->editordata;
+            $podcast->iframe = $request->iframe;
             //Modificar la ruta del video YouTube
             $video = $request->video;
 
@@ -267,8 +269,6 @@ class PodcastController extends Controller
             }else{
                 $podcast->featured_video = null;
             }
-            //Modificar la ruta del video YouTube  ast->user_id = auth()->user()->id;
-            $podcast->status_id = $request->status_id;
 
              
             

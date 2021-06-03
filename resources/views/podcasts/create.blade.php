@@ -180,55 +180,49 @@
                             <label class="custom-file-label" for="inputGroupFile04">Elegir audio</label>
                         </div>
                     </div>
-                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text transparent border-top-0 border-right-0 bg-input"
-                                id="inputGroup-sizing-sm">
-                                <i style="color: #fa5e0a" class="fas fa-question-circle"></i>
-                            </span>
+                    {{-- selec categorias --}}
+                    <div class="col-12 col-md-12 input-group input-group-lg mb-3">
+                        <div class="row">
+                            <div class="col-12 col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text transparent border-top-0 border-right-0 bg-input"
+                                        id="inputGroup-sizing-sm">
+                                        <i style="color: #fa5e0a" class="far fa-file-audio"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-11 col-md-11 col-sm-11 col-xs-11">
+                                <select
+                                    class="js-example-basic-multiple js-states form-control @error('category_id') is-invalid @enderror"
+                                    name="category_id[]" id="category_id" multiple="multiple" required>
+                                    <option disabled>Categorias</option>
+                                    @foreach ($categories as $item)
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('category_id')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
                         </div>
-                        <select name="status_id" id="status_id"
-                            class="form-control @error('status_id') is-invalid @enderror" required>
-                            <option value="0" selected>Estado</option>
-                            @foreach ($status as $item)
-                                <option value="{{ $item->id }}">{{ $item->name }}</option>
-                            @endforeach
-                        </select>
-                        @error('status_id')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
 
-                        @error('status_id')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                        <select
-                            class="js-example-basic-multiple js-states form-control @error('category_id') is-invalid @enderror"
-                            name="category_id[]" id="category_id" multiple="multiple" required>
-                            <option disabled selected>Categorias</option>
-                            @foreach ($categories as $item)
-                                <option value="{{ $item->id }}">{{ $item->name }}</option>
-                            @endforeach
-                        </select>
-                        @error('category_id')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
 
-                        @error('type_id')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
+
+
                     </div>
                     <div class="col-12">
                         <textarea id="summernote" name="editordata"></textarea>
+                    </div>
+                    {{-- ifrmae extra --}}
+                    <div class="col-12 col-md-8 input-group input-group-lg mb-3">
+                        <div class="form-group ">
+                            <label>Example textarea</label>
+                            <textarea class="form-control" name="iframe"
+                                style="border-radius:25px ;color:rgb(0, 0, 0);font-size:20px; " cols="50"
+                                rows="3"></textarea>
+                        </div>
                     </div>
 
                     <div class="container">
