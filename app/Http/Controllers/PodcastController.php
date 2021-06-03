@@ -68,16 +68,14 @@ class PodcastController extends Controller
             $podcast->user_id = auth()->user()->id;
             $podcast->status_id = 1;
             $podcast->iframe = $request->iframe;
+            $podcast->save();
 
             //Modificar la ruta del video YouTube
             $video = $request->video;
 
             if($video && !is_null($video)){
                 $routeVideo = "https://www.youtube.com/embed/".$video;
-
                 $podcast->featured_video = $routeVideo;
-            }else{
-                $podcast->featured_video = null;
             }
             //Modificar la ruta del video YouTube   
             
@@ -86,14 +84,8 @@ class PodcastController extends Controller
 
             if($spotify && !is_null($spotify)){
                 $routeSpotify = "https://open.spotify.com/embed-podcast/episode/".$spotify;
-
                 $podcast->featured_spotify = $routeSpotify;
-            }else{
-                $podcast->featured_spotify = null;
             }
-            //Modificar la ruta del Spotify  
-
-            $podcast->save();
 
             for ($i=0; $i < sizeof($request->category_id); $i++) { 
                 $request->category_id[$i];
@@ -111,10 +103,7 @@ class PodcastController extends Controller
                 //dd($path);
 
                 $podcast->featured_image = $imageNameToStore;
-                $podcast->save();
-
-            } else {
-                $imageNameToStore = 'no_image.jpg';
+            
             }
             //******carga de imagen**********//
 
@@ -127,11 +116,7 @@ class PodcastController extends Controller
                 //dd($path);
 
                 $podcast->featured_audio = $audioNameToStore;
-                $podcast->save();
-
-            } else {
-                $audioNameToStore = 'no_audio.jpg';
-            }
+             }
             //******carga de audio**********//
 
             //******carga de file**********//
@@ -141,15 +126,11 @@ class PodcastController extends Controller
                 // Upload Image //********nombre de carpeta para almacenar*****
                 $path = $request->file('pdf')->storeAs('public/podcast', $pdfNameToStore);
                 //dd($path);
-
                 $podcast->featured_document = $pdfNameToStore;
-                $podcast->save();
-
-            } else {
-                $pdfNameToStore = 'nofile';
-            }
+            } 
             //******carga de file**********//
-            
+            //dd($podcast);
+            $podcast->save();
 
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollback(); //si hay un error previo, desahe los cambios en DB y redirecciona a pagina de error
@@ -261,13 +242,12 @@ class PodcastController extends Controller
             $podcast->iframe = $request->iframe;
             //Modificar la ruta del video YouTube
             $video = $request->video;
+            $podcast->save();
 
             if($video && !is_null($video)){
                 $routeVideo = "https://www.youtube.com/embed/".$video;
 
                 $podcast->featured_video = $routeVideo;
-            }else{
-                $podcast->featured_video = null;
             }
 
              
@@ -279,12 +259,10 @@ class PodcastController extends Controller
                 $routeSpotify = "https://open.spotify.com/embed-podcast/episode/".$spotify;
 
                 $podcast->featured_spotify = $routeSpotify;
-            }else{
-                $podcast->featured_spotify = null;
             }
             //Modificar la ruta del Spotify    
 
-            $podcast->save();
+            
 
             //Todos los registros de categoria id son llamados
             $category = Category::find($id);
@@ -325,10 +303,7 @@ class PodcastController extends Controller
                 //dd($path);
 
                 $podcast->featured_image = $imageNameToStore;
-                $podcast->save();
 
-            } else {
-                $imageNameToStore = 'no_image.jpg';
             }
             //******carga de imagen**********//
 
@@ -341,7 +316,6 @@ class PodcastController extends Controller
                 //dd($path);
 
                 $podcast->featured_audio = $audioNameToStore;
-                $podcast->save();
             }
             //******carga de audio**********//
 
@@ -354,13 +328,10 @@ class PodcastController extends Controller
                 //dd($path);
 
                 $podcast->featured_document = $pdfNameToStore;
-                $podcast->save();
-
-            } else {
-                $pdfNameToStore = 'nofile';
             }
             //******carga de file**********//
-            
+            //dd($podcast);
+            $podcast->save();
 
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollback(); //si hay un error previo, desahe los cambios en DB y redirecciona a pagina de error
