@@ -334,18 +334,14 @@ class PodcastController extends Controller
 
             //******carga de audio**********//
             if ($request->hasFile('audio')) {
-                $filename = $request->_token;
                 $extension = $request->file('audio')->getClientOriginalExtension();
-                $audioNameToStore = $request->_token . '.' . $extension;
+                $audioNameToStore = $podcast->id . '.' . $extension;
                 // Upload Image //********nombre de carpeta para almacenar*****
                 $path = $request->file('audio')->storeAs('public/podcast', $audioNameToStore);
                 //dd($path);
 
                 $podcast->featured_audio = $audioNameToStore;
                 $podcast->save();
-
-            } else {
-                $audioNameToStore = 'no_audio.jpg';
             }
             //******carga de audio**********//
 

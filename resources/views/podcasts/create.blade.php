@@ -218,13 +218,51 @@
                     {{-- ifrmae extra --}}
                     <div class="col-12 col-md-8 input-group input-group-lg mb-3">
                         <div class="form-group ">
-                            <label>Example textarea</label>
-                            <textarea class="form-control" name="iframe"
-                                style="border-radius:25px ;color:rgb(0, 0, 0);font-size:20px; " cols="50"
-                                rows="3"></textarea>
+                            <label> textarea</label>
+                            <textarea class="form-control" name="iframe" id="iframe"
+                                style="border-radius:25px ;color:rgb(0, 0, 0);font-size:20px; " onChange="Verificacion();"
+                                cols="50" rows="3"></textarea>
                         </div>
                     </div>
 
+                    <script>
+                        // var xd = document.getElementById('iframe').value;
+                        // console.log(
+                        //     xd
+                        // );
+
+                        // var miCadena = "Hola Mundo. Cómo estás hoy? width ='100' height=== Hola src Mundo. Cómo estás hoy?";
+                        // var PalabraUno = miCadena.search("width ='100' ", 2);
+                        // var PalabraDos = miCadena.search("src ", 2);
+                        // console.log(PalabraUno);
+                        // console.log(PalabraDos);
+
+                        function Verificacion() {
+                            //trae la cadena del textArea por medio del ID del elemento
+                            var miCadenaa = document.getElementById('iframe').value;
+                            // busca informacion designada
+                            // var PalabraUnoa = miCadenaa.search('width=\"620\"', 2);
+                            // var PalabraDosa = miCadenaa.search('src', 2);
+                            // console.log(PalabraUnoa);
+                            // console.log(PalabraDosa);
+                            //remplaza la informacion del width
+                            // lectura de caracteres la diagonal inversa \"
+                            // remplaza solo el with
+                            const remplazaWidthIframe = miCadenaa.replace('width=\"', 'width=\"100%\" \"');
+                            // remplaza solo el height
+                            // const remplazaHeightIframe = miCadenaa.replace('height=\"', 'height=\"100%\" \"');
+                            // console.log(remplazaWidthIframe);
+                            // console.log(remplazaHeightIframe);
+                            // remplaza el height ya con el width remplazdo
+                            const PRUEBAremplazaHeightIframe = remplazaWidthIframe.replace('height=\"',
+                                'height=\"100%\" \"');
+                            console.log(PRUEBAremplazaHeightIframe);
+                            document.getElementById('iframe').value = PRUEBAremplazaHeightIframe;
+
+                        }
+                       
+
+                    </script>
                     <div class="container">
                         <div class="row">
                             <div class="col text-center">

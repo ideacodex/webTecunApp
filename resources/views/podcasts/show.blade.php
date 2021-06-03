@@ -102,14 +102,7 @@
                                 </div>
 
                             @endif
-                            {{-- <script>
-                                var miCadena = "Hola Mundo. Cómo estás hoy? width ='100' height=== ";
-                                var divisiones = miCadena.split("width='""' ", 3);
-
-                                print(divisiones);
-                                console.log(divisiones)
-
-                            </script> --}}
+                            
 
                         </div>
                         <h1 class="blog-title text-center tituloPodcast card-header ">{{ $podcast->title }}</h1>
