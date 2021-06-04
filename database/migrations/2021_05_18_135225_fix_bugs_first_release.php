@@ -27,7 +27,7 @@ class FixBugsFirstRelease extends Migration
         });
 
         Schema::table('users', function (Blueprint $table) {
-            $table->boolean('is_asotecsa')->defaul(0);
+            $table->boolean('is_asotecsa')->default(0);
         });
 
         Schema::create('notification_suggestions', function (Blueprint $table) {
