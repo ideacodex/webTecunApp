@@ -35,7 +35,7 @@ $namesUser = explode(" ", Auth::user()->name);
                             </span>
                             <br>
                             <p>
-                                {{ $item->schedule }}
+                                @php echo($item->schedule) @endphp
                                 <i class="fas fa-clock text-dark"></i>
                             </p>
                             @if($item->number)

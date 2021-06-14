@@ -58,7 +58,7 @@
                             </span>
                         @enderror
                     </div>
-                    <div class="col-12 input-group input-group-lg mb-3">
+                    {{-- <div class="col-12 input-group input-group-lg mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text bg-input border-top-0 border-right-0 transparent"
                                 id="inputGroup-sizing-sm">
@@ -80,7 +80,7 @@
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
-                    </div>
+                    </div> --}}
 
                     <div class="col-12 input-group input-group-lg mb-3">
                         <div class="input-group-prepend">
@@ -155,6 +155,9 @@
                             </span>
                         @enderror
                     </div>
+                    <div class="col-12">
+                        <textarea id="summernote" name="schedule"></textarea>
+                    </div>
                     <div class="container">
                         <div class="row">
                             <div class="col text-center">
@@ -169,4 +172,30 @@
             </form>
         </div>
     </div>
+@endsection
+@section('js')
+<script>
+    $('.js-example-basic-multiple').select2();
+
+</script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+</script>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<script>
+    $('#summernote').summernote({
+        placeholder: 'Agrega aquí el contenido',
+        tabsize: 2,
+        height: 120,
+        toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['insert', ['link', 'picture']],
+        ]
+    });
+
+</script>
 @endsection

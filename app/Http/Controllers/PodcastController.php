@@ -51,6 +51,8 @@ class PodcastController extends Controller
     public function store(Request $request)
     {
 
+        //dd($request);
+
         request()->validate([
             '_token' => 'required',
             'title' => 'required',
@@ -105,7 +107,7 @@ class PodcastController extends Controller
             //******carga de imagen**********//
             if ($request->hasFile('image')) {
                 $extension = $request->file('image')->getClientOriginalExtension();
-                $imageNameToStore = $podcast->id . '.' . $extension;
+                $imageNameToStore = '100090080'.$podcast->id . '.' . $extension;
                 // Upload Image //********nombre de carpeta para almacenar*****
                 $path = $request->file('image')->storeAs('public/podcast', $imageNameToStore);
                 //dd($path);
@@ -121,7 +123,7 @@ class PodcastController extends Controller
             //******carga de audio**********//
             if ($request->hasFile('audio')) {
                 $extension = $request->file('audio')->getClientOriginalExtension();
-                $audioNameToStore = $podcast->id . '.' . $extension;
+                $audioNameToStore = '100090057'.$podcast->id . '.' . $extension;
                 // Upload Image //********nombre de carpeta para almacenar*****
                 $path = $request->file('audio')->storeAs('public/podcast', $audioNameToStore);
                 //dd($path);
@@ -137,7 +139,7 @@ class PodcastController extends Controller
             //******carga de file**********//
             if ($request->hasFile('pdf')) {
                 $extension = $request->file('pdf')->getClientOriginalExtension();
-                $pdfNameToStore = $podcast->id . '.' . $extension;
+                $pdfNameToStore = '100090043'.$podcast->id . '.' . $extension;
                 // Upload Image //********nombre de carpeta para almacenar*****
                 $path = $request->file('pdf')->storeAs('public/podcast', $pdfNameToStore);
                 //dd($path);
@@ -152,17 +154,13 @@ class PodcastController extends Controller
             
 
         } catch (\Illuminate\Database\QueryException $e) {
-            DB::rollback(); //si hay un error previo, desahe los cambios en DB y redirecciona a pagina de error
-            //$response['message'] = $e->errorInfo;
-            //dd($e->errorInfo[2]);
-            abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
-            return response()->json($response, 500);
+            DB::rollback();
             return redirect()->action('PodcastController@create')
                     ->with(['message' => 'Error al crear del Podcast', 'alert' => 'warning']);
         }
         DB::commit();
         return redirect()->action( //regresa con el error
-            'PodcastController@index')->with(['message' => 'Se agregó el registro correctamente', 'alert' => 'warning']);
+            'PodcastController@index')->with(['message' => 'Se agregó el registro correctamente', 'alert' => 'success']);
 
     }
 
@@ -244,6 +242,8 @@ class PodcastController extends Controller
     public function update(Request $request, $id)
     {
 
+        //dd($request);
+
         request()->validate([
             '_token' => 'required',
             'title' => 'required',
@@ -254,7 +254,7 @@ class PodcastController extends Controller
         try {
 
             //encontrar y asignar rol de Spatie
-            $podcast = Podcast::findOrFail($id);
+            $podcast = Podcast::find($id);
             $podcast->title = $request->title;
             $podcast->description = $request->description;
             $podcast->content = $request->editordata;
@@ -319,7 +319,7 @@ class PodcastController extends Controller
             //******carga de imagen**********//
             if ($request->hasFile('image')) {
                 $extension = $request->file('image')->getClientOriginalExtension();
-                $imageNameToStore = $podcast->id . '.' . $extension;
+                $imageNameToStore = '100090010'.$podcast->id . '.' . $extension;
                 // Upload Image //********nombre de carpeta para almacenar*****
                 $path = $request->file('image')->storeAs('public/podcast', $imageNameToStore);
                 //dd($path);
@@ -327,15 +327,13 @@ class PodcastController extends Controller
                 $podcast->featured_image = $imageNameToStore;
                 $podcast->save();
 
-            } else {
-                $imageNameToStore = 'no_image.jpg';
             }
             //******carga de imagen**********//
 
             //******carga de audio**********//
             if ($request->hasFile('audio')) {
                 $extension = $request->file('audio')->getClientOriginalExtension();
-                $audioNameToStore = $podcast->id . '.' . $extension;
+                $audioNameToStore = '100090080'.$podcast->id . '.' . $extension;
                 // Upload Image //********nombre de carpeta para almacenar*****
                 $path = $request->file('audio')->storeAs('public/podcast', $audioNameToStore);
                 //dd($path);
@@ -348,7 +346,7 @@ class PodcastController extends Controller
             //******carga de file**********//
             if ($request->hasFile('pdf')) {
                 $extension = $request->file('pdf')->getClientOriginalExtension();
-                $pdfNameToStore = $podcast->id . '.' . $extension;
+                $pdfNameToStore = '100090037'.$podcast->id . '.' . $extension;
                 // Upload Image //********nombre de carpeta para almacenar*****
                 $path = $request->file('pdf')->storeAs('public/podcast', $pdfNameToStore);
                 //dd($path);
@@ -356,8 +354,6 @@ class PodcastController extends Controller
                 $podcast->featured_document = $pdfNameToStore;
                 $podcast->save();
 
-            } else {
-                $pdfNameToStore = 'nofile';
             }
             //******carga de file**********//
             
