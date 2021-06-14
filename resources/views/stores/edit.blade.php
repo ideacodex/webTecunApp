@@ -59,7 +59,7 @@
                             </span>
                         @enderror
                     </div>
-                    <div class="col-12 input-group input-group-lg mb-3">
+                    {{-- <div class="col-12 input-group input-group-lg mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text border-top-0 border-right-0 bg-input transparent"
                                 id="inputGroup-sizing-sm">
@@ -81,7 +81,7 @@
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
-                    </div>
+                    </div> --}}
 
                     <div class="col-12 input-group input-group-lg mb-3">
                         <div class="input-group-prepend">
@@ -157,6 +157,23 @@
                             </span>
                         @enderror
                     </div>
+                    <div class="mb-3 col-12">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-input border-top-0 border-right-0 transparent"
+                                id="inputGroup-sizing-sm">
+                                <i style="color: #fa5e0a" class="fas fa-map-marker-alt"></i>
+                            </span>
+                            <textarea name="schedule" id="schedule" cols="0" rows="2" 
+                                class="text-dark border-top-0 border-left-0 bg-input form-control @error('waze') is-invalid @enderror">
+                                {{ $store->schedule }}
+                            </textarea>
+                        </div>
+                        @error('schedule')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
                     <div class="container">
                         <div class="row">
                             <div class="col text-center">
@@ -171,4 +188,30 @@
             </form>
         </div>
     </div>
+@endsection
+@section('js')
+<script>
+    $('.js-example-basic-multiple').select2();
+
+</script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+</script>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<script>
+    $('#summernote').summernote({
+        placeholder: 'Agrega aquí el contenido',
+        tabsize: 2,
+        height: 120,
+        toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['insert', ['link', 'picture']],
+        ]
+    });
+
+</script>
 @endsection

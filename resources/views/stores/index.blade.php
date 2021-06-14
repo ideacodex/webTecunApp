@@ -45,7 +45,7 @@
                         <th scope="col">NO</th>
                         <th scope="col">TIENDA</th>
                         <th scope="col">DIRECCIÓN</th>
-                        <th scope="col">HORARIOS</th>
+                        <th scope="col">TELEFONO</th>
                         <th scope="col">LINK WAZE</th>
                         <th scope="col">OPCIONES</th>
                     </tr>
@@ -56,7 +56,7 @@
                             <th scope="row">{{ $item->id }}</th>
                             <td>{{ $item->name }}</td>
                             <td>{{ $item->address }}</td>
-                            <td>{{ $item->schedule }}</td>
+                            <td>{{ $item->number }}</td>
                             <td><a href="{{ $item->maps }}" target="blank"> <i class="fab fa-waze"></i> Ir</a></td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic example">
