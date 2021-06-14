@@ -156,7 +156,21 @@
                         @enderror
                     </div>
                     <div class="col-12">
-                        <textarea id="summernote" name="schedule"></textarea>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-input border-top-0 border-right-0 transparent"
+                                id="inputGroup-sizing-sm">
+                                <i style="color: #fa5e0a" class="fas fa-map-marker-alt"></i>
+                            </span>
+                            <textarea name="schedule" id="schedule" cols="0" rows="0" 
+                                class="text-dark border-top-0 border-left-0 bg-input form-control @error('waze') is-invalid @enderror">
+                                Agregar informacion de la agencia
+                            </textarea>
+                        </div>
+                        @error('schedule')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
                     <div class="container">
                         <div class="row">
